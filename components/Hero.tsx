@@ -371,7 +371,7 @@ export default function Hero() {
           {/* Play button — centered on laptop screen */}
           <div
             className="absolute pointer-events-none fo-laptop-play"
-            style={{ left: "50%", top: "38%", transform: "translate(-50%, -50%)" }}
+            style={{ left: "50%", top: "44%", transform: "translate(-50%, -50%)" }}
           >
             <div className="flex flex-col items-center gap-[4px]">
               <div className="w-5 h-5 rounded-full bg-[#FF6B35] flex items-center justify-center">
@@ -482,15 +482,6 @@ export default function Hero() {
       {/* Hero text overlay */}
       <div className="absolute inset-0 z-[6] flex flex-col items-center justify-center text-center pointer-events-none px-[7vw] pb-[80px]">
         <div style={{ pointerEvents: "auto" }}>
-          <Image
-            src="/images/logo.png"
-            alt="Missionary Media"
-            width={54}
-            height={54}
-            className="mb-[2.6vh] drop-shadow-[0_0_16px_rgba(255,107,53,.35)]"
-            style={{ height: "clamp(36px,4.5vw,54px)", width: "auto", display: "block", margin: "0 auto 2.6vh" }}
-          />
-
           <motion.div
             className="inline-flex items-center gap-2 mb-[3vh] font-mono text-[11.5px] tracking-[.2em] uppercase text-[#FF9060] rounded-full px-[18px] py-[7px]"
             style={{
@@ -525,7 +516,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.38 }}
           >
-            Built for missionaries, not marketers. We meet you in the field — where the Wi-Fi is slow, the calling is clear, and the digital tools were designed for someone else.
+            Ministry has a digital side now. Missionaries didn't get the manual. We meet you where the Wi-Fi is slow, the calling is clear, and the tools were built for someone else.
           </motion.p>
 
           <motion.div
