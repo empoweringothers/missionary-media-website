@@ -432,14 +432,14 @@ export default function Hero() {
           draggable={false}
           style={{
             mixBlendMode: "screen",
-            WebkitMaskImage: "radial-gradient(ellipse 78% 74% at 50% 50%,black 36%,rgba(0,0,0,.55) 58%,transparent 88%)",
-            maskImage: "radial-gradient(ellipse 78% 74% at 50% 50%,black 36%,rgba(0,0,0,.55) 58%,transparent 88%)",
+            WebkitMaskImage: "radial-gradient(ellipse 62% 66% at 50% 36%,black 50%,transparent 100%)",
+            maskImage: "radial-gradient(ellipse 62% 66% at 50% 36%,black 50%,transparent 100%)",
             width: "clamp(110px,12vw,165px)",
             left: "5%",
             top: "40%",
-            filter: "contrast(1.8) drop-shadow(0 0 22px rgba(0,196,249,.9)) drop-shadow(0 0 8px rgba(0,150,240,.6))",
+            filter: "contrast(2) drop-shadow(0 0 22px rgba(0,196,249,.9))",
           }}
-          src="/images/hero-camera.png"
+          src="/images/camera.png"
           alt=""
         />
       </div>
