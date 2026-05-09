@@ -204,10 +204,11 @@ export default function Hero() {
 
     rafRef.current = requestAnimationFrame(tick);
 
-    // Camera drag — v2 velocity model
+    // Camera drag — v2 velocity model (desktop only)
     const onDown = (e: PointerEvent) => {
       const t = e.target as Element;
       if (t.closest(".float-obj") || t.closest("a") || t.closest("button")) return;
+      if (window.innerWidth < 768) return;
       e.preventDefault();
       state.camDragging = true;
       state.camPrevX = e.clientX;
@@ -369,14 +370,14 @@ export default function Hero() {
           />
           {/* Play button — centered on laptop screen */}
           <div
-            className="absolute pointer-events-none"
-            style={{ left: "50%", top: "44%", transform: "translate(-50%, -50%)" }}
+            className="absolute pointer-events-none fo-laptop-play"
+            style={{ left: "50%", top: "38%", transform: "translate(-50%, -50%)" }}
           >
-            <div className="flex flex-col items-center gap-[5px]">
-              <div className="w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center">
-                <svg width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
+            <div className="flex flex-col items-center gap-[4px]">
+              <div className="w-5 h-5 rounded-full bg-[#FF6B35] flex items-center justify-center">
+                <svg width="6" height="8" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
               </div>
-              <span className="font-mono text-[8px] tracking-[.18em] uppercase text-white whitespace-nowrap">Watch</span>
+              <span className="font-mono text-[7px] tracking-[.16em] uppercase text-white whitespace-nowrap opacity-80">Watch</span>
             </div>
           </div>
         </div>
@@ -565,13 +566,12 @@ export default function Hero() {
             onPointerDown={() => setVideoOpen(false)}
           >
             <motion.div
-              className="relative"
-              style={{ width: "min(82vh, 820px)", height: "min(82vh, 820px)" }}
+              className="relative w-[92vw] max-w-[820px]"
+              style={{ aspectRatio: "820/560" }}
               initial={{ scale: laptopOrigin.scale, x: laptopOrigin.x, y: laptopOrigin.y, opacity: 0 }}
               animate={{ scale: 1, x: 0, y: 0, opacity: 1 }}
               exit={{ scale: laptopOrigin.scale, x: laptopOrigin.x, y: laptopOrigin.y, opacity: 0 }}
               transition={{ duration: 0.42, ease: [0.2, 0.8, 0.3, 1] }}
-              onPointerDown={(e) => e.stopPropagation()}
             >
               {/* Full laptop — transparent background PNG, no blend mode needed */}
               <img
