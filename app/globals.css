@@ -223,6 +223,14 @@ body::before {
   animation-play-state: paused;
 }
 
+/* Mobile float object sizing */
+@media (max-width: 767px) {
+  .fo-bible  { width: 80px !important; }
+  .fo-mic    { width: 72px !important; }
+  .fo-phone  { width: 64px !important; }
+  .fo-laptop { width: 110px !important; }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }

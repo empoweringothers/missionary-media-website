@@ -306,7 +306,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       className="relative overflow-hidden h-screen min-h-[640px] bg-[var(--warm-navy)] cursor-grab [&.dragging]:cursor-grabbing select-none"
-      style={{ perspective: "1800px", touchAction: "none", userSelect: "none" }}
+      style={{ perspective: "1800px", touchAction: "pan-y", userSelect: "none" }}
       id="hero"
     >
       {/* Background gradients — stay flat, don't tilt */}
@@ -342,7 +342,7 @@ export default function Hero() {
             width: "clamp(120px,13vw,175px)",
             left: "11%",
             top: "9%",
-            filter: "contrast(2) drop-shadow(0 0 22px rgba(232,112,42,.8))",
+            filter: "contrast(2)",
           }}
           src="/images/4.png"
           alt=""
@@ -361,7 +361,7 @@ export default function Hero() {
             className="w-full select-none"
             draggable={false}
             style={{
-              filter: "drop-shadow(0 0 22px rgba(0,92,232,.8))",
+              filter: "none",
               display: "block",
             }}
             src="/images/hero-4-nobg.png"
@@ -373,10 +373,10 @@ export default function Hero() {
             style={{ left: "50%", top: "44%", transform: "translate(-50%, -50%)" }}
           >
             <div className="flex flex-col items-center gap-[5px]">
-              <div className="w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center" style={{ boxShadow: "0 0 16px 4px rgba(255,107,53,0.9)" }}>
+              <div className="w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center">
                 <svg width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
               </div>
-              <span className="font-mono text-[8px] tracking-[.18em] uppercase text-white whitespace-nowrap" style={{ textShadow: "0 0 8px rgba(255,107,53,1)" }}>Watch</span>
+              <span className="font-mono text-[8px] tracking-[.18em] uppercase text-white whitespace-nowrap">Watch</span>
             </div>
           </div>
         </div>
@@ -390,13 +390,13 @@ export default function Hero() {
             width: "clamp(100px,11.5vw,155px)",
             right: "21%",
             top: "8%",
-            filter: "contrast(2) drop-shadow(0 0 22px rgba(255,107,53,.8))",
+            filter: "contrast(2)",
           }}
           src="/images/5.png"
           alt=""
         />
         <img
-          className="float-obj fo-globe absolute z-[2] will-change-transform cursor-grab select-none"
+          className="float-obj fo-globe absolute z-[2] will-change-transform cursor-grab select-none hidden md:block"
           draggable={false}
           style={{
             mixBlendMode: "screen",
@@ -405,7 +405,7 @@ export default function Hero() {
             width: "clamp(130px,14.5vw,188px)",
             right: "4%",
             top: "34%",
-            filter: "contrast(2) drop-shadow(0 0 22px rgba(0,180,255,.8))",
+            filter: "contrast(2)",
           }}
           src="/images/2.png"
           alt=""
@@ -420,7 +420,7 @@ export default function Hero() {
             width: "clamp(85px,10vw,136px)",
             right: "14%",
             bottom: "13%",
-            filter: "contrast(2) drop-shadow(0 0 22px rgba(0,92,232,.8))",
+            filter: "contrast(2)",
           }}
           src="/images/3.png"
           alt=""
@@ -428,7 +428,7 @@ export default function Hero() {
 
         {/* Camera */}
         <img
-          className="float-obj fo-camera absolute z-[2] will-change-transform cursor-grab select-none"
+          className="float-obj fo-camera absolute z-[2] will-change-transform cursor-grab select-none hidden md:block"
           draggable={false}
           style={{
             mixBlendMode: "screen",
@@ -437,7 +437,7 @@ export default function Hero() {
             width: "clamp(110px,12vw,165px)",
             left: "5%",
             top: "40%",
-            filter: "contrast(2) drop-shadow(0 0 22px rgba(0,196,249,.9))",
+            filter: "contrast(2)",
           }}
           src="/images/camera.png"
           alt=""
@@ -545,7 +545,7 @@ export default function Hero() {
       </div>
 
       {/* Drag hint */}
-      <div className="absolute bottom-[92px] left-1/2 -translate-x-1/2 z-[5] flex items-center gap-2 font-mono text-[11px] tracking-[.2em] uppercase text-[rgba(250,248,245,.28)] pointer-events-none whitespace-nowrap">
+      <div className="hidden md:flex absolute bottom-[92px] left-1/2 -translate-x-1/2 z-[5] items-center gap-2 font-mono text-[11px] tracking-[.2em] uppercase text-[rgba(250,248,245,.28)] pointer-events-none whitespace-nowrap">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-60">
           <path d="M5 9l-3 3 3 3" /><path d="M19 9l3 3-3 3" /><line x1="2" y1="12" x2="22" y2="12" />
         </svg>
