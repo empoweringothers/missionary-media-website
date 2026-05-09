@@ -566,8 +566,8 @@ export default function Hero() {
             onPointerDown={() => setVideoOpen(false)}
           >
             <motion.div
-              className="relative w-[92vw] max-w-[820px]"
-              style={{ aspectRatio: "820/560" }}
+              className="relative"
+              style={{ width: "min(85vw, 560px)", height: "min(85vw, 560px)" }}
               initial={{ scale: laptopOrigin.scale, x: laptopOrigin.x, y: laptopOrigin.y, opacity: 0 }}
               animate={{ scale: 1, x: 0, y: 0, opacity: 1 }}
               exit={{ scale: laptopOrigin.scale, x: laptopOrigin.x, y: laptopOrigin.y, opacity: 0 }}
@@ -578,10 +578,7 @@ export default function Hero() {
                 src="/images/hero-4-nobg.png"
                 className="absolute inset-0 w-full h-full object-contain select-none pointer-events-none"
                 draggable={false}
-                style={{
-                  filter: "drop-shadow(0 0 28px rgba(0,92,232,.8))",
-                  zIndex: 1,
-                }}
+                style={{ zIndex: 1 }}
                 alt=""
               />
               {/* Screen area — matched to laptop screen position in the PNG */}
