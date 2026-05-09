@@ -344,7 +344,7 @@ export default function Hero() {
             top: "9%",
             filter: "contrast(2) drop-shadow(0 0 22px rgba(232,112,42,.8))",
           }}
-          src="/images/hero-3.png"
+          src="/images/4.png"
           alt=""
         />
         {/* Laptop — transparent PNG, no blend mode needed */}
@@ -392,7 +392,7 @@ export default function Hero() {
             top: "8%",
             filter: "contrast(2) drop-shadow(0 0 22px rgba(255,107,53,.8))",
           }}
-          src="/images/hero-5.png"
+          src="/images/5.png"
           alt=""
         />
         <img
@@ -407,7 +407,7 @@ export default function Hero() {
             top: "34%",
             filter: "contrast(2) drop-shadow(0 0 22px rgba(0,180,255,.8))",
           }}
-          src="/images/hero-1.png"
+          src="/images/2.png"
           alt=""
         />
         <img
@@ -422,13 +422,14 @@ export default function Hero() {
             bottom: "13%",
             filter: "contrast(2) drop-shadow(0 0 22px rgba(0,92,232,.8))",
           }}
-          src="/images/hero-2.png"
+          src="/images/3.png"
           alt=""
         />
 
-        {/* Camera SVG */}
-        <div
-          className="float-obj fo-camera absolute z-[2] will-change-transform cursor-grab"
+        {/* Camera */}
+        <img
+          className="float-obj fo-camera absolute z-[2] will-change-transform cursor-grab select-none"
+          draggable={false}
           style={{
             mixBlendMode: "screen",
             WebkitMaskImage: "radial-gradient(ellipse 78% 74% at 50% 50%,black 36%,rgba(0,0,0,.55) 58%,transparent 88%)",
@@ -438,63 +439,9 @@ export default function Hero() {
             top: "40%",
             filter: "contrast(1.8) drop-shadow(0 0 22px rgba(0,196,249,.9)) drop-shadow(0 0 8px rgba(0,150,240,.6))",
           }}
-        >
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-            <defs>
-              <linearGradient id="g-body" x1="15%" y1="8%" x2="85%" y2="92%">
-                <stop offset="0%" stopColor="#7a8fa0" /><stop offset="40%" stopColor="#384858" /><stop offset="100%" stopColor="#080c12" />
-              </linearGradient>
-              <linearGradient id="g-hump" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#6a7e90" /><stop offset="100%" stopColor="#1c2530" />
-              </linearGradient>
-              <radialGradient id="g-lens" cx="37%" cy="33%" r="58%">
-                <stop offset="0%" stopColor="#5888b8" /><stop offset="18%" stopColor="#2a4868" /><stop offset="52%" stopColor="#08121e" /><stop offset="100%" stopColor="#010408" />
-              </radialGradient>
-              <radialGradient id="g-refl" cx="28%" cy="24%" r="48%">
-                <stop offset="0%" stopColor="rgba(200,232,255,0.72)" /><stop offset="45%" stopColor="rgba(100,175,235,0.18)" /><stop offset="100%" stopColor="rgba(0,0,0,0)" />
-              </radialGradient>
-              <radialGradient id="g-dial" cx="38%" cy="32%" r="60%">
-                <stop offset="0%" stopColor="#506070" /><stop offset="100%" stopColor="#101820" />
-              </radialGradient>
-            </defs>
-            <rect width="200" height="200" fill="#000" />
-            <rect x="16" y="74" width="168" height="98" rx="11" fill="url(#g-body)" />
-            <rect x="16" y="74" width="168" height="3" rx="1.5" fill="#c0d0e0" opacity="0.42" />
-            <rect x="16" y="74" width="3" height="98" rx="1.5" fill="#aabccc" opacity="0.28" />
-            <ellipse cx="58" cy="90" rx="30" ry="10" fill="white" opacity="0.055" transform="rotate(-6 58 90)" />
-            <path d="M76 74 L76 52 Q76 46 83 46 L120 46 Q127 46 127 52 L127 74" fill="url(#g-hump)" />
-            <path d="M83 46 L120 46" stroke="#8fa0b0" strokeWidth="1.4" fill="none" opacity="0.5" />
-            <rect x="84" y="44" width="32" height="2" rx="1" fill="#607080" opacity="0.4" />
-            <circle cx="152" cy="82" r="10" fill="#1a2230" />
-            <circle cx="152" cy="82" r="8" fill="#28363e" />
-            <ellipse cx="149.5" cy="79.5" rx="3" ry="1.8" fill="#88a8c8" opacity="0.52" />
-            <circle cx="32" cy="82" r="14" fill="#141e28" />
-            <circle cx="32" cy="82" r="11" fill="url(#g-dial)" />
-            <circle cx="32" cy="70" r="2.2" fill="#80a0b8" opacity="0.65" />
-            <line x1="40" y1="74" x2="38" y2="76.5" stroke="#607888" strokeWidth="1.1" opacity="0.55" />
-            <line x1="24" y1="74" x2="26" y2="76.5" stroke="#607888" strokeWidth="1.1" opacity="0.55" />
-            <rect x="158" y="74" width="26" height="98" rx="2" fill="#0c1420" opacity="0.55" />
-            {[92,100,108,116,124,132,140].map(y => (
-              <line key={y} x1="164" y1={y} x2="178" y2={y} stroke="#08101a" strokeWidth="1.1" opacity="0.6" />
-            ))}
-            <circle cx="84" cy="126" r="52" fill="#050810" />
-            <circle cx="84" cy="126" r="49" fill="#0a0f18" stroke="#2a3c50" strokeWidth="0.8" />
-            <circle cx="84" cy="126" r="41" fill="url(#g-lens)" />
-            <circle cx="84" cy="126" r="35" fill="none" stroke="#1a2a3a" strokeWidth="1.5" opacity="0.9" />
-            <circle cx="84" cy="126" r="27" fill="none" stroke="#14202e" strokeWidth="1.2" opacity="0.8" />
-            <circle cx="84" cy="126" r="19" fill="#040810" />
-            <circle cx="84" cy="126" r="10" fill="#000507" />
-            <circle cx="84" cy="126" r="5" fill="#000" />
-            <circle cx="84" cy="126" r="41" fill="url(#g-refl)" />
-            <ellipse cx="66" cy="110" rx="10" ry="5.5" fill="white" opacity="0.26" transform="rotate(-35 66 110)" />
-            <ellipse cx="64" cy="108" rx="4.5" ry="2.2" fill="white" opacity="0.52" transform="rotate(-35 64 108)" />
-            <ellipse cx="100" cy="140" rx="5" ry="2.5" fill="white" opacity="0.09" transform="rotate(20 100 140)" />
-            <circle cx="160" cy="110" r="4.5" fill="#141e28" />
-            <circle cx="160" cy="123" r="4.5" fill="#141e28" />
-            <circle cx="160" cy="136" r="4.5" fill="#141e28" />
-            <circle cx="160" cy="110" r="2.8" fill="#1e2c38" />
-          </svg>
-        </div>
+          src="/images/hero-camera.png"
+          alt=""
+        />
       </div>
 
       {/* Aurora mesh */}
