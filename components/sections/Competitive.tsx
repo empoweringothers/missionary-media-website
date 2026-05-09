@@ -3,7 +3,7 @@
 import ChapterBar from "@/components/ui/ChapterBar";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 
-const rows = [
+const rows: { name: string; field: boolean | "partial"; security: boolean | "partial"; phone: boolean | "partial"; coaching: boolean | "partial"; highlight?: boolean }[] = [
   { name: "Mission agencies",                 field: "partial", security: false, phone: false, coaching: false },
   { name: "Generic online courses",           field: false,     security: false, phone: false, coaching: false },
   { name: "Christian software (Pushpay, PC)", field: false,     security: false, phone: false, coaching: false },
