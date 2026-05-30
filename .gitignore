@@ -1,6 +1,8 @@
 node_modules/
 .next/
+.netlify/
 .env
 .env.local
 .env*.local
 out/
+.DS_Store
