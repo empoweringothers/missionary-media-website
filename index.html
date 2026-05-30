@@ -102,6 +102,20 @@ nav.scrolled{
 .nav-links{display:flex;gap:2vw;align-items:center}
 .nav-links a:not(.btn-nav){font-family:var(--body);font-size:14px;color:var(--text-muted);text-decoration:none;letter-spacing:.005em;transition:color .2s}
 .nav-links a:not(.btn-nav):hover{color:var(--ink)}
+.nav-toggle{
+  display:none;
+  align-items:center;justify-content:center;
+  width:42px;height:42px;
+  border-radius:12px;
+  border:1px solid rgba(28,31,46,.12);
+  background:rgba(250,248,245,.7);
+  color:var(--ink);
+  cursor:pointer;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.nav-toggle:hover{background:rgba(250,248,245,.92);border-color:rgba(28,31,46,.18);transform:translateY(-1px)}
+.nav-toggle:active{transform:translateY(0)}
+.nav-toggle svg{width:18px;height:18px}
 .btn-nav{
   display:inline-flex;align-items:center;gap:7px;
   background:var(--coral);
@@ -587,7 +601,24 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transf
   .comp-matrix{overflow-x:auto}
   p.s-sub{max-width:100%}
   section{padding:72px 5vw}
-  nav .nav-links a:not(.btn-nav){display:none}
+  nav .nav-toggle{display:inline-flex}
+  nav .nav-links{
+    position:fixed;
+    top:60px;left:0;right:0;
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    padding:12px 5vw 16px;
+    background:rgba(250,248,245,.98);
+    border-bottom:1px solid rgba(28,31,46,.1);
+    box-shadow:0 16px 50px rgba(28,31,46,.10);
+    transform:translateY(-10px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease;
+  }
+  nav.open .nav-links{opacity:1;transform:translateY(0);pointer-events:auto}
+  nav .nav-links a:not(.btn-nav){display:block;padding:12px 6px;border-radius:12px}
+  nav .nav-links a:not(.btn-nav):hover{background:rgba(28,31,46,.04)}
+  nav .nav-links a.btn-nav{margin-top:10px;width:100%;justify-content:center}
   .market-funnel .mf.mid{margin:0 1.5vw}
   .market-funnel .mf.inner{margin:0 3vw}
   .fund-bar{grid-template-columns:1fr 2fr auto}
@@ -604,6 +635,14 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transf
   .market-funnel .mf.mid,.market-funnel .mf.inner{margin:0}
   .contact-grid{grid-template-columns:1fr;max-width:100%}
   .cta-section p{max-width:100%}
+}
+
+@media(max-width:720px){
+  /* Mobile: let users swipe the rail instead of a continuous ticker */
+  .podcast-rail{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .podcast-rail::before,.podcast-rail::after{display:none}
+  .podcast-track{animation:none;width:auto}
+  .podcast-card{border-right:none}
 }
 
 /* ── Scroll reveals ── */
@@ -954,7 +993,12 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <img src="./images/logo.png" alt="Missionary Media">
     <span>Missionary Media</span>
   </a>
-	  <div class="nav-links">
+  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M5 7h14M5 12h14M5 17h14"/>
+    </svg>
+  </button>
+	  <div class="nav-links" id="nav-links">
 	    <a href="#problem">Problem</a>
 		    <a href="#weight">Voices</a>
 		    <a href="#phase1">Phase 1</a>
@@ -1824,6 +1868,32 @@ lucide.createIcons();
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, {passive: true});
+})();
+
+// ── Nav: mobile drawer ──
+(function(){
+  const nav = document.getElementById('site-nav');
+  if (!nav) return;
+  const toggle = nav.querySelector('.nav-toggle');
+  const links = nav.querySelector('.nav-links');
+  if (!toggle || !links) return;
+
+  const close = () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+  const open = () => {
+    nav.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.contains('open');
+    (isOpen ? close : open)();
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  window.addEventListener('resize', close, {passive: true});
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
 
 // Scroll reveals
