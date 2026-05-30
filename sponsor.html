@@ -4,16 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Missionary Media — Pay it forward for missionaries</title>
+<!--
+  sponsor-draft-v2.html — DESIGNED, built 1:1 on sponsor-wireframe.html structure.
+  Section order mirrors the wireframe exactly. MM brand design layer applied.
+  Deviations (per Tabor's recent explicit instructions, NOT in wireframe):
+    - Mission kept (after hero)
+    - "What happens next" removed from phase accordion
+    - The Ask = pledge box (not the 4-question Q&A)
+  Illustrative numbers (Phase goals, stewardship slider) — swap for real later.
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1C1F2E; --paper:#FAF8F5;
   --blue-lt:#00C4F9; --blue:#005BE8; --orange:#F63600; --coral:#FF6B35;
-  --amber:#E8702A; --warm-navy:#0F1E3C; --sand:#F0EBE3; --stone:#E8E2D9;
-  --text-muted:rgba(28,31,46,.52); --text-mid:rgba(28,31,46,.72); --text-main:rgba(28,31,46,.92);
+  --warm-navy:#0F1E3C; --sand:#F0EBE3; --stone:#E8E2D9;
+  --muted:rgba(28,31,46,.52); --mid:rgba(28,31,46,.72); --main:rgba(28,31,46,.92);
+  --line:rgba(28,31,46,.12);
   --mono:'IBM Plex Mono',ui-monospace,monospace;
   --display:'Fraunces',Georgia,serif;
   --body:'DM Sans',-apple-system,sans-serif;
@@ -21,1697 +30,593 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
 
-/* 21st.dev-style aurora mesh gradient */
-@keyframes auroraShift{
-  0%{transform:translate(0%,0%) scale(1) rotate(0deg)}
-  25%{transform:translate(3%,-4%) scale(1.06) rotate(2deg)}
-  50%{transform:translate(-2%,3%) scale(1.03) rotate(-1deg)}
-  75%{transform:translate(-4%,-2%) scale(1.07) rotate(3deg)}
-  100%{transform:translate(0%,0%) scale(1) rotate(0deg)}
-}
-@keyframes auroraShift2{
-  0%{transform:translate(0%,0%) scale(1.05) rotate(0deg)}
-  33%{transform:translate(5%,3%) scale(1) rotate(-3deg)}
-  66%{transform:translate(-3%,-5%) scale(1.08) rotate(2deg)}
-  100%{transform:translate(0%,0%) scale(1.05) rotate(0deg)}
-}
-@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,.18)}60%{box-shadow:0 0 0 6px rgba(255,107,53,0)}}
-
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-@keyframes pulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.78;transform:scale(1.04)}}
-@keyframes pulse2{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.42;transform:scale(1.09)}}
-@keyframes orbDrift{0%{transform:translate(0,0)}33%{transform:translate(16px,-20px)}66%{transform:translate(-10px,13px)}100%{transform:translate(0,0)}}
-
-/* Gradient text — used sparingly */
-.gt{background:linear-gradient(130deg,var(--blue) 0%,var(--coral) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.gb{background:linear-gradient(130deg,var(--blue),var(--blue-lt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.gw{background:linear-gradient(130deg,var(--coral),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* ── Navigation ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:0 4.5vw;height:60px;
-  background:rgba(250,248,245,.72);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(28,31,46,.06);
-  transition:background .4s,border-color .4s,backdrop-filter .4s;
-}
-nav.scrolled{
-  background:rgba(250,248,245,.96);backdrop-filter:blur(28px);
-  border-bottom-color:rgba(28,31,46,.1);
-  box-shadow:0 1px 20px rgba(28,31,46,.06);
-}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo img{height:34px;width:auto}
-.nav-logo span{font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--text-main)}
-.nav-links{display:flex;gap:2vw;align-items:center}
-.nav-links a:not(.btn-nav){font-family:var(--body);font-size:14px;color:var(--text-muted);text-decoration:none;letter-spacing:.005em;transition:color .2s}
-.nav-links a:not(.btn-nav):hover{color:var(--ink)}
-.btn-nav{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--coral);
-  color:#fff;
-  font-family:var(--body);font-weight:500;font-size:13px;letter-spacing:.01em;
-  border:none;
-  border-radius:99px;padding:8px 18px;cursor:pointer;
-  text-decoration:none;
-  transition:all .22s;
-  box-shadow:0 2px 12px rgba(255,107,53,.28);
-}
-.btn-nav:hover{
-  background:var(--orange);
-  box-shadow:0 4px 20px rgba(255,107,53,.38);
-  transform:translateY(-1px);
-}
-
-/* ── Section system ── */
-section{padding:96px 7vw}
-.s-deep{background:#FAF8F5}
-.s-mid{background:#F5F1EC}
-.s-blue{background:radial-gradient(ellipse 90% 70% at 50% 0%,rgba(0,92,232,.06) 0%,#FAF8F5 58%)}
-.s-warm{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,107,53,.08) 0%,#FAF8F5 52%)}
-.s-tint{background:linear-gradient(180deg,rgba(0,15,55,.04) 0%,#FAF8F5 100%)}
-
-/* ── Continuous brand-color flow (page-wide ambient washes) ── */
-body.flow-bg{position:relative}
-body.flow-bg::before{
+/* ambient brand washes */
+body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(60vw 60vh at 12% 18%, rgba(0,92,232,.07), transparent 60%),
-    radial-gradient(70vw 70vh at 88% 42%, rgba(0,196,249,.06), transparent 65%),
-    radial-gradient(80vw 60vh at 15% 68%, rgba(255,107,53,.07), transparent 65%),
-    radial-gradient(70vw 65vh at 85% 92%, rgba(246,54,0,.05), transparent 65%);
+    radial-gradient(60vw 60vh at 12% 14%, rgba(0,92,232,.07), transparent 60%),
+    radial-gradient(70vw 70vh at 88% 40%, rgba(0,196,249,.06), transparent 65%),
+    radial-gradient(80vw 60vh at 15% 70%, rgba(255,107,53,.07), transparent 65%),
+    radial-gradient(70vw 65vh at 85% 94%, rgba(246,54,0,.05), transparent 65%);
 }
-body.flow-bg main, body.flow-bg footer, body.flow-bg nav, body.flow-bg section{position:relative;z-index:1}
-body.flow-bg .s-mid, body.flow-bg .s-tint, body.flow-bg .s-blue, body.flow-bg .s-warm, body.flow-bg .s-deep{background:transparent}
-body.flow-bg #mission::before{
-  content:'';position:absolute;top:8%;right:-6vw;width:36vw;height:36vw;
-  background:radial-gradient(circle,rgba(0,92,232,.09),transparent 65%);
-  filter:blur(8px);z-index:-1;pointer-events:none;
-}
-body.flow-bg #tiers::before{
-  content:'';position:absolute;top:12%;left:-8vw;width:42vw;height:42vw;
-  background:radial-gradient(circle,rgba(255,107,53,.08),transparent 60%);
-  filter:blur(10px);z-index:-1;pointer-events:none;
-}
+nav,main,section,footer{position:relative;z-index:1}
 
-/* Dark dramatic section override (for breaking up monotony) */
-.s-dark{
-  background:
-    radial-gradient(60vw 70vh at 80% 20%, rgba(255,107,53,.18), transparent 60%),
-    radial-gradient(50vw 60vh at 15% 85%, rgba(0,92,232,.18), transparent 65%),
-    linear-gradient(160deg,var(--warm-navy) 0%, #060c1e 100%);
-  color:#FAF8F5;position:relative;overflow:hidden;
-}
-body.flow-bg .s-dark{background:
-  radial-gradient(60vw 70vh at 80% 20%, rgba(255,107,53,.20), transparent 60%),
-  radial-gradient(50vw 60vh at 15% 85%, rgba(0,92,232,.20), transparent 65%),
-  linear-gradient(160deg,var(--warm-navy) 0%, #060c1e 100%);
-}
-.s-dark .s-title,.s-dark h2,.s-dark h3,.s-dark h4{color:#FAF8F5}
-.s-dark .s-sub,.s-dark p{color:rgba(250,248,245,.78)}
-.s-dark .ch span{color:rgba(250,248,245,.82)}
-.s-dark .ch::before{background:var(--coral)}
-.s-dark .stat-box{background:rgba(250,248,245,.05);border-color:rgba(250,248,245,.12);color:#FAF8F5;box-shadow:none}
-.s-dark .stat-box .l{color:rgba(250,248,245,.6)}
-.s-dark .stat-box .d{color:rgba(250,248,245,.72)}
-.s-dark::after{
-  content:'';position:absolute;bottom:-12vw;right:-8vw;width:32vw;height:32vw;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,107,53,.35),transparent 65%);
-  filter:blur(40px);pointer-events:none;z-index:0;
-}
-.s-dark > *{position:relative;z-index:1}
+@keyframes auroraShift{0%{transform:translate(0,0) scale(1) rotate(0)}50%{transform:translate(-2%,3%) scale(1.06) rotate(-1deg)}100%{transform:translate(0,0) scale(1) rotate(0)}}
+@keyframes auroraShift2{0%{transform:translate(0,0) scale(1.05)}50%{transform:translate(4%,-3%) scale(1) rotate(2deg)}100%{transform:translate(0,0) scale(1.05)}}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,.18)}60%{box-shadow:0 0 0 7px rgba(255,107,53,0)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* Decorative circle motifs */
+.gt{background:linear-gradient(130deg,var(--blue),var(--coral) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.gb{background:linear-gradient(130deg,var(--blue),var(--blue-lt));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
-/* ── Chapter bars ── */
-.ch{display:flex;align-items:center;gap:14px;margin-bottom:3.2vh}
-.ch::before{content:'';display:block;width:38px;height:2px;background:var(--blue);border-radius:1px;flex-shrink:0}
-.ch span{font-family:var(--mono);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--blue)}
-.ch.warm::before{background:var(--coral)}
-.ch.warm span{color:var(--coral)}
-.ch.white::before{background:rgba(28,31,46,.28)}
-.ch.white span{color:rgba(28,31,46,.45)}
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 4.5vw;height:62px;background:rgba(250,248,245,.72);backdrop-filter:blur(20px);border-bottom:1px solid rgba(28,31,46,.06);transition:.4s}
+nav.scrolled{background:rgba(250,248,245,.96);box-shadow:0 1px 20px rgba(28,31,46,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:32px;width:auto}
+.nav-logo span{font-size:15px;font-weight:600;color:var(--main);letter-spacing:-.01em}
+.nav-links{display:flex;gap:2vw;align-items:center}
+.nav-links a:not(.btn-nav){font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:not(.btn-nav):hover{color:var(--ink)}
+.btn-nav{display:inline-flex;align-items:center;gap:7px;background:var(--coral);color:#fff;font-weight:600;font-size:13px;border:none;border-radius:99px;padding:9px 18px;cursor:pointer;text-decoration:none;transition:.22s;box-shadow:0 2px 12px rgba(255,107,53,.28)}
+.btn-nav:hover{background:var(--orange);transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,53,.38)}
 
-/* ── Hero ── */
-.hero{position:relative;overflow:hidden;height:100vh;min-height:640px;background:var(--warm-navy);cursor:grab;perspective:2000px}
-.hero.dragging{cursor:grabbing}
-/* Aurora mesh orbs — positioned absolutely inside hero */
-.hero-aurora{position:absolute;inset:-20%;pointer-events:none;z-index:1;overflow:hidden;opacity:.65}
-.hero-aurora::before{
-  content:'';position:absolute;
-  width:70%;height:70%;top:10%;left:5%;
-  background:radial-gradient(ellipse,rgba(232,112,42,.55) 0%,rgba(255,107,53,.22) 40%,transparent 70%);
-  filter:blur(48px);
-  animation:auroraShift 14s ease-in-out infinite;
-}
-.hero-aurora::after{
-  content:'';position:absolute;
-  width:65%;height:65%;top:30%;right:0%;
-  background:radial-gradient(ellipse,rgba(0,92,232,.48) 0%,rgba(0,196,249,.18) 42%,transparent 70%);
-  filter:blur(52px);
-  animation:auroraShift2 18s ease-in-out infinite;
-}
-.hero-aurora-3{
-  position:absolute;
-  width:55%;height:55%;bottom:0%;left:30%;
-  background:radial-gradient(ellipse,rgba(255,107,53,.32) 0%,rgba(232,112,42,.12) 45%,transparent 70%);
-  filter:blur(44px);
-  animation:auroraShift 22s ease-in-out reverse infinite;
-}
-.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:3;mix-blend-mode:screen;background:radial-gradient(ellipse 60% 50% at 20% 70%,rgba(232,112,42,.28) 0%,transparent 65%),radial-gradient(ellipse 50% 42% at 80% 25%,rgba(255,107,53,.18) 0%,transparent 58%),radial-gradient(ellipse 40% 35% at 50% 90%,rgba(0,92,232,.2) 0%,transparent 55%)}
-/* ── 3D scene — grid + objects tilt together (tripod pan+tilt) ── */
-.hero-scene{position:absolute;inset:0;z-index:2;background:var(--warm-navy);will-change:transform;transform-origin:50% 50%}
-#hero-grid-canvas{position:absolute;bottom:0;left:0;width:100%;height:55%;pointer-events:none;z-index:1;display:block}
+/* ── buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--body);font-weight:600;font-size:15px;border-radius:99px;padding:14px 26px;cursor:pointer;text-decoration:none;transition:.22s;border:1.5px solid transparent}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 4px 18px rgba(255,107,53,.3)}
+.btn-primary:hover{background:var(--orange);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,53,.4)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(28,31,46,.03)}
+.btn-sm{padding:9px 18px;font-size:13px}
 
-/* Floating AI objects */
-.float-obj{position:absolute;z-index:2;will-change:transform;cursor:grab;mix-blend-mode:screen;user-select:none;-webkit-user-select:none;-webkit-mask-image:radial-gradient(ellipse 62% 66% at 50% 36%,black 50%,transparent 100%);mask-image:radial-gradient(ellipse 62% 66% at 50% 36%,black 50%,transparent 100%)}
-.float-obj:active{cursor:grabbing}
-.fo-bible{width:clamp(120px,13vw,175px);left:11%;top:9%;filter:contrast(2) drop-shadow(0 0 22px rgba(232,112,42,.8))}
-.fo-laptop{width:clamp(150px,17vw,210px);left:14%;bottom:11%;mix-blend-mode:normal;-webkit-mask-image:none;mask-image:none;cursor:default}
-.fo-laptop > img{display:block;width:100%;height:auto;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 62% 66% at 50% 36%,black 50%,transparent 100%);mask-image:radial-gradient(ellipse 62% 66% at 50% 36%,black 50%,transparent 100%);filter:contrast(2) drop-shadow(0 0 22px rgba(0,92,232,.8))}
-.fo-mic{width:clamp(100px,11.5vw,155px);right:21%;top:8%;filter:contrast(2) drop-shadow(0 0 22px rgba(255,107,53,.8))}
-.fo-globe{width:clamp(130px,14.5vw,188px);right:4%;top:34%;filter:contrast(2) drop-shadow(0 0 22px rgba(0,180,255,.8))}
-.fo-phone{width:clamp(85px,10vw,136px);right:14%;bottom:13%;filter:contrast(2) drop-shadow(0 0 22px rgba(0,92,232,.8))}
-.fo-camera{width:clamp(110px,12vw,165px);left:5%;top:40%;-webkit-mask-image:radial-gradient(ellipse 78% 74% at 50% 50%,black 36%,rgba(0,0,0,.55) 58%,transparent 88%);mask-image:radial-gradient(ellipse 78% 74% at 50% 50%,black 36%,rgba(0,0,0,.55) 58%,transparent 88%);filter:contrast(1.8) drop-shadow(0 0 22px rgba(0,196,249,.9)) drop-shadow(0 0 8px rgba(0,150,240,.6))}
+/* ── section system ── */
+section{padding:92px 7vw}
+.s-tint{background:linear-gradient(180deg,rgba(0,15,55,.04),transparent 100%)}
+.s-mid{background:#F5F1EC}
+.s-warm{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,107,53,.08),transparent 52%)}
+.s-dark{background:var(--warm-navy);color:#fff}
+.s-dark .eyebrow,.s-dark .s-sub{color:rgba(255,255,255,.7)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.eyebrow::before{content:'';width:22px;height:1.5px;background:var(--coral)}
+h2.s-title{font-family:var(--display);font-size:clamp(28px,3.6vw,46px);font-weight:600;line-height:1.1;letter-spacing:-.02em;max-width:18ch}
+.s-sub{font-size:clamp(15px,1.3vw,18px);line-height:1.62;color:var(--mid);max-width:60ch;margin-top:18px}
+.center{text-align:center}.center h2.s-title{margin:0 auto}.center .s-sub{margin-left:auto;margin-right:auto}
 
-/* Hero overlay */
-.hero-overlay{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:0 7vw 80px}
-.hero-overlay>*{pointer-events:auto}
-.hero-logo{height:clamp(36px,4.5vw,54px);width:auto;margin-bottom:2.6vh;filter:drop-shadow(0 0 16px rgba(255,107,53,.35));display:block}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,107,53,.1);
-  border:1px solid rgba(255,107,53,.32);
-  border-radius:99px;padding:7px 18px;margin-bottom:3vh;
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#FF9060;
-  animation:badgePulse 3s ease-in-out infinite, heroIn .6s ease-out both;
-  animation-delay:0s,0.05s;
-  backdrop-filter:blur(8px);
-}
-.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#FF9060;animation:pulse 2.2s ease-in-out infinite}
-h1.hero-h{font-family:var(--display);font-size:clamp(44px,7.2vw,106px);font-weight:700;line-height:1.0;letter-spacing:-.042em;margin-bottom:2.8vh;color:rgba(250,248,245,.97)}
-h1.hero-h em{font-style:italic;font-weight:700;letter-spacing:-.035em}
-p.hero-sub{font-family:var(--body);font-size:clamp(15px,1.25vw,19px);line-height:1.65;color:rgba(250,248,245,.52);max-width:min(480px,70vw);margin-bottom:3.4vh}
-.hero-ctas{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--coral);color:#fff;font-family:var(--body);font-weight:600;font-size:15px;letter-spacing:.01em;border:none;border-radius:99px;padding:14px 32px;cursor:pointer;text-decoration:none;transition:all .22s;box-shadow:0 6px 30px rgba(255,107,53,.4)}
-.btn-primary:hover{transform:translateY(-2px);background:var(--orange);box-shadow:0 12px 44px rgba(255,107,53,.52)}
-.btn-ghost{display:inline-flex;align-items:center;gap:10px;color:rgba(250,248,245,.72);font-family:var(--body);font-weight:500;font-size:15px;border:1px solid rgba(250,248,245,.2);border-radius:99px;padding:14px 28px;cursor:pointer;text-decoration:none;transition:all .22s;background:transparent}
-.btn-ghost:hover{color:rgba(250,248,245,.95);border-color:rgba(255,107,53,.45);background:rgba(255,107,53,.07)}
-.btn-ghost.active{border-color:rgba(0,92,232,.35);background:rgba(0,92,232,.08);color:rgba(250,248,245,.95)}
+/* ── hero ── */
+.hero{min-height:92vh;display:flex;align-items:center;padding-top:62px;position:relative;overflow:hidden}
+.hero-aurora{position:absolute;inset:-20%;z-index:0;pointer-events:none;filter:blur(60px);opacity:.9}
+.hero-aurora::before,.hero-aurora::after{content:'';position:absolute;border-radius:50%}
+.hero-aurora::before{width:55vw;height:55vw;top:-10%;right:-5%;background:radial-gradient(circle,rgba(0,196,249,.5),transparent 65%);animation:auroraShift 18s ease-in-out infinite}
+.hero-aurora::after{width:48vw;height:48vw;bottom:-15%;left:-8%;background:radial-gradient(circle,rgba(255,107,53,.42),transparent 65%);animation:auroraShift2 22s ease-in-out infinite}
+.hero-inner{position:relative;z-index:1;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.22);border-radius:99px;padding:7px 15px;margin-bottom:26px;animation:badgePulse 3s infinite}
+.hero h1{font-family:var(--display);font-size:clamp(40px,6.4vw,82px);font-weight:600;line-height:1.02;letter-spacing:-.03em;margin-bottom:22px;animation:riseIn .7s ease both}
+.hero p.lead{font-size:clamp(17px,1.7vw,22px);line-height:1.5;color:var(--mid);max-width:54ch;margin-bottom:34px;animation:riseIn .7s ease .12s both}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;animation:riseIn .7s ease .24s both}
 
-
-/* ── Drag hint ── */
-.hero-drag-hint{
-  position:absolute;bottom:108px;left:50%;transform:translateX(-50%);z-index:5;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(250,248,245,.34);
-  pointer-events:none;
-  animation:heroIn .8s ease-out both;animation-delay:1.1s;
-  transition:opacity .6s ease;
-  white-space:nowrap;text-align:center;
-}
-.hero-drag-hint .dh-arr{display:flex;gap:4px;animation:dragNudge 2.4s ease-in-out infinite}
-@keyframes dragNudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.hero-drag-hint svg{opacity:.6}
-.hero.dragging .hero-drag-hint{opacity:0}
-
-/* ── Content Ticker ── */
-.hero-ticker{
-  position:absolute;bottom:0;left:0;right:0;z-index:4;
-  overflow:hidden;border-top:1px solid rgba(250,248,245,.1);
-  background:rgba(15,30,60,.88);backdrop-filter:blur(20px);
-  height:82px;pointer-events:none;
-}
-.ticker-inner{display:flex;align-items:stretch;width:max-content;animation:ticker 54s linear infinite;height:100%}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.tick-card{display:flex;align-items:center;gap:16px;padding:0 2.8rem;height:100%;border-right:1px solid rgba(250,248,245,.07);flex-shrink:0}
-.tick-cat{font-family:var(--mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;padding:3px 10px;border-radius:99px;flex-shrink:0;white-space:nowrap}
-.tick-cat.mission{background:rgba(255,107,53,.15);color:#FF9060;border:1px solid rgba(255,107,53,.28)}
-.tick-cat.media{background:rgba(232,112,42,.12);color:#FFB070;border:1px solid rgba(232,112,42,.28)}
-.tick-cat.tech{background:rgba(0,92,232,.2);color:rgba(150,200,255,.9);border:1px solid rgba(0,92,232,.35)}
-.tick-info{display:flex;flex-direction:column;gap:3px}
-.tick-title{font-family:var(--body);font-size:13px;font-weight:500;color:rgba(250,248,245,.75);white-space:nowrap}
-.tick-type{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.38;white-space:nowrap}
-
-/* Stats band */
-.hero-stats{display:flex;margin-top:6.5vh;background:rgba(250,248,245,.06);border:1px solid rgba(250,248,245,.14);border-radius:16px;overflow:hidden}
-.h-stat{flex:1;padding:2.4vh 2.2vw;border-right:1px solid rgba(250,248,245,.1)}
-.h-stat:last-child{border-right:none}
-.h-stat .n{font-family:var(--display);font-size:clamp(26px,3.2vw,48px);font-weight:700;letter-spacing:-.03em;line-height:1;color:rgba(250,248,245,.96)}
-.h-stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-top:7px;line-height:1.35;color:rgba(250,248,245,.9)}
-.h-stat .s{font-family:var(--body);font-size:11px;opacity:.42;margin-top:4px;line-height:1.35;color:rgba(250,248,245,.9)}
-
-/* ── Courses section ── */
-.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw;margin-top:5vh}
-.course-card{border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 16px rgba(28,31,46,.06);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
-.course-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(28,31,46,.12)}
-.course-img{height:clamp(160px,20vh,220px);background-size:cover;background-position:center;position:relative;display:flex;align-items:flex-start;padding:1.2rem;flex-shrink:0}
-.course-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(15,30,60,.55) 100%)}
-.course-img .course-cat{position:relative;z-index:1}
-.course-body{padding:1.8rem;flex:1;display:flex;flex-direction:column;gap:.8rem}
-.course-body h3{font-family:var(--display);font-size:clamp(16px,1.5vw,22px);font-weight:400;line-height:1.25;color:var(--ink)}
-.course-body p{font-family:var(--body);font-size:clamp(13px,1vw,15px);line-height:1.6;color:var(--text-mid);flex:1}
-.course-meta{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-top:auto}
-.course-cat{font-family:var(--mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;padding:4px 11px;border-radius:99px}
-.course-cat.mission{background:rgba(255,107,53,.12);color:var(--coral);border:1px solid rgba(255,107,53,.25)}
-.course-cat.media{background:rgba(232,112,42,.1);color:var(--amber);border:1px solid rgba(232,112,42,.25)}
-.course-cat.tech{background:rgba(0,92,232,.1);color:var(--blue);border:1px solid rgba(0,92,232,.22)}
-@media(max-width:980px){.courses-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.courses-grid{grid-template-columns:1fr}}
-
-/* ── Section typography ── */
-h2.s-title{font-family:var(--display);font-size:clamp(30px,3.8vw,58px);font-weight:700;line-height:1.08;letter-spacing:-.022em;margin-bottom:1.8vh;color:var(--ink)}
-p.s-sub{font-family:var(--body);font-size:clamp(15px,1.28vw,19px);line-height:1.68;max-width:54vw;color:var(--text-mid)}
-hr.divider{height:1px;background:linear-gradient(90deg,transparent,var(--coral) 30%,var(--blue) 70%,transparent);border:none;margin:5vh 0;opacity:.2}
-
-/* ── Glass ── */
-.glass{background:#fff;border:1px solid rgba(28,31,46,.1);border-radius:var(--r);padding:2.2rem;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 16px rgba(28,31,46,.06)}
-.glass:hover{transform:translateY(-3px);box-shadow:0 12px 44px rgba(28,31,46,.1)}
-.glass.warm{background:#FFF8F4;border-color:rgba(255,107,53,.18);box-shadow:0 2px 16px rgba(255,107,53,.06)}
-
-/* ── Stories ── */
-.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.8vw;margin-top:5vh}
-.story-card{background:#fff;border:1px solid rgba(28,31,46,.1);border-radius:20px;overflow:hidden;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 16px rgba(28,31,46,.06)}
-.story-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(28,31,46,.12)}
-.story-card.warm{border-color:rgba(255,107,53,.18);background:#FFF8F4}
-.story-photo{height:clamp(180px,22vh,240px);position:relative;overflow:hidden;display:flex;align-items:flex-end}
-.story-photo.blue-ph{background:linear-gradient(145deg,rgba(15,30,60,.92) 0%,rgba(0,80,180,.35) 55%,rgba(0,140,220,.18) 100%)}
-.story-photo.warm-ph{background:linear-gradient(145deg,rgba(60,20,5,.92) 0%,rgba(200,80,10,.28) 55%,rgba(255,107,53,.16) 100%)}
-.story-photo .ph-label{padding:10px 16px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.42;background:linear-gradient(0deg,rgba(15,30,60,.8) 0%,transparent 100%);width:100%;color:#fff}
-.story-photo svg.mesh{position:absolute;inset:0;width:100%;height:100%;opacity:.15}
-.story-body{padding:1.8rem}
-.story-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.18);border-radius:99px;padding:4px 12px;margin-bottom:1.2rem;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue)}
-.story-tag.wt{background:rgba(255,107,53,.1);border-color:rgba(255,107,53,.22);color:var(--coral)}
-.quote-block{padding:2.4rem 3rem;border-radius:0 var(--r) var(--r) 0;background:#FFF8F4;border:1px solid rgba(255,107,53,.16);border-left:4px solid var(--coral);margin-top:4vh}
-.quote-block blockquote{font-family:var(--display);font-size:clamp(16px,1.7vw,24px);font-weight:500;line-height:1.52;font-style:italic;margin-bottom:1.2rem;color:var(--ink)}
-.qcite{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted)}
-.qcite strong{color:var(--text-mid);font-weight:500}
-
-/* Stats */
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw;margin-top:5vh}
-.stat-box{padding:2.4rem;border-radius:var(--r);background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 16px rgba(28,31,46,.06)}
-.stat-box .n{font-family:var(--display);font-size:clamp(44px,5vw,70px);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:1rem;color:var(--ink)}
-.stat-box .l{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.7rem}
-.stat-box .d{font-family:var(--body);font-size:clamp(13px,1vw,15px);line-height:1.55;color:var(--text-mid)}
-.src-line{display:inline;font-size:.78em;color:var(--text-muted);opacity:.78;white-space:nowrap;margin-left:.2em}
-.mf{padding:2.8vh 2.8vw;border-radius:20px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2.4vw}
-.mf.outer{background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 12px rgba(28,31,46,.05)}
-.mf.mid{background:#F5F1EC;border:1px solid rgba(28,31,46,.12);margin:0 2vw;box-shadow:0 2px 14px rgba(28,31,46,.06)}
-.mf.inner{background:var(--sand);border:1px solid rgba(255,107,53,.2);box-shadow:0 4px 28px rgba(255,107,53,.1);margin:0 4vw}
-.mf .mf-n{font-family:var(--display);font-size:clamp(24px,2.8vw,44px);font-weight:700;letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
-.mf .mf-body{display:flex;flex-direction:column;gap:.4vh}
-.mf .mf-tag{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-muted)}
-.mf .mf-desc{font-family:var(--body);font-size:clamp(13px,1.02vw,15px);line-height:1.5;color:var(--text-mid)}
-.mf-pill{display:inline-block;padding:4px 12px;border-radius:99px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
-.mf.outer .mf-pill{background:rgba(0,92,232,.08);color:var(--blue);border:1px solid rgba(0,92,232,.18)}
-.mf.mid .mf-pill{background:rgba(255,107,53,.1);color:var(--coral);border:1px solid rgba(255,107,53,.22)}
-.mf.inner .mf-pill{background:var(--coral);color:#fff;border:none;box-shadow:0 2px 10px rgba(255,107,53,.28)}
-
-/* ── Proof tiles ── */
-.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:5vh}
-.proof-tile{border-radius:var(--r);padding:2.2rem;border:1px solid rgba(28,31,46,.1);background:#fff;display:flex;flex-direction:column;gap:1.2rem;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 14px rgba(28,31,46,.06)}
+/* ── proof grid (gap) ── */
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh}
+.proof-tile{border-radius:var(--r);padding:2rem;border:1px solid var(--line);background:#fff;box-shadow:0 2px 14px rgba(28,31,46,.06);transition:.22s}
 .proof-tile:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(28,31,46,.1)}
-.proof-tile.active{border-color:rgba(255,107,53,.22);background:#FFF8F4}
-.proof-check{width:34px;height:34px;border-radius:10px;background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.proof-check.gold{background:rgba(255,107,53,.1);border-color:rgba(255,107,53,.24)}
-.proof-num{font-family:var(--display);font-size:clamp(32px,3.5vw,50px);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--ink)}
-.proof-label{font-family:var(--display);font-size:clamp(14px,1.1vw,17px);font-weight:600;color:var(--ink)}
-.proof-detail{font-family:var(--body);font-size:clamp(12px,.9vw,14px);line-height:1.55;color:var(--text-mid)}
+.proof-icn{width:38px;height:38px;border-radius:11px;background:rgba(255,107,53,.1);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px}
+.proof-q{font-family:var(--display);font-size:clamp(17px,1.5vw,21px);font-weight:500;line-height:1.3;color:var(--ink)}
+.proof-d{font-size:14px;line-height:1.55;color:var(--mid);margin-top:8px}
 
-/* ── Translator flow ── */
-.flow-row{display:flex;align-items:center;justify-content:center;gap:2.4vw;margin-top:5vh}
-.flow-node{flex:1;border-radius:var(--r);background:#fff;border:1px solid rgba(28,31,46,.1);padding:2.4rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.2rem;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 14px rgba(28,31,46,.06)}
-.flow-node:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(28,31,46,.1)}
-.flow-node.cn{background:linear-gradient(145deg,rgba(0,92,232,.06),rgba(0,92,232,.02));border-color:rgba(0,92,232,.22);box-shadow:0 8px 40px rgba(0,92,232,.1)}
-.flow-node.rn{border-color:rgba(255,107,53,.2);background:#FFF8F4}
-.flow-ico{width:50px;height:50px;border-radius:13px;background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.16);display:flex;align-items:center;justify-content:center}
-.flow-ico svg{width:22px;height:22px;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.flow-arr{flex-shrink:0;display:flex;align-items:center;opacity:.3;color:var(--ink)}
-.flow-node h3{font-family:var(--display);font-size:clamp(14px,1.28vw,18px);font-weight:600;color:var(--ink)}
-.flow-node p{font-family:var(--body);font-size:clamp(12px,.92vw,14px);line-height:1.5;color:var(--text-mid)}
+/* matrix */
+.matrix-wrap{margin-top:4vh;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 16px rgba(28,31,46,.06)}
+table.matrix{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+table.matrix th,table.matrix td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.matrix th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#FBF9F6}
+table.matrix td:last-child{color:var(--blue);font-weight:500}
+table.matrix tr:last-child td{border-bottom:none}
 
-/* Capabilities */
-.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2vw;margin-top:4.5vh}
-.cap-card{border-radius:var(--r);padding:2rem;background:#fff;border:1px solid rgba(28,31,46,.1);display:flex;flex-direction:column;gap:1rem;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 12px rgba(28,31,46,.05)}
-.cap-card:hover{transform:translateY(-3px);box-shadow:0 10px 34px rgba(28,31,46,.1)}
-.cap-ico{width:44px;height:44px;border-radius:12px;background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.16);display:flex;align-items:center;justify-content:center}
-.cap-ico svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.cap-card h4{font-family:var(--display);font-size:clamp(13px,1.05vw,16px);font-weight:600;color:var(--ink)}
-.cap-card p{font-family:var(--body);font-size:clamp(12px,.9vw,14px);line-height:1.5;color:var(--text-mid)}
+/* ── area cards ── */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh}
+.area-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:0 2px 14px rgba(28,31,46,.06);transition:.22s}
+.area-card:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(28,31,46,.1)}
+.area-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+.area-card.a2 .area-tag{color:var(--blue)}.area-card.a3 .area-tag{color:var(--blue-lt)}
+.area-promise{font-family:var(--display);font-size:clamp(19px,1.7vw,23px);font-weight:600;line-height:1.22;margin:12px 0 14px}
+.area-card ul{list-style:none;display:grid;gap:10px}
+.area-card li{font-size:14px;line-height:1.5;color:var(--mid);padding-left:22px;position:relative}
+.area-card li::before{content:'';position:absolute;left:0;top:7px;width:9px;height:9px;border-radius:3px;border:1.6px solid var(--coral)}
+.area-card.a2 li::before{border-color:var(--blue)}.area-card.a3 li::before{border-color:var(--blue-lt)}
 
-/* ── Competitive ── */
-.comp-matrix{margin-top:5vh;border:1px solid rgba(28,31,46,.1);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 16px rgba(28,31,46,.06)}
-.comp-row{display:grid;grid-template-columns:2fr repeat(4,1fr);padding:1.5vh 2.2vw;border-bottom:1px solid rgba(28,31,46,.07);align-items:center;gap:1.5vw;transition:background .18s;background:#fff}
-.comp-row:last-child{border-bottom:none}
-.comp-row.hdr{background:var(--sand);padding:1.8vh 2.2vw;border-bottom-color:rgba(28,31,46,.1)}
-.comp-row.hdr span{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-muted);text-align:center}
-.comp-row.hdr span:first-child{text-align:left}
-.comp-row.mm{background:#FFF4EE}
-.comp-row.mm:hover{background:#FFE9DB}
-.comp-name{font-family:var(--body);font-size:clamp(13px,1.02vw,15px);font-weight:500;color:var(--text-mid)}
-.comp-row.mm .comp-name{font-family:var(--display);font-weight:700;color:var(--coral)}
-.comp-dot{display:flex;align-items:center;justify-content:center}
-.cd-y{width:20px;height:20px;border-radius:50%;background:rgba(0,92,232,.1);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center}
-.cd-y::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--blue)}
-.cd-n{width:20px;height:20px;border-radius:50%;background:rgba(28,31,46,.04);border:2px solid rgba(28,31,46,.18)}
-.cd-p{width:20px;height:20px;border-radius:50%;background:rgba(255,107,53,.1);border:2px solid rgba(255,107,53,.3);display:flex;align-items:center;justify-content:center}
-.cd-p::after{content:'';width:8px;height:4px;border-radius:2px;background:var(--coral)}
+/* ── stepper ($65/mo) ── */
+.stepper{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;margin-top:5vh}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:0 2px 14px rgba(28,31,46,.05)}
+.step .num{width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;margin-bottom:14px}
+.step h4{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:8px}
+.step p{font-size:13.5px;line-height:1.5;color:var(--mid)}
 
-/* ── Founder ── */
-.founder-layout{display:grid;grid-template-columns:3fr 2fr;gap:5vw;margin-top:5vh;align-items:start}
-.founder-name{font-family:var(--display);font-size:clamp(26px,2.8vw,42px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:.4vh;color:var(--ink)}
-.founder-title{font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2vh}
-.founder-body{font-family:var(--body);font-size:clamp(14px,1.1vw,17px);line-height:1.72;color:var(--text-mid);margin-bottom:1.6vh}
-.founder-stats{display:flex;flex-direction:column;gap:1.4vh}
-.f-stat{padding:1.6vh 1.8vw;border-radius:14px;background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 10px rgba(28,31,46,.05);display:flex;flex-direction:column;gap:.4vh}
-.f-stat .fn{font-family:var(--display);font-size:clamp(22px,2.3vw,34px);font-weight:700;letter-spacing:-.03em;color:var(--ink)}
-.f-stat .fl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
-.founder-photo-box{border-radius:20px;overflow:hidden;position:relative;background:#0b1226;display:flex;align-items:flex-end;justify-content:flex-start;padding:1.1rem;min-height:280px;margin-bottom:1.4vh}
-.founder-photo-box::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,38,.00) 0%,rgba(11,18,38,.18) 40%,rgba(11,18,38,.78) 100%);pointer-events:none}
-.founder-photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%;filter:saturate(1.02) contrast(1.05)}
-.founder-photo-box .ph-lbl{position:relative;z-index:1;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;color:rgba(250,248,245,.92)}
+/* ── stewardship (dark) ── */
+.steward-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3vw;margin-top:5vh;align-items:start}
+.anchor{font-family:var(--display);font-size:clamp(40px,5vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1}
+.anchor small{font-size:.32em;font-weight:400;opacity:.7}
+.slider-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:26px}
+.slider-card label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:12px}
+input[type=range]{width:100%;accent-color:var(--coral);height:6px}
+.slider-val{font-family:var(--display);font-weight:600;color:var(--blue-lt)}
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.metric{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px}
+.metric .mn{font-family:var(--display);font-size:clamp(22px,2.4vw,30px);font-weight:600;color:#fff}
+.metric .ml{font-size:11px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:4px}
+.illus{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.45);margin-top:14px}
 
-/* ── Treasure ── */
-.tre-flow{display:flex;align-items:stretch;gap:2.4vw;margin-top:5vh}
-.tre-node{flex:1;border-radius:var(--r);padding:2.4rem;display:flex;flex-direction:column;align-items:center;gap:1.4rem;text-align:center}
-.tre-arr{display:flex;align-items:center;color:rgba(28,31,46,.3);flex-shrink:0}
-.verse{text-align:center;font-family:var(--display);font-size:clamp(15px,1.3vw,19px);font-style:italic;color:var(--text-muted);margin-top:4vh}
+/* ── founder ── */
+.founder{display:grid;grid-template-columns:300px 1fr;gap:3vw;margin-top:5vh;align-items:start}
+.founder-photo{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:0 12px 40px rgba(28,31,46,.16)}
+.founder-photo img{width:100%;display:block;aspect-ratio:3/3.4;object-fit:cover}
+.video-btn{display:inline-flex;align-items:center;gap:9px;margin-top:14px;cursor:pointer;background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);transition:.2s}
+.video-btn:hover{border-color:var(--coral);color:var(--coral)}
+.video-btn .play{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px}
+.founder-name{font-family:var(--display);font-size:24px;font-weight:600}
+.founder-role{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 18px}
+.founder p{font-size:15px;line-height:1.62;color:var(--mid);margin-bottom:14px;max-width:60ch}
+.cred{display:grid;gap:10px;margin:18px 0}
+.cred li{list-style:none;font-size:14.5px;color:var(--main);padding-left:26px;position:relative}
+.cred li::before{content:'✓';position:absolute;left:0;color:var(--coral);font-weight:700}
+.proof-strip{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
+.proof-strip .ps{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;flex:1;min-width:200px}
+.proof-strip .ps q{font-family:var(--display);font-style:italic;font-size:15px;color:var(--ink)}
+.proof-strip .ps .src{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;display:block}
 
-/* ── Pricing ── */
-.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw;margin-top:5vh}
-.tier-card{border-radius:20px;padding:2.4rem;background:#fff;border:1px solid rgba(28,31,46,.1);display:flex;flex-direction:column;gap:1.4rem;transition:transform .25s,box-shadow .25s;box-shadow:0 2px 16px rgba(28,31,46,.06)}
-.tier-card:hover{transform:translateY(-5px);box-shadow:0 16px 52px rgba(28,31,46,.12)}
-.tier-card.feat{background:linear-gradient(145deg,rgba(0,92,232,.05),rgba(0,92,232,.02));border-color:rgba(0,92,232,.24);box-shadow:0 8px 40px rgba(0,92,232,.12)}
-.tier-card.anch{border-color:rgba(255,107,53,.22);background:#FFF8F4}
-.tier-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-muted)}
-.tier-price{font-family:var(--display);font-size:clamp(34px,3.6vw,50px);font-weight:700;letter-spacing:-.025em;line-height:1;color:var(--ink)}
-.tier-price span{font-size:.4em;font-weight:400;color:var(--text-muted)}
-.tier-div{height:1px;background:linear-gradient(90deg,transparent,rgba(28,31,46,.12),transparent);border:none}
-.tier-desc{font-family:var(--body);font-size:clamp(13px,1vw,15px);line-height:1.62;color:var(--text-mid)}
-.tier-badge{display:inline-block;padding:4px 12px;border-radius:99px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.2);color:var(--blue)}
-
-/* ── Use of Funds ── */
-.fund-bars{margin-top:4.5vh;display:flex;flex-direction:column;gap:1.8vh}
-.fund-bar{display:grid;grid-template-columns:2.2fr 4fr auto;gap:2vw;align-items:center}
-.fund-label{font-family:var(--body);font-size:clamp(13px,1.04vw,16px);font-weight:500;color:var(--text-main)}
-.fund-track{height:10px;border-radius:5px;background:rgba(28,31,46,.07);overflow:hidden}
-.fund-fill{height:100%;border-radius:5px}
-.fb1{background:linear-gradient(90deg,var(--coral),var(--orange));width:35%}
-.fb2{background:linear-gradient(90deg,var(--amber),rgba(232,112,42,.7));width:22%}
-.fb3{background:linear-gradient(90deg,var(--blue),rgba(0,92,232,.7));width:16%}
-.fb4{background:linear-gradient(90deg,rgba(0,92,232,.7),var(--blue-lt));width:15%}
-.fb5{background:linear-gradient(90deg,rgba(0,196,249,.7),rgba(0,196,249,.4));width:13%}
-.fund-amt{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--text-mid);text-align:right;white-space:nowrap}
-.fund-total{margin-top:3.5vh;padding:2rem 2.4rem;border-radius:var(--r);background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 12px rgba(28,31,46,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5vh}
-
-/* ── Partners ── */
-.partner-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2vw;margin-top:5vh}
-.partner-tile{border-radius:var(--r);padding:2rem 1.8rem;background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 12px rgba(28,31,46,.05);display:flex;flex-direction:column;gap:.9rem;align-items:flex-start;transition:transform .22s,box-shadow .22s}
-.partner-tile:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(28,31,46,.1)}
-.p-name{font-family:var(--display);font-size:clamp(14px,1.2vw,18px);font-weight:700;color:var(--ink)}
-.p-role{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted)}
-.p-desc{font-family:var(--body);font-size:clamp(12px,.9vw,14px);line-height:1.5;color:var(--text-mid)}
-.p-status{display:inline-block;padding:3px 10px;border-radius:99px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-top:auto}
-.ps-live{background:rgba(0,92,232,.08);color:var(--blue);border:1px solid rgba(0,92,232,.2)}
-.ps-neg{background:rgba(255,107,53,.1);color:var(--coral);border:1px solid rgba(255,107,53,.22)}
-
-/* ── CTA ── */
-.cta-section{text-align:center;background:radial-gradient(ellipse 80% 65% at 50% 50%,rgba(255,107,53,.1) 0%,rgba(0,92,232,.05) 55%,transparent 75%),var(--sand)}
-.cta-section h2{font-family:var(--display);font-size:clamp(28px,3.8vw,56px);font-weight:700;letter-spacing:-.022em;margin-bottom:2vh;color:var(--ink)}
-.cta-section p{font-size:clamp(15px,1.28vw,19px);color:var(--text-mid);max-width:44vw;margin:0 auto 4vh}
-.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2.4vw;max-width:68vw;margin:4vh auto 0}
-.contact-card{padding:2rem;border-radius:var(--r);background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 14px rgba(28,31,46,.06);display:flex;flex-direction:column;gap:.9rem;align-items:flex-start;transition:transform .2s,box-shadow .2s}
-.contact-card:hover{transform:translateY(-3px);box-shadow:0 10px 38px rgba(28,31,46,.1)}
-.contact-card a{color:var(--coral);font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-decoration:none;transition:opacity .2s}
-.contact-card a:hover{opacity:.7}
-
-footer{background:var(--warm-navy);border-top:1px solid rgba(250,248,245,.06);padding:3vh 7vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2vh}
-footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,248,245,.3)}
-
-@media(max-width:980px){
-  .hero-content{max-width:92vw}
-  p.hero-sub{max-width:90%}
-  .hero-globe-wrap{display:none}
-  .story-grid{grid-template-columns:1fr}
-  .flow-row,.tre-flow{flex-direction:column}
-  .flow-arr,.tre-arr{display:none}
-  .tier-grid,.cap-grid,.proof-grid,.partner-grid{grid-template-columns:1fr 1fr}
-  .founder-layout{grid-template-columns:1fr}
-  .comp-matrix{overflow-x:auto}
-  p.s-sub{max-width:100%}
-  section{padding:72px 5vw}
-  nav .nav-links a:not(.btn-nav){display:none}
-  .market-funnel .mf.mid{margin:0 1.5vw}
-  .market-funnel .mf.inner{margin:0 3vw}
-  .fund-bar{grid-template-columns:1fr 2fr auto}
-}
-@media(max-width:600px){
-  .tier-grid,.cap-grid,.proof-grid,.partner-grid,.stats-grid{grid-template-columns:1fr}
-  h2.s-title{font-size:clamp(26px,8vw,40px)}
-  h1.hero-h{font-size:clamp(34px,10.5vw,52px)}
-  nav{padding:0 5vw}
-  .hero-stats{flex-direction:column}
-  .h-stat{border-right:none;border-bottom:1px solid rgba(250,248,245,.1)}
-  .h-stat:last-child{border-bottom:none}
-  .market-funnel .mf{grid-template-columns:1fr}
-  .market-funnel .mf.mid,.market-funnel .mf.inner{margin:0}
-  .contact-grid{grid-template-columns:1fr;max-width:100%}
-  .cta-section p{max-width:100%}
-}
-
-/* ── Scroll reveals ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
-.reveal.in{opacity:1;transform:none}
-
-/* ── Grain texture overlay ── */
-body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.028;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px 200px}
-
-/* ── Fund bar scroll animation ── */
-.fund-fill{transition:width 1.15s cubic-bezier(.22,1,.36,1)}
-.fund-fill:not(.loaded){width:0!important}
-.fb1.loaded{width:35%}.fb2.loaded{width:22%}.fb3.loaded{width:16%}
-.fb4.loaded{width:15%}.fb5.loaded{width:13%}
-.fb1{transition-delay:0s}.fb2{transition-delay:.11s}.fb3{transition-delay:.22s}
-.fb4{transition-delay:.33s}.fb5{transition-delay:.44s}
-
-/* ── Animated gradient border on featured tier ── */
-@keyframes borderFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.tier-card.feat{position:relative;isolation:isolate}
-.tier-card.feat::before{content:'';position:absolute;inset:-1px;border-radius:21px;
-  background:linear-gradient(120deg,var(--blue),var(--blue-lt),var(--coral),var(--orange),var(--blue));
-  background-size:300%;animation:borderFlow 5s ease infinite;z-index:-1;opacity:.32}
-
-/* ── Fraunces weight system ── */
-h1.hero-h{font-weight:700;letter-spacing:-.042em}
-h1.hero-h em{font-style:italic;font-weight:700;letter-spacing:-.035em}
-h2.s-title{font-weight:300;letter-spacing:-.03em}
-.nav-logo span{font-weight:600;letter-spacing:-.03em}
-.quote-block blockquote{font-style:italic;font-weight:300;letter-spacing:-.01em}
-.cta-section h2{font-weight:300}
-.tier-price{font-weight:400}
-.founder-name{font-weight:400;letter-spacing:-.025em}
-
-/* ── Enhanced glass depth ── */
-.glass{box-shadow:0 4px 24px rgba(28,31,46,.07)}
-.glass:hover{box-shadow:0 16px 48px rgba(28,31,46,.12)}
-
-/* ── Hero entrance animation ── */
-@keyframes heroIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-h1.hero-h{animation:heroIn .7s cubic-bezier(.22,.68,0,1.1) both;animation-delay:.2s}
-p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
-.hero-ctas{animation:heroIn .6s ease-out both;animation-delay:.54s}
-.hero-stats{animation:heroIn .6s ease-out both;animation-delay:.72s}
-
-/* ── Float object entrance ── */
-@keyframes floatIn{from{opacity:0}to{opacity:1}}
-.fo-bible{animation:floatIn .8s ease-out both;animation-delay:.3s}
-.fo-laptop{animation:floatIn .8s ease-out both;animation-delay:.5s}
-.fo-mic{animation:floatIn .8s ease-out both;animation-delay:.4s}
-.fo-globe{animation:floatIn .8s ease-out both;animation-delay:.6s}
-.fo-phone{animation:floatIn .8s ease-out both;animation-delay:.5s}
-
-
-/* ── Prefers reduced motion ── */
-@media(prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-}
-
-/* ── Toolbox Cards ── */
-.toolbox-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2vw;margin-top:5vh}
-.toolbox-card{border-radius:20px;background:#fff;border:1px solid rgba(28,31,46,.1);box-shadow:0 2px 16px rgba(28,31,46,.06);display:flex;flex-direction:column;overflow:hidden;transition:transform .25s,box-shadow .25s;position:relative}
-.toolbox-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(28,31,46,.12)}
-.toolbox-card.future{opacity:.84}
-.tb-badge{position:absolute;top:1rem;right:1rem;padding:4px 10px;border-radius:99px;background:rgba(28,31,46,.07);border:1px solid rgba(28,31,46,.18);font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);z-index:2;white-space:nowrap}
-.tb-body{padding:1.8rem 1.8rem 1.4rem;flex:0 0 auto}
-.tb-step{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue);background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.2);border-radius:99px;padding:5px 12px;margin-bottom:1.1rem;font-weight:600}
-.toolbox-card.future .tb-step{color:var(--coral);background:rgba(255,107,53,.1);border-color:rgba(255,107,53,.24)}
-.tb-headline{font-family:var(--display);font-size:clamp(17px,1.5vw,23px);font-weight:700;letter-spacing:-.02em;line-height:1.18;margin-bottom:.7rem;color:var(--ink)}
-.tb-desc{font-family:var(--body);font-size:clamp(12px,.88vw,14px);line-height:1.6;color:var(--text-mid);margin-bottom:1.1rem}
-.tb-items{list-style:none;display:flex;flex-direction:column;gap:.45rem}
-.tb-items li{display:flex;align-items:flex-start;gap:.55rem;font-family:var(--body);font-size:clamp(11.5px,.85vw,13.5px);line-height:1.4;color:var(--text-main);font-weight:500}
-.tb-chk{flex-shrink:0;width:14px;height:14px;border-radius:4px;background:rgba(0,92,232,.08);border:1px solid rgba(0,92,232,.22);display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
-.tb-chk svg{width:7px;height:7px;stroke:var(--blue);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.tb-anim{flex:1;min-height:120px;border-top:1px solid rgba(28,31,46,.07);background:rgba(28,31,46,.016);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:1rem}
-.tb-anim svg{width:100%;max-width:160px;height:auto}
-
-/* Card 1: Starter path — line draws through 3 milestones */
-@keyframes tbSeg{0%,8%{stroke-dashoffset:52;opacity:.2}32%,80%{stroke-dashoffset:0;opacity:1}95%,100%{stroke-dashoffset:52;opacity:.2}}
-@keyframes tbDotGlow{0%,8%{fill:rgba(0,92,232,.18)}32%,78%{fill:#005BE8}92%,100%{fill:rgba(0,92,232,.18)}}
-.tb-seg1{animation:tbSeg 4s ease-in-out infinite}
-.tb-seg2{animation:tbSeg 4s ease-in-out .6s infinite}
-.tb-d1{animation:tbDotGlow 4s ease-in-out infinite}
-.tb-d2{animation:tbDotGlow 4s ease-in-out .6s infinite}
-.tb-d3{animation:tbDotGlow 4s ease-in-out 1.2s infinite}
-
-/* Card 2: Template stamp — center card fans into duplicates */
-@keyframes tbFanTL{0%,15%{transform:translate(10px,8px);opacity:0}44%,82%{transform:translate(0,0);opacity:1}97%,100%{transform:translate(10px,8px);opacity:0}}
-@keyframes tbFanTR{0%,23%{transform:translate(-10px,8px);opacity:0}54%,82%{transform:translate(0,0);opacity:1}97%,100%{transform:translate(-10px,8px);opacity:0}}
-@keyframes tbFanB{0%,31%{transform:translate(0,-8px);opacity:0}64%,82%{transform:translate(0,0);opacity:1}97%,100%{transform:translate(0,-8px);opacity:0}}
-@keyframes tbStamp{0%{transform:scale(1)}10%{transform:scale(1.07)}22%,100%{transform:scale(1)}}
-.tb-fan-tl{animation:tbFanTL 3.5s ease-out infinite}
-.tb-fan-tr{animation:tbFanTR 3.5s ease-out infinite}
-.tb-fan-b{animation:tbFanB 3.5s ease-out infinite}
-.tb-stamp-ctr{animation:tbStamp 3.5s ease-in-out infinite;transform-origin:71px 49px}
-
-/* Card 3: Peer cluster — center pulses, peers connect */
-@keyframes tbPulseCtr{0%,100%{opacity:.72}50%{opacity:1}}
-@keyframes tbConn{0%,22%{stroke-dashoffset:60;opacity:0}55%,85%{stroke-dashoffset:0;opacity:.38}98%,100%{stroke-dashoffset:60;opacity:0}}
-@keyframes tbPeer{0%,30%{opacity:0}58%,85%{opacity:1}98%,100%{opacity:0}}
-.tb-ctr-dot{animation:tbPulseCtr 2s ease-in-out infinite}
-.tb-c1{animation:tbConn 4s ease-in-out infinite}
-.tb-c2{animation:tbConn 4s ease-in-out .2s infinite}
-.tb-c3{animation:tbConn 4s ease-in-out .4s infinite}
-.tb-p1,.tb-p2,.tb-p3{animation:tbPeer 4s ease-in-out infinite}
-.tb-p2{animation-delay:.15s}.tb-p3{animation-delay:.3s}
-
-/* Card 4: Multilingual — playbook fans into translated copies */
-@keyframes tbBookES{0%,18%{transform:translate(-8px,3px);opacity:0}48%,80%{transform:translate(0,0);opacity:1}96%,100%{transform:translate(-8px,3px);opacity:0}}
-@keyframes tbBookRO{0%,28%{transform:translate(-8px,-3px);opacity:0}60%,80%{transform:translate(0,0);opacity:1}96%,100%{transform:translate(-8px,-3px);opacity:0}}
-.tb-book-es{animation:tbBookES 4s ease-out infinite}
-.tb-book-ro{animation:tbBookRO 4s ease-out infinite}
-
-@media(max-width:1200px){.toolbox-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.toolbox-grid{grid-template-columns:1fr}}
-
-/* ── Sponsor hero with cobe globe ── */
-.sponsor-hero{position:relative;background:var(--warm-navy);overflow:hidden;padding:14vh 6vw 12vh;min-height:92vh;display:flex;align-items:center;isolation:isolate}
-.sponsor-hero .hero-aurora{position:absolute;inset:-20%;pointer-events:none;z-index:0;overflow:hidden;opacity:.45}
-.sh-grid{
-  display:grid;
-  grid-template-columns:minmax(340px,640px) 1fr;
-  align-items:start;
-  max-width:1240px;width:100%;
-  margin:0 auto;
-  position:relative;z-index:2;
-  gap:4vw;
-}
-.sh-text{color:rgba(250,248,245,.95);max-width:640px;position:relative;z-index:3;display:flex;flex-direction:column;gap:28px}
-.sh-text > *{margin:0}
-.sh-title{font-family:var(--display);font-size:clamp(40px,6vw,80px);font-weight:700;letter-spacing:-.035em;line-height:1.04;color:rgba(250,248,245,.97)}
-.sh-title em{font-style:italic;font-weight:700}
-.sh-sub{font-family:var(--body);font-size:clamp(16px,1.22vw,19px);line-height:1.65;color:rgba(250,248,245,.78);max-width:560px}
-.sh-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:4px}
-.sh-globe{
-  position:relative;
-  justify-self:end;
-  align-self:end;
-  width:min(520px,36vw);
-  aspect-ratio:1/1;
-  max-width:none;
-  filter:drop-shadow(0 0 80px rgba(0,92,232,.18));
-  opacity:.28;
-  z-index:1;
-  pointer-events:auto;
-}
-#mm-globe{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease-out;contain:layout paint size}
-
-/* ── Three Areas (bento) ── */
-.areas-bento{max-width:1280px;margin:5vh auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
-.bento-card{
-  background:#0a0a0a;border:1px solid rgba(255,255,255,.07);border-radius:22px;
-  padding:22px 22px 20px;display:flex;flex-direction:column;gap:14px;color:#fff;
-  position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;
-  box-shadow:0 14px 46px rgba(10,10,10,.16);
-}
-.bento-card:hover{border-color:rgba(255,255,255,.16);transform:translateY(-2px)}
-.bento-card.bento-feat{
-  border-color:rgba(255,255,255,.12);
-  background:
-    linear-gradient(#0a0a0a,#0a0a0a) padding-box,
-    linear-gradient(120deg,rgba(0,92,232,.6),rgba(0,196,249,.45),rgba(255,107,53,.55),rgba(246,54,0,.45)) border-box;
-  border:1px solid transparent;
-}
-.bento-vis{height:136px;margin:-6px -6px 6px;border-radius:16px;background:radial-gradient(circle at 35% 32%,rgba(0,196,249,.10),transparent 70%),linear-gradient(160deg,#0F1E3C,#040814);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
-.bento-vis-img{padding:0;background:#000}
-.bento-vis-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-.bento-vis-label{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.68)}
-.bento-vis-pill{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.22);font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:5px 10px;border-radius:99px;color:#fff;font-weight:600;z-index:2}
-.bento-tag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.62)}
-.bento-h{font-family:var(--display);font-weight:650;font-size:clamp(16px,1.45vw,20px);letter-spacing:-.01em;color:rgba(255,255,255,.96);line-height:1.15}
-.bento-p{font-family:var(--body);font-size:14px;line-height:1.55;color:rgba(255,255,255,.72)}
-.bento-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
-.bento-list li{font-family:var(--body);font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.78)}
-.bento-cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:#fff;font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.01em;text-decoration:none;padding:10px 18px;border-radius:99px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(255,107,53,.32)}
-.bento-cta:hover{background:var(--orange);transform:translateY(-1px);box-shadow:0 8px 26px rgba(255,107,53,.42)}
-.bento-note{display:flex;align-items:flex-start;gap:.55rem;background:rgba(155,182,255,.06);border:1px solid rgba(155,182,255,.22);border-radius:10px;padding:9px 11px;margin-top:auto;font-size:12px;line-height:1.45;color:rgba(255,255,255,.86);text-decoration:none}
-.bento-note-tag{flex-shrink:0;font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;background:#9bb6ff;color:#040814;padding:2px 6px;border-radius:99px;margin-top:1px;font-weight:800}
-
-.bento-partner{margin-top:auto;display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:14px;background:linear-gradient(160deg,rgba(0,196,249,.10),rgba(0,92,232,.04));border:1px solid rgba(0,196,249,.22);position:relative;overflow:hidden}
-.bento-partner::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(0,196,249,.18),transparent 65%);filter:blur(18px);pointer-events:none}
-.bento-partner > *{position:relative;z-index:1}
-.bento-partner-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.bp-pill{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.16);font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:5px 10px;border-radius:99px;color:#fff}
-.bp-url{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
-.bento-partner-vision{font-family:var(--display);font-style:italic;font-weight:500;font-size:13px;line-height:1.5;color:rgba(255,255,255,.92)}
-.bento-partner-feats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.bp-feat{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 9px}
-.bp-feat svg{width:16px;height:16px;stroke:rgba(255,255,255,.9);fill:none;stroke-width:1.8;flex-shrink:0}
-.bp-feat span{font-family:var(--body);font-size:11.5px;color:rgba(255,255,255,.78);line-height:1.2}
-.bp-cta{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;text-decoration:none;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);padding:9px 12px;border-radius:999px;transition:transform .18s,background .18s,border-color .18s}
-.bp-cta:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
-
-@media(max-width:1200px){.areas-bento{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.areas-bento{grid-template-columns:1fr}}
-
-/* ── Phases (Option B: accordion list) ── */
-.phase-list{display:flex;flex-direction:column;gap:14px;margin-top:4vh}
-details.phase{
-  border-radius:22px;background:#fff;border:1px solid rgba(28,31,46,.10);
-  box-shadow:0 2px 16px rgba(28,31,46,.06);overflow:hidden;
-}
-details.phase[open]{box-shadow:0 16px 52px rgba(28,31,46,.10)}
-details.phase summary{
-  list-style:none;cursor:pointer;padding:18px 18px;
-  display:flex;align-items:flex-start;gap:14px;
-}
+/* ── invitation accordion (Option B) ── */
+.phase-list{margin-top:5vh;display:grid;gap:14px}
+details.phase{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 14px rgba(28,31,46,.05);transition:.2s}
+details.phase[open]{box-shadow:0 12px 40px rgba(28,31,46,.1)}
+details.phase.feat{border-color:var(--ink);border-width:2px}
+details.phase summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 26px}
 details.phase summary::-webkit-details-marker{display:none}
-.ph-badge{
-  flex-shrink:0;
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
-  padding:7px 10px;border-radius:999px;
-  background:rgba(0,92,232,.06);border:1px solid rgba(0,92,232,.18);color:rgba(28,31,46,.78);
-}
-.ph-main{min-width:0;flex:1;display:flex;flex-direction:column;gap:6px}
-.ph-title{font-family:var(--display);font-size:18px;font-weight:650;letter-spacing:-.01em;color:rgba(28,31,46,.92);line-height:1.15}
-.ph-sub{font-family:var(--body);font-size:13.5px;line-height:1.5;color:var(--text-mid)}
-.ph-meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(28,31,46,.52)}
-.ph-cta{margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.ph-cta .pill{
-  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  padding:7px 10px;border-radius:999px;border:1px solid rgba(28,31,46,.12);background:#fff;color:rgba(28,31,46,.72)
-}
-.phase-body{padding:0 18px 18px;border-top:1px solid rgba(28,31,46,.08)}
-.phase-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:16px}
-.phase-box{border-radius:18px;border:1px solid rgba(28,31,46,.10);background:#fff;padding:16px}
-.phase-box h4{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,31,46,.62);margin-bottom:10px}
-.phase-box ul{margin:0;padding-left:18px;color:rgba(28,31,46,.82)}
-.phase-box li{margin:6px 0;font-family:var(--body);font-size:13.5px;line-height:1.45}
-.progress{height:10px;border-radius:999px;background:rgba(28,31,46,.08);overflow:hidden;border:1px solid rgba(28,31,46,.10)}
-.progress-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),rgba(255,107,53,.92))}
-.phase-next{display:flex;flex-direction:column;gap:8px}
-.phase-next .step{display:flex;gap:10px;align-items:flex-start}
-.phase-next .dot{width:22px;height:22px;border-radius:999px;background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.22);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:rgba(28,31,46,.75);flex-shrink:0;margin-top:1px}
-.phase-next p{margin:0;font-family:var(--body);font-size:13.5px;line-height:1.45;color:rgba(28,31,46,.82)}
-.trust-block{margin-top:18px;border-radius:22px;background:linear-gradient(180deg,rgba(0,92,232,.05),rgba(255,107,53,.03));border:1px solid rgba(28,31,46,.10);padding:18px}
-.trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
-.trust-card{border-radius:18px;background:#fff;border:1px solid rgba(28,31,46,.10);padding:14px}
-.trust-card b{font-family:var(--display);font-size:14px;font-weight:650;color:rgba(28,31,46,.9)}
-.trust-card p{margin:6px 0 0;font-family:var(--body);font-size:13.5px;line-height:1.45;color:var(--text-mid)}
-.qa-list{display:flex;flex-direction:column;gap:12px;margin-top:22px}
-details.qa{border-radius:18px;background:#fff;border:1px solid rgba(28,31,46,.10);box-shadow:0 2px 14px rgba(28,31,46,.05);overflow:hidden}
-details.qa summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:12px}
-details.qa summary::-webkit-details-marker{display:none}
-.qk{width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,92,232,.06);border:1px solid rgba(0,92,232,.18);color:rgba(28,31,46,.75)}
-.qtitle{font-family:var(--display);font-size:15px;font-weight:650;color:rgba(28,31,46,.92);letter-spacing:-.01em}
-.qa-body{padding:0 16px 14px;border-top:1px solid rgba(28,31,46,.08);font-family:var(--body);font-size:13.5px;line-height:1.55;color:var(--text-mid)}
-@media(max-width:980px){
-  .phase-grid{grid-template-columns:1fr}
-  .trust-grid{grid-template-columns:1fr}
-}
-@media(max-width:920px){
-  .sponsor-hero{min-height:auto;padding:11vh 6vw 8vh;overflow:hidden}
-  .sh-grid{grid-template-columns:1fr}
-  .sh-text{margin:0 auto;text-align:center;max-width:520px;gap:22px}
-  .sh-sub{margin-left:auto;margin-right:auto}
-  .sh-ctas{justify-content:center}
-  .sh-globe{justify-self:center;align-self:center;width:min(540px,92vw);opacity:.22;pointer-events:auto}
+.ph-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ph-title{font-family:var(--display);font-size:clamp(19px,1.8vw,24px);font-weight:600;margin:6px 0}
+.ph-price{font-family:var(--display);font-size:22px;font-weight:600;color:var(--coral)}
+.ph-promise{font-size:14.5px;line-height:1.5;color:var(--mid);max-width:54ch;margin-top:8px}
+.ph-toggle{font-family:var(--display);font-size:26px;color:var(--muted);line-height:1;transition:transform .2s}
+details.phase[open] .ph-toggle{transform:rotate(45deg)}
+.ph-body{padding:0 26px 26px;border-top:1px solid var(--line)}
+.ph-grp{margin-top:18px}
+.ph-grp-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ph-body ul{list-style:none;display:grid;gap:8px}
+.ph-body li{font-size:14px;color:var(--mid);padding-left:18px;position:relative}
+.ph-body li::before{content:'·';position:absolute;left:5px;color:var(--coral);font-weight:700}
+.goal-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.goal-row b{font-family:var(--display);font-size:18px}
+.progress{height:8px;border-radius:99px;background:var(--stone);overflow:hidden}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-lt))}
+.private-note{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;border-left:2px solid var(--line);padding-left:10px}
+.trust-block{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.trust-block .ph-grp-lbl{color:var(--coral)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+.trust-card b{font-family:var(--display);font-size:16px;display:block;margin-bottom:6px}
+.trust-card p{font-size:13px;line-height:1.5;color:var(--mid)}
+
+/* ── partner tiles ── */
+.partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.6vw;margin-top:5vh}
+.partner{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:0 2px 14px rgba(28,31,46,.05)}
+.partner .pn{font-family:var(--display);font-size:18px;font-weight:600}
+.partner .pr{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);margin:6px 0 10px}
+.partner p{font-size:13px;line-height:1.55;color:var(--mid)}
+.partner .cat{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:4px 10px}
+
+/* ── the ask / give box ── */
+.give-box{max-width:540px;margin:5vh auto 0;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:0 14px 50px rgba(28,31,46,.12);padding:32px}
+.give-seg{display:flex;gap:6px;background:var(--sand);border-radius:99px;padding:5px;margin-bottom:22px}
+.give-seg button{flex:1;border:none;background:transparent;font-family:var(--body);font-size:14px;font-weight:600;color:var(--mid);padding:11px;border-radius:99px;cursor:pointer;transition:.2s}
+.give-seg button.sel{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(28,31,46,.12)}
+.give-amts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.give-amts button{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:18px 8px;font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink);cursor:pointer;transition:.18s}
+.give-amts button:hover{border-color:var(--coral)}
+.give-amts button.sel{border-color:var(--coral);background:rgba(255,107,53,.07);box-shadow:0 0 0 3px rgba(255,107,53,.12)}
+.give-custom{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:15px 16px;font-family:var(--body);font-size:15px;margin-bottom:18px}
+.give-custom:focus{outline:none;border-color:var(--coral)}
+.give-box .btn-primary{width:100%}
+.give-note{text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:.02em}
+
+/* ── contact ── */
+.cta-section{background:var(--warm-navy);color:#fff;text-align:center}
+.cta-section h2{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:600;letter-spacing:-.02em;max-width:16ch;margin:0 auto 18px}
+.cta-section p{color:rgba(255,255,255,.72);max-width:56ch;margin:0 auto 30px;line-height:1.6}
+.contact-paths{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+.cpath{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px 22px;color:#fff;text-decoration:none;font-size:14px;transition:.2s}
+.cpath:hover{background:rgba(255,255,255,.12)}
+
+/* ── video modal ── */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(15,30,60,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:5vw}
+.modal.open{display:flex}
+.modal-card{background:#000;border-radius:var(--r);overflow:hidden;max-width:820px;width:100%;aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-family:var(--mono);font-size:13px;background:linear-gradient(135deg,#0F1E3C,#04060e)}
+.modal-close{position:absolute;top:14px;right:16px;color:#fff;font-size:26px;cursor:pointer;background:none;border:none;z-index:2}
+
+footer{background:#14182a;color:rgba(255,255,255,.6);padding:40px 7vw;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+@media(max-width:900px){
+  .nav-links a:not(.btn-nav){display:none}
+  .grid-3,.stepper,.steward-grid,.founder,.trust-grid{grid-template-columns:1fr}
+  .proof-grid{grid-template-columns:1fr}
+  section{padding:70px 7vw}
 }
 </style>
 </head>
-<body class="flow-bg">
-<nav id="site-nav">
-  <a class="nav-logo" href="./index.html">
-    <img src="./images/logo.png" alt="Missionary Media">
-    <span>Missionary Media</span>
-  </a>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="./index.html"><img src="./images/logo.png" alt="Missionary Media" onerror="this.style.display='none'"><span>Missionary Media</span></a>
   <div class="nav-links">
     <a href="./index.html">Missionaries</a>
-    <a href="#areas">The Areas</a>
-    <a href="#matrix">Reality</a>
-    <a href="#tiers">Phases</a>
-    <a href="#contact" class="btn-nav">
-      <i data-lucide="calendar" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"></i>
-      Partner Call
-    </a>
+    <a href="#areas">Areas</a>
+    <a href="#gap">Reality</a>
+    <a href="#invitation">Phases</a>
+    <a href="#contact">Contact</a>
+    <a class="btn-nav" href="#invitation">Sponsor</a>
   </div>
 </nav>
-<section id="hero" class="sponsor-hero">
-  <div class="hero-aurora"></div>
-  <div class="sh-grid">
-    <div class="sh-text">
-      <div class="hero-badge"><span class="dot"></span>Now inviting founding ministry partners</div>
-      <h1 class="sh-title">Pay it forward for a missionary's <em>digital care.</em></h1>
-      <p class="sh-sub">Sponsor what's live today, and help build what's next: the Online School and the Trusted Help Network (IT + creative support).</p>
-      <div class="sh-ctas">
-        <a href="#schedule" class="btn-primary" style="display:inline-flex">Schedule a 30-minute partner call<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        <a href="#tiers" class="btn-ghost" style="display:inline-flex">See the sponsorship model ↓</a>
+
+<main>
+
+  <!-- 1 HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-aurora"></div>
+    <div class="hero-inner">
+      <div class="hero-badge"><span>●</span> Now inviting founding ministry partners</div>
+      <h1>Multiply gospel impact <span class="gt">through technology.</span></h1>
+      <p class="lead">Sponsor what exists now, and help build what's still needed — so missionaries aren't carrying the digital side of ministry alone.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#invitation">Become a Sponsor</a>
+        <a class="btn btn-ghost" href="#areas">See our impact</a>
       </div>
     </div>
-    <div class="sh-globe">
-      <canvas id="mm-globe" aria-label="Globe showing active missionary fields"></canvas>
+  </section>
+
+  <!-- 2 MISSION (kept per Tabor) -->
+  <section id="mission" class="s-tint">
+    <div class="eyebrow">The Mission</div>
+    <h2 class="s-title">Digital care is part of <span class="gt">missionary care.</span></h2>
+    <p class="s-sub">When communication breaks down, relationships drift and missionaries carry more weight alone. When it works, churches pray with names in mind, partners understand the work, and the missionary is less alone.</p>
+    <p class="s-sub" style="font-family:var(--display);font-style:italic;font-size:clamp(19px,2vw,26px);color:var(--ink);max-width:30ch;margin-top:28px">"We're not trying to get money from people. We're inviting God's people into God's work."</p>
+  </section>
+
+  <!-- 4 THE GAP (+ folded Digital Reality Matrix) -->
+  <section id="gap" class="s-mid">
+    <div class="eyebrow">The Gap We're Closing</div>
+    <h2 class="s-title">The tools exist. The trusted guide usually does not.</h2>
+    <p class="s-sub">The friction isn't motivation. It's time, risk, and not knowing the next right step. In their own words:</p>
+    <div class="proof-grid">
+      <div class="proof-tile"><div class="proof-icn">💬</div><div class="proof-q">"I don't even have a go-to."</div><div class="proof-d">No trusted next step in the moment.</div></div>
+      <div class="proof-tile"><div class="proof-icn">⏳</div><div class="proof-q">"It eats my week."</div><div class="proof-d">The digital work expands into everything.</div></div>
+      <div class="proof-tile"><div class="proof-icn">🛡️</div><div class="proof-q">"I don't know what's safe."</div><div class="proof-d">Security decisions are real decisions.</div></div>
     </div>
-  </div>
-</section>
-<!-- 2) Mission -->
-<section id="mission" class="s-tint">
-  <div class="ch"><span>The Mission</span></div>
-  <h2 class="s-title">Digital care is part of missionary care.</h2>
-  <p class="s-sub">When communication breaks down, relationships drift and missionaries carry more weight alone. When communication works, churches pray with names in mind, partners understand the work, and missionaries are less alone.</p>
-  <div class="quote-block"><blockquote>We are not trying to get money from people. We are inviting God's people into God's work.</blockquote><span class="qcite">Support-raising principle</span></div>
-</section>
 
-<!-- 3) Three Areas -->
-<section id="areas" class="s-mid">
-  <div class="ch"><span>Three Areas · What Missionary Media Offers</span></div>
-  <h2 class="s-title">Three areas of care — what each one actually gives a missionary.</h2>
-  <p class="s-sub">This is the what. How it’s funded comes later.</p>
-  <div class="areas-bento">
-    <article class="bento-card bento-01" data-stage="s1">
-      <div class="bento-vis bento-vis-img">
-        <img src="./images/missionary-connect.jpg" alt="MissionaryConnect.app — interactive globe + missions map + detailed profiles" loading="lazy"/>
-        <span class="bento-vis-label">MissionaryConnect.app</span>
-      </div>
-      <div class="bento-tag">Area 01 · The Home Connection</div>
-      <h3 class="bento-h">Stay close to the people who send you — without it eating your week.</h3>
-      <p class="bento-p">Simple, repeatable communication rhythms from the field.</p>
-      <ul class="bento-list">
-        <li>Prayer-letter + video-update rhythms from a phone</li>
-        <li>One home base supporters follow (partner: MissionaryConnect.app)</li>
-        <li>Coaching on what to send, how often</li>
-      </ul>
-      <div class="bento-partner">
-        <div class="bento-partner-head"><span class="bp-pill">Partner Spotlight</span><span class="bp-url">missionaryconnect.app</span></div>
-        <div class="bento-partner-vision">A live home base for every missionary the church supports — one profile, one map, one place supporters can pray, give, and stay close.</div>
-        <div class="bento-partner-feats">
-          <div class="bp-feat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg><span>3D Globe</span></div>
-          <div class="bp-feat"><svg viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15"/><path d="M15 6v15"/></svg><span>Missions Map</span></div>
-          <div class="bp-feat"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><span>Profiles</span></div>
-        </div>
-        <a href="https://missionaryconnect.app/" target="_blank" rel="noopener" class="bp-cta">Visit MissionaryConnect
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </article>
-
-    <article class="bento-card bento-02 bento-feat" data-stage="s2">
-      <div class="bento-vis bento-vis-img">
-        <img src="./images/online-school-workshops.png?v=20260527" alt="Missionary Media Online School — workshops preview" loading="lazy"/>
-        <span class="bento-vis-pill">In development</span>
-      </div>
-      <div class="bento-tag">Area 02 · Online School</div>
-      <h3 class="bento-h">You don’t have to become the media person.</h3>
-      <p class="bento-p">Built so a pastor can hand it to a church member or spouse.</p>
-      <ul class="bento-list">
-        <li>Ready-to-run workflows + systems, not just lessons</li>
-        <li>Built so a pastor hands it to a church member or spouse</li>
-        <li>Pastor track to oversee · pro tracks to hand off, built to translate across contexts</li>
-      </ul>
-      <a href="#tiers" class="bento-cta">See Phase 2 (Kickstart)
-        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-      </a>
-    </article>
-
-    <article class="bento-card bento-03" data-stage="s3">
-      <div class="bento-vis bento-vis-img">
-        <img src="./images/trusted-help-directory.png?v=20260527b" alt="Trusted Help Directory — filters for language, region, skill, availability, and safe-mode matching" loading="lazy"/>
-      </div>
-      <div class="bento-tag">Area 03 · Trusted Help</div>
-      <h3 class="bento-h">A vetted pro for the jobs past tutorials.</h3>
-      <p class="bento-p">A vetted, paid pro — only when you need it.</p>
-      <ul class="bento-list">
-        <li>Native-speaking, culture-aware creatives</li>
-        <li>Professional IT + technical AV</li>
-        <li>Vetted and paid — only when you need it</li>
-      </ul>
-      <div class="bento-note"><span class="bento-note-tag">Boundary</span>Expert help for hard jobs — not the tutorial layer.</div>
-    </article>
-  </div>
-</section>
-
-<!-- 4) The Gap -->
-<section id="gap" class="s-mid">
-  <div class="ch"><span>The Gap</span></div>
-  <h2 class="s-title">The tools exist. The trusted guide is the missing piece.</h2>
-  <p class="s-sub">The friction isn’t motivation. It’s time, risk, and not knowing the next right step.</p>
-  <div class="proof-grid" style="margin-top:4vh">
-    <div class="proof-tile"><div class="proof-check gold"><i data-lucide="message-circle"></i></div><div class="proof-label">“I don’t even have a go-to.”</div><div class="proof-detail">No trusted next step in the moment.</div></div>
-    <div class="proof-tile"><div class="proof-check"><i data-lucide="clock"></i></div><div class="proof-label">“It eats my week.”</div><div class="proof-detail">The digital work expands into everything.</div></div>
-    <div class="proof-tile"><div class="proof-check"><i data-lucide="shield"></i></div><div class="proof-label">“I don’t know what’s safe.”</div><div class="proof-detail">Security decisions are real decisions.</div></div>
-  </div>
-  <p class="s-sub" style="margin-top:3vh">Next, a simple comparison of what churches often picture vs what many missionaries actually work from.</p>
-</section>
-
-<!-- 5) Tech Reality Matrix -->
-<section id="matrix" class="s-tint">
-  <div class="ch"><span>The Tech Reality Matrix</span></div>
-  <h2 class="s-title">Missionary Media is built for the right column.</h2>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:2vh">
-    <button type="button" class="btn-ghost" id="matrix-view-funnel" style="display:inline-flex;padding:10px 16px;border-radius:999px">Funnel view</button>
-    <button type="button" class="btn-ghost" id="matrix-view-matrix" style="display:inline-flex;padding:10px 16px;border-radius:999px">Matrix view</button>
-  </div>
-  <div class="market-funnel">
-    <div class="mf outer"><div><div class="mf-n" style="color:var(--ink)">Assumed</div><div class="mf-tag">Church-office setup</div></div><div class="mf-body"><div class="mf-desc">MacBook Pro, high-speed office Wi-Fi, Adobe Creative Suite, media staff, and covered software budgets.</div></div></div>
-    <div class="mf mid"><div><div class="mf-n gb">Actual</div><div class="mf-tag">Field setup</div></div><div class="mf-body"><div class="mf-desc">Aging Windows laptop, older MacBook, or primarily a phone; spotty data, shared Starlink, Canva free tier, CapCut mobile, and out-of-pocket tools.</div></div></div>
-    <div class="mf inner"><div><div class="mf-n gt">What we build for</div><div class="mf-tag">Field reality</div></div><div class="mf-body"><div class="mf-desc">Guidance designed for real field constraints, not the equipment churches assume missionaries have.</div></div><div class="mf-pill">Reality</div></div>
-  </div>
-  <div class="comp-matrix" id="matrix-table" style="display:none;grid-template-columns:1.2fr 1.4fr 1.4fr;margin-top:3.5vh">
-    <div class="comp-row hdr" style="display:grid;grid-template-columns:1.2fr 1.4fr 1.4fr"><span>Category</span><span>Assumed</span><span>Actual</span></div>
-    <div class="comp-row" style="display:grid;grid-template-columns:1.2fr 1.4fr 1.4fr"><span class="comp-name">Device</span><span>Modern laptop + peripherals</span><span>Older laptop or mostly phone</span></div>
-    <div class="comp-row" style="display:grid;grid-template-columns:1.2fr 1.4fr 1.4fr"><span class="comp-name">Internet</span><span>Fast, stable office Wi‑Fi</span><span>Spotty data, shared networks</span></div>
-    <div class="comp-row" style="display:grid;grid-template-columns:1.2fr 1.4fr 1.4fr"><span class="comp-name">Tools</span><span>Paid Adobe + team tools</span><span>Free tiers + “what works”</span></div>
-    <div class="comp-row mm" style="display:grid;grid-template-columns:1.2fr 1.4fr 1.4fr"><span class="comp-name">Support</span><span>Media staff + budget</span><span>Usually solo, stretched thin</span></div>
-  </div>
-  <p class="s-sub" style="margin-top:4vh">For some missionaries, the difficulty is more than convenience. Transparency can carry real risk for visas, national believers, or the work itself. Silence carries a different cost: supporters drift, relationships fade, and the missionary feels the shame of going quiet. Missionary Media does not replace a sending organization's security decisions. It helps missionaries ask the right questions, protect sensitive details, and communicate with wisdom instead of fear.</p>
-</section>
-
-<!-- removed: Three Areas Detail block — duplicate of "Three Areas at a Glance" matrix above. -->
-
-
-<!-- 6) How It Works -->
-<section id="how" class="s-mid">
-  <div class="ch"><span>What Your $65/mo Provides</span></div>
-  <h2 class="s-title">Phase 1: a personal guide and connector for your missionary.</h2>
-  <p class="s-sub">This is what the monthly sponsorship actually delivers to one missionary. The role is the same across all three areas: help them understand the landscape, make a wise decision, and take the next right step. We coach on communication rhythms, provide templates, give privacy guidance, guide website decisions, and make trusted introductions when a project needs specialized help.</p>
-  <div class="comp-matrix" style="grid-template-columns:1.2fr 1.6fr 1.4fr">
-    <div class="comp-row hdr" style="display:grid;grid-template-columns:1.2fr 1.6fr 1.4fr"><span>Step</span><span>Missionary Media Helps With</span><span>What Stays With The Missionary</span></div>
-    <div class="comp-row" style="display:grid;grid-template-columns:1.2fr 1.6fr 1.4fr"><span class="comp-name">Decide</span><span>Clarify the real problem and the safest next step</span><span>Field judgment and sending-organization direction</span></div>
-    <div class="comp-row" style="display:grid;grid-template-columns:1.2fr 1.6fr 1.4fr"><span class="comp-name">Prepare</span><span>Build the message, format, template, or introduction</span><span>The missionary's voice, relationships, and ministry details</span></div>
-    <div class="comp-row mm" style="display:grid;grid-template-columns:1.2fr 1.6fr 1.4fr"><span class="comp-name">Send</span><span>Help the content become clear and usable</span><span>Delivery through tools missionaries may already trust, such as Epistle, TntConnect, or DonorElf</span></div>
-  </div>
-  <p class="s-sub" style="margin-top:4vh">That matters because most missionary communication was designed for institutions. It reports activity, satisfies requirements, and sends the year-end PDF. What keeps supporters praying and giving is friendship, not metrics: a real connection to a person, a place, and the work God is doing there.</p>
-</section>
-
-<!-- 7) Stewardship Math -->
-<section id="stewardship" class="s-dark">
-  <div class="ch warm"><span>The Stewardship Math</span></div>
-  <h2 class="s-title">This is steady, personal care.</h2>
-  <p class="s-sub">Many churches already support a missionary financially. This sponsorship is separate: it funds digital care — practical help so missionaries can stay connected, communicate wisely online, and stop carrying tech decisions alone.</p>
-  <div class="stats-grid" style="margin-top:4.5vh">
-    <div class="stat-box"><span class="l">Typical church support</span><div class="n">$100<span style="font-size:.38em;font-weight:400;opacity:.65">/mo</span></div><p class="d">$1,200/yr toward a missionary’s support budget.</p></div>
-    <div class="stat-box"><span class="l">Digital care sponsorship</span><div class="n">$65<span style="font-size:.38em;font-weight:400;opacity:.65">/mo</span></div><p class="d">$780/yr for coaching, templates, tool guidance, and trusted referrals.</p></div>
-    <div class="stat-box"><span class="l">What it buys</span><div class="n">1</div><p class="d">One missionary supported with a clear, sustainable system they can actually keep.</p></div>
-  </div>
-  <p class="s-sub" style="margin-top:3vh">This is not a promise of outcomes. It is a way to put steady care beside a missionary — so the digital side of ministry does not quietly erode the relationship and the work.</p>
-</section>
-
-<!-- 8) Why Tabor -->
-<section id="tabor" class="s-warm">
-  <div class="ch warm"><span>Why Tabor</span></div>
-  <h2 class="s-title">Guide, translator, and connector.</h2>
-  <div class="founder-layout">
-    <div>
-      <div class="founder-name">Tabor Normoyle</div>
-      <div class="founder-title">Founder · Missionary Media</div>
-      <p class="founder-body">This work has been shaped by extended research, missionary conversations, reviewing existing missionary tools and communication options, and hands-on media work.</p>
-      <p class="founder-body">Those conversations included missionaries and ministry leaders serving in Madagascar, Romania, Portugal, Australia, Burma, Thailand, church planting, missions education, and mission-board leadership.</p>
-      <p class="founder-body">The pattern is consistent. Missionaries do not mainly need to be convinced that digital tools matter. They need someone to help them take the next right step without adding more weight.</p>
-      <p class="founder-body">Tabor's role is to translate the digital landscape into practical missionary decisions, then build the templates, workflows, and relationships that make those decisions usable.</p>
-    </div>
-    <div>
-      <div class="founder-photo-box">
-        <img src="./images/founder-tabor.jpg" alt="Founder photo"/>
-        <span class="ph-lbl">Tabor Normoyle · Founder</span>
-      </div>
-      <div class="founder-stats"><div class="f-stat"><div class="fn gb">Interview-led</div><div class="fl">Missionary input</div></div><div class="f-stat"><div class="fn">3</div><div class="fl">Areas of care</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 9) Invitation / Tiers -->
-<section id="tiers" class="s-deep">
-  <div class="ch"><span>The Invitation</span></div>
-  <h2 class="s-title">Join at the phase that moves the mission forward.</h2>
-  <p class="s-sub">Pick one. I’ll show exactly what it funds and how the money’s handled.</p>
-
-  <div class="phase-list">
-    <details class="phase" data-stage="s1" open>
-      <summary>
-        <span class="ph-badge">Phase 1 · Area 01</span>
-        <div class="ph-main">
-          <div class="ph-title">Sponsor a Missionary</div>
-          <div class="ph-sub">Available now · $65/mo</div>
-          <div class="ph-meta">Put a trusted digital guide beside one missionary today. When a missionary is ready, their digital care can start right away.</div>
-        </div>
-        <div class="ph-cta">
-          <span class="pill">Monthly</span>
-          <a class="btn-ghost" href="#schedule" style="padding:10px 14px;border-radius:999px;font-size:12px">Sponsor a missionary</a>
-        </div>
-      </summary>
-      <div class="phase-body">
-        <div class="phase-box">
-          <h4>Where Funds Go</h4>
-          <ul>
-            <li>Intake + assessment</li>
-            <li>A plan they can keep from the field</li>
-            <li>Templates, tool guidance, communication rhythm</li>
-            <li>Ongoing coaching</li>
-          </ul>
-        </div>
-      </div>
-    </details>
-
-    <details class="phase" data-stage="s2">
-      <summary>
-        <span class="ph-badge">Phase 2 · Area 02</span>
-        <div class="ph-main">
-          <div class="ph-title">Kickstart the Online School</div>
-          <div class="ph-sub">In development · one-time launch pledge</div>
-          <div class="ph-meta">Help build the school so missionaries can hand the digital work off instead of carrying it.</div>
-        </div>
-        <div class="ph-cta">
-          <span class="pill">One-time</span>
-          <a class="btn-ghost" href="#schedule" style="padding:10px 14px;border-radius:999px;font-size:12px">Back the school</a>
-        </div>
-      </summary>
-      <div class="phase-body">
-        <div class="phase-box">
-          <h4>Where Funds Go</h4>
-          <ul>
-            <li>Curriculum (pastor + pro tracks)</li>
-            <li>Production (video, systems, workflows)</li>
-            <li>Translation</li>
-            <li>Platform/LMS build</li>
-            <li>Testing with real missionaries</li>
-          </ul>
-        </div>
-        <p class="s-sub" style="margin-top:14px">We’ll publish vetted launch-goal numbers once the build scope is assessed.</p>
-      </div>
-    </details>
-
-    <details class="phase" data-stage="s3">
-      <summary>
-        <span class="ph-badge">Phase 3 · Area 03</span>
-        <div class="ph-main">
-          <div class="ph-title">Build the Trusted Help Network</div>
-          <div class="ph-sub">In build · one-time launch pledge</div>
-          <div class="ph-meta">Help stand up the vetted network missionaries call when a job’s past tutorials.</div>
-        </div>
-        <div class="ph-cta">
-          <span class="pill">One-time</span>
-          <a class="btn-ghost" href="#schedule" style="padding:10px 14px;border-radius:999px;font-size:12px">Back the network</a>
-        </div>
-      </summary>
-      <div class="phase-body">
-        <div class="phase-box">
-          <h4>Where Funds Go</h4>
-          <ul>
-            <li>Platform build (profiles, matching, payments)</li>
-            <li>Vetting + initial recruiting</li>
-            <li>Trust &amp; safety + onboarding</li>
-          </ul>
-        </div>
-        <p class="s-sub" style="margin-top:14px">We’ll publish vetted launch-goal numbers once the build scope is assessed.</p>
-      </div>
-    </details>
-
-    <details class="phase" data-stage="sf">
-      <summary>
-        <span class="ph-badge">Founding · All Areas</span>
-        <div class="ph-main">
-          <div class="ph-title">All three phases — private call</div>
-          <div class="ph-sub">Some partners want to shape the whole thing. That’s a conversation, not a checkout.</div>
-          <div class="ph-meta">Operating-engine financials are shared on the call, not posted publicly.</div>
-        </div>
-        <div class="ph-cta">
-          <span class="pill">Call</span>
-          <a class="btn-primary" href="#schedule" style="padding:10px 14px;border-radius:999px;font-size:12px;display:inline-flex">Start a private call</a>
-        </div>
-      </summary>
-      <div class="phase-body">
-        <div class="phase-box">
-          <h4>Call Covers</h4>
-          <ul>
-            <li>Scope across all areas + operating engine</li>
-            <li>Scholarship capacity, long-term infrastructure</li>
-            <li>Custom path</li>
-          </ul>
-        </div>
-      </div>
-    </details>
-  </div>
-
-  <div class="trust-block">
-    <div class="ch" style="justify-content:flex-start;margin:0"><span>Accountability</span></div>
-    <h3 class="s-title" style="font-size:clamp(20px,2.2vw,28px);margin-top:10px">How giving is handled</h3>
-    <p class="s-sub" style="margin-bottom:0">Monthly giving runs through Givebutter (receipts provided; 501(c)(3) status pending). Launch pledges track to public goals, Kickstarter-style — you can watch the line move. We’ll keep a clear reporting cadence with regular updates on what your giving built.</p>
-    <div class="trust-grid">
-      <div class="trust-card">
-        <b>Monthly giving</b>
-        <p>Givebutter — receipts provided (501(c)(3) status pending).</p>
-      </div>
-      <div class="trust-card">
-        <b>Launch pledges</b>
-        <p>Tracked to public goals, Kickstarter-style — you watch the line move.</p>
-      </div>
-      <div class="trust-card">
-        <b>Reporting cadence</b>
-        <p>Regular updates on what your giving built.</p>
+    <!-- 5 Digital Reality Matrix — folded in -->
+    <div style="margin-top:6vh">
+      <div class="eyebrow">The Digital Reality Matrix</div>
+      <h2 class="s-title" style="font-size:clamp(22px,2.6vw,32px)">What churches assume vs. what's real.</h2>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <tr><th>Capability</th><th>Church assumes</th><th>Field reality</th></tr>
+          <tr><td>Equipment</td><td>MacBook Pro, office Wi-Fi</td><td>Aging laptop or just a phone, spotty data</td></tr>
+          <tr><td>Software</td><td>Full Adobe suite, paid tools</td><td>Canva free tier, CapCut mobile, out of pocket</td></tr>
+          <tr><td>People</td><td>A media or comms person</td><td>One missionary or family doing it all</td></tr>
+        </table>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 10) Building Toward -->
-<section id="toward" class="s-mid">
-  <div class="ch"><span>Building Toward</span></div>
-  <h2 class="s-title">The kinds of institutions this work needs.</h2>
-  <p class="s-sub">Missionary digital care does not scale through one founder. These are the categories of partner we are building toward — not commitments, not endorsements, but the table we are working to fill. If your organization fits one of these categories, the door is open.</p>
-  <div class="partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.6vw">
-    <div class="partner-tile"><div class="p-name">Christian colleges &amp; seminaries</div><div class="p-role">Training pipeline</div><p class="p-desc">Schools preparing the next generation of missionaries and pastors for a field that already runs on digital communication.</p><div class="p-status ps-neg">Category</div></div>
-    <div class="partner-tile"><div class="p-name">Mission boards &amp; sending agencies</div><div class="p-role">Structural alignment</div><p class="p-desc">Boards responsible for missionary care who can integrate digital support without duplicating their own systems.</p><div class="p-status ps-neg">Category</div></div>
-    <div class="partner-tile"><div class="p-name">Sending churches</div><div class="p-role">Local ministry context</div><p class="p-desc">Pastors and missions teams who already steward the relationship and want their missionaries equipped beyond the prayer-letter rhythm.</p><div class="p-status ps-neg">Category</div></div>
-    <div class="partner-tile"><div class="p-name">Ministry software &amp; platforms</div><div class="p-role">Tooling alignment</div><p class="p-desc">Software companies whose products missionaries already use or could use — where shared discounts, integrations, or guidance close real field gaps.</p><div class="p-status ps-neg">Category</div></div>
-    <div class="partner-tile"><div class="p-name">Philanthropy &amp; family offices</div><div class="p-role">Founding capacity</div><p class="p-desc">Foundations, family offices, and private giving committed to long-horizon Kingdom infrastructure rather than single-year program funding.</p><div class="p-status ps-neg">Category</div></div>
-  </div>
-</section>
-
-<!-- 11) The Ask -->
-<section id="ask" class="s-warm">
-  <div class="ch warm"><span>The Ask</span></div>
-  <h2 class="s-title">Put steady care beside a missionary.</h2>
-  <p class="s-sub">Pick an amount to begin. Monthly puts a digital guide beside one missionary; one-time backs a phase build. We’re not trying to get money from people — we’re inviting God’s people into God’s work.</p>
-
-  <style>
-    .give-box{max-width:540px;margin:4.5vh auto 0;background:#fff;border:1px solid rgba(28,31,46,.1);border-radius:var(--r);box-shadow:0 10px 44px rgba(28,31,46,.1);padding:30px}
-    .give-seg{display:flex;gap:6px;background:var(--sand);border-radius:999px;padding:5px;margin-bottom:20px}
-    .give-seg button{flex:1;border:none;background:transparent;font-family:var(--body);font-size:14px;font-weight:500;color:var(--text-mid);padding:10px;border-radius:999px;cursor:pointer;transition:all .2s}
-    .give-seg button.sel{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(28,31,46,.12)}
-    .give-amts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-    .give-amts button{border:1.5px solid rgba(28,31,46,.14);background:#fff;border-radius:14px;padding:16px 8px;font-family:var(--display);font-size:21px;font-weight:600;color:var(--ink);cursor:pointer;transition:all .18s}
-    .give-amts button:hover{border-color:var(--coral)}
-    .give-amts button.sel{border-color:var(--coral);background:rgba(255,107,53,.07);box-shadow:0 0 0 3px rgba(255,107,53,.12)}
-    .give-custom{width:100%;border:1.5px solid rgba(28,31,46,.14);border-radius:14px;padding:14px 16px;font-family:var(--body);font-size:15px;margin-bottom:18px;background:#fff}
-    .give-custom:focus{outline:none;border-color:var(--coral)}
-    .give-box .btn-primary{width:100%;justify-content:center}
-    .give-note{text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:14px;letter-spacing:.02em}
-  </style>
-
-  <div class="give-box">
-    <div class="give-seg">
-      <button class="sel" data-freq="monthly">Monthly</button>
-      <button data-freq="once">One-time</button>
+  <!-- 3 THREE AREAS — what's offered -->
+  <section id="areas" class="s-warm">
+    <div class="eyebrow">Three Areas · What Missionary Media Offers</div>
+    <h2 class="s-title">Three areas of care — what each one actually gives a missionary.</h2>
+    <p class="s-sub">This is the <em>what</em>. How it's funded comes later, in the Invitation.</p>
+    <div class="grid-3">
+      <div class="area-card a1">
+        <div class="area-tag">Area 01 · The Home Connection</div>
+        <div class="area-promise">Stay close to the people who send you — without it eating your week.</div>
+        <ul>
+          <li>Prayer-letter + video-update rhythms from a phone</li>
+          <li>One home base supporters follow (partner: MissionaryConnect.app)</li>
+          <li>Coaching on what to send, and how often</li>
+        </ul>
+      </div>
+      <div class="area-card a2">
+        <div class="area-tag">Area 02 · Online School (Coming 2028)</div>
+        <div class="area-promise">You don't have to become the media person.</div>
+        <ul>
+          <li>Ready-to-run workflows + systems, not just lessons</li>
+          <li>Built so a pastor hands it to a church member or spouse</li>
+          <li>Pastor track to oversee · pro tracks to hand off, 5 major languages</li>
+        </ul>
+      </div>
+      <div class="area-card a3">
+        <div class="area-tag">Area 03 · Trusted Help</div>
+        <div class="area-promise">A vetted pro for the jobs past tutorials.</div>
+        <ul>
+          <li>Native-speaking, culture-aware creatives</li>
+          <li>Professional IT + technical AV</li>
+          <li>Vetted and paid — only when you need it</li>
+        </ul>
+      </div>
     </div>
-    <div class="give-amts">
-      <button data-amt="35">$35</button>
-      <button class="sel" data-amt="65">$65</button>
-      <button data-amt="150">$150</button>
+  </section>
+
+  <!-- 6 WHAT $65/mo PROVIDES -->
+  <section id="how" class="s-mid">
+    <div class="eyebrow">What Your $65/mo Provides · Phase 1</div>
+    <h2 class="s-title">The sponsor experience today: a guide, not an agency.</h2>
+    <p class="s-sub">This is what the monthly sponsorship actually delivers to one missionary.</p>
+    <div class="stepper">
+      <div class="step"><div class="num">1</div><h4>Intake / Assess</h4><p>We look at their real setup and name the next right step.</p></div>
+      <div class="step"><div class="num">2</div><h4>Plan</h4><p>A simple plan they can actually keep from the field.</p></div>
+      <div class="step"><div class="num">3</div><h4>Build / Deliver</h4><p>Templates, tool guidance, and a communication rhythm.</p></div>
+      <div class="step"><div class="num">4</div><h4>Ongoing</h4><p>Coaching as things change — they're never figuring it out alone.</p></div>
     </div>
-    <input class="give-custom" type="text" inputmode="numeric" placeholder="Other amount">
-    <a class="btn-primary" href="#schedule" style="display:inline-flex">Become a Sponsor</a>
-    <div class="give-note">Giving via Givebutter · receipts provided · 501(c)(3) status pending</div>
-  </div>
+  </section>
 
-  <script>
-    document.querySelectorAll('.give-seg, .give-amts').forEach(function(g){
-      g.querySelectorAll('button').forEach(function(b){
-        b.addEventListener('click',function(){
-          g.querySelectorAll('button').forEach(function(x){x.classList.remove('sel')});
-          b.classList.add('sel');
-        });
-      });
-    });
-  </script>
-</section>
+  <!-- 7 STEWARDSHIP MATH (slider) -->
+  <section id="stewardship" class="s-dark">
+    <div class="eyebrow">The Stewardship Math</div>
+    <h2 class="s-title">A small, steady kind of care that compounds.</h2>
+    <div class="steward-grid">
+      <div>
+        <div class="anchor">$65<small>/mo = digital care for 1 missionary</small></div>
+        <p class="s-sub">Separate from a missionary's financial support — this funds the digital side so they stay connected, stay safe online, and stop carrying tech decisions alone.</p>
+      </div>
+      <div class="slider-card">
+        <label>Months of consistent posting: <span class="slider-val" id="moVal">6</span></label>
+        <input type="range" id="moSlider" min="1" max="12" value="6">
+        <div class="metric-row">
+          <div class="metric"><div class="mn" id="mReach">7,200</div><div class="ml">Est. local reach</div></div>
+          <div class="metric"><div class="mn" id="mTouch">240</div><div class="ml">Supporter touches</div></div>
+          <div class="metric"><div class="mn" id="mScore">54%</div><div class="ml">Consistency</div></div>
+        </div>
+        <div class="illus">Illustrative projection — real figures coming from field data.</div>
+      </div>
+    </div>
+  </section>
 
-<!-- ── CTA ── -->
-<section id="contact" class="cta-section">
-  <a id="schedule" style="position:relative;top:-80px"></a>
-  <div class="ch white" style="justify-content:center;margin-bottom:3vh"><span>Start the Partnership</span></div>
-  <h2>Schedule a partner call.</h2>
-  <p>If this fits your church, family, foundation, or organization, start with a conversation. We will show you the missionary need, the sponsorship model, and the kickstart paths. Then you can decide whether God is inviting you to join this work.</p>
-  <a href="#schedule" data-calendar-link class="btn-primary" style="display:inline-flex;margin:0 auto"><i data-lucide="calendar" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"></i>Schedule a 30-minute partner call</a>
-  <div class="contact-grid">
-    <div class="contact-card"><i data-lucide="globe" style="width:22px;height:22px;stroke:var(--blue-lt);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"></i><strong style="font-family:var(--display);font-size:15px">Missionary page</strong><a href="./index.html">See missionary-facing help</a></div>
-    <div class="contact-card"><i data-lucide="mail" style="width:22px;height:22px;stroke:var(--blue-lt);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"></i><strong style="font-family:var(--display);font-size:15px">Email</strong><a href="mailto:missionarymediahub@gmail.com">missionarymediahub@gmail.com</a></div>
-  </div>
-</section>
+  <!-- 8 WHY TABOR -->
+  <section id="tabor" class="s-warm">
+    <div class="eyebrow">Why Missionary Media</div>
+    <h2 class="s-title">Guide, translator, and connector.</h2>
+    <div class="founder">
+      <div>
+        <div class="founder-photo"><img src="./images/founder-tabor.jpg" alt="Tabor Normoyle, Founder" onerror="this.parentElement.style.background='linear-gradient(135deg,#0F1E3C,#005BE8)';this.style.opacity=0"></div>
+        <div class="video-btn" id="playStory"><span class="play">▶</span> Watch: my story (2 min)</div>
+        <div class="proof-strip">
+          <div class="ps"><q>I didn't have the equipment, the software, or the knowledge base.</q><span class="src">— Missionary, research interview</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="founder-name">Tabor Normoyle</div>
+        <div class="founder-role">Founder · Missionary Media</div>
+        <p>For the past five years, I've given my life to one thing — helping missionaries navigate the digital landscape. I've honed the skill set the mission field actually needs, and sacrificed to build this so missionaries don't have to figure it out alone.</p>
+        <ul class="cred">
+          <li>Five years dedicated to missionary digital care</li>
+          <li>Interview-led — ministry leaders across 6 countries</li>
+          <li>Builds the templates, workflows, and relationships — not just advice</li>
+        </ul>
+        <p>The pattern is consistent: missionaries don't need convincing that digital tools matter. They need someone to help them take the next right step without adding more weight.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 INVITATION — Option B accordion (what-happens-next removed per Tabor) -->
+  <section id="invitation" class="s-mid">
+    <div class="eyebrow">The Invitation</div>
+    <h2 class="s-title">Join at the phase that moves the mission forward.</h2>
+    <p class="s-sub">Pick one. I'll show exactly what it funds and how the money's handled. This is the <em>how</em> — the what lives up in the Three Areas.</p>
+
+    <div class="phase-list">
+      <details class="phase" open>
+        <summary>
+          <div>
+            <div class="ph-tag">Phase 1 · Available now · Monthly</div>
+            <div class="ph-title">Sponsor a Missionary</div>
+            <div class="ph-price">$65<span style="font-size:13px;color:var(--muted)">/mo</span></div>
+            <div class="ph-promise">Put a trusted digital guide beside one missionary today. Sponsor today, and their digital care starts tomorrow.</div>
+          </div>
+          <span class="ph-toggle">+</span>
+        </summary>
+        <div class="ph-body">
+          <div class="ph-grp">
+            <div class="ph-grp-lbl">Where your money goes</div>
+            <ul>
+              <li>Intake + assessment of their setup</li>
+              <li>A plan they can actually keep from the field</li>
+              <li>Templates, tool guidance, communication rhythm</li>
+              <li>Ongoing coaching as things change</li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="#contact" style="margin-top:18px">Sponsor a missionary</a>
+        </div>
+      </details>
+
+      <details class="phase">
+        <summary>
+          <div>
+            <div class="ph-tag">Phase 2 · Coming 2028 · One-time launch pledge</div>
+            <div class="ph-title">Kickstart the Online School</div>
+            <div class="ph-price">$70,000 <span style="font-size:13px;color:var(--muted)">goal</span></div>
+            <div class="ph-promise">Help build the school so missionaries can hand the digital work off instead of carrying it.</div>
+          </div>
+          <span class="ph-toggle">+</span>
+        </summary>
+        <div class="ph-body">
+          <div class="ph-grp">
+            <div class="ph-grp-lbl">Launch goal</div>
+            <div class="goal-row"><b>$12,400 raised <span style="font-weight:400;color:var(--muted)">of $70,000</span></b><span style="font-family:var(--mono);font-size:12px;color:var(--muted)">18%</span></div>
+            <div class="progress"><span style="width:18%"></span></div>
+          </div>
+          <div class="ph-grp">
+            <div class="ph-grp-lbl">Where your money goes</div>
+            <ul>
+              <li>Curriculum design (pastor + pro tracks)</li>
+              <li>Course production (video, systems, workflows)</li>
+              <li>Translation into 5 major languages</li>
+              <li>Platform / LMS build</li>
+              <li>Testing with real missionaries</li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="#contact" style="margin-top:18px">Back the school</a>
+        </div>
+      </details>
+
+      <details class="phase">
+        <summary>
+          <div>
+            <div class="ph-tag">Phase 3 · In build · One-time launch pledge</div>
+            <div class="ph-title">Build the Trusted Help Network</div>
+            <div class="ph-price">$60,000 <span style="font-size:13px;color:var(--muted)">goal</span></div>
+            <div class="ph-promise">Help stand up the vetted network missionaries call when a job's past tutorials.</div>
+          </div>
+          <span class="ph-toggle">+</span>
+        </summary>
+        <div class="ph-body">
+          <div class="ph-grp">
+            <div class="ph-grp-lbl">Launch goal</div>
+            <div class="goal-row"><b>$5,300 raised <span style="font-weight:400;color:var(--muted)">of $60,000</span></b><span style="font-family:var(--mono);font-size:12px;color:var(--muted)">9%</span></div>
+            <div class="progress"><span style="width:9%"></span></div>
+          </div>
+          <div class="ph-grp">
+            <div class="ph-grp-lbl">Where your money goes</div>
+            <ul>
+              <li>Platform build (profiles, matching, payments)</li>
+              <li>Vetting system + initial specialist recruiting</li>
+              <li>Trust &amp; safety + onboarding</li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="#contact" style="margin-top:18px">Back the network</a>
+        </div>
+      </details>
+
+      <details class="phase feat">
+        <summary>
+          <div>
+            <div class="ph-tag">Founding Partner · All three phases</div>
+            <div class="ph-title">Shape the whole thing</div>
+            <div class="ph-price">Private call</div>
+            <div class="ph-promise">Some partners want to shape the whole thing. That's a conversation, not a checkout.</div>
+          </div>
+          <span class="ph-toggle">+</span>
+        </summary>
+        <div class="ph-body">
+          <div class="ph-grp">
+            <div class="ph-grp-lbl">What the call covers</div>
+            <ul>
+              <li>Scope across all three areas + the operating engine</li>
+              <li>Scholarship capacity, long-term infrastructure</li>
+              <li>Custom commitment, custom path</li>
+            </ul>
+          </div>
+          <div class="private-note">Operating-engine financials are shared on the call, not posted publicly.</div>
+          <a class="btn btn-primary btn-sm" href="#contact" style="margin-top:18px">Start a private call</a>
+        </div>
+      </details>
+    </div>
+
+    <div class="trust-block">
+      <div class="ph-grp-lbl">How giving is handled</div>
+      <div class="trust-grid">
+        <div class="trust-card"><b>Monthly giving</b><p>Givebutter / Donorbox — tax receipts + accountability built in.</p></div>
+        <div class="trust-card"><b>Launch pledges</b><p>Tracked to public goals, Kickstarter-style — you watch the line move.</p></div>
+        <div class="trust-card"><b>Reporting cadence</b><p>Regular updates on what your giving built.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 BUILDING TOWARD -->
+  <section id="toward" class="s-tint">
+    <div class="eyebrow">Building Toward</div>
+    <h2 class="s-title">The kinds of institutions this work needs.</h2>
+    <p class="s-sub">Digital care doesn't scale through one founder. These are the categories of partner we're building toward — not commitments, not endorsements, but the table we're working to fill.</p>
+    <div class="partner-grid">
+      <div class="partner"><div class="pn">Christian colleges &amp; seminaries</div><div class="pr">Training pipeline</div><p>Preparing the next generation for a field that already runs on digital communication.</p><span class="cat">Category</span></div>
+      <div class="partner"><div class="pn">Mission boards &amp; agencies</div><div class="pr">Structural alignment</div><p>Boards responsible for missionary care who can integrate digital support.</p><span class="cat">Category</span></div>
+      <div class="partner"><div class="pn">Sending churches</div><div class="pr">Local context</div><p>Teams who steward the relationship and want missionaries equipped beyond the prayer letter.</p><span class="cat">Category</span></div>
+      <div class="partner"><div class="pn">Ministry software</div><div class="pr">Tooling alignment</div><p>Products missionaries already use — where discounts and integrations close real gaps.</p><span class="cat">Category</span></div>
+      <div class="partner"><div class="pn">Philanthropy &amp; family offices</div><div class="pr">Founding capacity</div><p>Giving committed to long-horizon Kingdom infrastructure.</p><span class="cat">Category</span></div>
+    </div>
+  </section>
+
+  <!-- 11 THE ASK — pledge box (per Tabor, replaces 4-Q Q&A) -->
+  <section id="ask" class="s-warm center">
+    <div class="eyebrow" style="justify-content:center">The Ask</div>
+    <h2 class="s-title">Put steady care beside a missionary.</h2>
+    <p class="s-sub">Pick an amount to begin. Monthly puts a digital guide beside one missionary; one-time backs a phase build.</p>
+    <div class="give-box">
+      <div class="give-seg">
+        <button class="sel" data-freq="monthly">Monthly</button>
+        <button data-freq="once">One-time</button>
+      </div>
+      <div class="give-amts">
+        <button data-amt="35">$35</button>
+        <button class="sel" data-amt="65">$65</button>
+        <button data-amt="150">$150</button>
+      </div>
+      <input class="give-custom" type="text" inputmode="numeric" placeholder="Other amount">
+      <a class="btn btn-primary" href="#contact">Become a Sponsor</a>
+      <div class="give-note">Secure giving via Givebutter / Donorbox · tax-deductible</div>
+    </div>
+  </section>
+
+  <!-- 12 CONTACT -->
+  <section id="contact" class="cta-section">
+    <div class="eyebrow" style="justify-content:center;color:rgba(255,255,255,.7)">Start the Partnership</div>
+    <h2>Schedule a partner call.</h2>
+    <p>If this fits your church, family, foundation, or organization, start with a conversation. We'll show you the need, the model, and the kickstart paths — then you decide whether God is inviting you to join this work.</p>
+    <a class="btn btn-primary" href="#" data-calendar>Schedule a 30-minute partner call</a>
+    <div class="contact-paths">
+      <a class="cpath" href="#">📅 Book a call</a>
+      <a class="cpath" href="#">🚀 Back us on Kickstarter</a>
+      <a class="cpath" href="#">↻ Give monthly (Givebutter)</a>
+      <a class="cpath" href="./index.html">← Missionary page</a>
+    </div>
+  </section>
+
+</main>
+
 <footer>
-  <div style="display:flex;align-items:center;gap:12px">
-    <img src="./images/logo.png" style="height:28px;width:auto;opacity:.5" alt="MM">
-    <p>Missionary Media · 2026</p>
-  </div>
-  <p>Pre-launch · nonprofit (501(c)(3) pending) · missionarymedia.org</p>
+  <span>Missionary Media · Pay it forward for a missionary's digital care</span>
+  <span>sponsor-draft-v2 · 2026-05-29</span>
 </footer>
 
+<!-- video modal -->
+<div class="modal" id="storyModal">
+  <button class="modal-close" id="closeModal">×</button>
+  <div class="modal-card">Story video — coming soon (YouTube embed goes here)</div>
+</div>
+
 <script>
-// Icons
-lucide.createIcons();
+  // nav scrolled
+  addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>20));
 
-// ── Sponsor page wiring: phase selection + matrix toggle ──
-(function(){
-  const STAGE_META = {
-    s1: {label:'Phase 1'},
-    s2: {label:'Phase 2'},
-    s3: {label:'Phase 3'},
-    sf: {label:'Founding'}
-  };
+  // give-box selection
+  document.querySelectorAll('.give-seg, .give-amts').forEach(g=>{
+    g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      g.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel');
+    }));
+  });
 
-  let selectedStage = 's1';
-
-  const heroChips = Array.from(document.querySelectorAll('.stage-chips .chip'));
-  const phaseDetails = Array.from(document.querySelectorAll('#tiers details.phase[data-stage]'));
-
-  function highlightPhase(stage){
-    phaseDetails.forEach(d => {
-      const on = d.getAttribute('data-stage') === stage;
-      d.toggleAttribute('open', on);
+  // stewardship slider (illustrative)
+  const sl=document.getElementById('moSlider');
+  if(sl){
+    const fmt=n=>n.toLocaleString();
+    sl.addEventListener('input',()=>{
+      const m=+sl.value;
+      document.getElementById('moVal').textContent=m;
+      document.getElementById('mReach').textContent=fmt(m*1200);
+      document.getElementById('mTouch').textContent=fmt(m*40);
+      document.getElementById('mScore').textContent=Math.min(100,m*9)+'%';
     });
   }
-  function syncStageUI(){
-    heroChips.forEach(c => c.classList.toggle('active', c.getAttribute('data-stage') === selectedStage));
-    highlightPhase(selectedStage);
-  }
 
-  function setStage(stage){
-    if (!STAGE_META[stage]) return;
-    selectedStage = stage;
-    syncStageUI();
-  }
-
-  heroChips.forEach(chip => {
-    const stage = chip.getAttribute('data-stage');
-    chip.addEventListener('click', () => setStage(stage));
-    chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setStage(stage); }});
-  });
-  // Bento area cards can select stage too (no forced scroll)
-  Array.from(document.querySelectorAll('#areas .bento-card[data-stage]')).forEach(card => {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', e => {
-      if (e.target.closest('a, button, input')) return;
-      setStage(card.getAttribute('data-stage'));
-    });
-  });
-  // Clicking a phase row should sync chips too
-  phaseDetails.forEach(d => {
-    d.querySelector('summary')?.addEventListener('click', () => setStage(d.getAttribute('data-stage')));
-  });
-
-  // Matrix toggle (funnel vs table)
-  const btnFunnel = document.getElementById('matrix-view-funnel');
-  const btnMatrix = document.getElementById('matrix-view-matrix');
-  const table = document.getElementById('matrix-table');
-  const funnel = document.querySelector('.market-funnel');
-  function showMatrix(which){
-    const isMatrix = which === 'matrix';
-    if (table) table.style.display = isMatrix ? '' : 'none';
-    if (funnel) funnel.style.display = isMatrix ? 'none' : '';
-    btnFunnel?.classList.toggle('active', !isMatrix);
-    btnMatrix?.classList.toggle('active', isMatrix);
-  }
-  btnFunnel?.addEventListener('click', () => showMatrix('funnel'));
-  btnMatrix?.addEventListener('click', () => showMatrix('matrix'));
-  showMatrix('funnel');
-
-  // init
-  syncStageUI();
-})();
-
-// ── Hero: room-peek camera (grid only) + throw-spin objects ──
-(function(){
-  const floats = [
-    {sel:'.fo-bible',  amp:9,  freq:.88,  phase:0.0, rot:1.2,  depth:-0.7},  // far — upper left
-    {sel:'.fo-laptop', amp:11, freq:.76,  phase:0.7, rot:.5,   depth:0.8},   // near — lower left
-    {sel:'.fo-mic',    amp:8,  freq:1.15, phase:2.1, rot:-1.2, depth:-0.85}, // far — upper right
-    {sel:'.fo-globe',  amp:10, freq:.70,  phase:3.2, rot:0.3,  depth:-0.35}, // mid — right
-    {sel:'.fo-phone',  amp:7,  freq:.92,  phase:1.4, rot:.8,   depth:0.6},   // near — lower right
-    {sel:'.fo-camera', amp:6,  freq:.65,  phase:1.8, rot:.6,   depth:0.4},   // mid — left
-  ].map(o => Object.assign({
-    el:null,
-    grabbed:false,
-    dragX:0, dragY:0,
-    targetX:0, targetY:0,
-    grabSX:0, grabSY:0,
-    grabDX:0, grabDY:0,
-    prevCX:0, prevCY:0,
-    vx:0, vy:0,
-    angle:0, angVel:0
-  }, o, {el:document.querySelector(o.sel)})).filter(o => o.el);
-
-  const hero      = document.getElementById('hero');
-  const heroScene = document.getElementById('hero-scene');
-
-  // ── Tripod camera — pitch (up/down) + yaw (left/right), position fixed ──
-  // Rotates the entire scene so grid + objects pan/tilt together.
-  let camX = 0, velCamX = 0;
-  let camY = 0, velCamY = 0;
-  let camDragging = false;
-  let camPrevX = 0, camPrevY = 0;
-
-  if (hero) {
-    hero.addEventListener('pointerdown', e => {
-      if (e.target.closest('.float-obj, a, button')) return;
-      camDragging = true;
-      camPrevX = e.clientX;
-      camPrevY = e.clientY;
-      hero.classList.add('dragging');
-      hero.setPointerCapture(e.pointerId);
-      e.preventDefault();
-    });
-    hero.addEventListener('pointermove', e => {
-      if (!camDragging) return;
-      velCamX -= (e.clientY - camPrevY) * 0.09;
-      velCamY += (e.clientX - camPrevX) * 0.09;
-      camPrevX = e.clientX;
-      camPrevY = e.clientY;
-    });
-    const stopCam = () => {
-      if (!camDragging) return;
-      camDragging = false;
-      hero.classList.remove('dragging');
-    };
-    hero.addEventListener('pointerup',     stopCam);
-    hero.addEventListener('pointercancel', stopCam);
-  }
-
-  // ── Float objects: drag + throw + spin ──
-  floats.forEach(f => {
-    f.el.addEventListener('pointerdown', e => {
-      f.grabbed = true;
-      f.el.setPointerCapture(e.pointerId);
-      f.grabSX = e.clientX; f.grabSY = e.clientY;
-      f.grabDX = f.dragX;   f.grabDY = f.dragY;
-      f.prevCX = e.clientX; f.prevCY = e.clientY;
-      f.vx = 0; f.vy = 0; f.angVel = 0;
-      f.el.style.zIndex = '20';
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    f.el.addEventListener('pointermove', e => {
-      if (!f.grabbed) return;
-      const dx = e.clientX - f.prevCX;
-      const dy = e.clientY - f.prevCY;
-      f.targetX = f.grabDX + (e.clientX - f.grabSX);
-      f.targetY = f.grabDY + (e.clientY - f.grabSY);
-      f.vx = f.vx * 0.5 + dx * 0.5;
-      f.vy = f.vy * 0.5 + dy * 0.5;
-      f.angVel = f.vx * 0.6;
-      f.prevCX = e.clientX;
-      f.prevCY = e.clientY;
-    });
-    const drop = () => {
-      if (!f.grabbed) return;
-      f.grabbed = false;
-      f.dragX = f.targetX;
-      f.dragY = f.targetY;
-      f.el.style.zIndex = '4';
-    };
-    f.el.addEventListener('pointerup',     drop);
-    f.el.addEventListener('pointercancel', drop);
-  });
-
-  const rm = window.matchMedia('(prefers-reduced-motion:reduce)');
-  let t = 0;
-
-  function tick() {
-    t += 0.012;
-
-    // Tripod inertia — pitch and yaw decay smoothly
-    camX += velCamX; velCamX *= 0.84;
-    camY += velCamY; velCamY *= 0.84;
-    camX = Math.max(-18, Math.min(18, camX));
-    camY = Math.max(-28, Math.min(28, camY));
-
-    // Pan+tilt the whole scene — camera stays fixed, scene rotates around it
-    if (heroScene && !rm.matches) {
-      heroScene.style.transform = `rotateX(${camX}deg) rotateY(${camY}deg)`;
-      // Shift perspective-origin with camera so depth feels grounded to viewer position
-      hero.style.perspectiveOrigin = `${50 + camY * 0.55}% ${50 - camX * 0.4}%`;
-    }
-
-    floats.forEach(f => {
-      if (f.grabbed) {
-        f.dragX += (f.targetX - f.dragX) * 0.35;
-        f.dragY += (f.targetY - f.dragY) * 0.35;
-      } else {
-        f.dragX  += f.vx;
-        f.dragY  += f.vy;
-        f.vx     *= 0.94;
-        f.vy     *= 0.94;
-        f.angVel *= 0.97;
-        f.angle  += f.angVel;
-      }
-
-      const bobY = f.grabbed ? 0 : Math.sin(t * f.freq + f.phase) * f.amp;
-      const bobR = f.grabbed ? 0 : Math.sin(t * f.freq * 0.6 + f.phase) * f.rot;
-
-      // Depth parallax — near objects shift more than far ones during pan/tilt
-      const px = f.grabbed ? 0 : camY * f.depth * -2.4;
-      const py = f.grabbed ? 0 : camX * f.depth * -1.8;
-
-      f.el.style.transform =
-        `translate(${f.dragX + px}px,${bobY + f.dragY + py}px) rotate(${f.angle + (f.grabbed ? 0 : bobR)}deg)`;
-    });
-
-    requestAnimationFrame(tick);
-  }
-  tick();
-
-  // ── Perspective grid — canvas draw ──
-  (function(){
-    const canvas = document.getElementById('hero-grid-canvas');
-    if (!canvas) return;
-
-    function draw() {
-      const W = canvas.width  = canvas.offsetWidth;
-      const H = canvas.height = canvas.offsetHeight;
-      if (!W || !H) return;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, W, H);
-
-      // Vanishing point at top of canvas (horizon)
-      const vpX = W / 2;
-      const vpY = 0;
-      // Spread MUCH wider than the viewport so the plane extends far left/right
-      const spread = W * 6;
-      const cols = 52;
-      const rows = 28;
-      const r = 138, g = 180, b = 255;
-
-      // ── Depth (radiating) lines ── transparent at horizon, solid at front, fading at edges
-      ctx.globalAlpha = 1;
-      for (let i = 0; i <= cols; i++) {
-        const xBottom = (vpX - spread / 2) + (i / cols) * spread;
-        const xTop    = vpX + (xBottom - vpX) * 0.004; // converges tightly at vp
-        const edgeFactor = Math.abs(xBottom - vpX) / (spread / 2); // 0=center 1=edge
-        const edgeFade   = Math.max(0, 1 - Math.pow(edgeFactor, 0.55));
-        const maxAlpha   = edgeFade * 0.80;
-        if (maxAlpha < 0.01) continue;
-        const grad = ctx.createLinearGradient(xTop, vpY, xBottom, H);
-        grad.addColorStop(0,    `rgba(${r},${g},${b},0)`);
-        grad.addColorStop(0.10, `rgba(${r},${g},${b},${(maxAlpha * 0.12).toFixed(3)})`);
-        grad.addColorStop(1,    `rgba(${r},${g},${b},${maxAlpha.toFixed(3)})`);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(xTop, vpY);
-        ctx.lineTo(xBottom, H);
-        ctx.stroke();
-      }
-
-      // ── Cross lines — perspective-spaced, fade at horizon AND at left/right edges ──
-      ctx.globalAlpha = 1;
-      for (let i = 1; i <= rows; i++) {
-        const t = i / rows; // 0=horizon, 1=front
-        const y = H * (1 - Math.pow(1 - t, 3.2));
-        const alpha = Math.pow(t, 1.1) * 0.88;
-        // Width of cross line matches where the outer depth lines are at this y
-        const yRatio  = y / H; // 0 at horizon, 1 at bottom
-        const extent  = (spread / 2) * yRatio;
-        const lx = vpX - extent, rx = vpX + extent;
-        // Fade at left/right edges
-        const fadeStop = Math.min(0.12, W * 0.15 / Math.max(extent, 1));
-        const grad = ctx.createLinearGradient(lx, y, rx, y);
-        grad.addColorStop(0,           `rgba(${r},${g},${b},0)`);
-        grad.addColorStop(fadeStop,    `rgba(${r},${g},${b},${alpha.toFixed(3)})`);
-        grad.addColorStop(1-fadeStop,  `rgba(${r},${g},${b},${alpha.toFixed(3)})`);
-        grad.addColorStop(1,           `rgba(${r},${g},${b},0)`);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(lx, y);
-        ctx.lineTo(rx, y);
-        ctx.stroke();
-      }
-
-      // ── Viewport-edge fade: single full-width fill so left/right fades don't erase each other ──
-      ctx.globalAlpha = 1;
-      ctx.globalCompositeOperation = 'destination-in';
-      const fadeW = Math.round(W * 0.18);
-      const edgeMask = ctx.createLinearGradient(0, 0, W, 0);
-      edgeMask.addColorStop(0,           'rgba(0,0,0,0)');
-      edgeMask.addColorStop(fadeW / W,   'rgba(0,0,0,1)');
-      edgeMask.addColorStop(1 - fadeW/W, 'rgba(0,0,0,1)');
-      edgeMask.addColorStop(1,           'rgba(0,0,0,0)');
-      ctx.fillStyle = edgeMask;
-      ctx.fillRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 1;
-    }
-
-    draw();
-    window.addEventListener('resize', draw);
-  })();
-})();
-
-// ── Nav: solidify on scroll ──
-(function(){
-  const nav = document.getElementById('site-nav');
-  if (!nav) return;
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, {passive: true});
-})();
-
-// Scroll reveals
-const toReveal = [
-  ...document.querySelectorAll(
-    'h2.s-title, p.s-sub, .ch, .quote-block, .comp-matrix, ' +
-    '.founder-layout, .tre-flow, .flow-row, .fund-bars'
-  )
-];
-
-document.querySelectorAll(
-  '.story-grid, .stats-grid, .proof-grid, .cap-grid, ' +
-  '.tier-grid, .partner-grid, .contact-grid, .market-funnel, .courses-grid'
-).forEach(grid => {
-  Array.from(grid.children).forEach((child, i) => {
-    child.classList.add('reveal');
-    child.style.transitionDelay = `${i * 0.1}s`;
-    toReveal.push(child);
-  });
-});
-
-toReveal.forEach(el => el.classList.add('reveal'));
-
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-    }
-  });
-}, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
-
-toReveal.forEach(el => io.observe(el));
-
-const fundIO = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.fund-fill').forEach(b => b.classList.add('loaded'));
-      fundIO.unobserve(e.target);
-    }
-  });
-}, {threshold: 0.2});
-
-const fundSection = document.querySelector('.fund-bars');
-if (fundSection) fundIO.observe(fundSection.closest('section') || fundSection);
-
-// ── Stat count-up ──
-(function(){
-  const statsGrid = document.querySelector('.stats-grid');
-  if (!statsGrid) return;
-  // targets: {el, finalVal} — only numeric values
-  const targets = [];
-  statsGrid.querySelectorAll('.stat-box .n').forEach(el => {
-    // grab the raw text of the first text node to extract a number
-    const raw = Array.from(el.childNodes)
-      .filter(n => n.nodeType === 3)
-      .map(n => n.textContent.trim())
-      .join('');
-    const num = parseInt(raw, 10);
-    if (!isNaN(num) && num > 0) targets.push({el, finalVal: num, raw});
-  });
-  if (!targets.length) return;
-
-  let started = false;
-  const statIO = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !started) {
-        started = true;
-        statIO.disconnect();
-        const duration = 1500;
-        const start = performance.now();
-        function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
-        function step(now){
-          const t = Math.min(1, (now - start) / duration);
-          const ease = easeOut(t);
-          targets.forEach(({el, finalVal}) => {
-            const cur = Math.round(ease * finalVal);
-            // Replace the leading text node value, preserve child elements
-            el.childNodes.forEach(n => {
-              if (n.nodeType === 3 && n.textContent.trim().length > 0) {
-                n.textContent = String(cur);
-              }
-            });
-          });
-          if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
-    });
-  }, {threshold: 0.3});
-  statIO.observe(statsGrid);
-})();
-
-
+  // video modal
+  const modal=document.getElementById('storyModal');
+  document.getElementById('playStory')?.addEventListener('click',()=>modal.classList.add('open'));
+  document.getElementById('closeModal')?.addEventListener('click',()=>modal.classList.remove('open'));
+  modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 </script>
-<!-- ── Cobe globe — MM mission fields ── -->
-<script type="module">
-import createGlobe from 'https://esm.sh/cobe@0.6.3';
-
-const canvas = document.getElementById('mm-globe');
-if (canvas) {
-  canvas.style.cursor = 'grab';
-  let phi = 0;
-  let width = 0;
-  let resizeQueued = false;
-  function measure(){
-    width = canvas.offsetWidth;
-    resizeQueued = false;
-  }
-  function onResize(){
-    if (!resizeQueued){
-      resizeQueued = true;
-      requestAnimationFrame(measure);
-    }
-  }
-  measure();
-  window.addEventListener('resize', onResize, {passive:true});
-
-  // Serviceable Market — US-affiliated sending missions + deputation-model missionaries.
-  // Dots cluster across US sending hubs + a thin scatter of field arms abroad.
-  const marketDots = [
-    // US sending-agency + Bible-college hubs (heaviest cluster)
-    { location:[34.6868, -118.1542], size:0.026 },  // Lancaster CA — WCBC
-    { location:[33.7490, -84.3880],  size:0.026 },  // Atlanta GA — Mission to the World
-    { location:[34.8526, -82.3940],  size:0.026 },  // Greenville SC — BJU
-    { location:[30.4213, -87.2169],  size:0.026 },  // Pensacola FL — BMM
-    { location:[39.7684, -86.1581],  size:0.026 },  // Indianapolis IN — BIMI
-    { location:[37.2153, -93.2982],  size:0.026 },  // Springfield MO — AG
-    { location:[41.8661, -88.1070],  size:0.026 },  // Wheaton IL — BGCO
-    { location:[38.8462, -77.3064],  size:0.026 },  // Fairfax VA — sending hub
-    { location:[37.4138, -79.1422],  size:0.026 },  // Lynchburg VA — Liberty
-    { location:[38.8339, -104.8214], size:0.026 },  // Colorado Springs — Compassion
-    { location:[36.1627, -86.7816],  size:0.026 },  // Nashville TN
-    { location:[35.0456, -85.3097],  size:0.026 },  // Chattanooga TN
-    { location:[36.8508, -76.2859],  size:0.026 },  // Norfolk VA
-    { location:[39.7392, -104.9903], size:0.026 },  // Denver CO
-    { location:[32.7767, -96.7970],  size:0.026 },  // Dallas TX
-    { location:[29.7604, -95.3698],  size:0.026 },  // Houston TX
-    { location:[35.2271, -80.8431],  size:0.026 },  // Charlotte NC
-    { location:[40.8136, -96.7026],  size:0.026 },  // Lincoln NE
-    { location:[39.0997, -94.5786],  size:0.026 },  // Kansas City MO
-    { location:[33.4484, -112.0740], size:0.026 },  // Phoenix AZ
-    { location:[34.0522, -118.2437], size:0.026 },  // Los Angeles CA
-    { location:[37.7749, -122.4194], size:0.026 },  // San Francisco CA
-    { location:[47.6062, -122.3321], size:0.026 },  // Seattle WA
-    { location:[44.9778, -93.2650],  size:0.026 },  // Minneapolis MN
-    { location:[41.4993, -81.6944],  size:0.026 },  // Cleveland OH
-    { location:[40.4406, -79.9959],  size:0.026 },  // Pittsburgh PA
-    { location:[42.3601, -71.0589],  size:0.026 },  // Boston MA
-    { location:[40.7128, -74.0060],  size:0.026 },  // New York NY
-    { location:[39.2904, -76.6122],  size:0.026 },  // Baltimore MD
-    { location:[35.1495, -90.0490],  size:0.026 },  // Memphis TN
-    { location:[33.5186, -86.8104],  size:0.026 },  // Birmingham AL
-    { location:[25.7617, -80.1918],  size:0.026 },  // Miami FL
-    // Field arms (thinner — shows where deputation supports)
-    { location:[13.7563, 100.5018],  size:0.022 },  // Bangkok
-    { location:[18.7883, 98.9853],   size:0.022 },  // Chiang Mai
-    { location:[14.5995, 120.9842],  size:0.022 },  // Manila
-    { location:[-23.5505, -46.6333], size:0.022 },  // São Paulo
-    { location:[19.4326, -99.1332],  size:0.022 },  // Mexico City
-    { location:[44.4268, 26.1025],   size:0.022 },  // Bucharest
-    { location:[38.7223, -9.1393],   size:0.022 },  // Lisbon
-    { location:[-18.8792, 47.5079],  size:0.022 },  // Antananarivo
-    { location:[14.6928, -17.4467],  size:0.022 },  // Dakar
-    { location:[-33.8688, 151.2093], size:0.022 },  // Sydney
-    // A few more field points (kept light — just enough to feel global)
-    { location:[-1.2921, 36.8219],   size:0.022 },  // Nairobi
-    { location:[5.6037, -0.1870],    size:0.022 },  // Accra
-    { location:[35.6762, 139.6503],  size:0.022 },  // Tokyo
-    { location:[37.5665, 126.9780],  size:0.022 },  // Seoul
-    { location:[-6.2088, 106.8456],  size:0.022 },  // Jakarta
-    { location:[41.0082, 28.9784],   size:0.022 },  // Istanbul
-  ];
-
-  const start = performance.now();
-  function activeMarkers(now){
-    const elapsed = (now - start) / 1000;
-    // Calm cascade — shows "active fields" without feeling like a tech demo.
-    const initial = 16;
-    const rate = 2.6; // dots/sec after the initial set
-    if (elapsed < 0.25) return [];
-    const n = Math.min(marketDots.length, initial + Math.floor((elapsed - 0.25) * rate));
-    // Add a gentle pulse by slightly varying size over time.
-    return marketDots.slice(0, n).map((m, i) => {
-      const wob = 0.12 * Math.sin(elapsed * 1.6 + i * 0.55);
-      return { ...m, size: Math.max(0.012, m.size * (1 + wob)) };
-    });
-  }
-
-  // Drag
-  let pointerDownX = null;
-  let pointerDownY = null;
-  let dragOffset = 0;
-  let dragR = 0;
-  let dragT = 0;
-  canvas.addEventListener('pointerdown', e => {
-    pointerDownX = e.clientX - dragOffset;
-    pointerDownY = e.clientY;
-    canvas.style.cursor = 'grabbing';
-    canvas.setPointerCapture(e.pointerId);
-  });
-  function endDrag(){ pointerDownX = null; pointerDownY = null; canvas.style.cursor = 'grab'; }
-  canvas.addEventListener('pointerup', endDrag);
-  canvas.addEventListener('pointercancel', endDrag);
-  canvas.addEventListener('pointerleave', endDrag);
-  canvas.addEventListener('pointermove', e => {
-    if (pointerDownX !== null){
-      const delta = e.clientX - pointerDownX;
-      dragOffset = delta;
-      dragR = delta / 200;
-      const dy = e.clientY - pointerDownY;
-      dragT = dy / 260;
-    }
-  });
-
-  const globe = createGlobe(canvas, {
-    devicePixelRatio: window.devicePixelRatio || 1,
-    width: width * 2,
-    height: width * 2,
-    phi: 0,
-    theta: 0.28,
-    dark: 1,
-    diffuse: 1.2,
-    mapSamples: 16000,
-    mapBrightness: 5,
-    baseColor: [0.18, 0.28, 0.5],          // dark navy globe
-    markerColor: [246/255, 54/255, 0/255], // MM orange
-    glowColor: [0/255, 92/255, 232/255],   // MM blue
-    markers: [],
-    onRender: (state) => {
-      const now = performance.now();
-      const elapsed = (now - start) / 1000;
-      state.markers = activeMarkers(now);
-      if (pointerDownX === null) { dragR *= 0.92; dragT *= 0.92; }
-      phi += 0.00085; // slower, calmer
-      state.phi = phi + dragR;
-      state.theta = 0.28 + (Math.sin(elapsed * 0.55) * 0.06) + dragT;
-      state.width = width * 2;
-      state.height = width * 2;
-    },
-  });
-
-  requestAnimationFrame(() => { canvas.style.opacity = '1'; });
-}
-</script>
-
 </body>
 </html>
