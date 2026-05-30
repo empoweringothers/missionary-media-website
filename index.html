@@ -255,6 +255,9 @@ h1.hero-stack .hl-1{font-family:var(--display);font-weight:600;font-size:clamp(2
 h1.hero-stack .hl-2{font-family:var(--display);font-weight:700;font-size:clamp(40px,7.4vw,108px);line-height:.98;letter-spacing:-.032em;color:rgba(250,248,245,.98);text-transform:uppercase}
 p.hero-promise{color:rgba(250,248,245,.86)!important;font-family:var(--display);font-weight:500;font-style:italic;font-size:clamp(16px,1.45vw,22px)!important;max-width:min(640px,82vw)!important}
 p.hero-sub{font-family:var(--body);font-size:clamp(15px,1.25vw,19px);line-height:1.65;color:rgba(250,248,245,.52);max-width:min(480px,70vw);margin-bottom:3.4vh}
+.hero-story-link{display:inline-flex;align-items:center;gap:10px;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,248,245,.72);text-decoration:none;padding:10px 14px;border-radius:999px;border:1px solid rgba(250,248,245,.18);background:rgba(250,248,245,.04);backdrop-filter:blur(10px);transition:all .18s}
+.hero-story-link:hover{color:rgba(250,248,245,.95);border-color:rgba(255,107,53,.45);background:rgba(255,107,53,.08)}
+.hero-story-link .dot{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FF8A50,var(--coral) 70%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;box-shadow:0 10px 28px rgba(255,107,53,.35)}
 .hero-ctas{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center}
 .hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:2vh;animation:heroIn .6s ease-out both;animation-delay:.54s}
 .hero-cta .btn-primary{padding:15px 34px;font-size:15.5px}
@@ -282,30 +285,51 @@ p.hero-sub{font-family:var(--body);font-size:clamp(15px,1.25vw,19px);line-height
 .hero-drag-hint svg{opacity:.6}
 .hero.dragging .hero-drag-hint{opacity:0}
 
-/* ── Content Ticker ── */
-.hero-ticker{
-  position:absolute;bottom:0;left:0;right:0;z-index:4;
-  overflow:hidden;border-top:1px solid rgba(250,248,245,.1);
-  background:rgba(15,30,60,.88);backdrop-filter:blur(20px);
-  height:96px;pointer-events:auto;
+/* ── Podcast Carousel (separate section) ── */
+#podcast{padding-top:72px;padding-bottom:84px}
+.podcast-wrap{margin-top:3.2vh}
+.podcast-rail{
+  position:relative;
+  border:1px solid rgba(250,248,245,.10);
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(15,30,60,.86);
+  backdrop-filter:blur(18px);
 }
-.hero-ticker:hover .ticker-inner{animation-play-state:paused}
-.ticker-inner{display:flex;align-items:stretch;width:max-content;animation:ticker 54s linear infinite;height:100%}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.tick-card{display:flex;align-items:center;gap:16px;padding:0 2.4rem;height:100%;border:none;border-right:1px solid rgba(250,248,245,.07);flex-shrink:0;background:transparent;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:background .18s}
-.tick-card:hover{background:rgba(255,255,255,.05)}
-.tick-cat{font-family:var(--mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;padding:3px 10px;border-radius:99px;flex-shrink:0;white-space:nowrap}
-.tick-cat.mission{background:rgba(255,107,53,.15);color:#FF9060;border:1px solid rgba(255,107,53,.28)}
-.tick-cat.media{background:rgba(232,112,42,.12);color:#FFB070;border:1px solid rgba(232,112,42,.28)}
-.tick-cat.tech{background:rgba(0,92,232,.2);color:rgba(150,200,255,.9);border:1px solid rgba(0,92,232,.35)}
-.tick-info{display:flex;flex-direction:column;gap:4px}
-.tick-title{font-family:var(--body);font-size:14.5px;font-weight:500;color:rgba(250,248,245,.78);white-space:nowrap}
-.tick-watch{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#FF9060;opacity:.78;white-space:nowrap;display:flex;align-items:center;gap:6px}
-.tick-card:hover .tick-watch{opacity:1}
-.hero-podcast-cue{position:absolute;right:5vw;bottom:104px;z-index:6;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FF9060;pointer-events:none;animation:heroIn .8s ease-out both;animation-delay:1s}
-.hero-podcast-cue svg{animation:cueBounce 1.8s ease-in-out infinite}
-@keyframes cueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-@media(max-width:640px){.hero-podcast-cue{display:none}}
+.podcast-rail::before,.podcast-rail::after{content:'';position:absolute;top:0;bottom:0;width:64px;z-index:3;pointer-events:none}
+.podcast-rail::before{left:0;background:linear-gradient(90deg,rgba(15,30,60,.98),rgba(15,30,60,0))}
+.podcast-rail::after{right:0;background:linear-gradient(270deg,rgba(15,30,60,.98),rgba(15,30,60,0))}
+.podcast-track{display:flex;align-items:stretch;width:max-content;animation:podcastTicker 70s linear infinite}
+.podcast-rail:hover .podcast-track{animation-play-state:paused}
+@keyframes podcastTicker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.podcast-card{
+  display:flex;align-items:center;gap:18px;
+  padding:14px 24px;
+  min-height:132px;
+  border:none;border-right:1px solid rgba(250,248,245,.07);
+  flex-shrink:0;background:transparent;
+  cursor:pointer;text-align:left;color:inherit;font:inherit;
+  transition:background .18s;
+}
+.podcast-card:hover{background:rgba(255,255,255,.05)}
+.pod-thumb{width:208px;height:118px;border-radius:18px;overflow:hidden;border:1px solid rgba(250,248,245,.14);background:rgba(250,248,245,.04);flex:0 0 auto}
+.pod-thumb img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.03)}
+.pod-meta{display:flex;flex-direction:column;gap:8px;min-width:320px}
+.pod-top{display:flex;align-items:center;gap:10px}
+.pod-cat{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;padding:4px 12px;border-radius:999px;flex-shrink:0;white-space:nowrap}
+.pod-cat.mission{background:rgba(255,107,53,.16);color:#FF9B6B;border:1px solid rgba(255,107,53,.30)}
+.pod-cat.media{background:rgba(232,112,42,.14);color:#FFB887;border:1px solid rgba(232,112,42,.30)}
+.pod-title{font-family:var(--display);font-size:18px;font-weight:600;color:rgba(250,248,245,.92);line-height:1.15;max-width:44ch}
+.pod-cta{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#FF9060;opacity:.9;display:flex;align-items:center;gap:8px;white-space:nowrap}
+@media(max-width:900px){
+  .pod-meta{min-width:260px}
+  .pod-thumb{width:176px;height:100px}
+}
+@media(max-width:720px){
+  .pod-meta{min-width:220px}
+  .pod-thumb{width:156px;height:88px;border-radius:16px}
+  .pod-title{font-size:16px}
+}
 
 /* Stats band */
 .hero-stats{display:flex;margin-top:6.5vh;background:rgba(250,248,245,.06);border:1px solid rgba(250,248,245,.14);border-radius:16px;overflow:hidden}
@@ -695,6 +719,34 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 .f8-body .f8-h{margin-top:.35rem}
 .f8-cta{display:inline-flex;align-items:center;gap:8px;margin-top:1rem;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7fdcff;text-decoration:none}
 .f8-cta:hover{color:#FF9060}
+
+/* Restore legacy Phase 1 “f8” styles (used by existing markup) */
+.f8-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.6rem 1.4rem}
+.f8-stat-arc{position:relative;display:flex;height:96px;width:224px;align-items:center;justify-content:center}
+.f8-stat-arc svg{position:absolute;inset:0;width:100%;height:100%}
+.f8-stat-num{position:relative;font-family:var(--display);font-size:46px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1}
+.f8-stat-h{margin-top:1.4rem;text-align:center;font-family:var(--display);font-size:clamp(19px,1.7vw,24px);font-weight:650;color:#fff;letter-spacing:-.015em}
+.f8-circle{position:relative;margin:1.8rem auto .2rem;display:flex;aspect-ratio:1;width:128px;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
+.f8-circle::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
+.f8-circle svg{margin:auto;height:auto;width:94px}
+.f8-chartwrap{padding:1.8rem 1.6rem 0}
+.f8-chartwrap svg{width:100%;color:rgba(255,255,255,.20)}
+.f8-wide{display:grid;padding:1.8rem;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:stretch}
+.f8-wide-l{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;gap:2.2rem}
+.f8-ico{position:relative;display:flex;aspect-ratio:1;width:48px;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
+.f8-ico::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
+.f8-ico svg{margin:auto;width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.f8-wide-r{position:relative;display:flex;align-items:center;overflow:hidden;border-left:1px solid rgba(255,255,255,.1);padding-left:1.2rem}
+.f8-wide-r svg{width:100%}
+.f8-people{position:relative;display:flex;flex-direction:column;justify-content:center;gap:1.3rem;width:100%;padding:.4rem 0}
+.f8-prow{display:flex;align-items:center;gap:.5rem}
+.f8-prow.r{justify-content:flex-end;width:calc(50% + .9rem)}
+.f8-prow.l{margin-left:calc(50% - 1rem)}
+.f8-plabel{border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:4px 9px;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:rgba(255,255,255,.82);background:rgba(255,255,255,.05);white-space:nowrap}
+.f8-pav{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:600;box-shadow:0 0 0 4px #0a0a0a;flex-shrink:0}
+.f8-pav.a{background:linear-gradient(145deg,#005BE8,#00C4F9)}
+.f8-pav.b{background:linear-gradient(145deg,var(--coral),var(--orange))}
+.f8-pav.c{background:linear-gradient(145deg,#0F1E3C,#3a6fd8)}
 @media(max-width:980px){.f8-grid{grid-template-columns:1fr 1fr}.f8-span2,.f8-span3,.f8-span4{grid-column:auto}}
 @media(max-width:600px){.f8-grid{grid-template-columns:1fr}}
 
@@ -926,7 +978,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   <img class="float-obj fo-bible"  src="./images/hero-3.png"  alt="">
   <div class="float-obj fo-laptop">
     <img src="./images/hero-4-nobg.png" alt="">
-    <button class="fo-play" type="button" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg" aria-label="Watch the story">
+    <button class="fo-play" type="button" data-video="https://www.youtube.com/embed/dnfMBprp0xg" aria-label="Watch the story">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
     </button>
   </div>
@@ -1039,7 +1091,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   <div class="hero-overlay">
     <div class="hero-eyebrow">The Only</div>
     <h1 class="hero-h">Digital coaching program<br>built for the <em class="gt">mission field</em>.</h1>
-    <p class="hero-sub" style="margin-bottom:3.4vh">If the digital side feels confusing, heavy, or easy to put off, you’re not the only one. This is the one-stop shop for missionaries to <em>connect</em> to supporters, <em>reach</em> locals, and get <em>trusted</em> help.</p>
+    <p class="hero-sub" style="margin-bottom:3.4vh">If the digital side feels confusing, heavy, or easy to put off, you’re not the only one. This is the one-stop shop for missionaries to <em>connect</em> supporters, <em>reach</em> locals, and get <em>trusted</em> help.</p>
     <div class="hero-cta">
       <a href="mailto:missionarymediahub@gmail.com?subject=Discovery%20call" class="btn-primary">Book a discovery call</a>
     </div>
@@ -1052,33 +1104,31 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <span>Drag to explore</span>
   </div>
 
-  <div class="hero-podcast-cue"><span>Check out our podcast</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-  </div>
-  <div class="hero-ticker">
-    <div class="ticker-inner">
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Digital Evangelism: Unlocking the Future of Missions</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/kwE45m5kRMo"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Overcome Camera Fear & Share the Gospel Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/L1oiYPD3MzM"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">How to Spread the Gospel on Social Media: Tips for Success</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/lN8zVJpDugY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/_gc6d6qk3IE"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/cLfGCAg4DRA"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/euSjz1xT-YY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/uM35hRAhWR0"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/LNKgYv0dwyQ"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Understand the Impact of Social Media on Ministry - A Crazy Reality</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <!-- Duplicate for seamless loop -->
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Digital Evangelism: Unlocking the Future of Missions</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/kwE45m5kRMo"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Overcome Camera Fear & Share the Gospel Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/L1oiYPD3MzM"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">How to Spread the Gospel on Social Media: Tips for Success</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/lN8zVJpDugY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/_gc6d6qk3IE"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/cLfGCAg4DRA"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/euSjz1xT-YY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/uM35hRAhWR0"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/LNKgYv0dwyQ"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Understand the Impact of Social Media on Ministry - A Crazy Reality</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
+</section>
+
+<!-- ── Podcast Carousel ── -->
+<section id="podcast" class="s-dark">
+  <div class="ch white"><span>Podcast · Missionary Media Hub</span></div>
+  <h2 class="s-title" style="color:rgba(250,248,245,.94)">Get tips from the field.</h2>
+  <p class="s-sub" style="color:rgba(250,248,245,.62)">Short, practical episodes for staying connected, reaching locals, and staying safe online — without becoming “the media person.”</p>
+
+  <div class="podcast-wrap">
+    <div class="podcast-rail" aria-label="Missionary Media Hub video carousel">
+      <div class="podcast-track" data-pod-track>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/dnfMBprp0xg"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Digital Evangelism: Unlocking the Future of Missions</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/kwE45m5kRMo"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Overcome Camera Fear &amp; Share the Gospel Online</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/L1oiYPD3MzM"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">How to Spread the Gospel on Social Media: Tips for Success</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/lN8zVJpDugY"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/_gc6d6qk3IE"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/cLfGCAg4DRA"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/euSjz1xT-YY"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/uM35hRAhWR0"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/LNKgYv0dwyQ"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Understand the Impact of Social Media on Ministry - A Crazy Reality</div></div></button>
+      </div>
     </div>
   </div>
 </section>
+
 <!-- ── The Problem (why digital media hasn't worked) ── -->
 <section id="problem" class="s-mid">
   <div class="ch"><span>Digital media hasn't worked in the mission field</span></div>
@@ -1110,6 +1160,43 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <blockquote>"Big box American outreach methods don't translate."</blockquote>
     <span class="qcite">Austin Reed · <strong>Field Missionary, Southeast Asia</strong> · MM Interview</span>
   </div>
+</section>
+
+<!-- ── Why Missionary Media (trust) ── -->
+<section id="why" class="s-mid">
+  <div class="ch"><span>Why Missionary Media</span></div>
+  <h2 class="s-title">A guide, translator, and connector — beside you.</h2>
+  <p class="s-sub">I’m not asking you to become the media person. I’m here to help you know where to start, make wise decisions, and stay connected without it eating your week.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:3vw;align-items:start;margin-top:5vh">
+    <div style="border-radius:22px;overflow:hidden;border:1px solid rgba(28,31,46,.10);box-shadow:0 14px 44px rgba(8,16,32,.10);background:#fff">
+      <img src="./images/founder-tabor.jpg" alt="Tabor Normoyle" loading="lazy" style="width:100%;height:320px;object-fit:cover;object-position:22% 38%;display:block"/>
+      <div style="padding:16px 18px;border-top:1px solid rgba(28,31,46,.08);display:flex;justify-content:space-between;gap:12px;align-items:center">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,31,46,.55)">Founder · Missionary Media</div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,92,232,.78)">Interview-led</div>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:clamp(14px,1.06vw,16px);line-height:1.7;color:var(--text-mid)">For the past several years, I’ve given my life to one thing: helping missionaries know where to start in the digital landscape — in a way that fits the mission field, not a US marketing playbook.</p>
+      <ul style="margin-top:18px;display:grid;gap:10px;list-style:none;padding-left:0">
+        <li style="display:flex;gap:10px;align-items:flex-start"><span style="margin-top:.35em;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span><span style="color:var(--text-mid);line-height:1.6">Interview-led conversations with missionaries and missions leaders across multiple contexts.</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start"><span style="margin-top:.35em;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span><span style="color:var(--text-mid);line-height:1.6">A live “home base” approach that helps supporters and churches stay close.</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start"><span style="margin-top:.35em;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span><span style="color:var(--text-mid);line-height:1.6">Practical templates, coaching, and training — so you’re not carrying this alone.</span></li>
+      </ul>
+
+      <a class="hero-story-link" href="#" data-video="https://www.youtube.com/embed/dnfMBprp0xg" style="margin-top:18px;color:rgba(28,31,46,.76);border-color:rgba(28,31,46,.16);background:rgba(28,31,46,.03)">
+        <span class="dot" style="box-shadow:none">▶</span> Watch my story (2 min)
+      </a>
+    </div>
+  </div>
+
+  <style>
+    @media(max-width:900px){
+      #why > div[style*="grid-template-columns"]{grid-template-columns:1fr!important}
+      #why img{height:260px!important}
+    }
+  </style>
 </section>
 
 <!-- ── The Story (two missionaries) ── -->
@@ -1278,7 +1365,11 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           <path d="M3 72H209" stroke="#005BE8" stroke-width="6" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="f8-cap"><h3 class="f8-h">Set up what's safe.</h3><p class="f8-p">Church IT and tech coaching, so you set up the right tools without guessing what's safe.</p></div>
+      <div class="f8-cap" style="text-align:left">
+        <div class="f8-kicker">Piece 02</div>
+        <h3 class="f8-h">Set up what’s safe.</h3>
+        <p class="f8-p">Church IT and tech coaching, so you set up the right tools without guessing what’s wise to share.</p>
+      </div>
     </div>
 
     <!-- Card 3 — chart -->
@@ -1290,36 +1381,64 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           <defs><linearGradient id="p1g" x1="3" y1="60" x2="3" y2="123" gradientUnits="userSpaceOnUse"><stop stop-color="#005BE8" stop-opacity="0.15"/><stop offset="1" stop-color="#005BE8" stop-opacity="0"/></linearGradient></defs>
         </svg>
       </div>
-      <div class="f8-cap"><h3 class="f8-h">Your live home base.</h3><p class="f8-p">MissionaryConnect.app — one profile, one map, one place supporters follow, pray, and give.</p></div>
-    </div>
-
-    <!-- Card 4 — wide: templates + workflows with sparkline -->
-    <div class="f8-card f8-span3 f8-wide">
-      <div class="f8-wide-l">
-        <div class="f8-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg></div>
-        <div><h3 class="f8-h">Templates + workflows.</h3><p class="f8-p">Ready-to-run systems for updates, prayer letters, and posts — so you never start from a blank page.</p></div>
-      </div>
-      <div class="f8-wide-r">
-        <svg viewBox="0 0 366 231" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.148438 231V179.394L1.92188 180.322L2.94482 177.73L4.05663 183.933L6.77197 178.991L7.42505 184.284L9.42944 187.985L11.1128 191.306V155.455L13.6438 153.03V145.122L14.2197 142.829V150.454V154.842L15.5923 160.829L17.0793 172.215H19.2031V158.182L20.7441 153.03L22.426 148.111V142.407L24.7471 146.86V128.414L26.7725 129.918V120.916L28.1492 118.521L28.4653 127.438L29.1801 123.822L31.0426 120.525V130.26L32.3559 134.71L34.406 145.122V137.548L35.8982 130.26L37.1871 126.049L38.6578 134.71L40.659 138.977V130.26V126.049L43.7557 130.26V123.822L45.972 112.407L47.3391 103.407V92.4726L49.2133 98.4651V106.053L52.5797 89.7556L54.4559 82.7747L56.1181 87.9656L58.9383 89.7556V98.4651L60.7617 103.407L62.0545 123.822L63.8789 118.066L65.631 122.082L68.5479 114.229L70.299 109.729L71.8899 118.066L73.5785 123.822V130.26L74.9446 134.861L76.9243 127.87L78.352 134.71V138.977L80.0787 142.407V152.613L83.0415 142.407V130.26L86.791 123.822L89.0121 116.645V122.082L90.6059 127.87L92.3541 131.77L93.7104 123.822L95.4635 118.066L96.7553 122.082V137.548L99.7094 140.988V131.77L101.711 120.525L103.036 116.645V133.348L104.893 136.218L106.951 140.988L108.933 134.71L110.797 130.26L112.856 140.988V148.111L115.711 152.613L117.941 145.122L119.999 140.988V148.111L123.4 152.613L125.401 158.182L130.547 150.454V156.566L131.578 155.455L134.143 158.182L135.594 168.136L138.329 158.182L140.612 160.829L144.681 169.5L147.011 155.455L148.478 151.787L151.02 152.613L154.886 145.122L158 143.412L159.406 140.637L159.496 133.348L162.295 127.87V122.082L163.855 116.645V109.729L164.83 104.407L166.894 109.729L176.249 98.4651L178.254 106.169L180.77 98.4651V81.045L182.906 69.1641L184.8 56.8669L186.477 62.8428L187.848 79.7483L188.849 106.169L191.351 79.7483L193.485 75.645V98.4651L196.622 94.4523L198.623 87.4228V79.7483L200.717 75.645L202.276 81.045V89.3966L203.638 113.023L205.334 99.8037L207.164 94.4523L208.982 98.4651V102.176L211.267 107.64L212.788 81.045L214.437 66.0083L216.19 62.8428L217.941 56.8669V73.676V79.7483L220.28 75.645L222.516 66.0083V73.676H226.174V84.8662L228.566 98.4651L230.316 75.645L233.61 94.4523V104.25L236.882 102.176L239.543 113.023L241.057 98.4651L243.604 94.4523L244.975 106.169L245.975 87.4228L247.272 89.3966L250.732 84.8662L251.733 96.7549L254.644 94.4523L257.452 99.8037L259.853 91.3111L261.193 84.8662L264.162 75.645L265.808 87.4228L267.247 58.4895L269.757 66.0083L276.625 13.5146L273.33 58.4895L276.25 67.6563L282.377 20.1968L281.37 58.4895V66.0083L283.579 75.645L286.033 56.8669L287.436 73.676L290.628 77.6636L292.414 84.8662L294.214 61.3904L296.215 18.9623L300.826 0.947876L297.531 56.8669L299.973 62.8428L305.548 22.0598L299.755 114.956L301.907 105.378L304.192 112.688V94.9932L308.009 80.0829L310.003 94.9932L311.004 102.127L312.386 105.378L315.007 112.688L316.853 98.004L318.895 105.378L321.257 94.9932L324.349 100.81L325.032 80.0829L327.604 61.5733L329.308 82.3223L333.525 52.7986L334.097 52.145L334.735 55.6812L337.369 59.8108V73.676L340.743 87.9656L343.843 96.3728L348.594 82.7747L349.607 81.045L351 89.7556L352.611 96.3728L355.149 94.9932L356.688 102.176L359.396 108.784L360.684 111.757L365 95.7607V231H148.478H0.148438Z" fill="url(#p2g)"/>
-          <path d="M1 179.796L4.05663 172.195V183.933L7.20122 174.398L8.45592 183.933L10.0546 186.948V155.455L12.6353 152.613V145.122L15.3021 134.71V149.804V155.455L16.6916 160.829L18.1222 172.195V158.182L19.8001 152.613L21.4105 148.111V137.548L23.6863 142.407V126.049L25.7658 127.87V120.525L27.2755 118.066L29.1801 112.407V123.822L31.0426 120.525V130.26L32.3559 134.71L34.406 145.122V137.548L35.8982 130.26L37.1871 126.049L38.6578 134.71L40.659 138.977V130.26V126.049L43.7557 130.26V123.822L45.972 112.407L47.3391 103.407V92.4726L49.2133 98.4651V106.053L52.5797 89.7556L54.4559 82.7747L56.1181 87.9656L58.9383 89.7556V98.4651L60.7617 103.407L62.0545 123.822L63.8789 118.066L65.631 122.082L68.5479 114.229L70.299 109.729L71.8899 118.066L73.5785 123.822V130.26L74.9446 134.861L76.9243 127.87L78.352 134.71V138.977L80.0787 142.407V152.613L83.0415 142.407V130.26L86.791 123.822L89.0121 116.645V122.082L90.6059 127.87L92.3541 131.77L93.7104 123.822L95.4635 118.066L96.7553 122.082V137.548L99.7094 140.988V131.77L101.711 120.525L103.036 116.645V133.348L104.893 136.218L106.951 140.988L108.933 134.71L110.797 130.26L112.856 140.988V148.111L115.711 152.613L117.941 145.122L119.999 140.988L121.501 148.111L123.4 152.613L125.401 158.182L127.992 152.613L131.578 146.76V155.455L134.143 158.182L135.818 164.629L138.329 158.182L140.612 160.829L144.117 166.757L146.118 155.455L147.823 149.804L151.02 152.613L154.886 145.122L158.496 140.988V133.348L161.295 127.87V122.082L162.855 116.645V109.729L164.83 103.407L166.894 109.729L176.249 98.4651L178.254 106.169L180.77 98.4651V81.045L182.906 69.1641L184.8 56.8669L186.477 62.8428L187.848 79.7483L188.849 106.169L191.351 79.7483L193.485 75.645V98.4651L196.622 94.4523L198.623 87.4228V79.7483L200.717 75.645L202.276 81.045V89.3966L203.638 113.023L205.334 99.8037L207.164 94.4523L208.982 98.4651V102.176L211.267 107.64L212.788 81.045L214.437 66.0083L216.19 62.8428L217.941 56.8669V73.676V79.7483L220.28 75.645L222.516 66.0083V73.676H226.174V84.8662L228.566 98.4651L230.316 75.645L233.61 94.4523V104.25L236.882 102.176L239.543 113.023L241.057 98.4651L243.604 94.4523L244.975 106.169L245.975 87.4228L247.272 89.3966L250.732 84.8662L251.733 96.7549L254.644 94.4523L257.452 99.8037L259.853 91.3111L261.193 84.8662L264.162 75.645L265.808 87.4228L267.247 58.4895L269.757 66.0083L276.625 13.5146L273.33 58.4895L276.25 67.6563L282.377 20.1968L281.37 58.4895V66.0083L283.579 75.645L286.033 56.8669L287.436 73.676L290.628 77.6636L292.414 84.8662L294.214 61.3904L296.215 18.9623L300.826 0.947876L297.531 56.8669L299.973 62.8428L305.548 22.0598L299.755 114.956L301.907 105.378L304.192 112.688V94.9932L308.009 80.0829L310.003 94.9932L311.004 102.127L312.386 105.378L315.007 112.688L316.853 98.004L318.895 105.378L321.257 94.9932L324.349 100.81L325.032 80.0829L327.604 61.5733L329.357 74.9864L332.611 52.6565L334.352 48.5552L335.785 55.2637L338.377 59.5888V73.426L341.699 87.5181L343.843 93.4347L347.714 82.1171L350.229 78.6821L351.974 89.7556L353.323 94.9932L355.821 93.4347L357.799 102.127L360.684 108.794L363.219 98.004L365 89.7556" stroke="#005BE8" stroke-width="2"/>
-          <defs><linearGradient id="p2g" x1="0.85" y1="0.95" x2="0.85" y2="230" gradientUnits="userSpaceOnUse"><stop stop-color="#005BE8" stop-opacity="0.15"/><stop offset="1" stop-color="#005BE8" stop-opacity="0.01"/></linearGradient></defs>
-        </svg>
+      <div class="f8-cap">
+        <div class="f8-kicker">Piece 01</div>
+        <h3 class="f8-h">Your live home base.</h3>
+        <p class="f8-p">MissionaryConnect.app — one profile, one map, one place your sending church, supporters, and local church partners can follow, pray, and give.</p>
+        <a class="f8-cta" href="https://missionaryconnect.app/" target="_blank" rel="noopener">Visit MissionaryConnect.app
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
       </div>
     </div>
-
-    <!-- Card 5 — wide: people / avatars -->
-    <div class="f8-card f8-span3 f8-wide">
-    <div class="f8-wide-l">
-      <div class="f8-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div><h3 class="f8-h">People who walk with you.</h3><p class="f8-p">1-on-1 coaching, monthly check-ins, and on-site team training — real people who work with missionaries.</p></div>
+    <!-- Card 3b — communication rhythm -->
+    <div class="f8-card f8-span2 has-img" style="grid-column:1 / span 2;grid-row:2">
+      <div class="f8-visual" style="position:relative">
+        <img src="./images/hero-5.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="f8-vis-label">Communication rhythm</span>
+      </div>
+      <div class="f8-body" style="text-align:left">
+        <div class="f8-kicker">Piece 03</div>
+        <h3 class="f8-h">A simple rhythm for updates.</h3>
+        <p class="f8-p">A repeatable way to stay close to sending churches (and local partners) without it eating your week.</p>
+      </div>
     </div>
-      <div class="f8-wide-r">
-        <div class="f8-people">
-          <div class="f8-prow r"><span class="f8-plabel">1:1 coach</span><div class="f8-pav a">C</div></div>
-          <div class="f8-prow l"><div class="f8-pav b">M</div><span class="f8-plabel">Monthly check-in</span></div>
-          <div class="f8-prow r"><span class="f8-plabel">On-site team</span><div class="f8-pav c">T</div></div>
-        </div>
+
+    <!-- Card 3c — trusted introductions -->
+    <div class="f8-card f8-span2 has-img" style="grid-column:3 / span 2;grid-row:2">
+      <div class="f8-visual" style="position:relative">
+        <img src="./images/hero-1.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="f8-vis-label">Trusted help</span>
+      </div>
+      <div class="f8-body" style="text-align:left">
+        <div class="f8-kicker">Piece 06</div>
+        <h3 class="f8-h">Trusted introductions for hard jobs.</h3>
+        <p class="f8-p">When something is past tutorials, we help you find the right person and the right next step.</p>
+      </div>
+    </div>
+
+    <!-- Card 4 — templates + workflows -->
+    <div class="f8-card f8-span2 has-img" style="grid-column:5 / span 2;grid-row:2">
+      <div class="f8-visual" style="position:relative">
+        <img src="./images/available-today-ipad.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="f8-vis-label">Templates + workflows</span>
+      </div>
+      <div class="f8-body" style="text-align:left">
+        <div class="f8-kicker">Piece 04</div>
+        <h3 class="f8-h">Ready-to-run templates.</h3>
+        <p class="f8-p">Systems for updates, prayer letters, and posts — so you never start from a blank page.</p>
+      </div>
+    </div>
+
+    <!-- Card 5 — coaching + training -->
+    <div class="f8-card f8-span2 has-img" style="grid-column:5 / span 2;grid-row:3">
+      <div class="f8-visual" style="position:relative">
+        <img src="./images/hero-4.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="f8-vis-label">Coaching + training</span>
+      </div>
+      <div class="f8-body" style="text-align:left">
+        <div class="f8-kicker">Piece 05</div>
+        <h3 class="f8-h">People who walk with you.</h3>
+        <p class="f8-p">1‑on‑1 coaching, monthly check‑ins, and on‑site team training — so you’re not doing this alone.</p>
       </div>
     </div>
 
@@ -1395,7 +1514,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <!-- ── CTA (split — missionary + supporter paths) ── -->
 <section id="contact" class="cta-section">
   <div class="ch white ch-dashed" style="justify-content:center;margin-bottom:2.4vh"><span>The One-Stop Shop</span></div>
-  <h2 style="text-align:center;font-family:var(--display);font-size:clamp(28px,3.8vw,56px);font-weight:700;letter-spacing:-.022em;color:var(--ink);max-width:880px;margin:0 auto">to update supporters, reach locals, and get trusted help.</h2>
+  <h2 style="text-align:center;font-family:var(--display);font-size:clamp(28px,3.8vw,56px);font-weight:700;letter-spacing:-.022em;color:var(--ink);max-width:880px;margin:0 auto">to connect supporters, reach locals, and get trusted help.</h2>
   <p class="cta-vow">This is the one thing I've given my life to — <span>so you don't have to figure it out alone.</span></p>
 
   <div class="cta-split">
@@ -1442,7 +1561,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   <div class="vm-backdrop"></div>
   <div class="vm-laptop" role="dialog" aria-modal="true" aria-label="Watch the video">
     <img class="vm-laptop-img" src="./images/hero-4-nobg.png" alt="">
-    <div class="vm-screen"><iframe id="vm-iframe" src="" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vm-screen"><iframe id="vm-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin-when-cross-origin" allowfullscreen></iframe></div>
     <button class="vm-close" type="button" aria-label="Close">× Close</button>
   </div>
 </div>
@@ -1819,9 +1938,21 @@ if (fundSection) fundIO.observe(fundSection.closest('section') || fundSection);
   const iframe = document.getElementById('vm-iframe');
   const close = vm.querySelector('.vm-close');
   const backdrop = vm.querySelector('.vm-backdrop');
+  function ytIdFromEmbedUrl(url){
+    try{
+      const u = new URL(url);
+      const parts = u.pathname.split('/').filter(Boolean);
+      const idx = parts.indexOf('embed');
+      if (idx !== -1 && parts[idx+1]) return parts[idx+1];
+      // fallback: last path segment
+      return parts[parts.length-1] || '';
+    }catch(_){ return ''; }
+  }
   function open(src){
     if (!src) return;
-    iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&playsinline=1&modestbranding=1';
+    const base = src + (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&playsinline=1&modestbranding=1';
+    const canSetOrigin = location && (location.protocol === 'http:' || location.protocol === 'https:');
+    iframe.src = canSetOrigin ? (base + '&origin=' + encodeURIComponent(location.origin)) : base;
     vm.hidden = false;
     document.body.style.overflow = 'hidden';
   }
@@ -1838,6 +1969,27 @@ if (fundSection) fundIO.observe(fundSection.closest('section') || fundSection);
     });
     b.addEventListener('pointerdown', e => e.stopPropagation());
   });
+
+  // Duplicate the podcast rail items for seamless loop + add thumbnails
+  document.querySelectorAll('[data-pod-track]').forEach(track => {
+    const kids = Array.from(track.children);
+    kids.forEach(node => track.appendChild(node.cloneNode(true)));
+  });
+  document.querySelectorAll('.podcast-card[data-video]').forEach(card => {
+    if (card.querySelector('.pod-thumb')) return;
+    const vid = ytIdFromEmbedUrl(card.dataset.video || '');
+    if (!vid) return;
+    const title = card.querySelector('.pod-title')?.textContent?.trim() || 'Watch video';
+    const thumb = document.createElement('div');
+    thumb.className = 'pod-thumb';
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.alt = title;
+    img.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(vid) + '/hqdefault.jpg';
+    thumb.appendChild(img);
+    card.insertBefore(thumb, card.firstChild);
+  });
+
   close.addEventListener('click', shut);
   backdrop.addEventListener('click', shut);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !vm.hidden) shut(); });
