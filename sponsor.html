@@ -43,9 +43,6 @@ body::before{
 }
 nav,main,section,footer{position:relative;z-index:1}
 
-@keyframes auroraShift{0%{transform:translate(0,0) scale(1) rotate(0)}50%{transform:translate(-2%,3%) scale(1.06) rotate(-1deg)}100%{transform:translate(0,0) scale(1) rotate(0)}}
-@keyframes auroraShift2{0%{transform:translate(0,0) scale(1.05)}50%{transform:translate(4%,-3%) scale(1) rotate(2deg)}100%{transform:translate(0,0) scale(1.05)}}
-@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,.18)}60%{box-shadow:0 0 0 7px rgba(255,107,53,0)}}
 @keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 .gt{background:linear-gradient(130deg,var(--blue),var(--coral) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -99,44 +96,40 @@ h2.s-title{font-family:var(--display);font-size:clamp(28px,3.6vw,46px);font-weig
 .center{text-align:center}.center h2.s-title{margin:0 auto}.center .s-sub{margin-left:auto;margin-right:auto}
 
 /* ── hero ── */
-.hero{min-height:92vh;display:flex;align-items:center;padding-top:62px;position:relative;overflow:hidden}
-/* Optional hero photo (drops in if file exists) */
+.hero{min-height:92vh;display:flex;align-items:center;padding-top:62px;position:relative;overflow:hidden;background:var(--warm-navy);color:#FAF8F5}
 .hero::before{
   content:'';
   position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
-    linear-gradient(90deg, rgba(250,248,245,.96) 0%, rgba(250,248,245,.82) 46%, rgba(250,248,245,.52) 70%, rgba(250,248,245,.18) 100%),
-    radial-gradient(60vw 60vh at 78% 35%, rgba(15,30,60,.08), transparent 60%),
-    url('./images/sponsor-hero.jpg') center/cover no-repeat;
-  filter:saturate(1.02) contrast(1.02);
+    linear-gradient(90deg,rgba(15,30,60,.94) 0%,rgba(15,30,60,.86) 31%,rgba(15,30,60,.50) 52%,rgba(15,30,60,.14) 75%,rgba(15,30,60,.36) 100%),
+    radial-gradient(52vw 58vh at 74% 55%,rgba(255,107,53,.16),transparent 62%),
+    url('./images/sponsor-silhouette-street.png') center right/cover no-repeat;
+  filter:saturate(.98) contrast(1.02);
 }
 .hero::after{
   content:'';
   position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(55vw 55vh at 85% 40%, rgba(255,107,53,.18), transparent 60%),
-    radial-gradient(60vw 60vh at 20% 15%, rgba(0,196,249,.14), transparent 62%);
-  mix-blend-mode:multiply;
-  opacity:.9;
+    radial-gradient(45vw 56vh at 80% 78%,rgba(0,196,249,.12),transparent 62%),
+    linear-gradient(180deg,rgba(15,30,60,.08) 0%,rgba(15,30,60,.72) 100%);
+  opacity:.88;
 }
-.hero-inner{position:relative;z-index:1}
-.hero-aurora{position:absolute;inset:-20%;z-index:0;pointer-events:none;filter:blur(60px);opacity:.9}
-.hero-aurora::before,.hero-aurora::after{content:'';position:absolute;border-radius:50%}
-.hero-aurora::before{width:55vw;height:55vw;top:-10%;right:-5%;background:radial-gradient(circle,rgba(0,196,249,.5),transparent 65%);animation:auroraShift 18s ease-in-out infinite}
-.hero-aurora::after{width:48vw;height:48vw;bottom:-15%;left:-8%;background:radial-gradient(circle,rgba(255,107,53,.42),transparent 65%);animation:auroraShift2 22s ease-in-out infinite}
 .hero-inner{position:relative;z-index:1;max-width:1120px;width:100%}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3.2vw;align-items:center}
-.hero-media{border-radius:24px;overflow:hidden;border:1px solid rgba(28,31,46,.10);box-shadow:0 18px 60px rgba(8,16,32,.14);background:linear-gradient(135deg,rgba(0,92,232,.10),rgba(255,107,53,.08))}
-.hero-media img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 40%}
-.hero-media .hero-media-cap{padding:12px 14px;border-top:1px solid rgba(28,31,46,.08);background:rgba(255,255,255,.72);backdrop-filter:blur(10px);font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,31,46,.6);display:flex;justify-content:space-between;gap:12px}
-.hero-media .hero-media-cap b{font-weight:600;color:rgba(28,31,46,.78)}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.22);border-radius:99px;padding:7px 15px;margin-bottom:26px;animation:badgePulse 3s infinite}
-.hero h1{font-family:var(--display);font-size:clamp(40px,6.4vw,82px);font-weight:600;line-height:1.02;letter-spacing:-.03em;margin-bottom:22px;animation:riseIn .7s ease both}
-.hero p.lead{font-size:clamp(17px,1.7vw,22px);line-height:1.5;color:var(--mid);max-width:54ch;margin-bottom:34px;animation:riseIn .7s ease .12s both}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.9fr);gap:4vw;align-items:center}
+.hero-copy{max-width:620px}
+.hero h1{font-family:var(--display);font-size:clamp(44px,6.6vw,86px);font-weight:600;line-height:.99;letter-spacing:-.03em;margin-bottom:24px;color:rgba(250,248,245,.96);text-shadow:0 18px 55px rgba(0,0,0,.28);animation:riseIn .7s ease both}
+.hero p.lead{font-size:clamp(17px,1.55vw,21px);line-height:1.58;color:rgba(250,248,245,.76);max-width:51ch;margin-bottom:34px;animation:riseIn .7s ease .12s both}
 .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;animation:riseIn .7s ease .24s both}
+.hero-visual{min-height:clamp(420px,56vw,610px)}
 @media(max-width:980px){
+  .hero{min-height:auto;padding-top:112px;background:var(--warm-navy)}
+  .hero::before{
+    background:
+      linear-gradient(180deg,rgba(15,30,60,.96) 0%,rgba(15,30,60,.88) 42%,rgba(15,30,60,.30) 68%,rgba(15,30,60,.62) 100%),
+      url('./images/sponsor-silhouette-street.png') 60% bottom/cover no-repeat;
+  }
   .hero-grid{grid-template-columns:1fr;gap:26px}
-  .hero-media{max-width:720px}
+  .hero-visual{min-height:330px}
 }
 
 /* ── proof grid (gap) ── */
@@ -323,23 +316,17 @@ footer{background:#14182a;color:rgba(255,255,255,.6);padding:40px 7vw;font-size:
 
   <!-- 1 HERO -->
   <section id="hero" class="hero">
-    <div class="hero-aurora"></div>
     <div class="hero-inner">
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="hero-badge"><span>●</span> Founding partners · pre-launch</div>
           <h1>Back digital care for <span class="gt">missionaries.</span></h1>
           <p class="lead">This is the vision page: what we’re building, why it matters, and how we’ll steward it. If God is leading you to help, start here.</p>
           <div class="cta-row">
             <a class="btn btn-primary" href="#invitation">Become a founding backer</a>
-            <a href="#gap" style="align-self:center;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,31,46,.62);text-decoration:none;padding:10px 2px">See the need ↓</a>
           </div>
         </div>
 
-        <div class="hero-media" aria-hidden="true">
-          <img src="./images/sponsor-coaching.jpg" alt="" loading="eager" onerror="this.onerror=null;this.src='./images/missionary-connect.jpg';"/>
-          <div class="hero-media-cap"><span><b>Digital care</b> · beside one missionary</span><span>Phase 1</span></div>
-        </div>
+        <div class="hero-visual" aria-hidden="true"></div>
       </div>
     </div>
   </section>
