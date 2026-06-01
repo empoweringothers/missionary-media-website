@@ -656,6 +656,23 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transf
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
 
+/* ── Scroll-in key-phrase highlight (draws an underline/highlight as you scroll) ── */
+.hl{
+  background-image:linear-gradient(120deg, rgba(0,92,232,.20), rgba(255,107,74,.22));
+  background-repeat:no-repeat;
+  background-position:0 92%;
+  background-size:0% .40em;
+  transition:background-size .7s cubic-bezier(.22,1,.36,1);
+  padding:0 .04em;
+  border-radius:2px;
+}
+.hl.lit{background-size:100% .40em}
+
+/* ── Security examples list (problem card) ── */
+.cap-list{margin:.7rem 0 0;padding-left:0;list-style:none;display:grid;gap:.5rem}
+.cap-list li{position:relative;padding-left:1.1rem;line-height:1.55;font-size:clamp(13px,.95vw,14px);color:var(--text-mid)}
+.cap-list li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--coral)}
+
 /* ── Grain texture overlay ── */
 body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.028;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -709,6 +726,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 /* ── Prefers reduced motion ── */
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
+  .hl{background-size:100% .40em;transition:none}
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
@@ -1186,22 +1204,22 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <!-- ── The Problem (why digital media hasn't worked) ── -->
 <section id="problem" class="s-mid">
   <div class="ch"><span>Digital media hasn't worked in the mission field</span></div>
-  <h2 class="s-title" style="margin-bottom:4vh">We exist because the tools weren't built with you in mind.</h2>
+  <h2 class="s-title" style="margin-bottom:4vh">We exist because the tools <span class="hl">weren't built with you in mind</span>.</h2>
   <div class="cap-grid">
     <div class="cap-card">
-      <div class="cap-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-      <h4>Corporate marketers</h4>
-      <p>Most playbooks assume US suburbs and broadband. We translate them to phone-first realities, limited Wi‑Fi, and the way ministry actually happens on the field.</p>
+      <div class="cap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <h4>Big-box American playbooks</h4>
+      <p>Most marketing advice assumes US suburbs, broadband, and a corporate brand. We translate <span class="hl">what actually works</span> to phone-first realities, limited Wi‑Fi, and the way ministry really happens on the field — without forcing you into a US-shaped mold.</p>
     </div>
     <div class="cap-card">
       <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h4>Security ignored</h4>
-      <p>Visa risk, restricted-access regions, and digital footprint decisions aren’t an afterthought. We treat them like real decisions from day one.</p>
-    </div>
-    <div class="cap-card">
-      <div class="cap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-      <h4>"Big box American"</h4>
-      <p>Field realities are different. We help you apply what works in the digital world without forcing you into a US-shaped mold.</p>
+      <p>Visa risk, the safety of the people you serve, and your <span class="hl">privacy</span> are real decisions — and we treat them that way from day one. A few we plan around:</p>
+      <ul class="cap-list">
+        <li>Your social media history can be scanned when you apply for a visa.</li>
+        <li>A face in a photo can put a local believer at risk.</li>
+        <li>A single post can reveal where you live and serve.</li>
+      </ul>
     </div>
     <div class="cap-card">
       <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -1220,7 +1238,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <section id="why" class="s-mid">
   <div class="ch"><span>Why Missionary Media</span></div>
   <h2 class="s-title">A guide, translator, and connector — beside you.</h2>
-  <p class="s-sub">I’m not asking you to become the media person. I’m here to help you know where to start, make wise decisions, and stay connected without it eating your week.</p>
+  <p class="s-sub">I’m here to help you know where to start, make wise decisions, and stay connected <span class="hl">without it eating your week</span>.</p>
 
   <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:3vw;align-items:start;margin-top:5vh">
     <div style="border-radius:22px;overflow:hidden;border:1px solid rgba(28,31,46,.10);box-shadow:0 14px 44px rgba(8,16,32,.10);background:#fff">
@@ -1257,7 +1275,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <section id="story" class="s-mid">
   <div class="ch"><span>The Story</span></div>
   <h2 class="s-title">Two missionaries. Same calling. <span class="gt">Different</span> access to help.</h2>
-  <p class="s-sub">One had a guide and the patience to grow. The other got tangled, lost momentum, and went back to what he knew. Most missionaries we talk to are closer to the second.</p>
+  <p class="s-sub">One had <span class="hl">the information to grow</span>. The other got tangled, lost momentum, and went back to what he knew. Most missionaries we talk to are closer to the second.</p>
 
   <div class="story-grid" style="margin-top:5vh">
     <div class="story-card">
@@ -1269,9 +1287,9 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           <i data-lucide="map-pin" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"></i>
           Josh &amp; Julie Mead · Senegal
         </div>
-        <h3 style="font-family:var(--display);font-size:clamp(17px,1.7vw,22px);font-weight:600;margin-bottom:1rem;line-height:1.22">He borrowed what works in the secular world — and the fruit came with time.</h3>
+        <h3 style="font-family:var(--display);font-size:clamp(17px,1.7vw,22px);font-weight:600;margin-bottom:1rem;line-height:1.22">He prayed for support and took steps in faith — and watched digital media actually grow his ministry.</h3>
         <p style="font-size:clamp(14px,1.02vw,15px);line-height:1.65;opacity:.72">
-          Josh applied the same practices that move people online to the field. It was not instant. He prayed for support, learned in public, and kept showing up. Years later, another missionary calls him "the cleanest example" of ministry-first media.
+          Josh did what you’re already doing — he prayed for support and stepped out in faith. The difference was having <span class="hl">the information to use digital media well</span>. It was not instant, but it grew real ministry on the field. He’s <span class="hl">proof this works</span> — and proof of where it can go with someone to walk it out.
         </p>
         <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.42;margin-top:1rem;line-height:1.5">Calling + the right system + someone to walk it out.</p>
       </div>
@@ -1290,7 +1308,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
         <p style="font-size:clamp(14px,1.02vw,15px);line-height:1.65;opacity:.72">
           Wilder began building digital tools for his church. No guide. No way to tell if it was working. He defaulted back to what he knew — pulpit, visits, paper letters. Faithful work. Just not the reach his community needs.
         </p>
-        <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.42;margin-top:1rem;line-height:1.5">Confusion without a guide costs missionaries their best digital efforts.</p>
+        <p style="font-family:var(--display);font-weight:600;font-size:clamp(15px,1.15vw,18px);letter-spacing:-.01em;opacity:.95;margin-top:1.1rem;line-height:1.4">Confusion without a guide costs missionaries their best digital efforts.</p>
       </div>
     </div>
   </div>
@@ -1390,7 +1408,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 	    <div class="cap-card">
 	      <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
 	      <h4>Security comes first</h4>
-	      <p>Visa risk, restricted regions, and what your online trail reveals — handled from day one, not as an afterthought</p>
+	      <p>Visa risk, restricted regions, and your privacy — handled from day one, not as an afterthought</p>
 	    </div>
 	  </div>
 	</section>
@@ -1399,7 +1417,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <section id="phase1" class="s-warm">
   <div class="ch warm"><span>Phase 1</span></div>
   <h2 class="s-title">Everything you need to run the digital side — done with you.</h2>
-  <p class="s-sub avail-intro">Six pieces, one system: your home base, the templates and workflows behind it, and the people who walk with you.</p>
+  <p class="s-sub avail-intro">This is where we start together — set up around your field, your supporters, and the way you already work.</p>
   <div class="f8-grid">
 
     <!-- Card 1 — arc stat -->
@@ -1947,6 +1965,17 @@ const io = new IntersectionObserver(entries => {
 }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
 
 toReveal.forEach(el => io.observe(el));
+
+// Key-phrase highlight on scroll-in
+const hlIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('lit');
+      hlIO.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.6, rootMargin: '0px 0px -8% 0px'});
+document.querySelectorAll('.hl').forEach(el => hlIO.observe(el));
 
 const fundIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
