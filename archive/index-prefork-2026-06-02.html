@@ -102,6 +102,20 @@ nav.scrolled{
 .nav-links{display:flex;gap:2vw;align-items:center}
 .nav-links a:not(.btn-nav){font-family:var(--body);font-size:14px;color:var(--text-muted);text-decoration:none;letter-spacing:.005em;transition:color .2s}
 .nav-links a:not(.btn-nav):hover{color:var(--ink)}
+.nav-toggle{
+  display:none;
+  align-items:center;justify-content:center;
+  width:42px;height:42px;
+  border-radius:12px;
+  border:1px solid rgba(28,31,46,.12);
+  background:rgba(250,248,245,.7);
+  color:var(--ink);
+  cursor:pointer;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.nav-toggle:hover{background:rgba(250,248,245,.92);border-color:rgba(28,31,46,.18);transform:translateY(-1px)}
+.nav-toggle:active{transform:translateY(0)}
+.nav-toggle svg{width:18px;height:18px}
 .btn-nav{
   display:inline-flex;align-items:center;gap:7px;
   background:var(--coral);
@@ -285,30 +299,51 @@ p.hero-sub{font-family:var(--body);font-size:clamp(15px,1.25vw,19px);line-height
 .hero-drag-hint svg{opacity:.6}
 .hero.dragging .hero-drag-hint{opacity:0}
 
-/* ── Content Ticker ── */
-.hero-ticker{
-  position:absolute;bottom:0;left:0;right:0;z-index:4;
-  overflow:hidden;border-top:1px solid rgba(250,248,245,.1);
-  background:rgba(15,30,60,.88);backdrop-filter:blur(20px);
-  height:96px;pointer-events:auto;
+/* ── Podcast Carousel (separate section) ── */
+#podcast{padding-top:72px;padding-bottom:84px}
+.podcast-wrap{margin-top:3.2vh}
+.podcast-rail{
+  position:relative;
+  border:1px solid rgba(250,248,245,.10);
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(15,30,60,.86);
+  backdrop-filter:blur(18px);
 }
-.hero-ticker:hover .ticker-inner{animation-play-state:paused}
-.ticker-inner{display:flex;align-items:stretch;width:max-content;animation:ticker 54s linear infinite;height:100%}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.tick-card{display:flex;align-items:center;gap:16px;padding:0 2.4rem;height:100%;border:none;border-right:1px solid rgba(250,248,245,.07);flex-shrink:0;background:transparent;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:background .18s}
-.tick-card:hover{background:rgba(255,255,255,.05)}
-.tick-cat{font-family:var(--mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;padding:3px 10px;border-radius:99px;flex-shrink:0;white-space:nowrap}
-.tick-cat.mission{background:rgba(255,107,53,.15);color:#FF9060;border:1px solid rgba(255,107,53,.28)}
-.tick-cat.media{background:rgba(232,112,42,.12);color:#FFB070;border:1px solid rgba(232,112,42,.28)}
-.tick-cat.tech{background:rgba(0,92,232,.2);color:rgba(150,200,255,.9);border:1px solid rgba(0,92,232,.35)}
-.tick-info{display:flex;flex-direction:column;gap:4px}
-.tick-title{font-family:var(--body);font-size:14.5px;font-weight:500;color:rgba(250,248,245,.78);white-space:nowrap}
-.tick-watch{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#FF9060;opacity:.78;white-space:nowrap;display:flex;align-items:center;gap:6px}
-.tick-card:hover .tick-watch{opacity:1}
-.hero-podcast-cue{position:absolute;right:5vw;bottom:104px;z-index:6;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FF9060;pointer-events:none;animation:heroIn .8s ease-out both;animation-delay:1s}
-.hero-podcast-cue svg{animation:cueBounce 1.8s ease-in-out infinite}
-@keyframes cueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-@media(max-width:640px){.hero-podcast-cue{display:none}}
+.podcast-rail::before,.podcast-rail::after{content:'';position:absolute;top:0;bottom:0;width:64px;z-index:3;pointer-events:none}
+.podcast-rail::before{left:0;background:linear-gradient(90deg,rgba(15,30,60,.98),rgba(15,30,60,0))}
+.podcast-rail::after{right:0;background:linear-gradient(270deg,rgba(15,30,60,.98),rgba(15,30,60,0))}
+.podcast-track{display:flex;align-items:stretch;width:max-content;animation:podcastTicker 70s linear infinite}
+.podcast-rail:hover .podcast-track{animation-play-state:paused}
+@keyframes podcastTicker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.podcast-card{
+  display:flex;align-items:center;gap:18px;
+  padding:14px 24px;
+  min-height:132px;
+  border:none;border-right:1px solid rgba(250,248,245,.07);
+  flex-shrink:0;background:transparent;
+  cursor:pointer;text-align:left;color:inherit;font:inherit;
+  transition:background .18s;
+}
+.podcast-card:hover{background:rgba(255,255,255,.05)}
+.pod-thumb{width:208px;height:118px;border-radius:18px;overflow:hidden;border:1px solid rgba(250,248,245,.14);background:rgba(250,248,245,.04);flex:0 0 auto}
+.pod-thumb img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.03)}
+.pod-meta{display:flex;flex-direction:column;gap:8px;min-width:320px}
+.pod-top{display:flex;align-items:center;gap:10px}
+.pod-cat{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;padding:4px 12px;border-radius:999px;flex-shrink:0;white-space:nowrap}
+.pod-cat.mission{background:rgba(255,107,53,.16);color:#FF9B6B;border:1px solid rgba(255,107,53,.30)}
+.pod-cat.media{background:rgba(232,112,42,.14);color:#FFB887;border:1px solid rgba(232,112,42,.30)}
+.pod-title{font-family:var(--display);font-size:18px;font-weight:600;color:rgba(250,248,245,.92);line-height:1.15;max-width:44ch}
+.pod-cta{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#FF9060;opacity:.9;display:flex;align-items:center;gap:8px;white-space:nowrap}
+@media(max-width:900px){
+  .pod-meta{min-width:260px}
+  .pod-thumb{width:176px;height:100px}
+}
+@media(max-width:720px){
+  .pod-meta{min-width:220px}
+  .pod-thumb{width:156px;height:88px;border-radius:16px}
+  .pod-title{font-size:16px}
+}
 
 /* Stats band */
 .hero-stats{display:flex;margin-top:6.5vh;background:rgba(250,248,245,.06);border:1px solid rgba(250,248,245,.14);border-radius:16px;overflow:hidden}
@@ -566,7 +601,25 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transf
   .comp-matrix{overflow-x:auto}
   p.s-sub{max-width:100%}
   section{padding:72px 5vw}
-  nav .nav-links a:not(.btn-nav){display:none}
+  nav .nav-toggle{display:inline-flex}
+  nav .nav-links{
+    position:fixed;
+    top:60px;left:0;right:0;
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    padding:12px 5vw 16px;
+    background:rgba(250,248,245,.98);
+    border-bottom:1px solid rgba(28,31,46,.1);
+    box-shadow:0 16px 50px rgba(28,31,46,.10);
+    z-index:99;
+    transform:translateY(-10px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease;
+  }
+  nav.open .nav-links{opacity:1;transform:translateY(0);pointer-events:auto}
+  nav .nav-links a:not(.btn-nav){display:block;padding:12px 6px;border-radius:12px}
+  nav .nav-links a:not(.btn-nav):hover{background:rgba(28,31,46,.04)}
+  nav .nav-links a.btn-nav{margin-top:10px;width:100%;justify-content:center}
   .market-funnel .mf.mid{margin:0 1.5vw}
   .market-funnel .mf.inner{margin:0 3vw}
   .fund-bar{grid-template-columns:1fr 2fr auto}
@@ -585,9 +638,40 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transf
   .cta-section p{max-width:100%}
 }
 
+@media(max-width:720px){
+  /* Mobile: remove decorative hero imagery (float objects + 3D scene) */
+  .hero{height:auto;min-height:0;cursor:default;perspective:none}
+  .hero-scene{display:none}
+  .hero-drag-hint,.hero-podcast-cue{display:none}
+  .hero-overlay{position:relative;inset:auto;min-height:unset;padding:120px 7vw 76px}
+
+  /* Mobile: let users swipe the rail instead of a continuous ticker */
+  .podcast-rail{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .podcast-rail::before,.podcast-rail::after{display:none}
+  .podcast-track{animation:none;width:auto}
+  .podcast-card{border-right:none}
+}
+
 /* ── Scroll reveals ── */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
+
+/* ── Scroll-in key-phrase highlight (draws an underline/highlight as you scroll) ── */
+.hl{
+  background-image:linear-gradient(120deg, rgba(0,92,232,.20), rgba(255,107,74,.22));
+  background-repeat:no-repeat;
+  background-position:0 92%;
+  background-size:0% .40em;
+  transition:background-size .7s cubic-bezier(.22,1,.36,1);
+  padding:0 .04em;
+  border-radius:2px;
+}
+.hl.lit{background-size:100% .40em}
+
+/* ── Security examples list (problem card) ── */
+.cap-list{margin:.7rem 0 0;padding-left:0;list-style:none;display:grid;gap:.5rem}
+.cap-list li{position:relative;padding-left:1.1rem;line-height:1.55;font-size:clamp(13px,.95vw,14px);color:var(--text-mid)}
+.cap-list li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--coral)}
 
 /* ── Grain texture overlay ── */
 body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.028;
@@ -642,6 +726,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 /* ── Prefers reduced motion ── */
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
+  .hl{background-size:100% .40em;transition:none}
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
@@ -693,6 +778,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 .f8-visual{height:140px;margin:0;border-bottom:1px solid rgba(255,255,255,.08);background:radial-gradient(ellipse 70% 60% at 20% 10%, rgba(0,196,249,.16), transparent 55%),radial-gradient(ellipse 70% 60% at 80% 90%, rgba(255,107,53,.14), transparent 55%)}
 .f8-visual img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92}
 .f8-visual .f8-vis-label{position:absolute;left:16px;bottom:14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:rgba(10,10,10,.72);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.86);backdrop-filter:blur(10px)}
+.f8-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(0,0,0,.0),rgba(0,0,0,.18));pointer-events:none}
 .f8-card.has-img{display:flex;flex-direction:column}
 .f8-body{padding:1.4rem 1.6rem 1.6rem}
 .f8-body .f8-h{margin-top:.35rem}
@@ -900,6 +986,8 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 .cta-card{padding:2.6rem;border-radius:22px;display:flex;flex-direction:column;gap:1rem;justify-content:flex-start}
 .cta-card.primary{background:linear-gradient(145deg,rgba(255,107,53,.18),rgba(255,107,53,.06));border:1px solid rgba(255,107,53,.32);box-shadow:0 10px 40px rgba(255,107,53,.18)}
 .cta-card.secondary{background:rgba(250,248,245,.96);border:1px solid rgba(28,31,46,.12);box-shadow:0 6px 26px rgba(8,16,32,.18)}
+.cta-card .c-photo{width:100%;height:170px;border-radius:18px;overflow:hidden;border:1px solid rgba(28,31,46,.10);box-shadow:0 14px 44px rgba(8,16,32,.10);background:linear-gradient(135deg,rgba(0,92,232,.10),rgba(255,107,53,.08))}
+.cta-card .c-photo img{width:100%;height:100%;object-fit:cover;object-position:center 45%;display:block}
 .cta-card .c-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-muted)}
 .cta-card.primary .c-eyebrow{color:var(--coral)}
 .cta-card h3{font-family:var(--display);font-size:clamp(22px,2.2vw,32px);font-weight:700;color:var(--ink);line-height:1.18;letter-spacing:-.018em}
@@ -933,7 +1021,12 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <img src="./images/logo.png" alt="Missionary Media">
     <span>Missionary Media</span>
   </a>
-	  <div class="nav-links">
+  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M5 7h14M5 12h14M5 17h14"/>
+    </svg>
+  </button>
+	  <div class="nav-links" id="nav-links">
 	    <a href="#problem">Problem</a>
 		    <a href="#weight">Voices</a>
 		    <a href="#phase1">Phase 1</a>
@@ -957,7 +1050,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   <img class="float-obj fo-bible"  src="./images/hero-3.png"  alt="">
   <div class="float-obj fo-laptop">
     <img src="./images/hero-4-nobg.png" alt="">
-    <button class="fo-play" type="button" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg" aria-label="Watch the story">
+    <button class="fo-play" type="button" data-video="https://www.youtube.com/embed/dnfMBprp0xg" aria-label="Watch the story">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
     </button>
   </div>
@@ -1074,7 +1167,6 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <div class="hero-cta">
       <a href="mailto:missionarymediahub@gmail.com?subject=Discovery%20call" class="btn-primary">Book a discovery call</a>
     </div>
-    <a class="hero-story-link" href="#" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><span class="dot">▶</span> Watch my story (2 min)</a>
   </div>
 
   <div class="hero-drag-hint">
@@ -1084,57 +1176,55 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <span>Drag to explore</span>
   </div>
 
-  <div class="hero-podcast-cue"><span>Check out our podcast</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-  </div>
-  <div class="hero-ticker">
-    <div class="ticker-inner">
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Digital Evangelism: Unlocking the Future of Missions</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/kwE45m5kRMo"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Overcome Camera Fear & Share the Gospel Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/L1oiYPD3MzM"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">How to Spread the Gospel on Social Media: Tips for Success</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/lN8zVJpDugY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/_gc6d6qk3IE"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/cLfGCAg4DRA"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/euSjz1xT-YY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/uM35hRAhWR0"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/LNKgYv0dwyQ"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Understand the Impact of Social Media on Ministry - A Crazy Reality</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <!-- Duplicate for seamless loop -->
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Digital Evangelism: Unlocking the Future of Missions</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/kwE45m5kRMo"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Overcome Camera Fear & Share the Gospel Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/L1oiYPD3MzM"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">How to Spread the Gospel on Social Media: Tips for Success</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/lN8zVJpDugY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/_gc6d6qk3IE"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/cLfGCAg4DRA"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/euSjz1xT-YY"><span class="tick-cat mission">Mission</span><div class="tick-info"><div class="tick-title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/uM35hRAhWR0"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
-      <button type="button" class="tick-card" data-video="https://www.youtube-nocookie.com/embed/LNKgYv0dwyQ"><span class="tick-cat media">Media</span><div class="tick-info"><div class="tick-title">Understand the Impact of Social Media on Ministry - A Crazy Reality</div><div class="tick-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Click to Watch</div></div></button>
+</section>
+
+<!-- ── Podcast Carousel ── -->
+<section id="podcast" class="s-dark">
+  <div class="ch white"><span>Podcast · Missionary Media Hub</span></div>
+  <h2 class="s-title" style="color:rgba(250,248,245,.94)">Get tips from the field.</h2>
+  <p class="s-sub" style="color:rgba(250,248,245,.62)">Short, practical episodes for staying connected, reaching locals, and staying safe online — without becoming “the media person.”</p>
+
+  <div class="podcast-wrap">
+    <div class="podcast-rail" aria-label="Missionary Media Hub video carousel">
+      <div class="podcast-track" data-pod-track>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/dnfMBprp0xg"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Digital Evangelism: Unlocking the Future of Missions</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/kwE45m5kRMo"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Overcome Camera Fear &amp; Share the Gospel Online</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/L1oiYPD3MzM"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">How to Spread the Gospel on Social Media: Tips for Success</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/lN8zVJpDugY"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/_gc6d6qk3IE"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/cLfGCAg4DRA"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/euSjz1xT-YY"><div class="pod-meta"><div class="pod-top"><span class="pod-cat mission">Mission</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/uM35hRAhWR0"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</div></div></button>
+        <button type="button" class="podcast-card" data-video="https://www.youtube.com/embed/LNKgYv0dwyQ"><div class="pod-meta"><div class="pod-top"><span class="pod-cat media">Media</span><span class="pod-cta">Click to watch</span></div><div class="pod-title">Understand the Impact of Social Media on Ministry - A Crazy Reality</div></div></button>
+      </div>
     </div>
   </div>
 </section>
+
 <!-- ── The Problem (why digital media hasn't worked) ── -->
 <section id="problem" class="s-mid">
   <div class="ch"><span>Digital media hasn't worked in the mission field</span></div>
-  <h2 class="s-title" style="margin-bottom:4vh">Digital tools were built for someone else.</h2>
+  <h2 class="s-title" style="margin-bottom:4vh">We exist because the tools <span class="hl">weren't built with you in mind</span>.</h2>
   <div class="cap-grid">
     <div class="cap-card">
-      <div class="cap-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-      <h4>Corporate marketers</h4>
-      <p>Most playbooks assume US suburbs and broadband. We translate them to phone-first realities, limited Wi‑Fi, and the way ministry happens on the field.</p>
+      <div class="cap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <h4>Big-box American playbooks</h4>
+      <p>Most marketing advice assumes US suburbs, broadband, and a corporate brand. We translate <span class="hl">what actually works</span> to phone-first realities, limited Wi‑Fi, and the way ministry really happens on the field — without forcing you into a US-shaped mold.</p>
     </div>
     <div class="cap-card">
       <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h4>Security ignored</h4>
-      <p>Visa risk, restricted-access regions, and digital footprint decisions aren’t an afterthought. We treat them like real decisions from day one.</p>
-    </div>
-    <div class="cap-card">
-      <div class="cap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-      <h4>"Big box American"</h4>
-      <p>Field realities are different. We help you apply what works in the digital world without forcing you into a US-shaped mold.</p>
+      <p>Visa risk, the safety of the people you serve, and your <span class="hl">privacy</span> are real decisions — and we treat them that way from day one. A few we plan around:</p>
+      <ul class="cap-list">
+        <li>Your social media history can be scanned when you apply for a visa.</li>
+        <li>A face in a photo can put a local believer at risk.</li>
+        <li>A single post can reveal where you live and serve.</li>
+      </ul>
     </div>
     <div class="cap-card">
       <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <h4>No missionary peers</h4>
-      <p>Missionaries need a guide who understands the field, plus people who can help carry the work. More than another course.</p>
+      <p>Missionaries need a guide who understands the field, plus people who can help carry the work. Not just another course.</p>
     </div>
   </div>
 
@@ -1147,12 +1237,12 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <!-- ── Why Missionary Media (trust) ── -->
 <section id="why" class="s-mid">
   <div class="ch"><span>Why Missionary Media</span></div>
-  <h2 class="s-title">A guide, translator, and connector, beside you.</h2>
-  <p class="s-sub">I’m not asking you to become the media person. I’m here to help you know where to start, make wise decisions, and stay connected without it eating your week.</p>
+  <h2 class="s-title">A guide, translator, and connector — beside you.</h2>
+  <p class="s-sub">I’m here to help you know where to start, make wise decisions, and stay connected <span class="hl">without it eating your week</span>.</p>
 
   <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:3vw;align-items:start;margin-top:5vh">
     <div style="border-radius:22px;overflow:hidden;border:1px solid rgba(28,31,46,.10);box-shadow:0 14px 44px rgba(8,16,32,.10);background:#fff">
-      <img src="./images/founder-tabor.jpg" alt="Tabor Normoyle" loading="lazy" style="width:100%;height:320px;object-fit:cover;object-position:center 18%;display:block"/>
+      <img src="./images/founder-tabor.jpg" alt="Tabor Normoyle" loading="lazy" style="width:100%;height:320px;object-fit:cover;object-position:22% 38%;display:block"/>
       <div style="padding:16px 18px;border-top:1px solid rgba(28,31,46,.08);display:flex;justify-content:space-between;gap:12px;align-items:center">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,31,46,.55)">Founder · Missionary Media</div>
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,92,232,.78)">Interview-led</div>
@@ -1160,14 +1250,14 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     </div>
 
     <div>
-      <p style="font-size:clamp(14px,1.06vw,16px);line-height:1.7;color:var(--text-mid)">For the past several years, I’ve given my life to one thing: helping missionaries know where to start in the digital landscape, in a way that fits the mission field rather than a US marketing playbook.</p>
+      <p style="font-size:clamp(14px,1.06vw,16px);line-height:1.7;color:var(--text-mid)">For the past several years, I’ve given my life to one thing: helping missionaries know where to start in the digital landscape — in a way that fits the mission field, not a US marketing playbook.</p>
       <ul style="margin-top:18px;display:grid;gap:10px;list-style:none;padding-left:0">
         <li style="display:flex;gap:10px;align-items:flex-start"><span style="margin-top:.35em;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span><span style="color:var(--text-mid);line-height:1.6">Interview-led conversations with missionaries and missions leaders across multiple contexts.</span></li>
         <li style="display:flex;gap:10px;align-items:flex-start"><span style="margin-top:.35em;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span><span style="color:var(--text-mid);line-height:1.6">A live “home base” approach that helps supporters and churches stay close.</span></li>
         <li style="display:flex;gap:10px;align-items:flex-start"><span style="margin-top:.35em;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span><span style="color:var(--text-mid);line-height:1.6">Practical templates, coaching, and training — so you’re not carrying this alone.</span></li>
       </ul>
 
-      <a class="hero-story-link" href="#" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg" style="margin-top:18px;color:rgba(28,31,46,.76);border-color:rgba(28,31,46,.16);background:rgba(28,31,46,.03)">
+      <a class="hero-story-link" href="#" data-video="https://www.youtube.com/embed/dnfMBprp0xg" style="margin-top:18px;color:rgba(28,31,46,.76);border-color:rgba(28,31,46,.16);background:rgba(28,31,46,.03)">
         <span class="dot" style="box-shadow:none">▶</span> Watch my story (2 min)
       </a>
     </div>
@@ -1185,7 +1275,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <section id="story" class="s-mid">
   <div class="ch"><span>The Story</span></div>
   <h2 class="s-title">Two missionaries. Same calling. <span class="gt">Different</span> access to help.</h2>
-  <p class="s-sub">One had a guide and the patience to grow. The other got tangled, lost momentum, and went back to what he knew. Most missionaries we talk to are closer to the second.</p>
+  <p class="s-sub">One had <span class="hl">the information to grow</span>. The other got tangled, lost momentum, and went back to what he knew. Most missionaries we talk to are closer to the second.</p>
 
   <div class="story-grid" style="margin-top:5vh">
     <div class="story-card">
@@ -1197,9 +1287,9 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           <i data-lucide="map-pin" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"></i>
           Josh &amp; Julie Mead · Senegal
         </div>
-        <h3 style="font-family:var(--display);font-size:clamp(17px,1.7vw,22px);font-weight:600;margin-bottom:1rem;line-height:1.22">He borrowed what works in the secular world, and the fruit came with time.</h3>
+        <h3 style="font-family:var(--display);font-size:clamp(17px,1.7vw,22px);font-weight:600;margin-bottom:1rem;line-height:1.22">He prayed for support and took steps in faith — and watched digital media actually grow his ministry.</h3>
         <p style="font-size:clamp(14px,1.02vw,15px);line-height:1.65;opacity:.72">
-          Josh applied the same practices that move people online to the field. It was not instant. He prayed for support, learned in public, and kept showing up. Years later, another missionary calls him "the cleanest example" of ministry-first media.
+          Josh did what you’re already doing — he prayed for support and stepped out in faith. The difference was having <span class="hl">the information to use digital media well</span>. It was not instant, but it grew real ministry on the field. He’s <span class="hl">proof this works</span> — and proof of where it can go with someone to walk it out.
         </p>
         <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.42;margin-top:1rem;line-height:1.5">Calling + the right system + someone to walk it out.</p>
       </div>
@@ -1214,11 +1304,11 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           <i data-lucide="map-pin" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"></i>
           Pastor Wilder · Guatemala
         </div>
-        <h3 style="font-family:var(--display);font-size:clamp(17px,1.7vw,22px);font-weight:600;margin-bottom:1rem;line-height:1.22">He started in tech with the right instinct, then got tangled and walked away.</h3>
+        <h3 style="font-family:var(--display);font-size:clamp(17px,1.7vw,22px);font-weight:600;margin-bottom:1rem;line-height:1.22">He started in tech with the right instinct — then got tangled and quietly walked away.</h3>
         <p style="font-size:clamp(14px,1.02vw,15px);line-height:1.65;opacity:.72">
-          Wilder began building digital tools for his church. No guide. No way to tell if it was working. He defaulted back to what he knew: pulpit, visits, paper letters. Faithful work. Not the reach his community needs.
+          Wilder began building digital tools for his church. No guide. No way to tell if it was working. He defaulted back to what he knew — pulpit, visits, paper letters. Faithful work. Just not the reach his community needs.
         </p>
-        <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.42;margin-top:1rem;line-height:1.5">Confusion without a guide costs missionaries their best digital efforts.</p>
+        <p style="font-family:var(--display);font-weight:600;font-size:clamp(15px,1.15vw,18px);letter-spacing:-.01em;opacity:.95;margin-top:1.1rem;line-height:1.4">Confusion without a guide costs missionaries their best digital efforts.</p>
       </div>
     </div>
   </div>
@@ -1228,7 +1318,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 		<section id="weight" class="s-mid">
   <div class="ch"><span>Voices from the field</span></div>
   <h2 class="s-title">You are not the only one.</h2>
-  <p class="s-sub">These are real words from real missionaries, pulled straight from interviews and conversations we’ve had with people serving in places like Senegal, Madagascar, Portugal, Romania, Australia, and Southeast Asia.</p>
+  <p class="s-sub">These are real words from real missionaries — pulled straight from interviews and conversations we’ve had with people serving in places like Senegal, Madagascar, Portugal, Romania, Australia, and Southeast Asia.</p>
 
   <div class="need-marquee" aria-label="Real quotes from missionaries and missions leaders">
     <div class="need-cols need-mask">
@@ -1273,7 +1363,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 	<section id="solution" class="s-blue">
 	  <div class="ch"><span>The Solution</span></div>
 	  <h2 class="s-title">We are the <span class="gt">translator</span> between proven<br>digital systems and missionary reality.</h2>
-	  <p class="s-sub">I’ve dedicated my life to helping missionaries know where to start in the digital landscape, so you don’t have to feel behind, ill‑equipped, or alone in the digital side of ministry.</p>
+	  <p class="s-sub">I’ve dedicated my life to helping missionaries know where to start in the digital landscape — so you don’t have to feel behind, ill‑equipped, or alone in the digital side of ministry.</p>
 
 	  <div class="flow-row">
 	    <div class="flow-node">
@@ -1281,13 +1371,13 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 	        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue-lt)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
 	      </div>
 	      <h3>Digital Landscape</h3>
-	      <p>What works in the modern digital world: tools, platforms, workflows, AI</p>
+	      <p>What works in the modern digital world — tools, platforms, workflows, AI</p>
 	    </div>
 	    <div class="flow-arr flow-op">+</div>
 	    <div class="flow-node cn">
 	      <img src="./images/logo.png" style="width:48px;height:auto;filter:drop-shadow(0 0 14px rgba(0,196,249,.4))" alt="MM">
 	      <h3 class="gb">Missionary Media</h3>
-	      <p>Context-aware, phone-first, and built around your safety.</p>
+	      <p>Context-aware. Phone-first. Built around your safety.</p>
 	    </div>
 	    <div class="flow-arr flow-op">=</div>
 	    <div class="flow-node rn">
@@ -1295,7 +1385,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 	        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 8v4l3 3"/></svg>
 	      </div>
 	      <h3>A New Missionary Reality</h3>
-	      <p>What works on the field: connection, culture, security, stewardship</p>
+	      <p>What actually works on the field — connection, culture, security, stewardship</p>
 	    </div>
 	  </div>
 
@@ -1303,12 +1393,12 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 	    <div class="cap-card">
 	      <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
 	      <h4>Awareness</h4>
-	      <p>of the digital landscape: what's changed, what's working, and what many missions teams don't have time to track</p>
+	      <p>of the digital landscape — what's changed, what's working, and what many missions teams don't have time to track</p>
 	    </div>
 	    <div class="cap-card">
 	      <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12c-1.3 4-4.8 7-9 7s-7.7-3-9-7c1.3-4 4.8-7 9-7s7.7 3 9 7z"/></svg></div>
 	      <h4>Tested and true</h4>
-	      <p>tools and workflows that translate across contexts, adapted with missionaries, so you can skip the discovery work</p>
+	      <p>tools and workflows that translate across contexts — adapted with missionaries, so you can skip the discovery work</p>
 	    </div>
 	    <div class="cap-card">
 	      <div class="cap-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
@@ -1318,7 +1408,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 	    <div class="cap-card">
 	      <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
 	      <h4>Security comes first</h4>
-	      <p>Visa risk, restricted regions, and what your online trail reveals, handled from day one</p>
+	      <p>Visa risk, restricted regions, and your privacy — handled from day one, not as an afterthought</p>
 	    </div>
 	  </div>
 	</section>
@@ -1326,8 +1416,8 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <!-- ── Phase 1 — your 6 deliverables (features-8 bento) ── -->
 <section id="phase1" class="s-warm">
   <div class="ch warm"><span>Phase 1</span></div>
-  <h2 class="s-title">Everything you need to run the digital side, done with you.</h2>
-  <p class="s-sub avail-intro">Six pieces, one system: your home base, the templates and workflows behind it, and the people who walk with you.</p>
+  <h2 class="s-title">Everything you need to run the digital side — done with you.</h2>
+  <p class="s-sub avail-intro">This is where we start together — set up around your field, your supporters, and the way you already work.</p>
   <div class="f8-grid">
 
     <!-- Card 1 — arc stat -->
@@ -1366,7 +1456,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
       <div class="f8-cap">
         <div class="f8-kicker">Piece 01</div>
         <h3 class="f8-h">Your live home base.</h3>
-        <p class="f8-p">MissionaryConnect.app: one profile, one map, one place your sending church, supporters, and local church partners can follow, pray, and give.</p>
+        <p class="f8-p">MissionaryConnect.app — one profile, one map, one place your sending church, supporters, and local church partners can follow, pray, and give.</p>
         <a class="f8-cta" href="https://missionaryconnect.app/" target="_blank" rel="noopener">Visit MissionaryConnect.app
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
         </a>
@@ -1375,20 +1465,20 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <!-- Card 3b — communication rhythm -->
     <div class="f8-card f8-span2 has-img" style="grid-column:1 / span 2;grid-row:2">
       <div class="f8-visual" style="position:relative">
-        <img src="./images/hero-5.png" alt="" aria-hidden="true" loading="lazy">
+        <img src="./images/missionary-connect.jpg" alt="" aria-hidden="true" loading="lazy" style="object-position:center 35%">
         <span class="f8-vis-label">Communication rhythm</span>
       </div>
       <div class="f8-body" style="text-align:left">
         <div class="f8-kicker">Piece 03</div>
         <h3 class="f8-h">A simple rhythm for updates.</h3>
-        <p class="f8-p">A repeatable way to stay connected to sending churches (and local partners) without it eating your week.</p>
+        <p class="f8-p">A repeatable way to stay close to sending churches (and local partners) without it eating your week.</p>
       </div>
     </div>
 
     <!-- Card 3c — trusted introductions -->
     <div class="f8-card f8-span2 has-img" style="grid-column:3 / span 2;grid-row:2">
       <div class="f8-visual" style="position:relative">
-        <img src="./images/hero-1.png" alt="" aria-hidden="true" loading="lazy">
+        <img src="./images/trusted-help-directory.png" alt="" aria-hidden="true" loading="lazy" style="object-position:center 20%">
         <span class="f8-vis-label">Trusted help</span>
       </div>
       <div class="f8-body" style="text-align:left">
@@ -1401,31 +1491,31 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <!-- Card 4 — templates + workflows -->
     <div class="f8-card f8-span2 has-img" style="grid-column:5 / span 2;grid-row:2">
       <div class="f8-visual" style="position:relative">
-        <img src="./images/available-today-ipad.png" alt="" aria-hidden="true" loading="lazy">
+        <img src="./images/online-school-workshops.png" alt="" aria-hidden="true" loading="lazy" style="object-position:center 18%">
         <span class="f8-vis-label">Templates + workflows</span>
       </div>
       <div class="f8-body" style="text-align:left">
         <div class="f8-kicker">Piece 04</div>
         <h3 class="f8-h">Ready-to-run templates.</h3>
-        <p class="f8-p">Systems for updates, prayer letters, and posts, so you never start from a blank page.</p>
+        <p class="f8-p">Systems for updates, prayer letters, and posts — so you never start from a blank page.</p>
       </div>
     </div>
 
     <!-- Card 5 — coaching + training -->
     <div class="f8-card f8-span2 has-img" style="grid-column:5 / span 2;grid-row:3">
       <div class="f8-visual" style="position:relative">
-        <img src="./images/hero-4.png" alt="" aria-hidden="true" loading="lazy">
+        <img src="./images/sponsor-coaching.jpg" alt="" aria-hidden="true" loading="lazy" onerror="this.remove();this.parentElement.style.background='radial-gradient(ellipse 70% 60% at 20% 10%, rgba(0,196,249,.22), transparent 55%),radial-gradient(ellipse 70% 60% at 80% 90%, rgba(255,107,53,.18), transparent 55%)'">
         <span class="f8-vis-label">Coaching + training</span>
       </div>
       <div class="f8-body" style="text-align:left">
         <div class="f8-kicker">Piece 05</div>
         <h3 class="f8-h">People who walk with you.</h3>
-        <p class="f8-p">1‑on‑1 coaching, monthly check‑ins, and on‑site team training, so you’re not doing this alone.</p>
+        <p class="f8-p">1‑on‑1 coaching, monthly check‑ins, and on‑site team training — so you’re not doing this alone.</p>
       </div>
     </div>
 
   </div>
-  <p class="s-sub" style="margin-top:4vh">Phase 1 is the help we can put beside you now. We’re also building what comes next, so more of this can be handed off and supported without you carrying it alone. If you want a glimpse of what’s in development, ask on the discovery call.</p>
+  <p class="s-sub" style="margin-top:4vh">Phase 1 is the help we can put beside you now. We’re also building what comes next — so more of this can be handed off and supported without you carrying it alone. If you want a glimpse of what’s in development, ask on the discovery call.</p>
 </section>
 
 <!-- ── FAQ — split header + accordion card ── -->
@@ -1457,7 +1547,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
         </details>
 
         <details class="faq-q">
-          <summary>I'm on deputation, first-term, or veteran. Which fits me?
+          <summary>I'm on deputation / first-term / veteran — which fits me?
             <svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
           <div class="faq-a"><p>All three. Deputation needs prayer cards, a clean presentation, and donor tracking. First-term needs a small rhythm before silence becomes normal. Veterans need to unify what is already scattered across Word, paper, Facebook, and church portals.</p></div>
@@ -1467,14 +1557,14 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           <summary>How much time per week does this take?
             <svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
-          <div class="faq-a"><p>Whatever fits. A monthly thirty-minute call is enough for most missionaries. Heavier seasons like launch, furlough, or a deputation push might be weekly for a stretch.</p></div>
+          <div class="faq-a"><p>Whatever fits. A monthly thirty-minute call is enough for most missionaries. Heavier seasons — launch, furlough, deputation push — might be weekly for a stretch.</p></div>
         </details>
 
         <details class="faq-q">
           <summary>What does it cost? Can a sponsor cover it?
             <svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
-          <div class="faq-a"><p>The discovery call is free. After that, pricing depends on scope: coaching, on-site training, IT setup. In many cases, a sending church or sponsor covers the cost so the missionary isn’t carrying it alone.</p></div>
+          <div class="faq-a"><p>The discovery call is free. After that, pricing depends on scope — coaching, on-site training, IT setup. In many cases, a sending church or sponsor covers the cost so the missionary isn’t carrying it alone.</p></div>
         </details>
 
         <details class="faq-q">
@@ -1497,7 +1587,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 <section id="contact" class="cta-section">
   <div class="ch white ch-dashed" style="justify-content:center;margin-bottom:2.4vh"><span>The One-Stop Shop</span></div>
   <h2 style="text-align:center;font-family:var(--display);font-size:clamp(28px,3.8vw,56px);font-weight:700;letter-spacing:-.022em;color:var(--ink);max-width:880px;margin:0 auto">to connect supporters, reach locals, and get trusted help.</h2>
-  <p class="cta-vow">This is the one thing I've given my life to, <span>so you don't have to figure it out alone.</span></p>
+  <p class="cta-vow">This is the one thing I've given my life to — <span>so you don't have to figure it out alone.</span></p>
 
   <div class="cta-split">
 
@@ -1516,10 +1606,13 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 
     <div class="cta-card secondary">
       <h3>Churches &amp; sponsors, fund a missionary’s next step.</h3>
+      <div class="c-photo" aria-hidden="true">
+        <img src="./images/sponsor-coaching.jpg" alt="" loading="lazy" onerror="this.remove();this.parentElement.style.background='linear-gradient(135deg,rgba(0,92,232,.14),rgba(255,107,53,.12))'"/>
+      </div>
       <ul class="c-list">
         <li>Fund the resources a missionary needs to thrive digitally</li>
         <li>Free them to focus on the field, not on figuring out tech alone</li>
-        <li>Back the vision behind Missionary Media: every missionary equipped</li>
+        <li>Back the vision behind Missionary Media — every missionary equipped</li>
       </ul>
       <a href="./sponsor.html" class="c-secondary">
         Sponsor a missionary
@@ -1543,7 +1636,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   <div class="vm-backdrop"></div>
   <div class="vm-laptop" role="dialog" aria-modal="true" aria-label="Watch the video">
     <img class="vm-laptop-img" src="./images/hero-4-nobg.png" alt="">
-    <div class="vm-screen"><iframe id="vm-iframe" src="" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="vm-screen"><iframe id="vm-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin-when-cross-origin" allowfullscreen></iframe></div>
     <button class="vm-close" type="button" aria-label="Close">× Close</button>
   </div>
 </div>
@@ -1554,6 +1647,7 @@ lucide.createIcons();
 
 // ── Hero: room-peek camera (grid only) + throw-spin objects ──
 (function(){
+  if (window.matchMedia && window.matchMedia('(max-width: 720px)').matches) return;
   const floats = [
     {sel:'.fo-bible',  amp:9,  freq:.88,  phase:0.0, rot:1.2,  depth:-0.7,  inDelay:0.28}, // far — upper left
     {sel:'.fo-laptop', amp:11, freq:.76,  phase:0.7, rot:.5,   depth:0.8,   inDelay:0.42}, // near — lower left
@@ -1808,6 +1902,38 @@ lucide.createIcons();
   }, {passive: true});
 })();
 
+// ── Nav: mobile drawer ──
+(function(){
+  const nav = document.getElementById('site-nav');
+  if (!nav) return;
+  const toggle = nav.querySelector('.nav-toggle');
+  const links = nav.querySelector('.nav-links');
+  if (!toggle || !links) return;
+
+  const close = () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+  const open = () => {
+    nav.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.contains('open');
+    (isOpen ? close : open)();
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('click', (e) => {
+    if (!nav.classList.contains('open')) return;
+    if (e.target === toggle || toggle.contains(e.target)) return;
+    if (e.target === links || links.contains(e.target)) return;
+    close();
+  });
+  window.addEventListener('resize', close, {passive: true});
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+})();
+
 // Scroll reveals
 const toReveal = [
   ...document.querySelectorAll(
@@ -1839,6 +1965,17 @@ const io = new IntersectionObserver(entries => {
 }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
 
 toReveal.forEach(el => io.observe(el));
+
+// Key-phrase highlight on scroll-in
+const hlIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('lit');
+      hlIO.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.6, rootMargin: '0px 0px -8% 0px'});
+document.querySelectorAll('.hl').forEach(el => hlIO.observe(el));
 
 const fundIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -1920,9 +2057,21 @@ if (fundSection) fundIO.observe(fundSection.closest('section') || fundSection);
   const iframe = document.getElementById('vm-iframe');
   const close = vm.querySelector('.vm-close');
   const backdrop = vm.querySelector('.vm-backdrop');
+  function ytIdFromEmbedUrl(url){
+    try{
+      const u = new URL(url);
+      const parts = u.pathname.split('/').filter(Boolean);
+      const idx = parts.indexOf('embed');
+      if (idx !== -1 && parts[idx+1]) return parts[idx+1];
+      // fallback: last path segment
+      return parts[parts.length-1] || '';
+    }catch(_){ return ''; }
+  }
   function open(src){
     if (!src) return;
-    iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&playsinline=1&modestbranding=1';
+    const base = src + (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&playsinline=1&modestbranding=1';
+    const canSetOrigin = location && (location.protocol === 'http:' || location.protocol === 'https:');
+    iframe.src = canSetOrigin ? (base + '&origin=' + encodeURIComponent(location.origin)) : base;
     vm.hidden = false;
     document.body.style.overflow = 'hidden';
   }
@@ -1939,6 +2088,27 @@ if (fundSection) fundIO.observe(fundSection.closest('section') || fundSection);
     });
     b.addEventListener('pointerdown', e => e.stopPropagation());
   });
+
+  // Duplicate the podcast rail items for seamless loop + add thumbnails
+  document.querySelectorAll('[data-pod-track]').forEach(track => {
+    const kids = Array.from(track.children);
+    kids.forEach(node => track.appendChild(node.cloneNode(true)));
+  });
+  document.querySelectorAll('.podcast-card[data-video]').forEach(card => {
+    if (card.querySelector('.pod-thumb')) return;
+    const vid = ytIdFromEmbedUrl(card.dataset.video || '');
+    if (!vid) return;
+    const title = card.querySelector('.pod-title')?.textContent?.trim() || 'Watch video';
+    const thumb = document.createElement('div');
+    thumb.className = 'pod-thumb';
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.alt = title;
+    img.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(vid) + '/hqdefault.jpg';
+    thumb.appendChild(img);
+    card.insertBefore(thumb, card.firstChild);
+  });
+
   close.addEventListener('click', shut);
   backdrop.addEventListener('click', shut);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !vm.hidden) shut(); });

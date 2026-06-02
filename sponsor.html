@@ -3,697 +3,389 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Missionary Media — Pay it forward for missionaries</title>
-<!--
-  sponsor.html — Sponsor page (static).
-  Section order mirrors the wireframe exactly. MM brand design layer applied.
-  Deviations (per Tabor's recent explicit instructions, NOT in wireframe):
-    - Mission kept (after hero)
-    - "What happens next" removed from phase accordion
-    - The Ask = pledge box (not the 4-question Q&A)
-  Illustrative numbers (Phase goals, stewardship slider) — swap for real later.
--->
+<title>Missionary Media — Pay it forward for a missionary's digital care</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1C1F2E; --paper:#FAF8F5;
-  --blue-lt:#00C4F9; --blue:#005BE8; --orange:#F63600; --coral:#FF6B35;
-  --warm-navy:#0F1E3C; --sand:#F0EBE3; --stone:#E8E2D9;
-  --muted:rgba(28,31,46,.52); --mid:rgba(28,31,46,.72); --main:rgba(28,31,46,.92);
-  --line:rgba(28,31,46,.12);
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --display:'Fraunces',Georgia,serif;
-  --body:'DM Sans',-apple-system,sans-serif;
-  --r:20px;
+  --paper:#FAF8F5; --offwhite:#F5F0E8; --ink:#1C1F2E;
+  --blue:#005BE8; --sky:#00C4F9; --coral:#FF6B35; --orange:#F63600;
+  --sand:#D4A96A; --brown:#5C3D2E; --warm-navy:#0F1E3C;
+  --muted:rgba(28,31,46,.56); --mid:rgba(28,31,46,.74); --line:rgba(28,31,46,.10);
+  --display:'Fraunces',Georgia,serif; --body:'DM Sans',-apple-system,sans-serif;
+  --r:22px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* ambient brand washes */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(60vw 60vh at 12% 14%, rgba(0,92,232,.07), transparent 60%),
-    radial-gradient(70vw 70vh at 88% 40%, rgba(0,196,249,.06), transparent 65%),
-    radial-gradient(80vw 60vh at 15% 70%, rgba(255,107,53,.07), transparent 65%),
-    radial-gradient(70vw 65vh at 85% 94%, rgba(246,54,0,.05), transparent 65%);
-}
-nav,main,section,footer{position:relative;z-index:1}
+/* ── Type ── */
+h1,h2,h3{font-weight:400;letter-spacing:-.01em}
+.eyebrow{font-family:var(--body);font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);display:inline-block;margin-bottom:18px}
+.eyebrow.warm{color:var(--coral)}
+h1{font-family:var(--display);font-size:clamp(40px,6vw,72px);font-weight:500;line-height:1.02}
+h2{font-family:var(--display);font-size:clamp(30px,4.2vw,48px);font-weight:500;line-height:1.08}
+h3{font-family:var(--body);font-size:21px;font-weight:600;letter-spacing:-.01em}
+p.lead{font-size:clamp(18px,2vw,21px);color:var(--mid);max-width:60ch}
+.muted{color:var(--muted)}
 
-@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* keyword highlight on scroll */
+.kw{position:relative;white-space:nowrap}
+.kw::after{content:'';position:absolute;left:-2px;right:-2px;bottom:.04em;height:.48em;background:rgba(212,169,106,.5);border-radius:2px;z-index:-1;transform:scaleX(0);transform-origin:left center;transition:transform .65s cubic-bezier(.5,0,.2,1)}
+.kw.lit::after{transform:scaleX(1)}
 
-.gt{background:linear-gradient(130deg,var(--blue),var(--coral) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.gb{background:linear-gradient(130deg,var(--blue),var(--blue-lt));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* ── Layout ── */
+section{padding:104px 7vw;position:relative}
+.wrap{max-width:1140px;margin:0 auto}
+.s-off{background:var(--offwhite)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
 
-/* ── nav ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 4.5vw;height:62px;background:rgba(250,248,245,.72);backdrop-filter:blur(20px);border-bottom:1px solid rgba(28,31,46,.06);transition:.4s}
-nav.scrolled{background:rgba(250,248,245,.96);box-shadow:0 1px 20px rgba(28,31,46,.06)}
+/* ── Nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+  padding:0 6vw;height:62px;background:rgba(250,248,245,.78);backdrop-filter:blur(18px);
+  border-bottom:1px solid transparent;transition:.35s}
+nav.scrolled{background:rgba(250,248,245,.96);border-bottom-color:var(--line);box-shadow:0 1px 18px rgba(28,31,46,.05)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo img{height:32px;width:auto}
-.nav-logo span{font-size:15px;font-weight:600;color:var(--main);letter-spacing:-.01em}
-.nav-links{display:flex;gap:2vw;align-items:center}
-.nav-links a:not(.btn-nav){font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s}
-.nav-links a:not(.btn-nav):hover{color:var(--ink)}
-.nav-toggle{
-  display:none;
-  align-items:center;justify-content:center;
-  width:42px;height:42px;
-  border-radius:12px;
-  border:1px solid rgba(28,31,46,.12);
-  background:rgba(250,248,245,.7);
-  color:var(--ink);
-  cursor:pointer;
-  transition:background .18s,border-color .18s,transform .18s;
-}
-.nav-toggle:hover{background:rgba(250,248,245,.92);border-color:rgba(28,31,46,.18);transform:translateY(-1px)}
-.nav-toggle:active{transform:translateY(0)}
-.nav-toggle svg{width:18px;height:18px}
-.btn-nav{display:inline-flex;align-items:center;gap:7px;background:var(--coral);color:#fff;font-weight:600;font-size:13px;border:none;border-radius:99px;padding:9px 18px;cursor:pointer;text-decoration:none;transition:.22s;box-shadow:0 2px 12px rgba(255,107,53,.28)}
-.btn-nav:hover{background:var(--orange);transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,53,.38)}
+.nav-logo span{font-size:15px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:26px}
+.nav-right a.txt{font-size:14.5px;color:var(--mid);text-decoration:none}
+.nav-right a.txt:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:#fff;font-family:var(--body);
+  font-weight:600;font-size:15px;border:none;border-radius:99px;padding:13px 26px;cursor:pointer;text-decoration:none;
+  transition:.2s;box-shadow:0 3px 16px rgba(255,107,53,.28)}
+.btn:hover{background:var(--orange);transform:translateY(-1px);box-shadow:0 6px 22px rgba(255,107,53,.36)}
+.btn.sm{padding:9px 20px;font-size:14px}
+.btn .ar{transition:transform .2s}.btn:hover .ar{transform:translateX(3px)}
 
-/* ── buttons ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--body);font-weight:600;font-size:15px;border-radius:99px;padding:14px 26px;cursor:pointer;text-decoration:none;transition:.22s;border:1.5px solid transparent}
-.btn-primary{background:var(--coral);color:#fff;box-shadow:0 4px 18px rgba(255,107,53,.3)}
-.btn-primary:hover{background:var(--orange);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,53,.4)}
-.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
-.btn-ghost:hover{border-color:var(--ink);background:rgba(28,31,46,.03)}
-.btn-sm{padding:9px 18px;font-size:13px}
+/* ── Hero ── */
+.hero{min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(165deg,var(--warm-navy) 0%,#13284d 55%,#1a3358 100%);color:#FAF8F5;padding:140px 7vw 90px}
+.hero-img{position:absolute;inset:0;z-index:1;background-image:url('./images/sponsor-silhouette-street.png');
+  background-size:cover;background-position:center right;opacity:.5;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 45%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 45%,#000 100%)}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--warm-navy) 8%,transparent 70%)}
+.hero-inner{position:relative;z-index:2;max-width:640px}
+.hero .eyebrow{color:var(--sand)}
+.hero h1{color:#fff;margin-bottom:24px}
+.hero p.lead{color:rgba(250,248,245,.82);margin-bottom:36px}
+.hero .kw::after{height:4px;bottom:-2px;border-radius:3px;background:var(--sand);opacity:.9}
 
-/* ── section system ── */
-section{padding:92px 7vw}
-.s-tint{background:linear-gradient(180deg,rgba(0,15,55,.04),transparent 100%)}
-.s-mid{background:#F5F1EC}
-.s-warm{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,107,53,.08),transparent 52%)}
-.s-dark{background:var(--warm-navy);color:#fff}
-.s-dark .eyebrow,.s-dark .s-sub{color:rgba(255,255,255,.7)}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
-.eyebrow::before{content:'';width:22px;height:1.5px;background:var(--coral)}
-h2.s-title{font-family:var(--display);font-size:clamp(28px,3.6vw,46px);font-weight:600;line-height:1.1;letter-spacing:-.02em;max-width:18ch}
-.s-sub{font-size:clamp(15px,1.3vw,18px);line-height:1.62;color:var(--mid);max-width:60ch;margin-top:18px}
-.center{text-align:center}.center h2.s-title{margin:0 auto}.center .s-sub{margin-left:auto;margin-right:auto}
+/* ── Mission ── */
+.mission h2{max-width:18ch;margin-bottom:24px}
+.pullchip{margin-top:46px;display:inline-block;font-family:var(--display);font-style:italic;font-size:clamp(20px,2.6vw,26px);
+  color:var(--brown);line-height:1.4;max-width:30ch;padding-left:22px;border-left:3px solid var(--sand)}
 
-/* ── hero ── */
-.hero{min-height:92vh;display:flex;align-items:center;padding-top:62px;position:relative;overflow:hidden;background:var(--warm-navy);color:#FAF8F5}
-.hero::before{
-  content:'';
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    linear-gradient(90deg,rgba(15,30,60,.94) 0%,rgba(15,30,60,.86) 31%,rgba(15,30,60,.50) 52%,rgba(15,30,60,.14) 75%,rgba(15,30,60,.36) 100%),
-    radial-gradient(52vw 58vh at 74% 55%,rgba(255,107,53,.16),transparent 62%),
-    url('./images/sponsor-silhouette-street.png') center right/cover no-repeat;
-  filter:saturate(.98) contrast(1.02);
-}
-.hero::after{
-  content:'';
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(45vw 56vh at 80% 78%,rgba(0,196,249,.12),transparent 62%),
-    linear-gradient(180deg,rgba(15,30,60,.08) 0%,rgba(15,30,60,.72) 100%);
-  opacity:.88;
-}
-.hero-inner{position:relative;z-index:1;max-width:1120px;width:100%}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.9fr);gap:4vw;align-items:center}
-.hero-copy{max-width:620px}
-.hero h1{font-family:var(--display);font-size:clamp(44px,6.6vw,86px);font-weight:600;line-height:.99;letter-spacing:-.03em;margin-bottom:24px;color:rgba(250,248,245,.96);text-shadow:0 18px 55px rgba(0,0,0,.28);animation:riseIn .7s ease both}
-.hero p.lead{font-size:clamp(17px,1.55vw,21px);line-height:1.58;color:rgba(250,248,245,.76);max-width:51ch;margin-bottom:34px;animation:riseIn .7s ease .12s both}
-.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;animation:riseIn .7s ease .24s both}
-.hero-visual{min-height:clamp(420px,56vw,610px)}
-@media(max-width:980px){
-  .hero{min-height:auto;padding-top:112px;background:var(--warm-navy)}
-  .hero::before{
-    background:
-      linear-gradient(180deg,rgba(15,30,60,.96) 0%,rgba(15,30,60,.88) 42%,rgba(15,30,60,.30) 68%,rgba(15,30,60,.62) 100%),
-      url('./images/sponsor-silhouette-street.png') 60% bottom/cover no-repeat;
-  }
-  .hero-grid{grid-template-columns:1fr;gap:26px}
-  .hero-visual{min-height:330px}
-}
+/* ── How it works (slide-out) ── */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:54px}
+.hiw-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;
+  opacity:0;transform:translateX(-46px);transition:opacity .7s ease,transform .7s cubic-bezier(.4,0,.2,1)}
+.hiw-card.in{opacity:1;transform:none}
+.hiw-card .num{font-family:var(--display);font-size:34px;color:var(--sky);font-weight:500;line-height:1;margin-bottom:18px}
+.hiw-card h3{margin-bottom:12px}
+.hiw-card p{font-size:16.5px;color:var(--mid)}
 
-/* ── proof grid (gap) ── */
-.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh}
-.proof-tile{border-radius:var(--r);padding:2rem;border:1px solid var(--line);background:#fff;box-shadow:0 2px 14px rgba(28,31,46,.06);transition:.22s}
-.proof-tile:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(28,31,46,.1)}
-.proof-icn{width:38px;height:38px;border-radius:11px;background:rgba(255,107,53,.1);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px}
-.proof-q{font-family:var(--display);font-size:clamp(17px,1.5vw,21px);font-weight:500;line-height:1.3;color:var(--ink)}
-.proof-d{font-size:14px;line-height:1.55;color:var(--mid);margin-top:8px}
+/* ── Transformation (before/after) ── */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:48px}
+.ba-card{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--paper)}
+.ba-img{aspect-ratio:4/3;background:#e8e2d8 center/cover no-repeat;display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:14px;text-align:center;padding:20px}
+.ba-card.before .ba-img{background-image:url('./images/before-phase1.png')}
+.ba-card.after  .ba-img{background-image:url('./images/after-phase1.png')}
+.ba-tag{padding:16px 22px;font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px}
+.ba-card.before .ba-tag{color:var(--brown)}
+.ba-card.after  .ba-tag{color:var(--blue)}
+.ba-dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex-shrink:0}
+.ba-note{margin-top:22px;font-size:14.5px;color:var(--muted);font-style:italic}
 
-/* matrix */
-.matrix-wrap{margin-top:4vh;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 16px rgba(28,31,46,.06)}
-table.matrix{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
-table.matrix th,table.matrix td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-table.matrix th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#FBF9F6}
-table.matrix td:last-child{color:var(--blue);font-weight:500}
-table.matrix tr:last-child td{border-bottom:none}
+/* ── Phases ── */
+.phase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:52px;max-width:820px}
+.phase{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;display:flex;flex-direction:column}
+.phase.live{border-color:rgba(0,91,232,.30);box-shadow:0 8px 30px rgba(0,91,232,.07)}
+.tag{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  padding:5px 11px;border-radius:99px;margin-bottom:16px}
+.tag.now{background:rgba(0,91,232,.10);color:var(--blue)}
+.tag.dev{background:rgba(92,61,46,.10);color:var(--brown)}
+.phase h3{font-family:var(--display);font-weight:500;font-size:24px;margin-bottom:6px}
+.phase .price{font-family:var(--display);font-size:30px;color:var(--ink);margin-bottom:14px}
+.phase .price small{font-family:var(--body);font-size:15px;color:var(--muted)}
+.phase p{font-size:16px;color:var(--mid);margin-bottom:18px}
+.where{font-size:14.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;margin-top:auto}
+.where b{color:var(--ink);font-weight:600}
+.bar{height:7px;background:var(--offwhite);border-radius:99px;overflow:hidden;margin:14px 0 8px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:99px}
+.barlabel{font-size:13px;color:var(--muted);margin-bottom:14px}
+.preview{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.preview summary{cursor:pointer;list-style:none;font-size:14.5px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:7px;user-select:none}
+.preview summary::-webkit-details-marker{display:none}
+.preview summary .chev{transition:transform .25s;font-size:12px}
+.preview[open] summary .chev{transform:rotate(180deg)}
+.preview .shot{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0a0a0a;animation:shotIn .35s ease}
+.preview .shot img{width:100%;display:block}
+.preview .cap{margin-top:9px;font-size:12.5px;color:var(--muted)}
+@keyframes shotIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* ── area cards ── */
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh}
-.area-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:0 2px 14px rgba(28,31,46,.06);transition:.22s}
-.area-card:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(28,31,46,.1)}
-.area-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
-.area-card.a2 .area-tag{color:var(--blue)}.area-card.a3 .area-tag{color:var(--blue-lt)}
-.area-promise{font-family:var(--display);font-size:clamp(19px,1.7vw,23px);font-weight:600;line-height:1.22;margin:12px 0 14px}
-.area-card ul{list-style:none;display:grid;gap:10px}
-.area-card li{font-size:14px;line-height:1.5;color:var(--mid);padding-left:22px;position:relative}
-.area-card li::before{content:'';position:absolute;left:0;top:7px;width:9px;height:9px;border-radius:3px;border:1.6px solid var(--coral)}
-.area-card.a2 li::before{border-color:var(--blue)}.area-card.a3 li::before{border-color:var(--blue-lt)}
+/* ── Stewardship ── */
+.stew h2{max-width:20ch;margin-bottom:22px}
+.stew p.lead{margin-bottom:18px}
 
-/* ── stepper ($65/mo) ── */
-.stepper{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;margin-top:5vh}
-.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:0 2px 14px rgba(28,31,46,.05)}
-.step .num{width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;margin-bottom:14px}
-.step h4{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:8px}
-.step p{font-size:13.5px;line-height:1.5;color:var(--mid)}
+/* ── Why ── */
+.why-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:54px;align-items:center}
+.why-photo{aspect-ratio:4/5;border-radius:var(--r);background:#e8e2d8 url('./images/founder-tabor.jpg') center/cover no-repeat;border:1px solid var(--line)}
+.why h2{margin-bottom:22px}
+.why .name{margin-top:20px;font-size:15px;color:var(--muted)}
+.why .name b{color:var(--ink);font-weight:600}
 
-/* ── stewardship (dark) ── */
-.steward-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3vw;margin-top:5vh;align-items:start}
-.anchor{font-family:var(--display);font-size:clamp(40px,5vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1}
-.anchor small{font-size:.32em;font-weight:400;opacity:.7}
-.slider-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:26px}
-.slider-card label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:12px}
-input[type=range]{width:100%;accent-color:var(--coral);height:6px}
-.slider-val{font-family:var(--display);font-weight:600;color:var(--blue-lt)}
-.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
-.metric{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px}
-.metric .mn{font-family:var(--display);font-size:clamp(22px,2.4vw,30px);font-weight:600;color:#fff}
-.metric .ml{font-size:11px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:4px}
-.illus{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.45);margin-top:14px}
+/* ── Closing ── */
+.cta-pair{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:6px}
+.cta-pair.center{justify-content:center}
+.cta-2nd{font-size:15px;color:var(--mid);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line)}
+.cta-2nd:hover{color:var(--ink)}
+.hero .cta-2nd{color:rgba(250,248,245,.7)}
+.hero .cta-2nd:hover{color:#fff}
+.offer h2{max-width:20ch;margin-bottom:24px}
+.incl{list-style:none;margin:0 0 30px;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;max-width:760px}
+.incl li{position:relative;padding-left:26px;font-size:16.5px;color:var(--mid)}
+.incl li::before{content:'';position:absolute;left:0;top:.55em;width:13px;height:13px;border-radius:50%;background:var(--sky);box-shadow:inset 0 0 0 3px var(--paper),0 0 0 1px var(--sky)}
+.build-link{display:inline-block;margin-top:34px;font-size:15px}
+@media(max-width:880px){.incl{grid-template-columns:1fr}}
+.sponsor-cta{text-align:center}
+.sponsor-cta h2{margin-bottom:14px}
+.sponsor-cta p.lead{margin:0 auto 28px}
+.sponsor-cta .btn{font-size:16px;padding:15px 30px}
+.close{text-align:center;background:var(--offwhite)}
+.close h2{margin-bottom:16px}
+.close p.lead{margin:0 auto 38px}
+.cal{max-width:680px;margin:0 auto;aspect-ratio:16/9;background:var(--paper);border:1px dashed rgba(28,31,46,.22);
+  border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
+.cal .big{font-family:var(--display);font-size:22px;color:var(--mid)}
+.share{margin-top:30px;display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--blue);
+  border:1px solid rgba(0,91,232,.35);border-radius:99px;padding:11px 22px;font-family:var(--body);font-weight:600;
+  font-size:15px;cursor:pointer;transition:.2s}
+.share:hover{background:rgba(0,91,232,.06)}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
+  padding:12px 22px;border-radius:99px;font-size:14.5px;opacity:0;pointer-events:none;transition:.3s;z-index:200}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── founder ── */
-.founder{display:grid;grid-template-columns:300px 1fr;gap:3vw;margin-top:5vh;align-items:start}
-.founder-photo{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:0 12px 40px rgba(28,31,46,.16)}
-.founder-photo img{width:100%;display:block;aspect-ratio:3/3.4;object-fit:cover}
-.video-btn{display:inline-flex;align-items:center;gap:9px;margin-top:14px;cursor:pointer;background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);transition:.2s}
-.video-btn:hover{border-color:var(--coral);color:var(--coral)}
-.video-btn .play{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px}
-.founder-name{font-family:var(--display);font-size:24px;font-weight:600}
-.founder-role{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 18px}
-.founder p{font-size:15px;line-height:1.62;color:var(--mid);margin-bottom:14px;max-width:60ch}
-.cred{display:grid;gap:10px;margin:18px 0}
-.cred li{list-style:none;font-size:14.5px;color:var(--main);padding-left:26px;position:relative}
-.cred li::before{content:'✓';position:absolute;left:0;color:var(--coral);font-weight:700}
-.proof-strip{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
-.proof-strip .ps{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;flex:1;min-width:200px}
-.proof-strip .ps q{font-family:var(--display);font-style:italic;font-size:15px;color:var(--ink)}
-.proof-strip .ps .src{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;display:block}
+/* ── Footer ── */
+footer{padding:44px 7vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+footer img{height:26px;opacity:.5}
+footer span{font-size:13.5px;color:var(--muted)}
 
-/* ── invitation accordion (Option B) ── */
-.phase-list{margin-top:5vh;display:grid;gap:14px}
-details.phase{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 14px rgba(28,31,46,.05);transition:.2s}
-details.phase[open]{box-shadow:0 12px 40px rgba(28,31,46,.1)}
-details.phase.feat{border-color:var(--ink);border-width:2px}
-details.phase summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 26px}
-details.phase summary::-webkit-details-marker{display:none}
-.ph-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.ph-title{font-family:var(--display);font-size:clamp(19px,1.8vw,24px);font-weight:600;margin:6px 0}
-.ph-price{font-family:var(--display);font-size:22px;font-weight:600;color:var(--coral)}
-.ph-promise{font-size:14.5px;line-height:1.5;color:var(--mid);max-width:54ch;margin-top:8px}
-.ph-toggle{font-family:var(--display);font-size:26px;color:var(--muted);line-height:1;transition:transform .2s}
-details.phase[open] .ph-toggle{transform:rotate(45deg)}
-.ph-body{padding:0 26px 26px;border-top:1px solid var(--line)}
-.ph-grp{margin-top:18px}
-.ph-grp-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.ph-body ul{list-style:none;display:grid;gap:8px}
-.ph-body li{font-size:14px;color:var(--mid);padding-left:18px;position:relative}
-.ph-body li::before{content:'·';position:absolute;left:5px;color:var(--coral);font-weight:700}
-.goal-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:10px}
-.goal-row b{font-family:var(--display);font-size:18px}
-.progress{height:8px;border-radius:99px;background:var(--stone);overflow:hidden}
-.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-lt))}
-.private-note{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;border-left:2px solid var(--line);padding-left:10px}
-.trust-block{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px}
-.trust-block .ph-grp-lbl{color:var(--coral)}
-.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
-.trust-card b{font-family:var(--display);font-size:16px;display:block;margin-bottom:6px}
-.trust-card p{font-size:13px;line-height:1.5;color:var(--mid)}
-
-/* ── partner tiles ── */
-.partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.6vw;margin-top:5vh}
-.partner{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:0 2px 14px rgba(28,31,46,.05)}
-.partner .pn{font-family:var(--display);font-size:18px;font-weight:600}
-.partner .pr{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);margin:6px 0 10px}
-.partner p{font-size:13px;line-height:1.55;color:var(--mid)}
-.partner .cat{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:4px 10px}
-
-/* ── the ask / give box ── */
-.give-box{max-width:540px;margin:5vh auto 0;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:0 14px 50px rgba(28,31,46,.12);padding:32px}
-.give-seg{display:flex;gap:6px;background:var(--sand);border-radius:99px;padding:5px;margin-bottom:22px}
-.give-seg button{flex:1;border:none;background:transparent;font-family:var(--body);font-size:14px;font-weight:600;color:var(--mid);padding:11px;border-radius:99px;cursor:pointer;transition:.2s}
-.give-seg button.sel{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(28,31,46,.12)}
-.give-amts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.give-amts button{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:18px 8px;font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink);cursor:pointer;transition:.18s}
-.give-amts button:hover{border-color:var(--coral)}
-.give-amts button.sel{border-color:var(--coral);background:rgba(255,107,53,.07);box-shadow:0 0 0 3px rgba(255,107,53,.12)}
-.give-custom{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:15px 16px;font-family:var(--body);font-size:15px;margin-bottom:18px}
-.give-custom:focus{outline:none;border-color:var(--coral)}
-.give-box .btn-primary{width:100%}
-.give-note{text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:.02em}
-
-/* ── contact ── */
-.cta-section{background:var(--warm-navy);color:#fff;text-align:center}
-.cta-section h2{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:600;letter-spacing:-.02em;max-width:16ch;margin:0 auto 18px}
-.cta-section p{color:rgba(255,255,255,.72);max-width:56ch;margin:0 auto 30px;line-height:1.6}
-.contact-paths{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px}
-.cpath{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px 22px;color:#fff;text-decoration:none;font-size:14px;transition:.2s}
-.cpath:hover{background:rgba(255,255,255,.12)}
-
-/* ── video modal ── */
-.modal{position:fixed;inset:0;z-index:200;background:rgba(15,30,60,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:5vw}
-.modal.open{display:flex}
-.modal-card{background:#000;border-radius:var(--r);overflow:hidden;max-width:820px;width:100%;aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-family:var(--mono);font-size:13px;background:linear-gradient(135deg,#0F1E3C,#04060e)}
-.modal-close{position:absolute;top:14px;right:16px;color:#fff;font-size:26px;cursor:pointer;background:none;border:none;z-index:2}
-
-footer{background:#14182a;color:rgba(255,255,255,.6);padding:40px 7vw;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
-
-@media(max-width:900px){
-  nav .nav-toggle{display:inline-flex}
-  nav .nav-links{
-    position:fixed;
-    top:62px;left:0;right:0;
-    display:flex;flex-direction:column;align-items:stretch;gap:0;
-    padding:12px 7vw 16px;
-    background:rgba(250,248,245,.98);
-    border-bottom:1px solid rgba(28,31,46,.1);
-    box-shadow:0 16px 50px rgba(28,31,46,.10);
-    z-index:99;
-    transform:translateY(-10px);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .18s ease,transform .18s ease;
-  }
-  nav.open .nav-links{opacity:1;transform:translateY(0);pointer-events:auto}
-  nav .nav-links a:not(.btn-nav){display:block;padding:12px 6px;border-radius:12px}
-  nav .nav-links a:not(.btn-nav):hover{background:rgba(28,31,46,.04)}
-  nav .nav-links a.btn-nav{margin-top:10px;width:100%;justify-content:center}
-  .grid-3,.stepper,.steward-grid,.founder,.trust-grid{grid-template-columns:1fr}
-  .proof-grid{grid-template-columns:1fr}
-  section{padding:70px 7vw}
+/* ── Responsive ── */
+@media(max-width:880px){
+  section{padding:76px 7vw}
+  .hiw-grid,.phase-grid{grid-template-columns:1fr}
+  .ba-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr;gap:34px}
+  .why-photo{max-width:340px}
+  .nav-right a.txt{display:none}
+  .hero-img{opacity:.32;-webkit-mask-image:none;mask-image:none}
+  .hero-img::after{background:linear-gradient(180deg,rgba(15,30,60,.6),var(--warm-navy))}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="nav">
-  <a class="nav-logo" href="#hero"><img src="./images/logo.png" alt="Missionary Media" onerror="this.style.display='none'"><span>Missionary Media</span></a>
-  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M5 7h14M5 12h14M5 17h14"/>
-    </svg>
-  </button>
-  <div class="nav-links" id="nav-links">
-    <a href="#areas">Areas</a>
-    <a href="#gap">Reality</a>
-    <a href="#invitation">Phases</a>
-    <a href="#contact">Contact</a>
-    <a class="btn-nav" href="#contact">Schedule a call</a>
+  <a class="nav-logo" href="./index.html">
+    <img src="./images/logo.png" alt="Missionary Media">
+    <span>Missionary Media</span>
+  </a>
+  <div class="nav-right">
+    <a class="txt" href="./index.html">For Missionaries</a>
+    <!-- TODO: replace #sponsor with Givebutter/Stripe sponsor link -->
+    <a class="btn sm" href="#sponsor">Sponsor a missionary <span class="ar">→</span></a>
   </div>
 </nav>
 
-<main>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-img" role="img" aria-label="A missionary stepping toward the light of the field"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">For churches &amp; ministry partners</span>
+    <h1>Pay it forward for a missionary's <span class="kw">digital care</span>.</h1>
+    <p class="lead">When a missionary has a guide for the digital side of ministry, the work stops draining their week, and the people who sent them stay connected to it.</p>
+    <div class="cta-pair">
+      <!-- TODO: replace #sponsor with Givebutter/Stripe sponsor link -->
+      <a class="btn" href="#sponsor">Sponsor a missionary <span class="ar">→</span></a>
+      <a class="cta-2nd" href="#talk">or book a call</a>
+    </div>
+  </div>
+</header>
 
-  <!-- 1 HERO -->
-  <section id="hero" class="hero">
-    <div class="hero-inner">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <h1>Back digital care for <span class="gt">missionaries.</span></h1>
-          <p class="lead">This is the vision page: what we’re building, why it matters, and how we’ll steward it. If God is leading you to help, start here.</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#invitation">Become a founding backer</a>
-          </div>
-        </div>
+<!-- MISSION -->
+<section class="mission wrap-sec">
+  <div class="wrap reveal">
+    <span class="eyebrow">The mission</span>
+    <h2>The people they're called to reach are <span class="kw">already online</span>. That's the mission field no one prepared them for.</h2>
+    <p class="lead">I work directly with missionaries to design the systems that fit their field, so the digital side stops eating their time and starts <span class="kw">feeding the ministry</span>.</p>
+  </div>
+</section>
 
-        <div class="hero-visual" aria-hidden="true"></div>
+<!-- THE OFFER -->
+<section class="offer" id="sponsor">
+  <div class="wrap reveal">
+    <span class="eyebrow">What your sponsorship does</span>
+    <h2>$65 a month puts a digital guide beside one missionary.</h2>
+    <ul class="incl">
+      <li>Intake &amp; assessment of their real situation</li>
+      <li>Templates &amp; workflows built for their field</li>
+      <li>A communication rhythm they can keep</li>
+      <li>Privacy &amp; security guidance</li>
+      <li>A monthly coaching call</li>
+    </ul>
+    <!-- TODO: replace #sponsor-start with Givebutter/Stripe sponsor link -->
+    <a class="btn" href="#sponsor-start">Sponsor a missionary <span class="ar">→</span></a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="s-off">
+  <div class="wrap reveal">
+    <span class="eyebrow">How it works</span>
+    <h2>Three steps, done with you.</h2>
+    <div class="hiw-grid">
+      <div class="hiw-card"><div class="num">1</div><h3>Look at what you've got</h3><p>We start with the missionary's real situation: their phone, their bandwidth, and the tools they already use. Then we find what's slowing them down.</p></div>
+      <div class="hiw-card"><div class="num">2</div><h3>Build the system</h3><p>Together we build the workflows and templates that fit their field, so updates, prayer letters, and posts stop starting from a blank page.</p></div>
+      <div class="hiw-card"><div class="num">3</div><h3>Hand it off so it keeps running</h3><p>We set it up so the missionary can run it themselves, with coaching and check-ins whenever a season gets heavy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION (before / after) -->
+<section>
+  <div class="wrap reveal">
+    <span class="eyebrow warm">The difference a guide makes</span>
+    <h2>What the digital side looks like with a system.</h2>
+    <p class="lead">Most supporters never see this part of the work. A guide beside them changes it, and the missionary stops carrying it alone.</p>
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="ba-img">before-phase1.png</div>
+        <div class="ba-tag"><span class="ba-dot"></span>Before: scattered across apps, paper, and inboxes</div>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-img">after-phase1.png</div>
+        <div class="ba-tag"><span class="ba-dot"></span>With a system: one rhythm they can keep</div>
       </div>
     </div>
-  </section>
+    <p class="ba-note">A real workflow from a missionary we coach, shared with permission.</p>
+  </div>
+</section>
 
-  <!-- 2 MISSION (kept per Tabor) -->
-  <section id="mission" class="s-tint">
-    <div class="eyebrow">The Mission</div>
-    <h2 class="s-title">Digital care is part of <span class="gt">missionary care.</span></h2>
-    <p class="s-sub">When communication breaks down, relationships drift and missionaries carry more weight alone. When it works, churches pray with names in mind, partners understand the work, and the missionary is less alone.</p>
-    <p class="s-sub" style="font-family:var(--display);font-style:italic;font-size:clamp(19px,2vw,26px);color:var(--ink);max-width:30ch;margin-top:28px">"We're not trying to get money from people. We're inviting God's people into God's work."</p>
-  </section>
+<!-- PHASES -->
+<section class="s-off">
+  <div class="wrap reveal">
+    <span class="eyebrow">What we're building toward</span>
+    <h2>Your sponsorship seeds what's next.</h2>
+    <p class="lead">Two builds will carry this past one-on-one coaching: a school a pastor can hand off, and a network of vetted help.</p>
+    <div class="phase-grid">
 
-  <!-- 4 THE GAP (+ folded Digital Reality Matrix) -->
-  <section id="gap" class="s-mid">
-    <div class="eyebrow">The Gap We're Closing</div>
-    <h2 class="s-title">The tools exist. The trusted guide usually does not.</h2>
-    <p class="s-sub">The friction isn't motivation. It's time, risk, and not knowing the next right step. In their own words:</p>
-    <div class="proof-grid">
-      <div class="proof-tile"><div class="proof-icn">💬</div><div class="proof-q">"I don't even have a go-to."</div><div class="proof-d">No trusted next step in the moment.</div></div>
-      <div class="proof-tile"><div class="proof-icn">⏳</div><div class="proof-q">"It eats my week."</div><div class="proof-d">The digital work expands into everything.</div></div>
-      <div class="proof-tile"><div class="proof-icn">🛡️</div><div class="proof-q">"I don't know what's safe."</div><div class="proof-d">Security decisions are real decisions.</div></div>
-    </div>
-
-    <!-- 5 Digital Reality Matrix — folded in -->
-    <div style="margin-top:6vh">
-      <div class="eyebrow">The Digital Reality Matrix</div>
-      <h2 class="s-title" style="font-size:clamp(22px,2.6vw,32px)">What churches assume vs. what's real.</h2>
-      <div class="matrix-wrap">
-        <table class="matrix">
-          <tr><th>Capability</th><th>Church assumes</th><th>Field reality</th></tr>
-          <tr><td>Equipment</td><td>MacBook Pro, office Wi-Fi</td><td>Aging laptop or just a phone, spotty data</td></tr>
-          <tr><td>Software</td><td>Full Adobe suite, paid tools</td><td>Canva free tier, CapCut mobile, out of pocket</td></tr>
-          <tr><td>People</td><td>A media or comms person</td><td>One missionary or family doing it all</td></tr>
-        </table>
+      <div class="phase">
+        <span class="tag dev">In development</span>
+        <h3>The Online School</h3>
+        <div class="price" style="font-size:22px;color:var(--mid)">A pastor can hand it off</div>
+        <p>So a pastor can hand the digital work to a church member or spouse instead of carrying it. Ready-to-run workflows and systems, built to pass off, in five major languages.</p>
+        <details class="preview">
+          <summary>See what's in progress <span class="chev">⌄</span></summary>
+          <div class="shot"><img src="./images/online-school-workshops.png" alt="Online School workshop library — in development preview" loading="lazy"></div>
+          <p class="cap">In-progress preview: the workshop library.</p>
+        </details>
       </div>
-    </div>
-  </section>
 
-  <!-- 3 THREE AREAS — what's offered -->
-  <section id="areas" class="s-warm">
-    <div class="eyebrow">Three Areas · What Missionary Media Offers</div>
-    <h2 class="s-title">Three areas of care — what each one actually gives a missionary.</h2>
-    <p class="s-sub">This is the <em>what</em>. How it's funded comes later, in the Invitation.</p>
-    <div class="grid-3">
-      <div class="area-card a1">
-        <div class="area-tag">Area 01 · The Home Connection</div>
-        <div class="area-promise">Stay close to the people who send you — without it eating your week.</div>
-        <ul>
-          <li>Prayer-letter + video-update rhythms from a phone</li>
-          <li>One home base supporters follow (partner: MissionaryConnect.app)</li>
-          <li>Coaching on what to send, and how often</li>
-        </ul>
+      <div class="phase">
+        <span class="tag dev">In development</span>
+        <h3>The Trusted Help Network</h3>
+        <div class="price" style="font-size:22px;color:var(--mid)">Help past the tutorials</div>
+        <p>A vetted, paid pro a missionary can call when a job is past the tutorials. Native-speaking, culture-aware creatives and technical help, only when they need it.</p>
+        <details class="preview">
+          <summary>See what's in progress <span class="chev">⌄</span></summary>
+          <div class="shot"><img src="./images/trusted-help-directory.png" alt="Trusted Help Directory — in development preview" loading="lazy"></div>
+          <p class="cap">In-progress preview: the vetted help directory.</p>
+        </details>
       </div>
-      <div class="area-card a2">
-        <div class="area-tag">Area 02 · Online School (In development)</div>
-        <div class="area-promise">You don't have to become the media person.</div>
-        <ul>
-          <li>Ready-to-run workflows + systems, not just lessons</li>
-          <li>Built so a pastor hands it to a church member or spouse</li>
-          <li>Built to be simple, repeatable, and safe for the field</li>
-        </ul>
-      </div>
-      <div class="area-card a3">
-        <div class="area-tag">Area 03 · Trusted Help</div>
-        <div class="area-promise">A vetted pro for the jobs past tutorials.</div>
-        <ul>
-          <li>Native-speaking, culture-aware creatives</li>
-          <li>Professional IT + technical AV</li>
-          <li>Vetted and paid — only when you need it</li>
-        </ul>
-      </div>
+
     </div>
-  </section>
+    <a class="cta-2nd build-link" href="#talk">Want to help build what's next? Let's talk →</a>
+  </div>
+</section>
 
-  <!-- 6 WHAT $65/mo PROVIDES -->
-  <section id="how" class="s-mid">
-    <div class="eyebrow">What Your $65/mo Provides · Phase 1</div>
-    <h2 class="s-title">The sponsor experience today: a guide, not an agency.</h2>
-    <p class="s-sub">This is what the monthly sponsorship actually delivers to one missionary.</p>
-    <div class="stepper">
-      <div class="step"><div class="num">1</div><h4>Intake / Assess</h4><p>We look at their real setup and name the next right step.</p></div>
-      <div class="step"><div class="num">2</div><h4>Plan</h4><p>A simple plan they can actually keep from the field.</p></div>
-      <div class="step"><div class="num">3</div><h4>Build / Deliver</h4><p>Templates, tool guidance, and a communication rhythm.</p></div>
-      <div class="step"><div class="num">4</div><h4>Ongoing</h4><p>Coaching as things change — they're never figuring it out alone.</p></div>
+<!-- STEWARDSHIP -->
+<section class="stew">
+  <div class="wrap reveal">
+    <span class="eyebrow">Peace of mind</span>
+    <h2>You'll know exactly what your sponsorship funds.</h2>
+    <p class="lead">Sixty-five dollars a month gives one missionary a month of digital care: a communication rhythm built for their field, the templates and workflows behind it, privacy and security guidance, and a monthly call to walk through what's next.</p>
+    <p class="lead" style="margin-top:16px">The work that's live today, I fund myself. Sponsorship goes straight to a missionary's care, and giving will be reviewed by our board, so it stays accountable from day one.</p>
+    <p class="lead" style="margin-top:16px">This is steady, personal care beside one missionary. Want to see the full plan and how funds are handled? That's what the call is for.</p>
+  </div>
+</section>
+
+<!-- WHY TABOR -->
+<section class="why s-off">
+  <div class="wrap why-grid reveal">
+    <div class="why-photo" role="img" aria-label="Tabor Normoyle, founder of Missionary Media"></div>
+    <div>
+      <span class="eyebrow">Why Tabor</span>
+      <h2>A guide, translator, and connector.</h2>
+      <p class="lead">This work has been shaped by extended research and direct conversations with missionaries and ministry leaders serving across <span class="kw">five continents</span>, from Madagascar and Senegal to Romania, Portugal, Australia, Guatemala, Honduras, Burma, and Thailand.</p>
+      <p class="lead" style="margin-top:16px">The pattern was consistent. Missionaries don't need to be convinced digital tools matter. They need someone to help them take the next right step without adding more weight. I research what works, then build the templates and workflows a missionary can run from their phone.</p>
+      <div class="name"><b>Tabor Normoyle</b> · Founder, Missionary Media</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 7 STEWARDSHIP MATH (slider) -->
-  <section id="stewardship" class="s-dark">
-    <div class="eyebrow">The Stewardship Math</div>
-    <h2 class="s-title">A small, steady kind of care that compounds.</h2>
-    <div class="steward-grid">
-      <div>
-        <div class="anchor">$65<small>/mo = digital care for 1 missionary</small></div>
-        <p class="s-sub">Separate from a missionary's financial support — this funds the digital side so they stay connected, stay safe online, and stop carrying tech decisions alone.</p>
-        <p class="s-sub" style="margin-top:14px;opacity:.85">$65/mo = $780/year. For many churches, that's an easier “yes” than a one-time large gift — and it puts steady care beside one missionary.</p>
-      </div>
-      <div class="slider-card">
-        <div style="font-family:var(--display);font-size:22px;font-weight:700;color:rgba(255,255,255,.92)">What you’re funding</div>
-        <div style="margin-top:12px;display:grid;gap:10px;color:rgba(255,255,255,.78);line-height:1.6">
-          <div>• A guide beside a missionary (not an agency)</div>
-          <div>• A safer setup, not guesswork</div>
-          <div>• A simple communication rhythm that keeps churches close</div>
-          <div>• Templates + coaching so it doesn’t eat their week</div>
-        </div>
-        <div class="illus" style="margin-top:14px">We’ll publish vetted goals and reporting once the numbers are assessed — no inflated projections.</div>
-      </div>
+<!-- CLOSING — SPONSOR + TALK -->
+<section class="close" id="talk">
+  <div class="wrap reveal">
+    <span class="eyebrow">Sponsor a missionary</span>
+    <h2>Put a digital guide beside one missionary.</h2>
+    <p class="lead">For $65 a month: their coaching, the templates and workflows behind it, and a monthly call. Have questions, or want to help build what's next? Pick a time below. It's a thirty-minute call, no pressure.</p>
+    <div class="cta-pair center">
+      <!-- TODO: replace #sponsor-start with Givebutter/Stripe sponsor link -->
+      <a class="btn" href="#sponsor-start">Sponsor a missionary <span class="ar">→</span></a>
     </div>
-  </section>
-
-  <!-- 8 WHY TABOR -->
-  <section id="tabor" class="s-warm">
-    <div class="eyebrow">Why Missionary Media</div>
-    <h2 class="s-title">Guide, translator, and connector.</h2>
-    <div class="founder">
-      <div>
-        <div class="founder-photo"><img src="./images/founder-tabor.jpg" alt="Tabor Normoyle, Founder" onerror="this.parentElement.style.background='linear-gradient(135deg,#0F1E3C,#005BE8)';this.style.opacity=0"></div>
-        <div class="proof-strip">
-          <div class="ps"><q>I didn't have the equipment, the software, or the knowledge base.</q><span class="src">— Missionary, research interview</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="founder-name">Tabor Normoyle</div>
-        <div class="founder-role">Founder · Missionary Media</div>
-        <div class="video-btn" id="playStory"><span class="play">▶</span> Watch: my story (2 min)</div>
-        <p>For the past five years, I've given my life to one thing — helping missionaries navigate the digital landscape. I've honed the skill set the mission field actually needs, and sacrificed to build this so missionaries don't have to figure it out alone.</p>
-        <ul class="cred">
-          <li>Five years dedicated to missionary digital care</li>
-          <li>Interview-led — ministry leaders across 6 countries</li>
-          <li>Builds the templates, workflows, and relationships — not just advice</li>
-        </ul>
-        <p>The pattern is consistent: missionaries don't need convincing that digital tools matter. They need someone to help them take the next right step without adding more weight.</p>
-      </div>
+    <div class="cal">
+      <div class="big">Calendar embed</div>
+      <div style="font-size:14px">Scheduler goes here</div>
     </div>
-  </section>
-
-  <!-- 9 INVITATION — Option B accordion (what-happens-next removed per Tabor) -->
-  <section id="invitation" class="s-mid">
-    <div class="eyebrow">The Invitation</div>
-    <h2 class="s-title">Join at the phase that moves the mission forward.</h2>
-    <p class="s-sub">Pick one. I'll show exactly what it funds and how the money's handled. This is the <em>how</em> — the what lives up in the Three Areas.</p>
-
-    <div class="phase-list">
-      <details class="phase" open>
-        <summary>
-          <div>
-            <div class="ph-tag">Phase 1 · Available now · Monthly</div>
-            <div class="ph-title">Sponsor a Missionary</div>
-            <div class="ph-price">$65<span style="font-size:13px;color:var(--muted)">/mo</span></div>
-            <div class="ph-promise">Put a trusted digital guide beside one missionary today. Sponsor today, and their digital care starts tomorrow.</div>
-          </div>
-          <span class="ph-toggle">+</span>
-        </summary>
-        <div class="ph-body">
-          <div class="ph-grp">
-            <div class="ph-grp-lbl">Where your money goes</div>
-            <ul>
-              <li>Intake + assessment of their setup</li>
-              <li>A plan they can actually keep from the field</li>
-              <li>Templates, tool guidance, communication rhythm</li>
-              <li>Ongoing coaching as things change</li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost btn-sm" href="#contact" style="margin-top:18px">Sponsor a missionary</a>
-        </div>
-      </details>
-
-      <details class="phase">
-        <summary>
-          <div>
-            <div class="ph-tag">Phase 2 · In development · One-time launch pledge</div>
-            <div class="ph-title">Kickstart the Online School</div>
-            <div class="ph-price">$70,000 <span style="font-size:13px;color:var(--muted)">goal</span></div>
-            <div class="ph-promise">Help build the school so missionaries can hand the digital work off instead of carrying it.</div>
-          </div>
-          <span class="ph-toggle">+</span>
-        </summary>
-        <div class="ph-body">
-          <div class="ph-grp">
-            <div class="ph-grp-lbl">Launch goal</div>
-            <div class="goal-row"><b>$12,400 raised <span style="font-weight:400;color:var(--muted)">of $70,000</span></b><span style="font-family:var(--mono);font-size:12px;color:var(--muted)">18%</span></div>
-            <div class="progress"><span style="width:18%"></span></div>
-          </div>
-          <div class="ph-grp">
-            <div class="ph-grp-lbl">Where your money goes</div>
-            <ul>
-              <li>Curriculum design (pastor + pro tracks)</li>
-              <li>Course production (video, systems, workflows)</li>
-              <li>Translation into 5 major languages</li>
-              <li>Platform / LMS build</li>
-              <li>Testing with real missionaries</li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost btn-sm" href="#contact" style="margin-top:18px">Back the school</a>
-        </div>
-      </details>
-
-      <details class="phase">
-        <summary>
-          <div>
-            <div class="ph-tag">Phase 3 · In build · One-time launch pledge</div>
-            <div class="ph-title">Build the Trusted Help Network</div>
-            <div class="ph-price">$60,000 <span style="font-size:13px;color:var(--muted)">goal</span></div>
-            <div class="ph-promise">Help stand up the vetted network missionaries call when a job's past tutorials.</div>
-          </div>
-          <span class="ph-toggle">+</span>
-        </summary>
-        <div class="ph-body">
-          <div class="ph-grp">
-            <div class="ph-grp-lbl">Launch goal</div>
-            <div class="goal-row"><b>$5,300 raised <span style="font-weight:400;color:var(--muted)">of $60,000</span></b><span style="font-family:var(--mono);font-size:12px;color:var(--muted)">9%</span></div>
-            <div class="progress"><span style="width:9%"></span></div>
-          </div>
-          <div class="ph-grp">
-            <div class="ph-grp-lbl">Where your money goes</div>
-            <ul>
-              <li>Platform build (profiles, matching, payments)</li>
-              <li>Vetting system + initial specialist recruiting</li>
-              <li>Trust &amp; safety + onboarding</li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost btn-sm" href="#contact" style="margin-top:18px">Back the network</a>
-        </div>
-      </details>
-
-      <details class="phase feat">
-        <summary>
-          <div>
-            <div class="ph-tag">Founding Partner · All three phases</div>
-            <div class="ph-title">Shape the whole thing</div>
-            <div class="ph-price">Private call</div>
-            <div class="ph-promise">Some partners want to shape the whole thing. That's a conversation, not a checkout.</div>
-          </div>
-          <span class="ph-toggle">+</span>
-        </summary>
-        <div class="ph-body">
-          <div class="ph-grp">
-            <div class="ph-grp-lbl">What the call covers</div>
-            <ul>
-              <li>Scope across all three areas + the operating engine</li>
-              <li>Scholarship capacity, long-term infrastructure</li>
-              <li>Custom commitment, custom path</li>
-            </ul>
-          </div>
-          <div class="private-note">Operating-engine financials are shared on the call, not posted publicly.</div>
-          <a class="btn btn-primary btn-sm" href="#contact" style="margin-top:18px">Start a private call</a>
-        </div>
-      </details>
-    </div>
-
-    <div class="trust-block">
-      <div class="ph-grp-lbl">How giving is handled</div>
-      <div class="trust-grid">
-        <div class="trust-card"><b>Monthly giving</b><p>Givebutter — receipts provided (501(c)(3) status pending).</p></div>
-        <div class="trust-card"><b>Launch pledges</b><p>We’ll publish vetted public goals once assessed — then you can track progress with clear updates.</p></div>
-        <div class="trust-card"><b>Reporting cadence</b><p>Regular updates on what your giving built.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 10 BUILDING TOWARD -->
-  <section id="toward" class="s-tint">
-    <div class="eyebrow">Building Toward</div>
-    <h2 class="s-title">The kinds of institutions this work needs.</h2>
-    <p class="s-sub">Digital care doesn't scale through one founder. These are the categories of partner we're building toward — not commitments, not endorsements, but the table we're working to fill.</p>
-    <div class="partner-grid">
-      <div class="partner"><div class="pn">Christian colleges &amp; seminaries</div><div class="pr">Training pipeline</div><p>Preparing the next generation for a field that already runs on digital communication.</p><span class="cat">Category</span></div>
-      <div class="partner"><div class="pn">Mission boards &amp; agencies</div><div class="pr">Structural alignment</div><p>Boards responsible for missionary care who can integrate digital support.</p><span class="cat">Category</span></div>
-      <div class="partner"><div class="pn">Sending churches</div><div class="pr">Local context</div><p>Teams who steward the relationship and want missionaries equipped beyond the prayer letter.</p><span class="cat">Category</span></div>
-      <div class="partner"><div class="pn">Ministry software</div><div class="pr">Tooling alignment</div><p>Products missionaries already use — where discounts and integrations close real gaps.</p><span class="cat">Category</span></div>
-      <div class="partner"><div class="pn">Philanthropy &amp; family offices</div><div class="pr">Founding capacity</div><p>Giving committed to long-horizon Kingdom infrastructure.</p><span class="cat">Category</span></div>
-    </div>
-  </section>
-
-  <!-- 11 THE ASK — pledge box (per Tabor, replaces 4-Q Q&A) -->
-  <section id="ask" class="s-warm center">
-    <div class="eyebrow" style="justify-content:center">The Ask</div>
-    <h2 class="s-title">Put steady care beside a missionary.</h2>
-    <p class="s-sub">Pick an amount to begin. Monthly puts a digital guide beside one missionary; one-time backs a phase build.</p>
-    <div class="give-box">
-      <div class="give-seg">
-        <button class="sel" data-freq="monthly">Monthly</button>
-        <button data-freq="once">One-time</button>
-      </div>
-      <div class="give-amts">
-        <button data-amt="35">$35</button>
-        <button class="sel" data-amt="65">$65</button>
-        <button data-amt="150">$150</button>
-      </div>
-      <input class="give-custom" type="text" inputmode="numeric" placeholder="Other amount">
-      <a class="btn btn-ghost" href="mailto:missionarymediahub@gmail.com?subject=Givebutter%20link%20request%20%E2%80%94%20Sponsor%20a%20missionary">Request the giving link (Givebutter)</a>
-      <div class="give-note">Giving via Givebutter · receipts provided · 501(c)(3) status pending</div>
-    </div>
-  </section>
-
-  <!-- 12 CONTACT -->
-  <section id="contact" class="cta-section">
-    <div class="eyebrow" style="justify-content:center;color:rgba(255,255,255,.7)">Start the Partnership</div>
-    <h2>Schedule a partner call.</h2>
-    <p>If this fits your church, family, foundation, or organization, start with a conversation. We'll show you the need, the model, and the kickstart paths — then you decide whether God is inviting you to join this work.</p>
-    <a class="btn btn-primary" href="#" data-calendar>Schedule a 30-minute partner call</a>
-    <div class="contact-paths">
-      <a class="cpath" href="./index.html">← Missionary page</a>
-    </div>
-  </section>
-
-</main>
+    <button class="share" id="shareBtn">Share with someone we could help <span aria-hidden="true">↗</span></button>
+  </div>
+</section>
 
 <footer>
-  <span>Missionary Media · Pay it forward for a missionary's digital care</span>
-      <span>Sponsor page</span>
+  <img src="./images/logo.png" alt="Missionary Media">
+  <span>Missionary Media · Digital care is part of missionary care.</span>
 </footer>
 
-<!-- video modal -->
-<div class="modal" id="storyModal">
-  <button class="modal-close" id="closeModal">×</button>
-  <div class="modal-card" style="padding:0;overflow:hidden">
-    <iframe id="storyFrame" width="100%" height="520" style="display:block;border:0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-  </div>
-</div>
+<div class="toast" id="toast">Link copied</div>
 
 <script>
-  // nav scrolled
-  addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>20));
+// nav shadow
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
 
-  // mobile nav drawer
-  (function(){
-    const nav = document.getElementById('nav');
-    if(!nav) return;
-    const toggle = nav.querySelector('.nav-toggle');
-    const links = nav.querySelector('.nav-links');
-    if(!toggle || !links) return;
-    const close = () => { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); };
-    const open  = () => { nav.classList.add('open'); toggle.setAttribute('aria-expanded','true'); };
-    toggle.addEventListener('click',()=> nav.classList.contains('open') ? close() : open());
-    links.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
-    document.addEventListener('click', (e) => {
-      if(!nav.classList.contains('open')) return;
-      if(e.target===toggle || toggle.contains(e.target)) return;
-      if(e.target===links || links.contains(e.target)) return;
-      close();
-    });
-    addEventListener('resize',close,{passive:true});
-    addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
-  })();
+// reveal + keyword highlight
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in','lit');io.unobserve(e.target);}})},{threshold:.18});
+document.querySelectorAll('.reveal,.kw').forEach(el=>io.observe(el));
 
-  // give-box selection
-  document.querySelectorAll('.give-seg, .give-amts').forEach(g=>{
-    g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
-      g.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
-      b.classList.add('sel');
-    }));
-  });
+// how-it-works staggered slide-out
+const hiw=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  const cards=e.target.querySelectorAll('.hiw-card');
+  cards.forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*160));
+  hiw.unobserve(e.target);
+}})},{threshold:.25});
+document.querySelectorAll('.hiw-grid').forEach(g=>hiw.observe(g));
 
-  // video modal
-  const modal=document.getElementById('storyModal');
-  const frame=document.getElementById('storyFrame');
-  const STORY_URL="https://www.youtube-nocookie.com/embed/dnfMBprp0xg";
-  document.getElementById('playStory')?.addEventListener('click',()=>{
-    if(frame && !frame.src) frame.src=STORY_URL+"?autoplay=1";
-    modal.classList.add('open');
-  });
-  document.getElementById('closeModal')?.addEventListener('click',()=>{
-    modal.classList.remove('open');
-    if(frame) frame.src="";
-  });
-  modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+// share = copy url
+const toast=document.getElementById('toast');
+document.getElementById('shareBtn').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(location.href);}catch(e){}
+  toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1900);
+});
 </script>
 </body>
 </html>
