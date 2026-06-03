@@ -55,20 +55,6 @@ body.flow-bg #solution::before{
   background:radial-gradient(circle,rgba(0,196,249,.08),transparent 60%);
   filter:blur(10px);z-index:-1;pointer-events:none;
 }
-/* Podcast dark = part of the page backdrop: its own bg fades to transparent at
-   top & bottom (within the section padding), revealing the shared aurora/paper
-   on both sides. Both neighbors show the same backdrop, so the blend is seamless
-   with no section-to-section edge matching. Content stays fully dark; spacing unchanged. */
-#podcast{position:relative;background:transparent;overflow:visible;padding-top:62px}
-#podcast::after{display:none}
-#podcast::before{content:'';position:absolute;left:0;right:0;top:-94px;height:calc(100% + 188px);z-index:0;pointer-events:none;
-  background:
-    radial-gradient(60vw 70vh at 80% 30%, rgba(255,107,53,.20), transparent 60%),
-    radial-gradient(50vw 60vh at 15% 80%, rgba(0,92,232,.20), transparent 65%),
-    linear-gradient(160deg,var(--warm-navy) 0%, #060c1e 100%);
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.5) 54px,#000 102px,#000 calc(100% - 102px),rgba(0,0,0,.5) calc(100% - 54px),transparent 100%);
-          mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.5) 54px,#000 102px,#000 calc(100% - 102px),rgba(0,0,0,.5) calc(100% - 54px),transparent 100%);}
-#podcast > *{position:relative;z-index:1}
 
 /* 21st.dev-style aurora mesh gradient */
 @keyframes auroraShift{
