@@ -159,9 +159,9 @@ nav.scrolled{background:rgba(250,248,245,.96);border-bottom-color:var(--line);bo
 .close{text-align:center;background:var(--offwhite)}
 .close h2{margin-bottom:16px}
 .close p.lead{margin:0 auto 38px}
-.cal{max-width:680px;margin:0 auto;aspect-ratio:16/9;background:var(--paper);border:1px dashed rgba(28,31,46,.22);
-  border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
-.cal .big{font-family:var(--display);font-size:22px;color:var(--mid)}
+.cal{max-width:680px;margin:0 auto;background:var(--paper);border:1px solid rgba(28,31,46,.1);
+  border-radius:var(--r);overflow:hidden}
+.cal .calendly-inline-widget{width:100%}
 .share{margin-top:30px;display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--blue);
   border:1px solid rgba(0,91,232,.35);border-radius:99px;padding:11px 22px;font-family:var(--body);font-weight:600;
   font-size:15px;cursor:pointer;transition:.2s}
@@ -346,8 +346,8 @@ footer span{font-size:13.5px;color:var(--muted)}
       <a class="btn" href="https://givebutter.com/missionarymedia" target="_blank" rel="noopener">Sponsor a missionary <span class="ar">→</span></a>
     </div>
     <div class="cal">
-      <div class="big">Calendar embed</div>
-      <div style="font-size:14px">Scheduler goes here</div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/missionarymediahub/30min" style="min-width:320px;height:700px;"></div>
+      <noscript><a href="https://calendly.com/missionarymediahub/30min" target="_blank" rel="noopener">Book a 30-minute call</a></noscript>
     </div>
     <button class="share" id="shareBtn">Share with someone we could help <span aria-hidden="true">↗</span></button>
   </div>
@@ -360,6 +360,7 @@ footer span{font-size:13.5px;color:var(--muted)}
 
 <div class="toast" id="toast">Link copied</div>
 
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
 // nav shadow
 const nav=document.getElementById('nav');
