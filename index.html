@@ -946,6 +946,12 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 .cta-card .c-secondary{align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-top:.6rem;padding:12px 22px;border:1px solid rgba(0,92,232,.32);border-radius:99px;transition:background .2s,color .2s}
 .cta-card .c-secondary:hover{background:var(--blue);color:#fff}
 @media(max-width:880px){.cta-split{grid-template-columns:1fr}}
+.book-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:2vw;align-items:stretch;max-width:1100px;margin:5vh auto 0;text-align:left;scroll-margin-top:90px}
+.book-grid .book-embed{margin:0;max-width:none;align-self:stretch}
+.book-grid .cta-card .c-soft{margin-top:auto}
+.cta-secondary-wrap{max-width:1100px;margin:2.2vh auto 0;text-align:left}
+.cta-secondary-wrap .cta-card{max-width:none}
+@media(max-width:880px){.book-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="flow-bg">
@@ -1562,22 +1568,27 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   <h2 style="text-align:center;font-family:var(--display);font-size:clamp(28px,3.8vw,56px);font-weight:700;letter-spacing:-.022em;color:var(--ink);max-width:880px;margin:0 auto">to connect supporters, reach locals, and get trusted help.</h2>
   <p class="cta-vow">This is the one thing I've given my life to, <span>so you don't have to figure it out alone.</span></p>
 
-  <div class="cta-split">
+  <div class="book-grid" id="book">
 
     <div class="cta-card primary">
-      <h3>Missionaries, start with a free call.</h3>
+      <h3>Missionaries &mdash; start with a free call.</h3>
+      <p>Bring whatever&rsquo;s slowing you down on the digital side. In thirty minutes we&rsquo;ll name where you are and the one next step worth taking. No pitch &mdash; and if I&rsquo;m not the right help, I&rsquo;ll tell you that too.</p>
       <ul class="c-list">
-        <li>No more guessing</li>
-        <li>No more wasting time on YouTube</li>
-        <li>No more putting it off because you don't know where to start</li>
+        <li>Thirty minutes, free, on your schedule</li>
+        <li>We start where you actually are</li>
+        <li>You leave with one clear next step</li>
       </ul>
-      <a href="#book" class="btn-primary c-btn">
-        <i data-lucide="calendar" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"></i>
-        Book a free call
-      </a>
-      <a href="#phase1" class="c-soft" style="display:inline-block;margin-top:14px;font-size:14px;color:var(--text-mid);text-decoration:none">Not ready to talk? See what Phase 1 includes ↓</a>
+      <a href="#phase1" class="c-soft" style="display:inline-block;font-size:14px;color:var(--text-mid);text-decoration:none">Not ready to talk? See what Phase 1 includes ↓</a>
     </div>
 
+    <div class="book-embed">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/missionarymediahub/30min" style="min-width:320px;height:640px;"></div>
+      <noscript><a href="https://calendly.com/missionarymediahub/30min" target="_blank" rel="noopener">Book a 30-minute call</a></noscript>
+    </div>
+
+  </div>
+
+  <div class="cta-secondary-wrap">
     <div class="cta-card secondary">
       <h3>Churches &amp; sponsors, fund a missionary’s next step.</h3>
       <ul class="c-list">
@@ -1590,12 +1601,6 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-
-  </div>
-
-  <div id="book" class="book-embed">
-    <div class="calendly-inline-widget" data-url="https://calendly.com/missionarymediahub/30min" style="min-width:320px;height:660px;"></div>
-    <noscript><a href="https://calendly.com/missionarymediahub/30min" target="_blank" rel="noopener">Book a 30-minute call</a></noscript>
   </div>
 </section>
 
