@@ -156,10 +156,13 @@ nav.scrolled{background:rgba(250,248,245,.96);border-bottom-color:var(--line);bo
 .sponsor-cta h2{margin-bottom:14px}
 .sponsor-cta p.lead{margin:0 auto 28px}
 .sponsor-cta .btn{font-size:16px;padding:15px 30px}
-.close{text-align:center;background:var(--offwhite)}
-.close h2{margin-bottom:16px}
-.close p.lead{margin:0 auto 38px}
-.cal{max-width:680px;margin:0 auto;background:var(--paper);border:1px solid rgba(28,31,46,.1);
+.close{background:var(--offwhite)}
+.close-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:54px;align-items:center;max-width:1180px;margin:0 auto}
+.close-copy{text-align:left}
+.close-copy h2{margin-bottom:16px}
+.close-copy p.lead{margin:0 0 30px}
+.close-copy .cta-pair{justify-content:flex-start}
+.cal{margin:0;background:var(--paper);border:1px solid rgba(28,31,46,.1);
   border-radius:var(--r);overflow:hidden}
 .cal .calendly-inline-widget{width:100%}
 .share{margin-top:30px;display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--blue);
@@ -181,6 +184,9 @@ footer span{font-size:13.5px;color:var(--muted)}
   .hiw-grid,.phase-grid{grid-template-columns:1fr}
   .ba-grid{grid-template-columns:1fr}
   .why-grid{grid-template-columns:1fr;gap:34px}
+  .close-grid{grid-template-columns:1fr;gap:32px}
+  .close-copy{text-align:center}
+  .close-copy .cta-pair{justify-content:center}
   .why-photo{max-width:340px}
   .nav-right a.txt{display:none}
   .hero-img{opacity:.32;-webkit-mask-image:none;mask-image:none}
@@ -338,18 +344,20 @@ footer span{font-size:13.5px;color:var(--muted)}
 
 <!-- CLOSING — SPONSOR + TALK -->
 <section class="close" id="talk">
-  <div class="wrap reveal">
-    <span class="eyebrow">Sponsor a missionary</span>
-    <h2>Put a digital guide beside one missionary.</h2>
-    <p class="lead">For $67 a month: their coaching, the templates and workflows behind it, and a monthly call. Have questions, or want to help build what's next? Pick a time below. It's a thirty-minute call, no pressure.</p>
-    <div class="cta-pair center">
-      <a class="btn" href="https://givebutter.com/missionarymedia" target="_blank" rel="noopener">Sponsor a missionary <span class="ar">→</span></a>
+  <div class="wrap reveal close-grid">
+    <div class="close-copy">
+      <span class="eyebrow">Sponsor a missionary</span>
+      <h2>Put a digital guide beside one missionary.</h2>
+      <p class="lead">For $67 a month: their coaching, the templates and workflows behind it, and a monthly call. Have questions, or want to help build what's next? Pick a time beside this. It's a thirty-minute call, no pressure.</p>
+      <div class="cta-pair">
+        <a class="btn" href="https://givebutter.com/missionarymedia" target="_blank" rel="noopener">Sponsor a missionary <span class="ar">→</span></a>
+      </div>
+      <button class="share" id="shareBtn">Share with someone we could help <span aria-hidden="true">↗</span></button>
     </div>
     <div class="cal">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/missionarymediahub/30min" style="min-width:320px;height:700px;"></div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/missionarymediahub/30min" style="min-width:320px;height:680px;"></div>
       <noscript><a href="https://calendly.com/missionarymediahub/30min" target="_blank" rel="noopener">Book a 30-minute call</a></noscript>
     </div>
-    <button class="share" id="shareBtn">Share with someone we could help <span aria-hidden="true">↗</span></button>
   </div>
 </section>
 
