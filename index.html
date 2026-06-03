@@ -478,10 +478,15 @@ hr.divider{height:1px;background:linear-gradient(90deg,transparent,var(--coral) 
 .pod-card:hover .pod-play{opacity:1;background:rgba(0,91,232,.72)}
 @media (prefers-reduced-motion: reduce){.pod-track.is-ready{animation:none}}
 @media(max-width:680px){.pod-card{width:268px}}
-#podcast{position:relative}
-.pod-edge{position:absolute;left:0;right:0;height:88px;z-index:2;pointer-events:none}
-.pod-edge.top{top:0;background:linear-gradient(to bottom,var(--paper),rgba(250,248,245,0))}
-.pod-edge.bottom{bottom:0;background:linear-gradient(to top,var(--paper),rgba(250,248,245,0))}
+#podcast{position:relative;background:transparent}
+#podcast::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60vw 70vh at 80% 20%, rgba(255,107,53,.20), transparent 60%),
+    radial-gradient(50vw 60vh at 15% 85%, rgba(0,92,232,.20), transparent 65%),
+    linear-gradient(160deg,var(--warm-navy) 0%, #060c1e 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 130px,#000 calc(100% - 130px),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 130px,#000 calc(100% - 130px),transparent 100%);}
+#podcast .ch,#podcast .s-title,#podcast .pod-marquee{position:relative;z-index:1}
 .book-embed{max-width:920px;margin:5vh auto 0;background:#fff;border:1px solid rgba(28,31,46,.1);border-radius:var(--r);overflow:hidden;scroll-margin-top:90px}
 .book-embed .calendly-inline-widget{width:100%}
 .story-link{display:inline-block;margin-top:1.1rem;font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--blue);text-decoration:none;transition:opacity .2s}
@@ -1362,7 +1367,6 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 
 <!-- ── Missionary Media Podcast ── -->
 <section id="podcast" class="s-dark">
-  <div class="pod-edge top" aria-hidden="true"></div>
   <div class="ch"><span>The Podcast</span></div>
   <h2 class="s-title">Missionary Media Hub</h2>
   <div class="pod-marquee pod-mask" aria-label="Missionary Media Hub podcast episodes">
@@ -1388,7 +1392,6 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
       <button type="button" class="pod-card" data-video="https://www.youtube-nocookie.com/embed/LNKgYv0dwyQ" aria-hidden="true" tabindex="-1"><img src="https://i.ytimg.com/vi/LNKgYv0dwyQ/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/LNKgYv0dwyQ/hqdefault.jpg'" alt="" loading="lazy"><div class="pod-grad"></div><div class="pod-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FAF8F5"><polygon points="6,4 20,12 6,20"/></svg></div><div class="pod-cap"><div class="pod-title">The Impact of Social Media on Ministry</div><div class="pod-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Watch episode</div></div></button>
     </div>
   </div>
-  <div class="pod-edge bottom" aria-hidden="true"></div>
 </section>
 
 <!-- ── Phase 1 — your 6 deliverables (features-8 bento) ── -->
