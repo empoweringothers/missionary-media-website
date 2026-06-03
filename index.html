@@ -478,6 +478,14 @@ hr.divider{height:1px;background:linear-gradient(90deg,transparent,var(--coral) 
 .pod-card:hover .pod-play{opacity:1;background:rgba(0,91,232,.72)}
 @media (prefers-reduced-motion: reduce){.pod-track.is-ready{animation:none}}
 @media(max-width:680px){.pod-card{width:268px}}
+#podcast{position:relative}
+.pod-edge{position:absolute;left:0;right:0;height:88px;z-index:2;pointer-events:none}
+.pod-edge.top{top:0;background:linear-gradient(to bottom,var(--paper),rgba(250,248,245,0))}
+.pod-edge.bottom{bottom:0;background:linear-gradient(to top,var(--paper),rgba(250,248,245,0))}
+.book-embed{max-width:920px;margin:5vh auto 0;background:#fff;border:1px solid rgba(28,31,46,.1);border-radius:var(--r);overflow:hidden;scroll-margin-top:90px}
+.book-embed .calendly-inline-widget{width:100%}
+.story-link{display:inline-block;margin-top:1.1rem;font-family:var(--body);font-weight:600;font-size:13.5px;color:var(--blue);text-decoration:none;transition:opacity .2s}
+.story-link:hover{opacity:.7}
 
 .cap-card{border-radius:var(--r);padding:2rem;background:#fff;border:1px solid rgba(28,31,46,.1);display:flex;flex-direction:column;gap:1rem;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 12px rgba(28,31,46,.05)}
 .cap-card:hover{transform:translateY(-3px);box-shadow:0 10px 34px rgba(28,31,46,.1)}
@@ -965,7 +973,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 		    <a href="#phase1">Phase 1</a>
 		    <a href="#faq">FAQ</a>
 		    <a href="./sponsor.html">For Sponsors</a>
-	    <a href="#contact" class="btn-nav">
+	    <a href="#book" class="btn-nav">
       <i data-lucide="calendar" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"></i>
       Book a discovery call
     </a>
@@ -1098,7 +1106,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <h1 class="hero-h">Digital coaching program<br>built for the <em class="gt">mission field</em>.</h1>
     <p class="hero-sub" style="margin-bottom:3.4vh">If the digital side feels confusing, heavy, or easy to put off, you’re not the only one. This is the one-stop shop for missionaries to <em>connect</em> supporters, <em>reach</em> locals, and get <em>trusted</em> help.</p>
     <div class="hero-cta">
-      <a href="mailto:missionarymediahub@gmail.com?subject=Discovery%20call" class="btn-primary">Book a discovery call</a>
+      <a href="#book" class="btn-primary">Book a discovery call</a>
     </div>
     <a class="hero-story-link" href="#" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><span class="dot">▶</span> Watch my story (2 min)</a>
   </div>
@@ -1229,13 +1237,13 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           Josh spent more than a decade on the ground before going online. In 2018 he started retelling Jesus' parables in local context and language. People watched because the story was theirs. Today his posts reach about a million people a month — and one of those online conversations became a church plant on the ground.
         </p>
         <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.42;margin-top:1rem;line-height:1.5">Years on the ground + the right format + a national partner to walk it out.</p>
+        <a class="story-link" href="https://themeadfamily.com/" target="_blank" rel="noopener">Visit the Mead family&rsquo;s site &rarr;</a>
       </div>
     </div>
 
     <div class="story-card">
-      <div class="story-photo" style="background:linear-gradient(160deg,#0F1E3C 0%,#005BE8 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
-        <img src="./images/dan-bergman.jpg" alt="Dan Bergman — digital evangelist, United States" loading="lazy" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block"/>
-        <span style="font-family:var(--display);color:rgba(255,255,255,.92);font-size:clamp(19px,2vw,25px);font-weight:600;position:relative;z-index:1">Dan Bergman</span>
+      <div class="story-photo" style="background:#0F1E3C;position:relative;overflow:hidden">
+        <img src="./images/dan-bergman.jpg" alt="Dan Bergman — digital evangelist, United States" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(160deg,#0F1E3C 0%,#005BE8 100%)'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block"/>
       </div>
       <div class="story-body">
         <div class="story-tag">
@@ -1247,6 +1255,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
           Dan started with a phone in selfie mode. His first video reached thousands in minutes — and the angry comments scared him enough to make it private for two days. He set it back public. Now his videos reach two to three million people a month, and strangers he's never met message him to say they trusted Christ.
         </p>
         <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.42;margin-top:1rem;line-height:1.5">One phone + a message worth the fear.</p>
+        <a class="story-link" href="https://www.postingthegospel.com/" target="_blank" rel="noopener">Visit Posting the Gospel &rarr;</a>
       </div>
     </div>
   </div>
@@ -1353,10 +1362,10 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
 
 <!-- ── Missionary Media Podcast ── -->
 <section id="podcast" class="s-dark">
+  <div class="pod-edge top" aria-hidden="true"></div>
   <div class="ch"><span>The Podcast</span></div>
-  <h2 class="s-title">Missionary Media Podcast</h2>
-  <p class="s-sub">If the digital side feels confusing, heavy, or easy to put off &mdash; you&rsquo;re not the only one.</p>
-  <div class="pod-marquee pod-mask" aria-label="Missionary Media Podcast episodes">
+  <h2 class="s-title">Missionary Media Hub</h2>
+  <div class="pod-marquee pod-mask" aria-label="Missionary Media Hub podcast episodes">
     <div class="pod-track is-ready">
       <button type="button" class="pod-card" data-video="https://www.youtube-nocookie.com/embed/dnfMBprp0xg"><img src="https://i.ytimg.com/vi/dnfMBprp0xg/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/dnfMBprp0xg/hqdefault.jpg'" alt="" loading="lazy"><div class="pod-grad"></div><div class="pod-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FAF8F5"><polygon points="6,4 20,12 6,20"/></svg></div><div class="pod-cap"><div class="pod-title">Digital Evangelism: Unlocking the Future of Missions</div><div class="pod-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Watch episode</div></div></button>
       <button type="button" class="pod-card" data-video="https://www.youtube-nocookie.com/embed/kwE45m5kRMo"><img src="https://i.ytimg.com/vi/kwE45m5kRMo/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/kwE45m5kRMo/hqdefault.jpg'" alt="" loading="lazy"><div class="pod-grad"></div><div class="pod-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FAF8F5"><polygon points="6,4 20,12 6,20"/></svg></div><div class="pod-cap"><div class="pod-title">Overcome Camera Fear &amp; Share the Gospel Online</div><div class="pod-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Watch episode</div></div></button>
@@ -1379,6 +1388,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
       <button type="button" class="pod-card" data-video="https://www.youtube-nocookie.com/embed/LNKgYv0dwyQ" aria-hidden="true" tabindex="-1"><img src="https://i.ytimg.com/vi/LNKgYv0dwyQ/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/LNKgYv0dwyQ/hqdefault.jpg'" alt="" loading="lazy"><div class="pod-grad"></div><div class="pod-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FAF8F5"><polygon points="6,4 20,12 6,20"/></svg></div><div class="pod-cap"><div class="pod-title">The Impact of Social Media on Ministry</div><div class="pod-watch"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><polygon points="0,0 8,4 0,8"/></svg>Watch episode</div></div></button>
     </div>
   </div>
+  <div class="pod-edge bottom" aria-hidden="true"></div>
 </section>
 
 <!-- ── Phase 1 — your 6 deliverables (features-8 bento) ── -->
@@ -1566,7 +1576,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
         <li>No more wasting time on YouTube</li>
         <li>No more putting it off because you don't know where to start</li>
       </ul>
-      <a href="mailto:missionarymediahub@gmail.com?subject=First%20step" class="btn-primary c-btn">
+      <a href="#book" class="btn-primary c-btn">
         <i data-lucide="calendar" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"></i>
         Book a free call
       </a>
@@ -1586,6 +1596,11 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
       </a>
     </div>
 
+  </div>
+
+  <div id="book" class="book-embed">
+    <div class="calendly-inline-widget" data-url="https://calendly.com/missionarymediahub/30min" style="min-width:320px;height:660px;"></div>
+    <noscript><a href="https://calendly.com/missionarymediahub/30min" target="_blank" rel="noopener">Book a 30-minute call</a></noscript>
   </div>
 </section>
 
@@ -1607,6 +1622,7 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
   </div>
 </div>
 
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
 // Icons
 lucide.createIcons();
