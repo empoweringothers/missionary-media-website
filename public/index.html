@@ -12,6 +12,7 @@
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Regular.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Semibold.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/academy.css">
   <script src="assets/site.js" defer></script>
 </head>
 <body>
@@ -35,9 +36,8 @@
                 <span>Start with the need in front of you.</span>
               </div>
               <div class="menu-list">
-                <a href="#coaching" aria-label="One-on-one coaching"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span class="menu-list__copy"><strong>One-on-one coaching</strong><span>Work through one real digital or media question with a guide.</span></span></a>
-                <a href="#live-training" aria-label="Monthly live training"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/monthly-live-training.svg" alt="" width="24" height="24"></span><span class="menu-list__copy"><strong>Monthly live training</strong><span>Learn one practical move with room for questions.</span></span></a>
-                <a href="https://www.youtube.com/channel/UClI-lyN2sHw_hL911sqdbkA" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Missions Media Podcast, opens on YouTube"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span class="menu-list__copy"><strong>Missions Media Podcast</strong><span>Conversations on media and ministry. Opens on YouTube.</span></span></a>
+                <a href="#start" aria-label="One-on-one coaching"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span class="menu-list__copy"><strong>One-on-one coaching</strong><span>Work through one real digital or media question with a guide.</span></span></a>
+                <a href="#podcast" aria-label="Missions Media Podcast"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span class="menu-list__copy"><strong>Missions Media Podcast</strong><span>Short, practical episodes on media and ministry.</span></span></a>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
 
         <a class="nav-link" href="#how-it-works">How It Works</a>
         <a class="nav-link" href="#who-it-is-for">Who It’s For</a>
-        <a class="nav-link" href="#questions">Questions</a>
+        <a class="nav-link" href="/academy/">Academy</a>
 
         <div class="nav-dropdown" data-dropdown>
           <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="resources-panel">
@@ -113,6 +113,7 @@
                   <p class="state-line">First resource · In preparation</p>
                   <h2>The Supporter Map</h2>
                   <p>Three questions to ask your supporters once, and a one-page map of who gets what, where, and on what date.</p>
+                  <a class="button button--ink" href="/resources/">Browse all resources</a>
                 </div>
               </div>
             </div>
@@ -137,13 +138,14 @@
         <nav class="mobile-nav-content" aria-label="Mobile navigation">
           <p class="mobile-section-label">How we help</p>
           <div class="mobile-offer-list">
-            <a href="#coaching" aria-label="One-on-one coaching"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span><strong>One-on-one coaching</strong><small>Help with one real question.</small></span></a>
-            <a href="#live-training" aria-label="Monthly live training"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/monthly-live-training.svg" alt="" width="24" height="24"></span><span><strong>Monthly live training</strong><small>Practical teaching and questions.</small></span></a>
-            <a href="https://www.youtube.com/channel/UClI-lyN2sHw_hL911sqdbkA" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Missions Media Podcast, opens on YouTube"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span><strong>Missions Media Podcast</strong><small>Opens on YouTube.</small></span></a>
+            <a href="#start" aria-label="One-on-one coaching"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span><strong>One-on-one coaching</strong><small>Help with one real question.</small></span></a>
+            <a href="#podcast" aria-label="Missions Media Podcast"><span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span><span><strong>Missions Media Podcast</strong><small>Short episodes from the field.</small></span></a>
           </div>
           <div class="mobile-direct-links">
             <a href="#how-it-works">How It Works</a>
             <a href="#who-it-is-for">Who It’s For</a>
+            <a href="/academy/">Academy preview</a>
+            <a href="/resources/">Resources page</a>
             <a href="#questions">Questions</a>
           </div>
 
@@ -176,8 +178,9 @@
 
   <noscript>
     <nav class="noscript-nav" aria-label="Section navigation">
-      <a href="#coaching">Coaching</a>
-      <a href="#live-training">Live training</a>
+      <a href="#start">Coaching</a>
+      <a href="/academy/">Academy preview</a>
+      <a href="/resources/">Resources</a>
       <a href="#questions">Questions</a>
       <a href="#start">Book a free discovery call</a>
     </nav>
@@ -337,114 +340,86 @@
       </div>
     </dialog>
 
-    <section class="section help" id="how-we-help" aria-labelledby="help-title">
-      <div class="shell split-heading help-heading" data-reveal>
-        <p class="section-label">What you can bring</p>
-        <div class="help-heading__copy">
-          <h2 id="help-title">What we actually do on the call.</h2>
-          <p class="section-lead">The five things missionaries brought us most often, and what we did about each one. Shaped by eleven interviews across Portugal, Romania, Madagascar, Australia, Burma &amp; Thailand, Senegal, and Southeast Asia.</p>
-        </div>
-        <figure class="help-heading__visual">
-          <img src="assets/how-we-help-coaching-desk.jpg" width="1024" height="1024" loading="lazy" decoding="async" alt="Tabor Normoyle working at a laptop with an open notebook, microphone and headphones on a wooden desk">
-        </figure>
-      </div>
-
-      <div class="shell service-ledger" data-settle="shrink">
-        <article class="service-row" id="coaching" data-reveal>
-          <span class="service-number">01</span>
-          <span class="icon-tile" aria-hidden="true"><img src="assets/icons/coaching.svg" alt="" width="24" height="24"></span>
-          <div><p class="state-line">Available now</p><h3>One-on-one coaching</h3></div>
-          <p>Bring a supporter update, prayer letter, phone-video plan, tool choice, website question, workflow, or handoff. We’ll work from the setup you already have and choose one useful next step.</p>
-        </article>
-        <article class="service-row" id="live-training" data-reveal>
-          <span class="service-number">02</span>
-          <span class="icon-tile" aria-hidden="true"><img src="assets/icons/monthly-live-training.svg" alt="" width="24" height="24"></span>
-          <div><p class="state-line">Live each month</p><h3>Monthly live training</h3></div>
-          <p>Each session takes one digital or media topic, explains it in plain language, and gives you a practical way to use it in the work you are already doing.</p>
-        </article>
-      </div>
+    <section class="section help" id="how-we-help" aria-labelledby="ps-title">
       <div class="shell coaching-decisions" id="how-it-works" aria-labelledby="approach-title" data-settle="shrink">
-        <div class="split-heading" data-reveal>
-          <p class="section-label">How it works</p>
-          <div><h2 id="approach-title">Bring the left column. Leave with the right one.</h2></div>
-        </div>
-
-        <ul class="does-list" data-reveal>
-          <li class="does-row">
-            <span class="does-row__num">01</span>
-            <div class="does-row__problem">
-              <h3>Five churches want five different formats</h3>
-              <p>One wants the paper letter. One never wants to see a letter again. One wants it uploaded to their own portal. So you send everything five ways, by hand.</p>
-            </div>
-            <div class="does-row__answer">
-              <p class="does-row__label">What we do</p>
-              <p>Ask your supporters once, then collapse the answers into two lanes — one short video and one printable page. You send twice, and the choice is locked for a year.</p>
-            </div>
-          </li>
-          <li class="does-row">
-            <span class="does-row__num">02</span>
-            <div class="does-row__problem">
-              <h3>The letter eats the whole week</h3>
-              <p>Writing it is the part you can actually do. It is the laying out, resizing, exporting and attaching that turns one update into three evenings.</p>
-            </div>
-            <div class="does-row__answer">
-              <p class="does-row__label">What we do</p>
-              <p>Separate the writing from the packaging, then template the packaging. One missionary put writing at 30–40% of the job — the other 60–70% is the part that should never be done twice.</p>
-            </div>
-          </li>
-          <li class="does-row">
-            <span class="does-row__num">03</span>
-            <div class="does-row__problem">
-              <h3>You are sending them one at a time</h3>
-              <p>Copy, paste, next name. Or a mail tool you set up once, could not make work, and quietly stopped opening.</p>
-            </div>
-            <div class="does-row__answer">
-              <p class="does-row__label">What we do</p>
-              <p>Pick one tool that fits the list you actually have, import it together, and send the first one while you are still on the call.</p>
-            </div>
-          </li>
-          <li class="does-row">
-            <span class="does-row__num">04</span>
-            <div class="does-row__problem">
-              <h3>You have no idea if anyone reads it</h3>
-              <p>It goes out, nobody replies, and you cannot tell the difference between a supporter who is praying and one who has moved on.</p>
-            </div>
-            <div class="does-row__answer">
-              <p class="does-row__label">What we do</p>
-              <p>Turn on the two numbers worth watching — who opened it and who wrote back — and add one line to the update that gives people something easy to reply to.</p>
-            </div>
-          </li>
-          <li class="does-row">
-            <span class="does-row__num">05</span>
-            <div class="does-row__problem">
-              <h3>You do not know where to start</h3>
-              <p>The most repeated sentence in our interviews. Usually it means there are nine things and no order to them.</p>
-            </div>
-            <div class="does-row__answer">
-              <p class="does-row__label">What we do</p>
-              <p>Name the one that matters this week, write it down, and set the rest aside on purpose so it stops taking up room.</p>
-            </div>
-          </li>
-        </ul>
-
         <!--
-          The three-question frame from the earlier candidate, restored so the
-          section carries both looks: the five-row ledger of what we do, then the
-          triad of what the call actually decides. Styles for
-          .process-list--three were already in site.css.
-          Heading id differs from #approach-title, which the does-list owns.
+          Our process. Replaces the "How it works" ledger and the three-question
+          triad that both sat here; all three framed the same idea, and this one
+          carries it as four steps with the copy masked behind each pill.
+          Geometry, easing and the scroll progression are measured values,
+          recorded in "04 Strategy/Website/Phase 1 Launch/live-redesign-candidate/
+          templates/MEASURED.md". The card's entrance reuses this page's own
+          [data-settle="shrink"] rather than a second settle system.
         -->
-        <div class="split-heading" data-reveal>
-          <p class="section-label">What coaching helps clarify</p>
-          <div><h2 id="clarify-title">Start with three practical questions.</h2></div>
+        <h2 class="section-label ps-eyebrow" id="ps-title">Our process</h2>
+        <div class="ps-card" data-settle="shrink">
+          <div class="ps-grid">
+          <button class="ps-step" type="button" aria-expanded="false" aria-controls="ps-panel-1">
+            <span class="ps-step__rail" aria-hidden="true"><span class="ps-step__dot"></span><span class="ps-step__line"></span></span>
+            <span class="ps-step__head">
+              <span class="ps-step__label">Step 1</span>
+              <span class="ps-step__body">
+                <span class="ps-step__front">
+                  <span class="ps-step__title">Discovery &amp; Research</span>
+                  <span class="ps-pill" aria-hidden="true">
+                    <span class="ps-pill__fill"></span>
+                    <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
+                  </span>
+                </span>
+                <span class="ps-step__panel" id="ps-panel-1">First, we understand your ministry, your supporters, and your current setup.</span>
+              </span>
+            </span>
+          </button>
+          <button class="ps-step" type="button" aria-expanded="false" aria-controls="ps-panel-2">
+            <span class="ps-step__rail" aria-hidden="true"><span class="ps-step__dot"></span><span class="ps-step__line"></span></span>
+            <span class="ps-step__head">
+              <span class="ps-step__label">Step 2</span>
+              <span class="ps-step__body">
+                <span class="ps-step__front">
+                  <span class="ps-step__title">Plan Development</span>
+                  <span class="ps-pill" aria-hidden="true">
+                    <span class="ps-pill__fill"></span>
+                    <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
+                  </span>
+                </span>
+                <span class="ps-step__panel" id="ps-panel-2">Next up, we choose what matters now and what can wait.</span>
+              </span>
+            </span>
+          </button>
+          <button class="ps-step" type="button" aria-expanded="false" aria-controls="ps-panel-3">
+            <span class="ps-step__rail" aria-hidden="true"><span class="ps-step__dot"></span><span class="ps-step__line"></span></span>
+            <span class="ps-step__head">
+              <span class="ps-step__label">Step 3</span>
+              <span class="ps-step__body">
+                <span class="ps-step__front">
+                  <span class="ps-step__title">Build &amp; Setup</span>
+                  <span class="ps-pill" aria-hidden="true">
+                    <span class="ps-pill__fill"></span>
+                    <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
+                  </span>
+                </span>
+                <span class="ps-step__panel" id="ps-panel-3">After that, we build the update and set up the tool.</span>
+              </span>
+            </span>
+          </button>
+          <button class="ps-step" type="button" aria-expanded="false" aria-controls="ps-panel-4">
+            <span class="ps-step__rail" aria-hidden="true"><span class="ps-step__dot"></span><span class="ps-step__line"></span></span>
+            <span class="ps-step__head">
+              <span class="ps-step__label">Step 4</span>
+              <span class="ps-step__body">
+                <span class="ps-step__front">
+                  <span class="ps-step__title">Rhythm &amp; Handoff</span>
+                  <span class="ps-pill" aria-hidden="true">
+                    <span class="ps-pill__fill"></span>
+                    <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
+                  </span>
+                </span>
+                <span class="ps-step__panel" id="ps-panel-4">Finally, we hand off a rhythm you can run yourself.</span>
+              </span>
+            </span>
+          </button>
+          </div>
         </div>
-        <ol class="process-list process-list--three" data-reveal data-settle="rise">
-          <li><span>01</span><div><h3>What matters now</h3><p>Choose the part of the task that deserves attention first.</p></div></li>
-          <li><span>02</span><div><h3>What to do first</h3><p>Decide on one practical action that fits your tools and ministry.</p></div></li>
-          <li><span>03</span><div><h3>What can wait</h3><p>Set aside the options that do not need attention yet.</p></div></li>
-        </ol>
-
-        <p class="does-list__foot">Two ways to get it: <a href="#coaching">one-on-one coaching</a> on the thing in front of you, or <a href="#live-training">monthly live training</a> on one topic at a time.</p>
       </div>
     </section>
 
@@ -460,73 +435,279 @@
       <div class="pod-rail" role="region" tabindex="0" aria-label="Missionary Media episodes, scroll sideways" data-settle="rise">
         <div class="pod-track">
             <a class="pod-card" href="https://www.youtube.com/watch?v=dnfMBprp0xg" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--mission">Mission</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/dnfMBprp0xg.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">Digital Evangelism: Unlocking the Future of Missions</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--mission">Mission</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">Digital Evangelism: Unlocking the Future of Missions</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=kwE45m5kRMo" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--media">Media</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/kwE45m5kRMo.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">Overcome Camera Fear &amp; Share the Gospel Online</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--media">Media</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">Overcome Camera Fear &amp; Share the Gospel Online</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=L1oiYPD3MzM" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--mission">Mission</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/L1oiYPD3MzM.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">How to Spread the Gospel on Social Media: Tips for Success</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--mission">Mission</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">How to Spread the Gospel on Social Media: Tips for Success</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=lN8zVJpDugY" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--mission">Mission</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/lN8zVJpDugY.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--mission">Mission</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">The Secret to Successful Online Outreach (and it&rsquo;s NOT what you think)</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=_gc6d6qk3IE" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--mission">Mission</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/_gc6d6qk3IE.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--mission">Mission</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">Is ONLINE Evangelism the Future of SPREADING God&rsquo;s Word?</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=cLfGCAg4DRA" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--media">Media</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/cLfGCAg4DRA.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--media">Media</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">How Missionaries Can Use Social Media to Reach Millions Across Cultures</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=euSjz1xT-YY" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--mission">Mission</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/euSjz1xT-YY.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--mission">Mission</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">What is the Biblical View of Digital Evangelism? &ndash; &lsquo;A New Mission Field?&rsquo;</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=uM35hRAhWR0" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--media">Media</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/uM35hRAhWR0.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--media">Media</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">Simple Social Media Strategies Every Missionary Needs to Reach More People Online</span>
+              </span>
             </a>
             <a class="pod-card" href="https://www.youtube.com/watch?v=LNKgYv0dwyQ" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
-              <span class="pod-card__top">
-                <span class="pod-cat pod-cat--media">Media</span>
-                <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+              <span class="pod-card__media" aria-hidden="true">
+                <img src="assets/media/podcast/LNKgYv0dwyQ.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="media-play"></span>
               </span>
-              <span class="pod-card__title">Understand the Impact of Social Media on Ministry - A Crazy Reality</span>
+              <span class="pod-card__body">
+                <span class="pod-card__top">
+                  <span class="pod-cat pod-cat--media">Media</span>
+                  <span class="pod-card__cue">Watch <span aria-hidden="true">&#8599;</span></span>
+                </span>
+                <span class="pod-card__title">Understand the Impact of Social Media on Ministry - A Crazy Reality</span>
+              </span>
             </a>
         </div>
       </div>
 
       <div class="shell podcast-band__foot">
         <a class="pod-all" href="https://www.youtube.com/channel/UClI-lyN2sHw_hL911sqdbkA" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">All episodes on YouTube <span aria-hidden="true">&#8599;</span></a>
+      </div>
+    </section>
+
+    <section class="section shorts-band" id="shorts" aria-labelledby="shorts-title">
+      <div class="shell shorts-band__head" data-reveal>
+        <div>
+          <p class="section-label section-label--light">Shorts &middot; 30-day challenge</p>
+          <h2 id="shorts-title">One practical move at a time.</h2>
+        </div>
+        <p class="section-lead">Browse the challenge entries that are currently public &mdash; from choosing an audience to building a repeatable framework. Each opens on YouTube.</p>
+      </div>
+
+      <div class="shorts-rail" role="region" tabindex="0" aria-label="Missionary Media 30-day challenge Shorts, scroll sideways" data-settle="rise">
+        <div class="shorts-track">
+          <a class="short-card" href="https://www.youtube.com/shorts/mO1Bo6cmc4Y" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 1: Write a one-sentence mission on YouTube">
+            <img src="assets/media/shorts/day-01-mission-statement.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 01</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Write a one-sentence mission</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/anq8UVgIdgk" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 2: Identify your audience on YouTube">
+            <img src="assets/media/shorts/day-02-find-your-audience.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 02</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Identify your audience</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/Nr_OZkL2mIY" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 4: Talk to one person on YouTube">
+            <img src="assets/media/shorts/day-04-talk-to-one-person.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 04</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Talk to one person</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/HoDi9zw93ao" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 5: Find the people you serve on YouTube">
+            <img src="assets/media/shorts/day-05-find-your-audience.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 05</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Find the people you serve</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/zje3teTC3wA" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Know who you want to reach on YouTube">
+            <img src="assets/media/shorts/day-06-know-who-you-reach.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Series</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Know who you want to reach</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/NrtYAtelc2k" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 7: When it feels overwhelming on YouTube">
+            <img src="assets/media/shorts/day-07-overwhelmed-reset.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 07</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">When it feels overwhelming</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/-TBXVbDOe1s" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 8: The challenge changed my thinking on YouTube">
+            <img src="assets/media/shorts/day-08-challenge-shift.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 08</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">The challenge changed my thinking</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/JUMtUvfxzms" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 9: Make the mindset shift on YouTube">
+            <img src="assets/media/shorts/day-09-mindset-shift.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 09</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Make the mindset shift</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/-XLOnv8_uWM" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 10: Do the opposite on YouTube">
+            <img src="assets/media/shorts/day-10-do-the-opposite.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 10</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Do the opposite</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/Qr-A5ObmIwk" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 11: Direction before discipline on YouTube">
+            <img src="assets/media/shorts/day-11-direction-not-discipline.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 11</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Direction before discipline</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/lwlIV9uuZhI" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 12: Choose the right medium on YouTube">
+            <img src="assets/media/shorts/day-12-choose-the-right-medium.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 12</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Choose the right medium</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/_jL1QYKTCqw" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 13: Frame yourself like a pro on YouTube">
+            <img src="assets/media/shorts/day-13-frame-yourself.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 13</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Frame yourself like a pro</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/EH7V8GCCM7I" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Keep one thread in your script on YouTube">
+            <img src="assets/media/shorts/day-14-one-thread-script.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Series</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Keep one thread in your script</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/4NWZOH7fM48" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 15: Halfway check-in on YouTube">
+            <img src="assets/media/shorts/day-15-halfway-point.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 15</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Halfway check-in</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/uxuTMnSHiLo" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 16: Stop waiting, post the update on YouTube">
+            <img src="assets/media/shorts/day-16-post-the-update.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 16</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Stop waiting. Post the update.</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/nrxuKlpYQdw" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 17: Break through the noise on YouTube">
+            <img src="assets/media/shorts/day-17-break-through-noise.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 17</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Break through the noise</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/xGUDv8rmN_U" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 18: Connection beats perfection on YouTube">
+            <img src="assets/media/shorts/day-18-connection-not-perfect.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 18</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Connection beats perfection</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/QA2In1bCa1o" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 19: Start before you are ready on YouTube">
+            <img src="assets/media/shorts/day-19-start-before-ready.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 19</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Start before you&rsquo;re ready</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/Wes3Mr26e5o" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 20: Five Instagram Reel checks on YouTube">
+            <img src="assets/media/shorts/day-20-five-reel-checks.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 20</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Five Instagram Reel checks</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/rBnYPuMfdm8" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Clarify who and how you help on YouTube">
+            <img src="assets/media/shorts/day-21-clarify-who-how.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Series</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Clarify who and how you help</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/yt1R8heOTuU" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 22: Find the person you can help on YouTube">
+            <img src="assets/media/shorts/day-22-find-one-person.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 22</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Find the person you can help</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/DOH-68Nux5Q" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 23: Build your ten-post list on YouTube">
+            <img src="assets/media/shorts/day-23-ten-post-list.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 23</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Build your 10-post list</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/7Z6JSej3Z0I" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 25: Personal beats polished on YouTube">
+            <img src="assets/media/shorts/day-25-personal-over-polished.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 25</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Personal beats polished</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/FBDKWWHOk4w" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 26: Flip the call-to-action frame on YouTube">
+            <img src="assets/media/shorts/day-26-flip-the-cta.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 26</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Flip the CTA frame</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/75gNz9P7fWg" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 27: Build a sustainable posting rhythm on YouTube">
+            <img src="assets/media/shorts/day-27-sustainable-posting.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 27</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Build a sustainable posting rhythm</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/mGXzyvNkMD0" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 29: Build a content framework on YouTube">
+            <img src="assets/media/shorts/day-29-content-framework.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 29</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">Build a content framework</span></span>
+          </a>
+          <a class="short-card" href="https://www.youtube.com/shorts/u8x931miAfc" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Day 30: You made it on YouTube">
+            <img src="assets/media/shorts/day-30-you-made-it.jpg" alt="" width="540" height="960" loading="lazy" decoding="async">
+            <span class="short-card__overlay"><span class="short-card__top"><span class="short-card__day">Day 30</span><span class="short-card__cue">Watch &#8599;</span></span><span class="short-card__title">You made it</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="shell shorts-band__foot">
+        <a class="pod-all" href="https://www.youtube.com/@MissionaryMediaHub/shorts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">All Shorts on YouTube <span aria-hidden="true">&#8599;</span></a>
+      </div>
+    </section>
+
+    <section class="section academy-teaser" id="academy" aria-labelledby="academy-teaser-title">
+      <div class="shell">
+        <div class="academy-teaser__card" data-settle="rise">
+          <div class="academy-teaser__copy">
+            <p class="section-label section-label--light">Next · Academy preview</p>
+            <h2 id="academy-teaser-title">Practical media training, shaped around the work already in front of you.</h2>
+            <p>Browse possible lesson directions for planning, phone video, clear light and sound, editing, and safe review. Then join the waitlist to help decide what gets tested first.</p>
+            <div class="academy-teaser__actions">
+              <a class="button button--primary" href="/academy/#waitlist">Join the Academy waitlist</a>
+              <a class="academy-text-link" href="/academy/">See the Academy preview <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="academy-teaser__state" aria-label="Academy status">
+              <span>In development · Not launched</span>
+              <span>Waitlist · Interest only</span>
+              <span>Concept previews · May change</span>
+            </div>
+          </div>
+          <picture class="academy-teaser__media">
+            <source media="(max-width: 64rem)" srcset="assets/academy/academy-hero-tabor-mobile.jpg">
+            <img src="assets/academy/academy-hero-tabor-wide.jpg" width="1800" height="1013" alt="Tabor Normoyle at a practical media teaching desk" loading="lazy">
+          </picture>
+        </div>
       </div>
     </section>
 
@@ -613,14 +794,13 @@
         </form>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
     <div class="shell footer-grid" data-settle="rise">
       <div class="footer-brand"><a class="wordmark wordmark--footer" href="#top" aria-label="Missionary Media home"><span>Missionary</span><strong>Media</strong></a><p>Digital guidance for missionaries, one real task at a time.</p></div>
-      <nav class="footer-nav" aria-label="Footer navigation"><p class="footer-heading">Start here</p><a href="#coaching">One-on-one coaching</a><a href="#live-training">Monthly live training</a><a href="#questions">Questions</a><a href="#start">Book a free discovery call</a></nav>
-      <div class="footer-status"><p class="footer-heading">What’s available</p><p><strong>Now</strong> · Coaching and live training</p><p><strong>Prototype</strong> · Home Connection</p><p><strong>Next</strong> · Missionary Media Academy</p><p><strong>Later</strong> · Trusted professional help</p></div>
+      <nav class="footer-nav" aria-label="Footer navigation"><p class="footer-heading">Start here</p><a href="#start">One-on-one coaching</a><a href="/academy/">Academy preview</a><a href="/resources/">Free resources</a><a href="#questions">Questions</a><a href="#start">Book a free discovery call</a></nav>
+      <div class="footer-status"><p class="footer-heading">What’s available</p><p><strong>Now</strong> · Coaching and live training</p><p><strong>Prototype</strong> · Home Connection</p><p><strong>Next</strong> · <a href="/academy/">Missionary Media Academy</a> · In development</p><p><strong>Later</strong> · Trusted professional help</p></div>
       <div class="footer-disclosure"><p class="footer-heading">Company</p><p><strong>Missionary Media is a for-profit company.</strong></p><p>A separate giving arm is in formation. Gifts are not tax-deductible at this time.</p></div>
     </div>
     <div class="shell footer-bottom"><span>© 2026 Missionary Media. All rights reserved.</span><a href="#top">Back to top ↑</a></div>

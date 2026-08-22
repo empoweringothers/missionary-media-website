@@ -5,7 +5,7 @@
   const desktopQuery = window.matchMedia("(min-width: 70rem)");
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const header = document.getElementById("site-header");
-  const heroSection = document.querySelector(".hero");
+  const heroSection = document.querySelector("[data-header-boundary], .hero");
   const heroCopyAnchor = heroSection?.querySelector(".hero__center");
   const headerIntroCandidates = [
     header?.querySelector(".wordmark"),
@@ -1343,15 +1343,10 @@
       { selector: ":scope > .section-lead", kind: "words" }
     ], { maxDelay: 100 });
 
-    // Each card owns its viewport test inside the native horizontal rail. Cards
-    // that begin offscreen stay armed until the visitor swipes them into view;
-    // no transform ever touches the rail/track scroll geometry.
-    document.querySelectorAll(".pod-track > .pod-card").forEach((card) => {
-      addGroup(card, [{ element: card, kind: "rise" }], {
-        maxDelay: 0,
-        horizontal: true
-      });
-    });
+    // Keep cards static inside the native scrollport. A transform-based card
+    // entrance makes keyboard focus vertically scroll the taller image cards,
+    // clipping both the thumbnail and its focus ring. The rail itself already
+    // owns the section-level settle gesture.
 
     const podcastFoot = document.querySelector(".podcast-band__foot");
     if (podcastFoot) {
@@ -1747,6 +1742,122 @@
     });
   };
 
+  /*
+   * Our process: the four-step card.
+   *
+   * The card's entrance is the shared [data-settle] system. Local to this
+   * section are two things CSS cannot do on its own: reflecting the open state
+   * in aria-expanded, and the scroll-scrubbed progression that lights each step
+   * in turn. Hover and focus states are pure CSS.
+   *
+   * Progression keyframes, as a percentage of the section's scroll range, are
+   * the measured reference values:
+   *   step 1  20-25    step 2  34-35    step 3  44-45    step 4  54-55
+   *   connectors  25-35, 35-45, 45-55
+   */
+  const setupProcessSteps = () => {
+    const steps = Array.from(document.querySelectorAll(".ps-step"));
+    if (!steps.length) return;
+    const card = document.querySelector(".ps-card");
+    const timelineQuery = window.matchMedia("(max-width: 47.9375rem)");
+
+    steps.forEach((step) => {
+      const syncTimeline = () => {
+        if (timelineQuery.matches) step.setAttribute("aria-expanded", "true");
+        else if (!step.classList.contains("is-open")) step.setAttribute("aria-expanded", "false");
+      };
+      timelineQuery.addEventListener("change", syncTimeline);
+      syncTimeline();
+
+      step.addEventListener("mouseenter", () => {
+        if (!timelineQuery.matches) step.setAttribute("aria-expanded", "true");
+      });
+      step.addEventListener("mouseleave", () => {
+        if (!timelineQuery.matches && !step.classList.contains("is-open")) step.setAttribute("aria-expanded", "false");
+      });
+      step.addEventListener("focus", () => {
+        if (!timelineQuery.matches) step.setAttribute("aria-expanded", "true");
+      });
+      step.addEventListener("blur", () => {
+        if (!timelineQuery.matches && !step.classList.contains("is-open")) step.setAttribute("aria-expanded", "false");
+      });
+      // Touch has no hover, so a tap holds the step open. Panels are
+      // independent on the reference, so one opening does not close its neighbours.
+      step.addEventListener("click", () => {
+        if (timelineQuery.matches) return;
+        const open = !step.classList.contains("is-open");
+        step.classList.toggle("is-open", open);
+        step.setAttribute("aria-expanded", String(open));
+      });
+    });
+
+    if (reducedMotionQuery.matches) {
+      document.documentElement.classList.add("ps-no-progress");
+      return;
+    }
+
+    const LIT = [[20, 25], [34, 35], [44, 45], [54, 55]];
+    const FILL = [[25, 35], [35, 45], [45, 55]];
+    const rampBetween = (value, bounds) => clamp01((value - bounds[0]) / (bounds[1] - bounds[0]));
+    let smoothed = null;
+    let lastPaint = 0;
+    let inView = false;
+
+    const paintProgress = () => {
+      lastPaint = Date.now();
+      const rect = card.getBoundingClientRect();
+      const viewport = window.innerHeight || 1;
+      /*
+       * Progress runs across the card's whole travel: 0 when its top edge
+       * reaches the bottom of the viewport, 1 when its bottom leaves the top.
+       * Compressing that range made all four steps light almost together.
+       */
+      const target = clamp01((viewport - rect.top) / (rect.height + viewport)) * 100;
+      // stands in for the reference's smoothing
+      smoothed = smoothed === null ? target : smoothed + ((target - smoothed) * 0.18);
+
+      steps.forEach((step, index) => {
+        step.style.setProperty("--ps-lit", rampBetween(smoothed, LIT[index]).toFixed(3));
+        if (index >= FILL.length) return;
+        const line = step.querySelector(".ps-step__line");
+        if (line) line.style.setProperty("--ps-fill", rampBetween(smoothed, FILL[index]).toFixed(3));
+      });
+
+      if (inView && Math.abs(target - smoothed) > 0.05) window.requestAnimationFrame(paintProgress);
+    };
+
+    /*
+     * Time-throttled rather than rAF-throttled at the entry point: a
+     * backgrounded tab pauses animation frames, and a restored session that
+     * lands mid-section would otherwise never paint its first frame.
+     */
+    const requestProgress = () => {
+      if (Date.now() - lastPaint < 16) return;
+      paintProgress();
+    };
+
+    if ("IntersectionObserver" in window) {
+      const progressObserver = new IntersectionObserver((entries) => {
+        inView = entries.some((entry) => entry.isIntersecting);
+        if (inView) requestProgress();
+      }, { threshold: 0 });
+      progressObserver.observe(card);
+    } else {
+      inView = true;
+    }
+
+    window.addEventListener("scroll", requestProgress, { passive: true });
+    window.addEventListener("resize", requestProgress, { passive: true });
+    requestProgress();
+    window.setTimeout(requestProgress, 400);
+
+    reducedMotionQuery.addEventListener("change", (event) => {
+      if (!event.matches) return;
+      document.documentElement.classList.add("ps-no-progress");
+      steps.forEach((step) => step.style.removeProperty("--ps-lit"));
+    });
+  };
+
   desktopQuery.addEventListener("change", handleViewportChange);
   storyMotionQuery.addEventListener("change", handleViewportChange);
   reducedMotionQuery.addEventListener("change", handleViewportChange);
@@ -1754,5 +1865,6 @@
   handleViewportChange();
   setupEloqwntTextMotion();
   setupContainerSettle();
+  setupProcessSteps();
   updateHeaderForScroll();
 })();
