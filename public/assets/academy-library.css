@@ -363,6 +363,13 @@ html {
   line-height: 1.55;
 }
 
+.academy-section-head__copy > .academy-section-head__source {
+  max-width: 43rem;
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
 .academy-course-list {
   display: grid;
   border-top: 1px solid var(--academy-line);
