@@ -2139,10 +2139,15 @@ body.story-video-open {
   list-style: none;
 }
 
+/*
+ * Holds the eyebrow and the process card. The full-width ink rule and the big
+ * double gap here were sized for the five-row comparison ledger and the heading
+ * block that used to sit above them; with only a label and the card left, the
+ * rule read as a stray line across the section and the gap as dead space.
+ */
 .coaching-decisions {
-  margin-top: clamp(5rem, 9vw, 8rem);
-  padding-top: clamp(3rem, 6vw, 5rem);
-  border-top: 1px solid var(--ink);
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .process-list--three {
@@ -5486,5 +5491,56 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   .ps-pill__fill,
   .ps-pill__bar--v {
     transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Current offers, stated compactly
+
+   What survives of the old offer ledger: the two current offers, their
+   availability, and one plain line each. A reader learns what is on the table
+   before the call to action without a five-row table doing it.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.offer-status {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 2rem);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.offer-status__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.offer-status__state {
+  color: var(--blue-dark);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.offer-status__name {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.offer-status__note {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 47.9375rem) {
+  .offer-status {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
   }
 }
