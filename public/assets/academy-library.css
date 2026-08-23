@@ -295,36 +295,43 @@ html {
 
 .academy-section-head {
   display: grid;
-  grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 0.65fr);
+  grid-template-columns: minmax(0, 1.18fr) minmax(20rem, 0.82fr);
   grid-template-areas:
-    "label copy"
+    "visual label"
     "visual copy";
   max-width: none;
-  margin-bottom: clamp(3.5rem, 7vw, 6rem);
-  gap: clamp(2rem, 7vw, 8rem);
-  align-items: start;
+  margin-bottom: clamp(4rem, 7vw, 6.5rem);
+  column-gap: clamp(3rem, 7vw, 7rem);
+  row-gap: 0.9rem;
+  align-items: center;
 }
 
 .academy-section-label {
   grid-area: label;
   margin: 0;
   color: #33558c;
+  align-self: end;
 }
 
 .academy-section-head__copy {
   grid-area: copy;
+  max-width: 50rem;
+  align-self: start;
 }
 
 .academy-section-head__visual {
   grid-area: visual;
-  width: min(100%, 34rem);
-  margin: -0.5rem 0 0;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  justify-self: start;
 }
 
 .academy-section-head__visual img {
   display: block;
   width: 100%;
   height: auto;
+  filter: drop-shadow(0 1.4rem 1.45rem rgba(4, 10, 19, 0.12));
 }
 
 .academy-section-head__visual figcaption {
@@ -899,12 +906,14 @@ html {
       "label"
       "copy"
       "visual";
-    gap: 0.9rem;
+    row-gap: 0.9rem;
   }
 
   .academy-section-head__visual {
-    width: 100%;
-    margin-top: 1.35rem;
+    width: calc(100% + 2.5rem);
+    max-width: none;
+    margin-top: 1.5rem;
+    margin-inline: -1.25rem;
   }
 
   .academy-section-head__copy h2 {
