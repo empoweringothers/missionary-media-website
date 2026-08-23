@@ -2045,98 +2045,18 @@ body.story-video-open {
   background: var(--mist);
 }
 
-.help-heading {
-  --help-image-scroll-y: 0px;
-  --help-label-opacity: 1;
-  grid-template-areas: "visual copy";
-  row-gap: 0;
-}
-
 .help-heading > .section-label {
   z-index: 1;
   grid-area: visual;
   align-self: start;
 }
 
-.help-heading__copy {
-  grid-area: copy;
-}
-
-/*
- * Framed like the story video card: a paper card with a hairline edge, holding a
- * rounded image at the inner radius. Replaces a radial-gradient fade that dissolved
- * the photo into the section — that treatment appeared nowhere else on the site.
- * The source PNG also carried its own baked-in alpha vignette, so the fade could not
- * be removed in CSS alone; the square JPG is the fully-opaque core of that file.
- */
-.help-heading__visual {
-  width: min(100%, 34rem);
-  margin: clamp(3.5rem, 5vw, 5rem) 0 0;
-  padding: clamp(0.8rem, 1.3vw, 1rem);
-  grid-area: visual;
-  justify-self: center;
-  border: 1px solid rgba(0, 50, 96, 0.08);
-  border-radius: clamp(1.7rem, 3vw, 2.4rem);
-  background: var(--paper);
-}
-
 .help-heading.is-scroll-linked .help-heading__visual {
   transform: translate3d(0, var(--help-image-scroll-y), 0);
 }
 
-.help-heading__visual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-  object-position: center;
-  border-radius: clamp(1rem, 1.8vw, 1.45rem);
-}
-
-.service-ledger {
-  margin-top: clamp(3.5rem, 7vw, 6rem);
-  border-top: 1px solid var(--ink);
-}
-
-.service-row {
-  display: grid;
-  min-height: 160px;
-  padding: 1.5rem 0;
-  grid-template-columns: 3.5rem 48px minmax(13rem, 0.82fr) minmax(18rem, 1.18fr);
-  gap: 1.5rem;
-  align-items: center;
-  border-bottom: 1px solid var(--rule);
-}
-
-.service-number {
-  align-self: start;
-  padding-top: 0.7rem;
-  color: var(--blue-dark);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.service-row h3 {
-  margin: 0;
-}
-
-.service-row > p:last-child {
-  margin: 0;
-  color: var(--muted);
-}
-
 .approach {
   background: var(--paper);
-}
-
-.process-list {
-  display: grid;
-  margin-top: clamp(3.5rem, 7vw, 6rem);
-  padding: 0;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--ink);
-  list-style: none;
 }
 
 /*
@@ -2148,38 +2068,6 @@ body.story-video-open {
 .coaching-decisions {
   margin-top: 0;
   padding-top: 0;
-}
-
-.process-list--three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.process-list li {
-  min-height: 19rem;
-  padding: 1.5rem 1.25rem;
-  border-right: 1px solid var(--rule);
-}
-
-.process-list li:last-child {
-  border-right: 0;
-}
-
-.process-list li > span {
-  display: block;
-  margin-bottom: 5rem;
-  color: var(--blue-dark);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.process-list h3 {
-  font-size: 1.28rem;
-}
-
-.process-list p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.55;
 }
 
 .audience {
@@ -3794,19 +3682,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
     gap: 2.25rem;
   }
 
-  .help-heading {
-    grid-template-areas:
-      "label"
-      "copy"
-      "visual";
-  }
-
-  .help-heading__visual {
-    width: min(100%, 32rem);
-    margin-top: 0.5rem;
-    justify-self: center;
-  }
-
   .two-column-copy {
     gap: 1.25rem;
   }
@@ -3814,38 +3689,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   .observation-ledger p {
     grid-template-columns: 3rem minmax(0, 1fr);
     gap: 1rem;
-  }
-
-  .service-row {
-    grid-template-columns: 3rem 48px minmax(0, 1fr);
-    gap: 1rem;
-  }
-
-  .service-row > p:last-child {
-    grid-column: 2 / -1;
-  }
-
-  .process-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .process-list--three {
-    grid-template-columns: 1fr;
-  }
-
-  .process-list--three li,
-  .process-list--three li:nth-child(2) {
-    min-height: 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .process-list li:nth-child(2) {
-    border-right: 0;
-  }
-
-  .process-list li:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--rule);
   }
 
   .audience-stages {
@@ -4054,32 +3897,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 
   .two-column-copy {
     grid-template-columns: 1fr;
-  }
-
-  .service-row {
-    grid-template-columns: 2rem 48px minmax(0, 1fr);
-    padding: 1.4rem 0;
-  }
-
-  .service-row > p:last-child {
-    grid-column: 1 / -1;
-    padding-left: 0;
-  }
-
-  .process-list {
-    grid-template-columns: 1fr;
-  }
-
-  .process-list li,
-  .process-list li:nth-child(2) {
-    min-height: 0;
-    padding: 1.5rem 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .process-list li > span {
-    margin-bottom: 2rem;
   }
 
   .starter-plan__feature {
@@ -4321,30 +4138,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   }
 }
 
-/* Layered circular gradient for the coaching photograph */
-.help-heading__visual {
-  position: relative;
-  isolation: isolate;
-}
-
-.help-heading__visual::after {
-  position: absolute;
-  z-index: 1;
-  inset: -1px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 0%,
-    transparent 50%,
-    color-mix(in srgb, var(--mist) 12%, transparent) 62%,
-    color-mix(in srgb, var(--mist) 38%, transparent) 74%,
-    color-mix(in srgb, var(--mist) 72%, transparent) 88%,
-    var(--mist) 100%
-  );
-  content: "";
-  pointer-events: none;
-}
-
 /* Evidence strip — sourced data points under the voices rail. Deliberately quiet:
    supporting evidence, not a headline claim. */
 .evidence-strip {
@@ -4466,7 +4259,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
     transform: none;
   }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────
    Resources nav panel and the fields strip.
@@ -4609,94 +4401,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 @media (max-width: 30rem) {
 }
 
-
-/* ─────────────────────────────────────────────────────────────────────────
-   "What we actually do" ledger + podcast rail.
-   The ledger replaces the old three-step block, which inherited min-height
-   and a 5rem number gap from the four-up list and was mostly whitespace.
-   ───────────────────────────────────────────────────────────────────────── */
-
-.does-list {
-  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
-  padding: 0;
-  border-top: 1px solid var(--ink);
-  list-style: none;
-}
-
-.does-row {
-  display: grid;
-  gap: clamp(1rem, 3vw, 2.5rem);
-  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1fr);
-  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.does-row__num {
-  color: var(--blue-dark);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding-top: 0.28rem;
-}
-
-.does-row__problem h3 {
-  margin: 0 0 0.5rem;
-  font-size: clamp(1.1rem, 1.6vw, 1.32rem);
-  line-height: 1.2;
-}
-
-.does-row__problem p,
-.does-row__answer p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.does-row__answer {
-  padding-left: clamp(0rem, 2vw, 1.75rem);
-  border-left: 1px solid var(--blue-rule);
-}
-
-.does-row__label {
-  margin: 0 0 0.45rem !important;
-  color: var(--blue-dark) !important;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.does-list__foot {
-  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
-  color: var(--muted);
-}
-
-.does-list__foot a {
-  color: var(--blue-dark);
-}
-
-/* ── Podcast rail ──
-   The archive version auto-scrolled with no pause control, which the 2026-08-20
-   critique ruled out. This one is user-driven: native horizontal scroll with
-   snap, keyboard-reachable, and no auto-scroll or scroll-control JavaScript. */
-
-.podcast-band {
-  background: var(--ink);
-  color: #fff;
-  padding-bottom: clamp(4.5rem, 8vw, 6.5rem);
-}
-
-.podcast-band__head {
-  display: grid;
-  gap: clamp(1.25rem, 3vw, 3rem);
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: end;
-}
-
-.podcast-band__head h2 {
-  margin: 0.4rem 0 0;
-  color: #fff;
-}
-
 .podcast-band .section-lead {
   margin: 0;
   color: rgba(255, 255, 255, 0.68);
@@ -4706,76 +4410,9 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   color: var(--blue-tint) !important;
 }
 
-.pod-rail {
-  margin-top: clamp(2.25rem, 4vw, 3.5rem);
-  padding-inline: var(--page-gutter);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-}
-
-.pod-rail:focus-visible {
-  outline: 2px solid var(--blue-tint);
-  outline-offset: 4px;
-}
-
-.pod-track {
-  display: flex;
-  width: max-content;
-  gap: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 1rem;
-}
-
-.pod-card {
-  display: flex;
-  width: min(22rem, 82vw);
-  padding: 0;
-  gap: 0;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff;
-  scroll-snap-align: start;
-  text-decoration: none;
-  transition: background-color var(--dur-fast) ease, border-color var(--dur-fast) ease;
-}
-
-.pod-card:hover,
-.pod-card:focus-visible {
-  border-color: rgba(255, 255, 255, 0.42);
-  background: rgba(255, 255, 255, 0.09);
-}
-
 .pod-card:focus-visible,
 .short-card:focus-visible {
   outline-offset: -3px;
-}
-
-.pod-card__media {
-  position: relative;
-  display: block;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background: #0d1a2c;
-}
-
-.pod-card__media::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(7, 20, 38, 0.02), rgba(7, 20, 38, 0.32));
-  content: "";
-}
-
-.pod-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.82) contrast(1.02);
 }
 
 .media-play {
@@ -4803,123 +4440,9 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   transform: translate(-42%, -50%);
 }
 
-.pod-card__body {
-  display: flex;
-  min-height: 9.25rem;
-  padding: 1.05rem 1.15rem 1.25rem;
-  gap: 1.15rem;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.pod-card__top {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.pod-cat {
-  padding: 0.28rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.pod-cat--mission {
-  border: 1px solid rgba(0, 196, 249, 0.38);
-  background: rgba(0, 196, 249, 0.14);
-  color: var(--sky);
-}
-
-.pod-cat--media {
-  border: 1px solid rgba(110, 168, 255, 0.38);
-  background: rgba(110, 168, 255, 0.14);
-  color: var(--blue-tint);
-}
-
-.pod-card__cue {
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.pod-card__title {
-  font-size: 1.06rem;
-  line-height: 1.28;
-}
-
-.podcast-band__foot {
-  margin-top: clamp(1.25rem, 2.5vw, 2rem);
-}
-
-.pod-all {
-  color: var(--blue-tint);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.pod-all:hover,
-.pod-all:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
-}
-
-/* The Shorts are portrait posters inside the same calm, user-driven media
-   system. The rail scrolls horizontally; "vertical" describes each 9:16 card,
-   not a 27-item page column. */
-.shorts-band {
-  padding-top: 0;
-  border-top: 0;
-  background: var(--ink);
-  color: #fff;
-}
-
-.shorts-band__head {
-  display: grid;
-  padding-top: clamp(4.5rem, 8vw, 6.5rem);
-  gap: clamp(1.25rem, 3vw, 3rem);
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: end;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.shorts-band__head h2 {
-  margin: 0.4rem 0 0;
-  color: #fff;
-}
-
 .shorts-band .section-lead {
   margin: 0;
   color: rgba(255, 255, 255, 0.68);
-}
-
-.shorts-rail {
-  margin-top: clamp(2.25rem, 4vw, 3.5rem);
-  padding-inline: var(--page-gutter);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-}
-
-.shorts-rail:focus-visible {
-  outline: 2px solid var(--blue-tint);
-  outline-offset: 4px;
-}
-
-.shorts-track {
-  display: flex;
-  width: max-content;
-  padding-block: 0.25rem 1rem;
-  gap: 1rem;
 }
 
 .short-card {
@@ -4998,34 +4521,10 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   text-wrap: balance;
 }
 
-.shorts-band__foot {
-  margin-top: clamp(1.25rem, 2.5vw, 2rem);
-}
-
 @media (max-width: 60rem) {
-  .does-row {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-  }
-
-  .does-row__answer {
-    padding-left: 0;
-    border-left: 0;
-    border-top: 1px solid var(--blue-rule);
-    padding-top: 1rem;
-    grid-column: 2;
-  }
-
-  .podcast-band__head,
-  .shorts-band__head {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
 }
 
 @media (max-width: 30rem) {
-  .pod-card {
-    width: min(20rem, 84vw);
-  }
 
   .short-card {
     width: min(14.5rem, 72vw);
@@ -5033,16 +4532,7 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 }
 
 @media (max-width: 30rem) {
-  .does-row {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  .does-row__answer {
-    grid-column: 1;
-  }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────
    Container settle — scroll-into-view entrance for whole containers.

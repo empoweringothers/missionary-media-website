@@ -1044,14 +1044,6 @@
   .academy-teaser__copy {
     padding: 1.5rem;
   }
-
-  .academy-teaser__state {
-    grid-template-columns: 1fr;
-  }
-
-  .academy-teaser__state span {
-    padding-top: 0.7rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
