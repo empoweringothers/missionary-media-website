@@ -123,7 +123,19 @@
           <p>Home Connection starts here: three practical courses for choosing, shaping, and sending an update.</p>
         </div>
         <figure class="academy-section-head__visual">
-          <img src="/assets/academy/academy-course-suite-cutout.png" width="1759" height="894" alt="Missionary Media Academy course packaging with Tabor, seven specialties, and video, workbook, audio, and field-kit formats" loading="lazy" decoding="async">
+          <!--
+            The cutout was a single 2.12 MB PNG at 1759px, sent to every phone.
+            Same artwork, same validated alpha, now served at the sizes it is
+            actually displayed: 860px for phones, 1240px above that, WebP first
+            with the PNG kept as a fallback. width/height match the 1240 source
+            so the aspect ratio still reserves the right space.
+          -->
+          <picture>
+            <source type="image/webp" media="(max-width: 47.9375rem)" srcset="/assets/academy/academy-course-suite-cutout-860.webp">
+            <source type="image/webp" srcset="/assets/academy/academy-course-suite-cutout.webp">
+            <source type="image/png" media="(max-width: 47.9375rem)" srcset="/assets/academy/academy-course-suite-cutout-860.png">
+            <img src="/assets/academy/academy-course-suite-cutout.png" width="1240" height="630" alt="Missionary Media Academy course packaging with Tabor, seven specialties, and video, workbook, audio, and field-kit formats" loading="lazy" decoding="async">
+          </picture>
         </figure>
       </div>
       <div class="shell academy-course-list">

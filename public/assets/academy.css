@@ -742,42 +742,85 @@
   border-top: 1px solid var(--academy-line);
 }
 
-/* Homepage teaser: current coaching remains the primary offer; this late-page
-   block points forward without presenting the Academy as available now. */
+/*
+ * Homepage Academy teaser. Written mobile first: the base rules are the phone
+ * layout and the wide layout is added at 64rem. Coaching is still the primary
+ * offer, so this block points forward without presenting the Academy as
+ * available now.
+ *
+ * It used to be a dark --ink card, which cut a hole in the page's light
+ * rhythm. It now reads as a paper card on the mist canvas, the same treatment
+ * as the process card, so the section flows with everything around it. The
+ * container enters with the shared [data-settle] entrance.
+ */
 .academy-teaser {
-  background: var(--paper);
+  background: var(--mist);
 }
 
 .academy-teaser__card {
   position: relative;
   display: grid;
-  min-height: clamp(34rem, 54vw, 42rem);
-  grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.95fr);
   overflow: hidden;
-  border-radius: var(--section-curve);
-  background: var(--ink);
-  color: #fff;
+  border-radius: clamp(1rem, 2vw, 2rem);
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .academy-teaser__copy {
   z-index: 1;
-  padding: clamp(2.25rem, 6vw, 5rem);
+  padding: clamp(1.75rem, 7vw, 3rem) clamp(1.25rem, 6vw, 3rem);
   align-self: center;
 }
 
+/* Typography sets the hierarchy here, not boxes: one label, one promise, one
+   line of context, then the ask. Sizes are fluid so the phone reads first. */
+.academy-teaser__copy .section-label {
+  color: var(--blue-dark);
+}
+
 .academy-teaser__copy h2 {
-  max-width: 13ch;
-  color: #fff;
+  /* balance keeps the three phone lines from ending on a stub */
+  text-wrap: balance;
+  max-width: 24ch;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+  font-size: clamp(1.65rem, 6.4vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
 .academy-teaser__copy > p:not(.section-label) {
-  max-width: 34rem;
-  color: rgba(255, 255, 255, 0.75);
+  max-width: 46ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 4.1vw, 1.0625rem);
+  line-height: 1.55;
+}
+
+.academy-form {
+  margin-top: clamp(1.5rem, 5vw, 2rem);
+}
+
+.academy-form__fields {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.academy-form__submit {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.academy-form__note {
+  max-width: 46ch;
+  margin: 0.9rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .academy-teaser__actions {
   display: flex;
-  margin-top: 1.75rem;
+  margin-top: 1.25rem;
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
@@ -785,15 +828,9 @@
 
 .academy-teaser__media {
   position: relative;
-  min-height: 28rem;
+  min-height: 15rem;
   margin: 0;
-}
-
-.academy-teaser__media::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--ink) 0%, transparent 42%);
-  content: "";
+  grid-row: 1;
 }
 
 .academy-teaser__media img {
@@ -803,17 +840,26 @@
   object-position: 62% center;
 }
 
-.academy-teaser__state {
-  display: grid;
-  margin-top: 2.25rem;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
+/* wide layout: image beside the copy, not stacked above it */
+@media (min-width: 64rem) {
+  .academy-teaser__card {
+    min-height: clamp(30rem, 44vw, 36rem);
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  }
 
-.academy-teaser__state span {
-  padding: 0.85rem 0.75rem 0 0;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.78rem;
+  .academy-teaser__media {
+    min-height: 100%;
+    grid-row: auto;
+  }
+
+  .academy-form__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .academy-form__submit {
+    width: auto;
+  }
 }
 
 @media (max-width: 64rem) {
@@ -852,23 +898,6 @@
     margin-top: 1rem;
   }
 
-  .academy-teaser__card {
-    grid-template-columns: 1fr;
-  }
-
-  .academy-teaser__media {
-    min-height: 24rem;
-    grid-row: 1;
-  }
-
-  .academy-teaser__media::after {
-    background: linear-gradient(0deg, var(--ink) 0%, transparent 58%);
-  }
-
-  .academy-teaser__copy {
-    margin-top: -9rem;
-    grid-row: 2;
-  }
 }
 
 @media (max-width: 44.999rem) {

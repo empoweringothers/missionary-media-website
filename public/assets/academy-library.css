@@ -994,9 +994,12 @@ html {
   }
 
   .academy-hero h1 {
-    max-width: 10.5ch;
-    font-size: clamp(2.8rem, 13.5vw, 4.25rem);
-    line-height: 0.94;
+    /* was clamp(2.8rem, 13.5vw, 4.25rem) with a 10.5ch measure, which put a
+       45-53px headline across five lines on a 390px phone. Smaller floor and a
+       wider measure so the first thing a phone reader meets is readable. */
+    max-width: 16ch;
+    font-size: clamp(2.05rem, 9vw, 4.25rem);
+    line-height: 1.02;
   }
 
   .academy-hero__lede {

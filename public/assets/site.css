@@ -5527,9 +5527,25 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   text-transform: uppercase;
 }
 
+/* the coaching item is a link to the booking form; the training item is not,
+   because that offer has no approved destination yet */
 .offer-status__name {
   font-size: 1.125rem;
   font-weight: 600;
+}
+
+a.offer-status__name {
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-color: var(--sky);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+  transition: text-decoration-color var(--dur-fast) ease;
+}
+
+a.offer-status__name:hover,
+a.offer-status__name:focus-visible {
+  text-decoration-color: var(--blue);
 }
 
 .offer-status__note {
