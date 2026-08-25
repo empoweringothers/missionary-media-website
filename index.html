@@ -7,7 +7,7 @@
 <title>Missionary Media — Digital ministry should not eat your ministry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
 :root{
@@ -16,8 +16,8 @@
   --amber:#E8702A; --warm-navy:#0F1E3C; --sand:#F0EBE3; --stone:#E8E2D9;
   --text-muted:rgba(28,31,46,.52); --text-mid:rgba(28,31,46,.72); --text-main:rgba(28,31,46,.92);
   --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --display:'Fraunces',Georgia,serif;
-  --body:'DM Sans',-apple-system,sans-serif;
+  --display:'Mazzard','Manrope','Helvetica Neue',Arial,sans-serif;
+  --body:'Mazzard','Manrope','Helvetica Neue',Arial,sans-serif;
   --r:20px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -41,7 +41,7 @@ body{position:relative}
 .sp-6{width:70vw;height:70vw;top:76%;right:-14vw;background:radial-gradient(circle,#FF7112 0%,transparent 70%);opacity:.22}
 .sp-7{width:55vw;height:55vw;top:88%;left:5vw;background:radial-gradient(circle,#00C4F9 0%,transparent 70%);opacity:.18}
 
-body.flow-bg main, body.flow-bg footer, body.flow-bg nav{position:relative;z-index:1}
+body.flow-bg main, body.flow-bg footer{position:relative;z-index:1}
 body.flow-bg .s-mid, body.flow-bg .s-tint, body.flow-bg .s-blue, body.flow-bg .s-warm, body.flow-bg .s-deep{background:transparent}
 /* Subtle accent orbs anchored behind key headings to lead the eye */
 body.flow-bg section{position:relative}
@@ -84,40 +84,84 @@ body.flow-bg #solution::before{
 
 /* ── Navigation ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:10000;
   display:flex;justify-content:space-between;align-items:center;
-  padding:0 4.5vw;height:60px;
-  background:rgba(250,248,245,.72);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(28,31,46,.06);
-  transition:background .4s,border-color .4s,backdrop-filter .4s;
+  padding:0 4.5vw;height:68px;
+  background:rgba(229,233,235,.82);backdrop-filter:blur(22px) saturate(1.08);
+  border-bottom:1px solid rgba(28,31,46,.08);
+  transition:height .32s cubic-bezier(.22,1,.36,1),background .32s cubic-bezier(.22,1,.36,1),border-color .32s cubic-bezier(.22,1,.36,1),box-shadow .32s cubic-bezier(.22,1,.36,1);
 }
 nav.scrolled{
-  background:rgba(250,248,245,.96);backdrop-filter:blur(28px);
-  border-bottom-color:rgba(28,31,46,.1);
-  box-shadow:0 1px 20px rgba(28,31,46,.06);
+  height:58px;
+  background:rgba(245,247,248,.94);backdrop-filter:blur(28px) saturate(1.1);
+  border-bottom-color:rgba(28,31,46,.12);
+  box-shadow:0 10px 34px rgba(8,16,32,.08);
 }
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo img{height:34px;width:auto}
-.nav-logo span{font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--text-main)}
-.nav-links{display:flex;gap:2vw;align-items:center}
-.nav-links a:not(.btn-nav){font-family:var(--body);font-size:14px;color:var(--text-muted);text-decoration:none;letter-spacing:.005em;transition:color .2s}
-.nav-links a:not(.btn-nav):hover{color:var(--ink)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);animation:navDrop .52s cubic-bezier(.22,1,.36,1) both}
+.nav-logo img{height:30px;width:auto;filter:saturate(.86);transition:transform .24s cubic-bezier(.22,1,.36,1),filter .24s}
+.nav-logo:hover img{transform:rotate(-8deg) scale(1.04);filter:saturate(1.05)}
+.nav-logo span{font-family:var(--body);font-size:14px;font-weight:700;letter-spacing:-.025em;color:rgba(28,31,46,.92)}
+.nav-links{display:flex;gap:clamp(8px,1vw,16px);align-items:center}
+.nav-item{position:relative;display:flex;align-items:center;animation:navDrop .48s cubic-bezier(.22,1,.36,1) both;z-index:102}
+.nav-trigger,.nav-links a:not(.btn-nav):not(.menu-card){
+  position:relative;
+  appearance:none;border:0;background:transparent;padding:22px 6px;cursor:pointer;
+  font-family:var(--body);font-size:13.5px;font-weight:500;
+  color:rgba(28,31,46,.56);text-decoration:none;letter-spacing:-.005em;
+  transition:color .2s cubic-bezier(.22,1,.36,1),transform .2s cubic-bezier(.22,1,.36,1);
+}
+.nav-trigger::after,.nav-links a:not(.btn-nav):not(.menu-card)::after{
+  content:'';position:absolute;left:0;right:0;bottom:-7px;height:1.5px;
+  background:currentColor;border-radius:999px;transform:scaleX(0);transform-origin:right;
+  transition:transform .26s cubic-bezier(.22,1,.36,1);
+}
+.nav-trigger:hover,.nav-item:focus-within .nav-trigger,.nav-item:hover .nav-trigger,.nav-links a:not(.btn-nav):not(.menu-card):hover{color:rgba(28,31,46,.96);transform:translateY(-1px)}
+.nav-trigger:hover::after,.nav-item:focus-within .nav-trigger::after,.nav-item:hover .nav-trigger::after,.nav-links a:not(.btn-nav):not(.menu-card):hover::after{transform:scaleX(1);transform-origin:left}
+.nav-caret{display:inline-block;margin-left:5px;font-size:10px;opacity:.45;transform:translateY(-1px);transition:transform .22s,opacity .22s}
+.nav-item:hover .nav-caret,.nav-item:focus-within .nav-caret{opacity:.8;transform:translateY(-1px) rotate(180deg)}
+.nav-menu{
+  position:fixed;top:58px;left:50%;width:min(720px,calc(100vw - 32px));display:grid;
+  transform:translate(-50%,-8px) scale(.985);transform-origin:50% 0;
+  opacity:0;visibility:hidden;pointer-events:none;
+  z-index:999;
+  background:rgba(245,247,248,.98);border:1px solid rgba(28,31,46,.10);border-radius:22px;
+  box-shadow:0 24px 70px rgba(8,16,32,.16);padding:14px;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;
+  transition:opacity .22s cubic-bezier(.22,1,.36,1),transform .22s cubic-bezier(.22,1,.36,1),visibility .22s;
+}
+.nav-item:hover .nav-menu,.nav-item:focus-within .nav-menu,.nav-item.open .nav-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translate(-50%,0) scale(1)!important}
+.nav-item.nav-align-right .nav-menu{left:auto;right:0;transform:translate(0,-8px) scale(.985)}
+.nav-item.nav-align-right:hover .nav-menu,.nav-item.nav-align-right:focus-within .nav-menu,.nav-item.nav-align-right.open .nav-menu{transform:translate(0,0) scale(1)}
+.nav-menu::before{content:'';position:absolute;left:0;right:0;top:-18px;height:18px}
+.menu-card{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:10px;row-gap:4px;padding:14px;border-radius:14px;text-decoration:none;color:var(--ink);transition:background .18s cubic-bezier(.22,1,.36,1),transform .18s cubic-bezier(.22,1,.36,1)}
+.menu-card:hover{background:#fff;transform:translateY(-1px);box-shadow:0 8px 22px rgba(8,16,32,.07)}
+.menu-icon{grid-row:1 / span 2;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.9);border:1px solid rgba(28,31,46,.08);display:grid;place-items:center;color:var(--ink)}
+.menu-icon i{width:16px;height:16px;stroke-width:1.8}
+.menu-card strong{grid-column:2;font-family:var(--body);font-size:14px;font-weight:700;letter-spacing:-.012em;color:rgba(28,31,46,.94)}
+.menu-card span{grid-column:2;font-family:var(--body);font-size:12.5px;line-height:1.4;color:rgba(28,31,46,.54)}
+.nav-links > .nav-item:nth-child(1){animation-delay:.05s}.nav-links > .nav-item:nth-child(2){animation-delay:.09s}.nav-links > .nav-item:nth-child(3){animation-delay:.13s}.nav-links > .nav-item:nth-child(4){animation-delay:.17s}.nav-links > a:nth-child(5){animation-delay:.21s}.nav-links > a:nth-child(6){animation-delay:.25s}
 .btn-nav{
   display:inline-flex;align-items:center;gap:7px;
-  background:var(--coral);
+  background:rgba(28,31,46,.94);
   color:#fff;
-  font-family:var(--body);font-weight:500;font-size:13px;letter-spacing:.01em;
+  font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:-.01em;
   border:none;
-  border-radius:99px;padding:8px 18px;cursor:pointer;
+  border-radius:99px;padding:10px 19px;cursor:pointer;
   text-decoration:none;
-  transition:all .22s;
-  box-shadow:0 2px 12px rgba(255,107,53,.28);
+  transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s,color .22s,box-shadow .22s;
+  box-shadow:0 10px 28px rgba(8,16,32,.16);
+  animation:navDrop .48s cubic-bezier(.22,1,.36,1) both;animation-delay:.25s;
 }
 .btn-nav:hover{
-  background:var(--orange);
-  box-shadow:0 4px 20px rgba(255,107,53,.38);
-  transform:translateY(-1px);
+  background:var(--coral);
+  color:#fff;
+  box-shadow:0 14px 36px rgba(255,107,53,.28);
+  transform:translateY(-2px);
 }
+.btn-nav i{transition:transform .22s cubic-bezier(.22,1,.36,1)}
+.btn-nav:hover i{transform:rotate(-8deg) scale(1.05)}
+@keyframes navDrop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.nav-logo,.nav-links a,.nav-item,.btn-nav{animation:none}.nav-trigger,.nav-links a:not(.btn-nav),.btn-nav,.nav-logo img,.btn-nav i,.nav-menu{transition:none}}
 
 /* ── Section system ── */
 section{padding:96px 7vw;position:relative;z-index:1}
@@ -186,8 +230,21 @@ body.flow-bg .s-dark{background:
 .ch.ch-dashed::after{content:'';display:block;width:38px;height:2px;background:rgba(28,31,46,.28);border-radius:1px;flex-shrink:0}
 
 /* ── Hero ── */
-.hero{position:relative;overflow:hidden;height:100vh;min-height:640px;background:var(--warm-navy);cursor:grab;perspective:2000px}
+.hero{position:relative;overflow:hidden;height:100vh;min-height:640px;background:var(--warm-navy);cursor:default;perspective:2000px}
 .hero.dragging{cursor:grabbing}
+.hero-photo{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:
+    linear-gradient(90deg,rgba(15,30,60,.94) 0%,rgba(15,30,60,.76) 42%,rgba(15,30,60,.22) 76%,rgba(15,30,60,.48) 100%),
+    url('./images/sponsor-silhouette-street.png');
+  background-size:cover;
+  background-position:center right;
+  filter:saturate(.98) contrast(1.03);
+}
+.hero-photo::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 48% 52% at 28% 50%,rgba(15,30,60,.34),transparent 62%);
+}
 /* Aurora mesh orbs — positioned absolutely inside hero */
 .hero-aurora{position:absolute;inset:-20%;pointer-events:none;z-index:1;overflow:hidden;opacity:.65}
 .hero-aurora::before{
@@ -213,7 +270,7 @@ body.flow-bg .s-dark{background:
 }
 .hero-bg{position:absolute;inset:0;pointer-events:none;z-index:3;mix-blend-mode:screen;background:radial-gradient(ellipse 60% 50% at 20% 70%,rgba(232,112,42,.28) 0%,transparent 65%),radial-gradient(ellipse 50% 42% at 80% 25%,rgba(255,107,53,.18) 0%,transparent 58%),radial-gradient(ellipse 40% 35% at 50% 90%,rgba(0,92,232,.2) 0%,transparent 55%)}
 /* ── 3D scene — grid + objects tilt together (tripod pan+tilt) ── */
-.hero-scene{position:absolute;inset:0;z-index:2;background:var(--warm-navy);will-change:transform;transform-origin:50% 50%}
+.hero-scene{position:absolute;inset:0;z-index:2;background:var(--warm-navy);will-change:transform;transform-origin:50% 50%;display:none}
 #hero-grid-canvas{position:absolute;bottom:0;left:0;width:100%;height:55%;pointer-events:none;z-index:1;display:block}
 
 /* Floating AI objects */
@@ -279,6 +336,7 @@ p.hero-sub{font-family:var(--body);font-size:clamp(15px,1.25vw,19px);line-height
   animation:heroIn .8s ease-out both;animation-delay:1.1s;
   transition:opacity .6s ease;
   white-space:nowrap;text-align:center;
+  display:none;
 }
 .hero-drag-hint .dh-arr{display:flex;gap:4px;animation:dragNudge 2.4s ease-in-out infinite}
 @keyframes dragNudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
@@ -596,7 +654,7 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transf
   .comp-matrix{overflow-x:auto}
   p.s-sub{max-width:100%}
   section{padding:72px 5vw}
-  nav .nav-links a:not(.btn-nav){display:none}
+  nav .nav-links .nav-item, nav .nav-links a:not(.btn-nav){display:none}
   .market-funnel .mf.mid{margin:0 1.5vw}
   .market-funnel .mf.inner{margin:0 3vw}
   .fund-bar{grid-template-columns:1fr 2fr auto}
@@ -639,15 +697,15 @@ body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
   background:linear-gradient(120deg,var(--blue),var(--blue-lt),var(--coral),var(--orange),var(--blue));
   background-size:300%;animation:borderFlow 5s ease infinite;z-index:-1;opacity:.32}
 
-/* ── Fraunces weight system ── */
-h1.hero-h{font-weight:700;letter-spacing:.005em}
-h1.hero-h em{font-style:italic;font-weight:700;letter-spacing:.005em;display:inline-block;padding-right:.08em}
-h2.s-title{font-weight:300;letter-spacing:-.03em}
+/* ── Eloqwnt-inspired sans weight system ── */
+h1.hero-h{font-weight:700;letter-spacing:-.055em;line-height:.94;text-wrap:balance}
+h1.hero-h em{font-style:normal;font-weight:700;letter-spacing:-.055em;display:inline-block;padding-right:.08em}
+h2.s-title{font-weight:500;letter-spacing:-.045em}
 .nav-logo span{font-weight:600;letter-spacing:-.03em}
-.quote-block blockquote{font-style:italic;font-weight:300;letter-spacing:-.01em}
-.cta-section h2{font-weight:300}
-.tier-price{font-weight:400}
-.founder-name{font-weight:400;letter-spacing:-.025em}
+.quote-block blockquote{font-style:normal;font-weight:400;letter-spacing:-.018em}
+.cta-section h2{font-weight:600;letter-spacing:-.045em}
+.tier-price{font-weight:600}
+.founder-name{font-weight:600;letter-spacing:-.04em}
 
 /* ── Enhanced glass depth ── */
 .glass{box-shadow:0 4px 24px rgba(28,31,46,.07)}
@@ -970,20 +1028,54 @@ p.hero-sub{animation:heroIn .6s ease-out both;animation-delay:.38s}
     <img src="./images/logo.png" alt="Missionary Media">
     <span>Missionary Media</span>
   </a>
-	  <div class="nav-links">
-	    <a href="#problem">Problem</a>
-		    <a href="#weight">Voices</a>
-		    <a href="#phase1">Phase 1</a>
-		    <a href="#faq">FAQ</a>
-		    <a href="./sponsor.html">For Sponsors</a>
-	    <a href="#book" class="btn-nav">
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <div class="nav-item">
+      <button class="nav-trigger" type="button" aria-expanded="false">About <span class="nav-caret">⌄</span></button>
+      <div class="nav-menu">
+        <a class="menu-card" href="#why"><span class="menu-icon"><i data-lucide="landmark"></i></span><strong>Company</strong><span>Why Missionary Media exists.</span></a>
+        <a class="menu-card" href="#solution"><span class="menu-icon"><i data-lucide="compass"></i></span><strong>Our Approach</strong><span>A guide beside missionaries—not another pile of tools.</span></a>
+        <a class="menu-card" href="#why"><span class="menu-icon"><i data-lucide="user-round"></i></span><strong>Meet Tabor</strong><span>The person behind the coaching and training.</span></a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-trigger" type="button" aria-expanded="false">Work <span class="nav-caret">⌄</span></button>
+      <div class="nav-menu">
+        <a class="menu-card" href="#story"><span class="menu-icon"><i data-lucide="book-open"></i></span><strong>Field Stories</strong><span>Examples of digital ministry connecting to real life.</span></a>
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="file-check-2"></i></span><strong>Practical Tools</strong><span>Templates, workflows, kits, and clear handoffs.</span></a>
+        <a class="menu-card" href="#podcast"><span class="menu-icon"><i data-lucide="play-circle"></i></span><strong>Media Library</strong><span>Conversations and teaching for the work in front of you.</span></a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-trigger" type="button" aria-expanded="false">Services <span class="nav-caret">⌄</span></button>
+      <div class="nav-menu">
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="messages-square"></i></span><strong>One-on-One Coaching</strong><span>Sort one real digital or media decision with a guide.</span></a>
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="presentation"></i></span><strong>Live Training</strong><span>Practical teaching with room for missionary questions.</span></a>
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="folder-open"></i></span><strong>Free Resources</strong><span>Useful starting points you can take back to the field.</span></a>
+        <a class="menu-card" href="#solution"><span class="menu-icon"><i data-lucide="route"></i></span><strong>How It Works</strong><span>Bring the situation. Choose one next step. Leave with a path.</span></a>
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="graduation-cap"></i></span><strong>Academy</strong><span>The structured learning path coming next.</span></a>
+        <a class="menu-card" href="#faq"><span class="menu-icon"><i data-lucide="circle-help"></i></span><strong>Questions</strong><span>See what is available now and what is still ahead.</span></a>
+      </div>
+    </div>
+    <a href="#problem">For Missionaries</a>
+    <div class="nav-item nav-align-right">
+      <button class="nav-trigger" type="button" aria-expanded="false">Resources <span class="nav-caret">⌄</span></button>
+      <div class="nav-menu">
+        <a class="menu-card" href="#podcast"><span class="menu-icon"><i data-lucide="mic-2"></i></span><strong>Podcast</strong><span>Practical conversations about media and ministry.</span></a>
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="layout-template"></i></span><strong>Templates</strong><span>Start with a real document instead of a blank page.</span></a>
+        <a class="menu-card" href="#phase1"><span class="menu-icon"><i data-lucide="backpack"></i></span><strong>Field Kits</strong><span>Simple gear, phone, tablet, and workflow starting points.</span></a>
+      </div>
+    </div>
+    <a href="#book" class="btn-nav">
       <i data-lucide="calendar" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"></i>
-      Book a discovery call
+      Book a free call
     </a>
   </div>
 </nav>
 <!-- ── Hero ── -->
 <section class="hero" id="hero">
+  <!-- Clear field image from sponsor page -->
+  <div class="hero-photo" aria-hidden="true"></div>
   <!-- Background gradients — outside scene, never tilt -->
   <div class="hero-bg"></div>
   <!-- Scene: grid + objects tilt together on tripod drag -->
@@ -1875,13 +1967,40 @@ lucide.createIcons();
   })();
 })();
 
-// ── Nav: solidify on scroll ──
+// ── Nav: solidify on scroll + reliable dropdowns ──
 (function(){
   const nav = document.getElementById('site-nav');
   if (!nav) return;
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, {passive: true});
+
+  const items = [...nav.querySelectorAll('.nav-item')];
+  const closeAll = (except) => {
+    items.forEach(item => {
+      if (item === except) return;
+      item.classList.remove('open');
+      const trigger = item.querySelector('.nav-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  items.forEach(item => {
+    const trigger = item.querySelector('.nav-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = item.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', String(isOpen));
+      closeAll(item);
+    });
+  });
+
+  document.addEventListener('click', () => closeAll());
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeAll();
+  });
 })();
 
 // Scroll reveals
