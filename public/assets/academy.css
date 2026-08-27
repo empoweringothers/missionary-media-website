@@ -826,6 +826,21 @@
   flex-wrap: wrap;
 }
 
+/* The shared Academy link is white for the dark Academy hero. On the
+   homepage teaser it sits on paper, so keep the same control and restore the
+   ink contrast rather than letting only its cyan underline remain visible. */
+.academy-teaser__actions .academy-text-link {
+  color: var(--ink);
+  text-decoration-color: var(--blue);
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.academy-teaser__actions .academy-text-link:hover,
+.academy-teaser__actions .academy-text-link:focus-visible {
+  color: var(--blue-dark);
+  text-decoration-color: currentColor;
+}
+
 .academy-teaser__media {
   position: relative;
   min-height: 15rem;

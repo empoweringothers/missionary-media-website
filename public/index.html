@@ -8,11 +8,11 @@
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self' https://calendly.com https://app.kit.com; frame-src https://www.youtube-nocookie.com">
   <title>Missionary Media — One-on-one digital coaching for missionaries</title>
-  <link rel="icon" href="assets/missionary-media-logo.png" type="image/png">
+  <link rel="icon" href="assets/missionary-media-favicon.png" type="image/png" sizes="208x208">
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Regular.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Semibold.ttf.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/site.css">
-  <link rel="stylesheet" href="assets/academy.css">
+  <link rel="stylesheet" href="assets/site.css?v=20260826-2">
+  <link rel="stylesheet" href="assets/academy.css?v=20260826-2">
   <script src="assets/site.js" defer></script>
 </head>
 <body>
@@ -26,8 +26,8 @@
 
       <nav class="primary-nav" aria-label="Primary navigation">
         <a class="nav-link" href="#how-it-works">Our Process</a>
-        <a class="nav-link" href="#who-it-is-for">Who It’s For</a>
-        <a class="nav-link" href="#questions">Questions</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#home-connection">Home Connection</a>
         <a class="nav-link" href="/academy/">Academy</a>
 
         <div class="nav-dropdown" data-dropdown>
@@ -35,69 +35,19 @@
             Resources <span class="nav-arrow" aria-hidden="true"></span>
           </button>
           <div class="dropdown-panel dropdown-panel--resources" id="resources-panel" hidden inert>
-            <div class="panel-surface panel-surface--compact resource-menu">
-              <div class="resource-menu__index">
-                <div class="offer-nav-heading">
-                  <p>Free resources</p>
-                  <span>None finished yet</span>
-                </div>
-
-                <!-- Rows are deliberately not links. The Phase 1 resource audit
-                     forbids emitting href="#", empty /resources/, or a disabled
-                     fake download, so each row states its state instead. The
-                     three titles are the ones that audit nominated. -->
-                <ul class="resource-menu__rows" aria-label="Resources in preparation">
-                  <li class="resource-menu__row">
-                    <span class="resource-index-mark" aria-hidden="true">01</span>
-                    <span>
-                      <strong>The Supporter Map</strong>
-                      <em>Three questions to ask your supporters once, and a one-page map of who gets what.</em>
-                    </span>
-                    <span class="resource-menu__state">In preparation</span>
-                  </li>
-                  <li class="resource-menu__row">
-                    <span class="resource-index-mark" aria-hidden="true">02</span>
-                    <span>
-                      <strong>The Two-Hour Weekly Update Rhythm</strong>
-                      <em>A repeatable weekly pass at supporter communication that fits around the work.</em>
-                    </span>
-                    <span class="resource-menu__state">In preparation</span>
-                  </li>
-                  <li class="resource-menu__row">
-                    <span class="resource-index-mark" aria-hidden="true">03</span>
-                    <span>
-                      <strong>Phone-First Editing on Slow Internet</strong>
-                      <em>Editing and sending from a phone when bandwidth and storage are tight.</em>
-                    </span>
-                    <span class="resource-menu__state">In preparation</span>
-                  </li>
-                </ul>
-
-                <form class="resource-form seva-form formkit-form" action="https://app.kit.com/forms/9830738/subscriptions" method="post" data-sv-form="9830738" data-uid="a9cb973f35" aria-describedby="resource-form-note">
-                  <div class="resource-form__row">
-                    <div class="intake-field">
-                      <label for="resource-email">Where should we send it?</label>
-                      <input id="resource-email" name="email_address" type="email" autocomplete="email" placeholder="you@example.com" required>
-                    </div>
-                    <button class="button button--ink resource-form__submit" type="submit">Send it when it’s ready</button>
-                  </div>
-                  <p class="resource-form__note" id="resource-form-note">None of these are finished. Leave your email, confirm it from the message Kit sends, and we will send each one as it is ready. Unsubscribe any time.</p>
-                </form>
+            <div class="panel-surface tune-menu">
+              <div class="tune-menu__intro">
+                <p class="section-label">Tune in</p>
+                <h2>Follow the work as it grows.</h2>
+                <p>Meet Missionary Media, listen to the podcast, or watch the latest short videos.</p>
               </div>
-
-              <div class="resource-menu__feature">
-                <div class="packet-preview" aria-hidden="true">
-                  <span class="packet-preview__rule"></span>
-                  <span>MISSIONARY MEDIA</span>
-                  <strong>The Supporter<br>Map</strong>
-                  <i></i><i></i><i></i>
-                </div>
-                <div>
-                  <p class="state-line">First resource · In preparation</p>
-                  <h2>The Supporter Map</h2>
-                  <p>Three questions to ask your supporters once, and a one-page map of who gets what, where, and on what date.</p>
-                  <a class="button button--ink" href="/resources/">Browse all resources</a>
-                </div>
+              <div class="tune-menu__links" aria-label="Missionary Media channels">
+                <a href="#about"><span>01</span><strong>About</strong><em>Meet Missionary Media</em></a>
+                <a href="https://www.youtube.com/@MissionaryMediaHub/podcasts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span>02</span><strong>Podcasts</strong><em>Listen on YouTube</em></a>
+                <a href="https://www.youtube.com/@MissionaryMediaHub/shorts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span>03</span><strong>Social video</strong><em>Watch YouTube Shorts</em></a>
+                <div class="tune-menu__pending" aria-label="Spotify, coming soon"><span>04</span><strong>Spotify</strong><em>Coming soon</em></div>
+                <a href="https://www.youtube.com/@MissionaryMediaHub" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span>05</span><strong>YouTube</strong><em>See the full channel</em></a>
+                <a href="/resources/"><span>06</span><strong>Resources</strong><em>Information is coming</em></a>
               </div>
             </div>
           </div>
@@ -121,23 +71,18 @@
         <nav class="mobile-nav-content" aria-label="Mobile navigation">
           <div class="mobile-direct-links">
             <a href="#how-it-works">Our Process</a>
-            <a href="#who-it-is-for">Who It’s For</a>
+            <a href="#about">About</a>
+            <a href="#home-connection">Home Connection</a>
             <a href="/academy/">Academy preview</a>
             <a href="/resources/">Resources page</a>
-            <a href="#questions">Questions</a>
           </div>
 
-          <p class="mobile-section-label">Free resources</p>
-          <div class="mobile-resource-block">
-            <p class="state-line">The Supporter Map · In preparation</p>
-            <form class="resource-form resource-form--mobile seva-form formkit-form" action="https://app.kit.com/forms/9830738/subscriptions" method="post" data-sv-form="9830738" data-uid="a9cb973f35" aria-describedby="resource-form-note-mobile">
-              <div class="intake-field">
-                <label for="resource-email-mobile">Where should we send it?</label>
-                <input id="resource-email-mobile" name="email_address" type="email" autocomplete="email" placeholder="you@example.com" required>
-              </div>
-              <button class="button button--ink resource-form__submit" type="submit">Send it when it’s ready</button>
-              <p class="resource-form__note" id="resource-form-note-mobile">None are finished yet. Confirm from the email you get, then we will send each one as it is ready. Unsubscribe any time.</p>
-            </form>
+          <p class="mobile-section-label">Tune in</p>
+          <div class="mobile-tune-links">
+            <a href="https://www.youtube.com/@MissionaryMediaHub/podcasts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Podcasts <span aria-hidden="true">↗</span></a>
+            <a href="https://www.youtube.com/@MissionaryMediaHub/shorts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Social video <span aria-hidden="true">↗</span></a>
+            <a href="https://www.youtube.com/@MissionaryMediaHub" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">YouTube <span aria-hidden="true">↗</span></a>
+            <span>Spotify <em>Coming soon</em></span>
           </div>
           <a class="mobile-primary-action" href="#start">Book a free 30-min call</a>
         </nav>
@@ -156,10 +101,12 @@
 
   <noscript>
     <nav class="noscript-nav" aria-label="Section navigation">
+      <a href="#about">About</a>
+      <a href="#how-it-works">Our Process</a>
+      <a href="#home-connection">Home Connection</a>
       <a href="#start">Coaching</a>
       <a href="/academy/">Academy preview</a>
       <a href="/resources/">Resources</a>
-      <a href="#questions">Questions</a>
       <a href="#start">Book a free 30-min call</a>
     </nav>
   </noscript>
@@ -180,7 +127,6 @@
         <div class="hero-actions">
           <a class="button button--primary" href="#start">Book a free 30-min call</a>
         </div>
-        <p class="hero-note">30 minutes. Rough notes are enough.</p>
       </div>
       <a class="scroll-cue" href="#voices" aria-label="Continue to field conversations"><span aria-hidden="true">↓</span></a>
     </section>
@@ -266,10 +212,14 @@
 
     <!-- The research points that lived here are now cards inside the voices rail above. -->
 
-    <section class="section about-story" id="who-it-is-for" aria-labelledby="why-title">
+    <section class="section about-story" id="about" aria-labelledby="about-title">
+      <div class="shell about-story__bar">
+        <p class="about-story__label"><span aria-hidden="true"></span>About Missionary Media</p>
+        <h2 id="about-title">A guide, translator, and connector&mdash;beside you.</h2>
+      </div>
+
       <div class="shell about-story__frame" data-reveal>
         <div class="about-story__media-column">
-          <p class="about-story__label"><span aria-hidden="true"></span>Who we are</p>
           <a class="story-video-card" href="https://www.youtube.com/watch?v=dnfMBprp0xg" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Tabor Normoyle's story" aria-haspopup="dialog" aria-controls="story-video-dialog" data-story-open>
             <span class="story-video-card__screen">
               <img class="story-video-card__thumbnail" src="assets/story-thumbnail.jpg" width="1280" height="720" alt="" aria-hidden="true">
@@ -285,10 +235,15 @@
         </div>
 
         <div class="about-story__copy">
-          <p class="about-story__eyebrow">Redefining the digital landscape.</p>
-          <h2 id="why-title">You’re trained in ministry, not media.</h2>
-          <p class="about-story__lead">But home still needs to hear from you. So we take that side on with you—one call at a time—until it’s a rhythm you can actually keep.</p>
-          <p>What to send. How often. What to skip. Simple enough to do from your phone, between everything else. Supporters stay close to the work, and you get your week back.</p>
+          <p class="about-story__eyebrow">Built for missionary reality.</p>
+          <p class="about-story__lead">I&rsquo;m not asking you to become the media person. I&rsquo;m here to help you know where to start, make wise decisions, and stay connected without it eating your week.</p>
+          <p>Missionary Media translates proven digital systems into practical coaching and training that fit the mission field&mdash;not a U.S. marketing playbook.</p>
+          <nav class="about-story__channels" aria-label="Tune in to Missionary Media">
+            <p>Where to tune in</p>
+            <a href="https://www.youtube.com/@MissionaryMediaHub/podcasts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span>Podcasts</span><em>Listen on YouTube</em><i aria-hidden="true">↗</i></a>
+            <a href="https://www.youtube.com/@MissionaryMediaHub/shorts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span>Social video</span><em>Watch YouTube Shorts</em><i aria-hidden="true">↗</i></a>
+            <div aria-label="Spotify, coming soon"><span>Spotify</span><em>Coming soon</em><i aria-hidden="true">—</i></div>
+          </nav>
           <a class="about-story__cta" href="#start">
             <span>Show me my next step — free 30-min call</span>
             <img src="assets/missionary-media-logo.png" width="320" height="320" alt="" aria-hidden="true">
@@ -421,9 +376,31 @@
       </div>
     </section>
 
+    <section class="section home-connection" id="home-connection" aria-labelledby="home-connection-title">
+      <div class="shell home-connection__layout">
+        <div class="home-connection__copy">
+          <p class="section-label">Home Connection</p>
+          <h2 id="home-connection-title">Keep the people back home close to the work.</h2>
+          <p class="home-connection__spotlight-label">Partner spotlight</p>
+          <p class="home-connection__lead">We partner with MissionaryConnect to help close one of missions&rsquo; greatest communication divides: the distance between missionaries and the churches that support them.</p>
+          <p>MissionaryConnect gives churches one place to organize and display the missionaries they support. Its interactive maps and profiles can be shown on a lobby touchscreen, a television, or any modern web browser.</p>
+          <p>Missionaries can create or claim their own profile and keep its information current. Church members can then explore where they serve, learn more about their ministry, and see how to pray for them.</p>
+        </div>
 
-
-
+        <div class="partner-showcase" aria-label="Home Connection partner spotlight">
+          <a class="partner-card" href="https://missionaryconnect.app/" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
+            <span class="partner-card__screen">
+              <img src="assets/missionaryconnect-globe-view.png" width="1920" height="1032" alt="MissionaryConnect interactive 3D globe displaying missionary locations, profiles, and photo cards">
+            </span>
+            <span class="partner-card__copy">
+              <small>Platform partner</small>
+              <strong>MissionaryConnect</strong>
+              <em>Explore the interactive missions display <span aria-hidden="true">↗</span></em>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <section class="section academy-teaser" id="academy" aria-labelledby="academy-teaser-title">
       <div class="shell">
@@ -461,38 +438,6 @@
             <source media="(max-width: 64rem)" srcset="assets/academy/academy-hero-tabor-mobile.jpg">
             <img src="assets/academy/academy-hero-tabor-wide.jpg" width="1800" height="1013" alt="Tabor Normoyle at a practical media teaching desk" loading="lazy">
           </picture>
-        </div>
-      </div>
-    </section>
-
-    <section class="section questions" id="questions" aria-labelledby="questions-title">
-      <div class="shell questions__layout">
-        <div class="questions__heading"><p class="section-label">Questions</p><h2 id="questions-title">Know what to expect before you begin.</h2></div>
-        <div class="faq-list" data-settle="shrink">
-          <details name="homepage-faq" open>
-            <summary><span>01</span>What can I bring to coaching?<i aria-hidden="true"></i></summary>
-            <div><p>Bring a draft prayer letter, rough notes, photos, a voice memo, a phone-video idea, a gear or software question, a workflow, or a handoff you want to simplify.</p></div>
-          </details>
-          <details name="homepage-faq">
-            <summary><span>02</span>How long is the call, and what does it cost?<i aria-hidden="true"></i></summary>
-            <div><p>The first call is 30 minutes and it is free. If ongoing coaching makes sense after that, we will tell you what it costs before you commit to anything.</p></div>
-          </details>
-          <details name="homepage-faq">
-            <summary><span>03</span>Can I keep using my current tools?<i aria-hidden="true"></i></summary>
-            <div><p>Yes. Coaching begins with the tools you already use. If another tool would help, we’ll make the reason and tradeoff clear before you decide.</p></div>
-          </details>
-          <details name="homepage-faq">
-            <summary><span>04</span>What happens after the call?<i aria-hidden="true"></i></summary>
-            <div><p>You leave with one written next step you can act on that week. There is no follow-up sequence and no obligation. If you want another call, you book one.</p></div>
-          </details>
-          <details name="homepage-faq">
-            <summary><span>05</span>I serve somewhere sensitive. What can I share?<i aria-hidden="true"></i></summary>
-            <div><p>Please leave out field names, locations, and security details — we can work on the workflow without them. We will not hand you security advice we have not had validated by someone qualified to give it.</p></div>
-          </details>
-          <details name="homepage-faq">
-            <summary><span>06</span>What help is available now?<i aria-hidden="true"></i></summary>
-            <div><p>One-on-one digital and media coaching, and monthly live training. Practical resources are shared as they are verified and ready.</p></div>
-          </details>
         </div>
       </div>
     </section>
@@ -553,9 +498,9 @@
   <footer class="site-footer">
     <div class="shell footer-grid" data-settle="rise">
       <div class="footer-brand"><a class="wordmark wordmark--footer" href="#top" aria-label="Missionary Media home"><span>Missionary</span><strong>Media</strong></a><p>Digital guidance for missionaries, one real task at a time.</p></div>
-      <nav class="footer-nav" aria-label="Footer navigation"><p class="footer-heading">Start here</p><a href="#start">One-on-one coaching</a><a href="/academy/">Academy preview</a><a href="/resources/">Free resources</a><a href="#questions">Questions</a><a href="#start">Book a free 30-min call</a></nav>
+      <nav class="footer-nav" aria-label="Footer navigation"><p class="footer-heading">Start here</p><a href="#about">About</a><a href="#home-connection">Home Connection</a><a href="#start">One-on-one coaching</a><a href="/academy/">Academy preview</a><a href="/resources/">Resources · information coming</a><a href="#start">Book a free 30-min call</a></nav>
       <div class="footer-status"><p class="footer-heading">What’s available</p><p><strong>Now</strong> · Coaching and live training</p><p><strong>Prototype</strong> · Home Connection</p><p><strong>Next</strong> · <a href="/academy/">Missionary Media Academy</a></p><p><strong>Later</strong> · Trusted professional help</p></div>
-      <div class="footer-disclosure"><p class="footer-heading">Company</p><p><strong>Missionary Media is a for-profit company.</strong></p><p>A separate giving arm is in formation. Gifts are not tax-deductible at this time.</p></div>
+      <div class="footer-disclosure"><p class="footer-heading">Company</p><p><strong>Missionary Media is a for-profit company.</strong></p></div>
     </div>
     <div class="shell footer-bottom"><span>© 2026 Missionary Media. All rights reserved.</span><a href="#top">Back to top ↑</a></div>
   </footer>

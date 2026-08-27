@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Digital Creative 101 sample lesson interface</title>
+  <desc id="desc">A planned course interface showing six connected modules and a sample Capture lesson with a seven-minute teaching block, twelve-minute guided task, four-question knowledge check, download, live review, and capstone contribution.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#020710" flood-opacity="0.3"/>
+    </filter>
+    <linearGradient id="player" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2340"/>
+      <stop offset="1" stop-color="#07111f"/>
+    </linearGradient>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; }
+      .caps { font-size: 13px; font-weight: 700; letter-spacing: 1.8px; }
+      .small { font-size: 14px; }
+      .body { font-size: 16px; }
+      .label { font-size: 15px; font-weight: 700; }
+      .nav-title { font-size: 16px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="900" rx="34" fill="#07111f"/>
+  <rect x="24" y="24" width="1392" height="852" rx="24" fill="#0d1a2a" stroke="#243348"/>
+
+  <circle cx="57" cy="55" r="6" fill="#f63600"/>
+  <circle cx="78" cy="55" r="6" fill="#ffb54a"/>
+  <circle cx="99" cy="55" r="6" fill="#00c4f9"/>
+  <text x="124" y="61" class="caps" fill="#8fa5bf">MISSIONARY MEDIA ACADEMY · COURSE EXPERIENCE PREVIEW</text>
+  <rect x="1190" y="39" width="198" height="32" rx="16" fill="#14263c" stroke="#38506b"/>
+  <circle cx="1211" cy="55" r="4" fill="#00c4f9"/>
+  <text x="1224" y="60" class="caps" fill="#dce8f5">WORKING COURSE PLAN</text>
+
+  <g filter="url(#shadow)">
+    <rect x="48" y="92" width="326" height="752" rx="20" fill="#f5f0e8"/>
+    <rect x="398" y="92" width="994" height="752" rx="20" fill="#fffefb"/>
+  </g>
+
+  <text x="76" y="129" class="caps" fill="#33558c">DIGITAL CREATIVE 101</text>
+  <text x="76" y="160" font-size="23" font-weight="700" fill="#071426">Course map</text>
+  <text x="76" y="184" class="small" fill="#64707d">6 modules + Start Here</text>
+  <line x1="76" y1="208" x2="346" y2="208" stroke="#c7c7c1"/>
+
+  <g>
+    <text x="76" y="244" class="caps" fill="#7b858f">START</text>
+    <text x="132" y="244" class="nav-title" fill="#243143">Welcome &amp; setup</text>
+    <text x="132" y="266" class="small" fill="#6a747e">4 lessons · tools, files, safety</text>
+
+    <text x="76" y="306" class="caps" fill="#7b858f">01</text>
+    <text x="132" y="306" class="nav-title" fill="#243143">Purpose</text>
+    <text x="132" y="328" class="small" fill="#6a747e">3 lessons · communication brief</text>
+
+    <text x="76" y="368" class="caps" fill="#7b858f">02</text>
+    <text x="132" y="368" class="nav-title" fill="#243143">Plan</text>
+    <text x="132" y="390" class="small" fill="#6a747e">4 lessons · recording plan</text>
+
+    <rect x="64" y="412" width="294" height="76" rx="12" fill="#005be8"/>
+    <text x="80" y="442" class="caps" fill="#bcd3ff">03 · ACTIVE LESSON</text>
+    <text x="80" y="468" class="nav-title" fill="#ffffff">Capture · voice audio</text>
+
+    <text x="76" y="530" class="caps" fill="#7b858f">04</text>
+    <text x="132" y="530" class="nav-title" fill="#243143">Send</text>
+    <text x="132" y="552" class="small" fill="#6a747e">5 lessons · captioned update</text>
+
+    <text x="76" y="592" class="caps" fill="#7b858f">05</text>
+    <text x="132" y="592" class="nav-title" fill="#243143">Learn</text>
+    <text x="132" y="614" class="small" fill="#6a747e">3 lessons · performance review</text>
+
+    <text x="76" y="654" class="caps" fill="#7b858f">06</text>
+    <text x="132" y="654" class="nav-title" fill="#243143">Repeat</text>
+    <text x="132" y="676" class="small" fill="#6a747e">4 lessons · live capstone</text>
+  </g>
+
+  <line x1="76" y1="718" x2="346" y2="718" stroke="#c7c7c1"/>
+  <text x="76" y="750" class="caps" fill="#33558c">COURSE RESULT</text>
+  <text x="76" y="776" class="small" fill="#495665">One reviewed field update.</text>
+  <text x="76" y="798" class="small" fill="#495665">One system ready to repeat.</text>
+
+  <text x="430" y="130" class="caps" fill="#33558c">MODULE 03 · CAPTURE · LESSON 02</text>
+  <text x="430" y="171" font-size="33" font-weight="700" fill="#071426">Capture clear voice audio with the</text>
+  <text x="430" y="209" font-size="33" font-weight="700" fill="#071426">phone you already have.</text>
+
+  <g>
+    <rect x="430" y="230" width="152" height="34" rx="17" fill="#e9f0ff"/>
+    <text x="450" y="252" class="label" fill="#12498f">7 min teaching</text>
+    <rect x="594" y="230" width="168" height="34" rx="17" fill="#e9f0ff"/>
+    <text x="614" y="252" class="label" fill="#12498f">12 min guided task</text>
+    <rect x="774" y="230" width="171" height="34" rx="17" fill="#f4ebe7"/>
+    <text x="794" y="252" class="label" fill="#8b2a12">4-question check</text>
+  </g>
+
+  <rect x="430" y="286" width="930" height="96" rx="14" fill="#f5f0e8" stroke="#d8d1c6"/>
+  <text x="454" y="316" class="caps" fill="#33558c">LESSON OBJECTIVE</text>
+  <text x="454" y="347" font-size="19" font-weight="700" fill="#071426">Record a 20-second voice clip clear enough to use in a ministry update.</text>
+  <text x="454" y="370" class="small" fill="#626b73">One visible output tells the learner when the lesson is finished.</text>
+
+  <rect x="430" y="406" width="548" height="242" rx="16" fill="url(#player)"/>
+  <text x="454" y="438" class="caps" fill="#9fbbff">WATCH · ONE CHANGE AT A TIME</text>
+  <text x="454" y="472" font-size="21" font-weight="700" fill="#ffffff">Hear what distance and hard walls do to speech.</text>
+  <text x="454" y="497" class="small" fill="#aebdcd">A short demonstration compares the same line in three setups.</text>
+
+  <g transform="translate(454 526)">
+    <rect width="500" height="82" rx="12" fill="#102b48" stroke="#2e4c69"/>
+    <circle cx="42" cy="41" r="21" fill="#005be8"/>
+    <path d="M37 31a5 5 0 0 1 10 0v15a5 5 0 0 1-10 0zM31 43v3a11 11 0 0 0 22 0v-3M42 57v9M34 66h16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M86 42h12l6-15 10 31 10-23 10 14 9-7h14l8-20 12 39 11-19h14l8-10 11 21 10-11h14l8-16 11 32 10-16h16l8-8 10 18 11-10h16l7-18 12 38 11-19h17" fill="none" stroke="#00c4f9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="454" y="631" class="caps" fill="#6f8ead">TEACH ONE CHANGE · HEAR THE DIFFERENCE</text>
+
+  <rect x="1000" y="406" width="360" height="114" rx="16" fill="#edf3ff" stroke="#c9dafb"/>
+  <text x="1022" y="435" class="caps" fill="#005be8">PRACTICE</text>
+  <text x="1022" y="462" class="label" fill="#071426">Record the same line three times:</text>
+  <text x="1022" y="486" class="small" fill="#485767">01 arm’s length · 02 phone closer</text>
+  <text x="1022" y="506" class="small" fill="#485767">03 away from a hard wall</text>
+
+  <rect x="1000" y="534" width="360" height="114" rx="16" fill="#fff7f2" stroke="#f0d2c6"/>
+  <text x="1022" y="563" class="caps" fill="#a73a1e">CHECK</text>
+  <text x="1022" y="590" class="label" fill="#071426">Choose the clearest clip.</text>
+  <text x="1022" y="614" class="small" fill="#485767">Explain which change improved it</text>
+  <text x="1022" y="634" class="small" fill="#485767">and what you will repeat next time.</text>
+
+  <rect x="430" y="672" width="284" height="132" rx="16" fill="#f5f0e8" stroke="#d8d1c6"/>
+  <text x="452" y="701" class="caps" fill="#33558c">DOWNLOAD</text>
+  <text x="452" y="732" font-size="19" font-weight="700" fill="#071426">Audio setup card</text>
+  <text x="452" y="758" class="small" fill="#596471">Mic distance · room choice</text>
+  <text x="452" y="780" class="small" fill="#596471">20-second listening check</text>
+
+  <rect x="728" y="672" width="284" height="132" rx="16" fill="#eaf8fc" stroke="#b8e7f2"/>
+  <text x="750" y="701" class="caps" fill="#0b7189">LIVE REVIEW</text>
+  <text x="750" y="732" font-size="19" font-weight="700" fill="#071426">Bring the clearest clip</text>
+  <text x="750" y="758" class="small" fill="#596471">and one question about the</text>
+  <text x="750" y="780" class="small" fill="#596471">room, device, or microphone.</text>
+
+  <rect x="1026" y="672" width="334" height="132" rx="16" fill="#07111f"/>
+  <rect x="1048" y="692" width="88" height="24" rx="12" fill="#f63600"/>
+  <text x="1063" y="709" class="caps" fill="#ffffff">CAPSTONE</text>
+  <text x="1048" y="743" font-size="19" font-weight="700" fill="#ffffff">Save one approved voice clip</text>
+  <text x="1048" y="769" class="small" fill="#b9c7d6">for the 60-second field update.</text>
+
+  <text x="1390" y="865" text-anchor="end" class="caps" fill="#70849b">PLANNED STRUCTURE · NOT AN ENROLLMENT SCREEN</text>
+</svg>

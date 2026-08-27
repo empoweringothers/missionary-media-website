@@ -37,7 +37,6 @@
   const storyMotionCard = document.querySelector(".story-video-card");
   const storyMotionSection = storyMotionCard?.closest(".about-story");
   const storyMotionFrame = storyMotionCard?.closest(".about-story__frame");
-  const storyMotionCopy = storyMotionFrame?.querySelector(".about-story__copy");
   const storyMotionQuery = window.matchMedia("(min-width: 821px)");
   const helpMotionHeading = document.querySelector(".help-heading");
   const helpMotionSection = helpMotionHeading?.closest(".help");
@@ -550,7 +549,8 @@
 
   if (trainingBanner) {
     const yieldTargets = [
-      document.querySelector(".questions"),
+      document.querySelector(".about-story"),
+      document.querySelector(".home-connection"),
       document.querySelector(".contact-intake"),
       document.querySelector(".site-footer")
     ].filter(Boolean);
@@ -743,14 +743,9 @@
     if (!storyMotionCard || !storyMotionSection || !storyMotionFrame) return;
 
     const frameMotionAllowed = !reducedMotionQuery.matches;
-    const childMotionAllowed = frameMotionAllowed && storyMotionQuery.matches;
     storyMotionFrame.classList.toggle("is-scroll-linked", frameMotionAllowed);
-    storyMotionCard.classList.toggle("is-scroll-linked", childMotionAllowed);
-    storyMotionCopy?.classList.toggle("is-scroll-linked", childMotionAllowed);
     if (!frameMotionAllowed) {
       storyMotionFrame.style.setProperty("--story-frame-scroll-y", "0px");
-      storyMotionCard.style.setProperty("--story-card-parallax-y", "0px");
-      storyMotionCopy?.style.setProperty("--story-copy-settle-y", "0px");
       return;
     }
 
@@ -762,45 +757,6 @@
     const frameProgress = smootherStep(clamp01(frameRawProgress));
     const frameOffset = 84 * (1 - frameProgress);
     storyMotionFrame.style.setProperty("--story-frame-scroll-y", `${frameOffset.toFixed(2)}px`);
-
-    /*
-     * The parent-frame rise is an intentional Eloqwnt-feel interpretation requested
-     * for this page; the supplied services reference's contact card itself follows
-     * native scroll. Child card/copy parallax remains the quieter desktop layer.
-     */
-    if (!childMotionAllowed) {
-      storyMotionCard.style.setProperty("--story-card-parallax-y", "0px");
-      storyMotionCopy?.style.setProperty("--story-copy-settle-y", "0px");
-      return;
-    }
-
-    const frameHeight = storyMotionFrame.offsetHeight;
-    const motionStart = window.innerHeight * 0.94;
-    const motionEnd = (window.innerHeight * 0.5) - (frameHeight * 0.5);
-    const rawProgress = (motionStart - frameTop) / Math.max(1, motionStart - motionEnd);
-    const delayedProgress = Math.pow(clamp01(rawProgress), 1.35);
-    const progress = smootherStep(delayedProgress);
-    const marginTop = Number.parseFloat(window.getComputedStyle(storyMotionCard).marginTop) || 0;
-    const startOffset = 24;
-    const endOffset = -Math.min(120, Math.max(0, marginTop - 24));
-    const offset = startOffset + ((endOffset - startOffset) * progress);
-    storyMotionCard.style.setProperty("--story-card-parallax-y", `${offset.toFixed(2)}px`);
-
-    /*
-     * The copy column settles on the same scroll pass, trailing the card by 14% of
-     * the travel. Two things read as one block arriving rather than a picture that
-     * moves next to text that does not: the columns share a curve, and the offset
-     * start means the card leads and the copy comes to rest behind it. Keep the
-     * copy travel well under the card's — it sits beside body text, and matching
-     * amplitudes would read as the whole section sliding.
-     */
-    if (storyMotionCopy) {
-      const copyLag = 0.14;
-      const copyRaw = clamp01((clamp01(rawProgress) - copyLag) / (1 - copyLag));
-      const copyProgress = smootherStep(Math.pow(copyRaw, 1.35));
-      const copyOffset = 34 * (1 - copyProgress);
-      storyMotionCopy.style.setProperty("--story-copy-settle-y", `${copyOffset.toFixed(2)}px`);
-    }
   };
 
   const updateContactForScroll = () => {
@@ -1280,13 +1236,17 @@
       ], { maxDelay: 80 });
     }
 
+    addSelectorGroup(".about-story__bar", [
+      { selector: ":scope > .about-story__label", kind: "rise" },
+      { selector: ":scope > h2", kind: "lines" }
+    ], { maxDelay: 60 });
+
     addSelectorGroup(".about-story__frame", [
-      { selector: ":scope > .about-story__media-column > .about-story__label", kind: "rise" },
-      { selector: ":scope .story-video-card__footer", kind: "rise" },
+      { selector: ":scope .story-video-card", kind: "rise" },
       { selector: ":scope > .about-story__copy > .about-story__eyebrow", kind: "words" },
-      { selector: ":scope > .about-story__copy > h2", kind: "lines" },
       { selector: ":scope > .about-story__copy > .about-story__lead", kind: "words" },
       { selector: ":scope > .about-story__copy > p:not(.about-story__eyebrow):not(.about-story__lead)", kind: "words", all: true },
+      { selector: ":scope > .about-story__copy > .about-story__channels", kind: "rise" },
       { selector: ":scope > .about-story__copy > .about-story__cta", kind: "rise" }
     ], { maxDelay: 300 });
 
@@ -1308,6 +1268,19 @@
       { selector: ":scope > .section-label", kind: "rise" },
       { selector: ":scope h2", kind: "lines" }
     ], { maxDelay: 60 });
+
+    addSelectorGroup(".home-connection__copy", [
+      { selector: ":scope > .state-line", kind: "rise" },
+      { selector: ":scope > .section-label", kind: "rise" },
+      { selector: ":scope > h2", kind: "lines" },
+      { selector: ":scope > .home-connection__spotlight-label", kind: "rise" },
+      { selector: ":scope > .home-connection__lead", kind: "words" },
+      { selector: ":scope > p:not(.state-line):not(.section-label):not(.home-connection__spotlight-label):not(.home-connection__lead)", kind: "words", all: true }
+    ], { maxDelay: 220 });
+
+    addSelectorGroup(".partner-showcase", [
+      { selector: ":scope > .partner-card", kind: "rise" }
+    ], { maxDelay: 160 });
 
     // Compatibility registry for the review worktree's previous content model.
     // These selectors no-op in the current source, while allowing the same
@@ -1352,17 +1325,6 @@
     if (podcastFoot) {
       addGroup(podcastFoot, [{ element: podcastFoot, kind: "rise" }], { maxDelay: 0 });
     }
-
-    addSelectorGroup(".questions__heading", [
-      { selector: ":scope > .section-label", kind: "rise" },
-      { selector: ":scope > h2", kind: "lines" }
-    ], { maxDelay: 60 });
-
-    document.querySelectorAll(".faq-list > details").forEach((item) => {
-      addSelectorGroup(item, [
-        { selector: ":scope > summary", kind: "rise" }
-      ], { maxDelay: 0 });
-    });
 
     addSelectorGroup(".intake-card__intro", [
       { selector: ":scope > .section-label", kind: "rise" },
@@ -1759,7 +1721,7 @@
     const steps = Array.from(document.querySelectorAll(".ps-step"));
     if (!steps.length) return;
     const card = document.querySelector(".ps-card");
-    const timelineQuery = window.matchMedia("(max-width: 47.9375rem)");
+    const timelineQuery = window.matchMedia("(max-width: 56.25rem)");
 
     steps.forEach((step) => {
       const syncTimeline = () => {
