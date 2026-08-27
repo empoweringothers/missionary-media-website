@@ -5170,6 +5170,29 @@ a.offer-status__name:focus-visible {
   background: rgba(255, 255, 255, 0.36);
 }
 
+.tune-menu__links > .tune-menu__featured {
+  grid-column: span 2;
+  background:
+    radial-gradient(circle at 86% 12%, rgba(0, 196, 249, 0.22), transparent 9rem),
+    var(--ink);
+  color: #fff;
+}
+
+.tune-menu__links > .tune-menu__featured:hover,
+.tune-menu__links > .tune-menu__featured:focus-visible {
+  background:
+    radial-gradient(circle at 86% 12%, rgba(0, 196, 249, 0.32), transparent 10rem),
+    #10233b;
+}
+
+.tune-menu__featured span {
+  color: var(--sky);
+}
+
+.tune-menu__featured em {
+  color: rgba(255, 255, 255, 0.66);
+}
+
 .mobile-tune-links {
   display: grid;
   margin-bottom: 1.4rem;
