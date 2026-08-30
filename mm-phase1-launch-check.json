@@ -5,21 +5,21 @@
     "version": "1.0.1",
     "sha256": "6789a8550d70a4d59993b4cc04f7d5ab5375aa3f07048fe63664bc9cb72215e2"
   },
-  "generated_at": "2026-08-27T12:15:55.610779+00:00",
+  "generated_at": "2026-08-30T14:43:39.442624+00:00",
   "profile": "Missionary Media Phase 1 production static regression gate",
   "target": "/Users/tabornormoyle/Desktop/Empowering Others/Shared/repos/missionary-media-website/public",
   "site_root": "/Users/tabornormoyle/Desktop/Empowering Others/Shared/repos/missionary-media-website/public",
   "config": {
     "path": "/Users/tabornormoyle/Desktop/Empowering Others/MissionaryMedia_Brain/04 Strategy/Website/Phase 1 Launch/phase1-launch-check-config.json",
-    "sha256": "041d1c6f869d62263df60797317ddcd866dacfe79dd00884956397302fefcb15"
+    "sha256": "9108d3430963bae71c363e41f3db78c5e287aa46c6059b3802d7125797a4e304"
   },
   "static_gate": "static_review_items",
   "launch_authorized": false,
   "counts": {
     "error": 0,
-    "warning": 16,
+    "warning": 9,
     "info": 0,
-    "total": 16
+    "total": 9
   },
   "pages": [
     {
@@ -34,8 +34,8 @@
     },
     {
       "file": "index.html",
-      "sha256": "cc6bcf5cf0e2a05838ec2b4a8d380bdd92b7324e8a7230d8f583e562754e349a",
-      "bytes": 33867
+      "sha256": "464077e543e5cf251f636dc63b1561952455134e6c78a3817a572dd75e581f61",
+      "bytes": 32457
     },
     {
       "file": "resources/index.html",
@@ -61,8 +61,8 @@
     },
     {
       "file": "assets/academy.css",
-      "sha256": "4ba0c1e70f134cf2746f4c6674f23b5d02f859ebc009c49b6b3ed2e560657512",
-      "bytes": 21807
+      "sha256": "906f7e61950ac314fc9c5f694f0ada100845d17af3cb541bbff71e3987a792a8",
+      "bytes": 21906
     },
     {
       "file": "assets/resources.css",
@@ -71,8 +71,8 @@
     },
     {
       "file": "assets/site.css",
-      "sha256": "9fae2a80699b8d9ecee925aa2b13d1b06f6a20ea043c05672a1f92f9b02fca35",
-      "bytes": 116399
+      "sha256": "18258bfdf25717a90583cee0fc74d9df918693ed59a9dacd63ea3500ac836712",
+      "bytes": 127617
     }
   ],
   "findings": [
@@ -110,92 +110,15 @@
       "recommendation": "Verify computed visibility and tab order in every responsive state; static CSS matching cannot prove behavior."
     },
     {
-      "check_id": "metadata.canonical_missing",
-      "severity": "warning",
-      "category": "metadata",
-      "confidence_class": "deterministic-static",
-      "message": "No non-empty canonical link was observed.",
-      "file": "index.html",
-      "line": null,
-      "evidence": "",
-      "recommendation": "Add the approved production canonical URL before publication."
-    },
-    {
-      "check_id": "metadata.open_graph_missing",
-      "severity": "warning",
-      "category": "metadata",
-      "confidence_class": "deterministic-static",
-      "message": "Required Open Graph fields were not observed.",
-      "file": "index.html",
-      "line": null,
-      "evidence": "og:title, og:description, og:image, og:url",
-      "recommendation": "Add approved og:title, og:description, og:image, and og:url values before publication."
-    },
-    {
       "check_id": "focus.css_visually_hidden",
       "severity": "warning",
       "category": "focus-heuristic",
       "confidence_class": "heuristic-static",
       "message": "Focusable <a> matches CSS selector '.header-cta' with opacity/visibility/pointer suppression.",
       "file": "index.html",
-      "line": 56,
+      "line": 62,
       "evidence": "position: absolute; top: -35%; bottom: -35%; left: -55%; z-index: 1; width: 42%; border-radius: inherit; background: linear-gradient(102deg, rgba(0, 91, 232, 0) 0%, rgba(0, 91, 232, 0.1) 26%, rgba(255, 255, 255, 0.62) 5…",
       "recommendation": "Verify computed visibility and tab order in every responsive state; static CSS matching cannot prove behavior."
-    },
-    {
-      "check_id": "claims.numerical_candidate",
-      "severity": "warning",
-      "category": "claims",
-      "confidence_class": "heuristic-static",
-      "message": "A visible numerical or quantified-claim candidate needs source and context review.",
-      "file": "index.html",
-      "line": 157,
-      "evidence": "After ten years, 74% of missionaries at high-retention agencies are still serving. At low-retention agencies, 35%.",
-      "recommendation": "Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim."
-    },
-    {
-      "check_id": "claims.numerical_candidate",
-      "severity": "warning",
-      "category": "claims",
-      "confidence_class": "heuristic-static",
-      "message": "A visible numerical or quantified-claim candidate needs source and context review.",
-      "file": "index.html",
-      "line": 158,
-      "evidence": "22 nations · ~600 agencies · ~39,600 missionaries",
-      "recommendation": "Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim."
-    },
-    {
-      "check_id": "claims.numerical_candidate",
-      "severity": "warning",
-      "category": "claims",
-      "confidence_class": "heuristic-static",
-      "message": "A visible numerical or quantified-claim candidate needs source and context review.",
-      "file": "index.html",
-      "line": 161,
-      "evidence": "Writing the letter is only 30-40% of the work. The rest is packaging it and getting it sent.",
-      "recommendation": "Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim."
-    },
-    {
-      "check_id": "claims.numerical_candidate",
-      "severity": "warning",
-      "category": "claims",
-      "confidence_class": "heuristic-static",
-      "message": "A visible numerical or quantified-claim candidate needs source and context review.",
-      "file": "index.html",
-      "line": 173,
-      "evidence": "About 1 in 20 missionaries leave the field each year. Roughly 71% of those departures are considered preventable.",
-      "recommendation": "Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim."
-    },
-    {
-      "check_id": "claims.numerical_candidate",
-      "severity": "warning",
-      "category": "claims",
-      "confidence_class": "heuristic-static",
-      "message": "A visible numerical or quantified-claim candidate needs source and context review.",
-      "file": "index.html",
-      "line": 174,
-      "evidence": "Taylor, 1997 · 5.1% annual attrition",
-      "recommendation": "Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim."
     },
     {
       "check_id": "focus.css_visually_hidden",
@@ -204,7 +127,7 @@
       "confidence_class": "heuristic-static",
       "message": "Focusable <a> matches CSS selector '.about-story__cta' with opacity/visibility/pointer suppression.",
       "file": "index.html",
-      "line": 246,
+      "line": 230,
       "evidence": "position: absolute; top: -35%; bottom: -35%; left: -55%; z-index: 1; width: 42%; border-radius: inherit; background: linear-gradient(102deg, rgba(0, 91, 232, 0) 0%, rgba(0, 91, 232, 0.1) 26%, rgba(255, 255, 255, 0.62) 5…",
       "recommendation": "Verify computed visibility and tab order in every responsive state; static CSS matching cannot prove behavior."
     },
@@ -215,7 +138,7 @@
       "confidence_class": "heuristic-static",
       "message": "A matching CTA is not a direct link; submission and fallback behavior require browser review.",
       "file": "index.html",
-      "line": 490,
+      "line": 473,
       "evidence": "Book a free 30-min call → https://calendly.com/missionarymediahub/30min",
       "recommendation": "Prefer a resilient direct link or verify the form/JavaScript behavior and fallback."
     },
@@ -255,12 +178,28 @@
   ],
   "observations": [
     {
+      "check_id": "claims.no_numerical_candidates",
+      "category": "claims",
+      "confidence_class": "heuristic-static",
+      "message": "No visible numerical-claim candidate matched the configured patterns.",
+      "file": "index.html",
+      "line": null
+    },
+    {
+      "check_id": "entity.current_tax_disclosure",
+      "category": "entity-status-copy",
+      "confidence_class": "deterministic-static",
+      "message": "Configured phrase was observed in visible DOM text. Pattern: \\bGifts are not tax[- ]deductible at this time\\b",
+      "file": "index.html",
+      "line": 485
+    },
+    {
       "check_id": "entity.for_profit_disclosure",
       "category": "entity-status-copy",
       "confidence_class": "deterministic-static",
       "message": "Configured phrase was observed in visible DOM text. Pattern: \\bMissionary Media is a for-profit company\\b",
       "file": "index.html",
-      "line": 502
+      "line": 485
     },
     {
       "check_id": "focus.no_obvious_hidden_controls",
@@ -314,9 +253,9 @@
       "check_id": "heading.sequence_observed",
       "category": "headings",
       "confidence_class": "heuristic-static",
-      "message": "Observed one H1 and 7 total headings with no level skips.",
+      "message": "Observed one H1 and 11 total headings with no level skips.",
       "file": "index.html",
-      "line": 121
+      "line": 118
     },
     {
       "check_id": "heading.sequence_observed",
@@ -354,7 +293,7 @@
       "check_id": "html.ids_unique",
       "category": "html-structure",
       "confidence_class": "deterministic-static",
-      "message": "Observed 33 non-empty ids with no exact duplicates.",
+      "message": "Observed 35 non-empty ids with no exact duplicates.",
       "file": "index.html",
       "line": null
     },
@@ -386,7 +325,7 @@
       "check_id": "image.alt_attributes_present",
       "category": "images",
       "confidence_class": "deterministic-static",
-      "message": "All 6 images have alt attributes; 4 use empty alt text. Decorative intent and alt quality are not verified.",
+      "message": "All 6 images have alt attributes; 3 use empty alt text. Decorative intent and alt quality are not verified.",
       "file": "index.html",
       "line": null
     },
@@ -487,12 +426,20 @@
       "line": 3947
     },
     {
+      "check_id": "offer.lifecycle_sequence",
+      "category": "offer-status-copy",
+      "confidence_class": "heuristic-static",
+      "message": "Observed configured lifecycle labels in DOM order: Now → Prototype → Next → Later. Visual prominence is not verified.",
+      "file": "index.html",
+      "line": 271
+    },
+    {
       "check_id": "offer.coaching_available_now",
       "category": "offer-status-copy",
       "confidence_class": "deterministic-static",
       "message": "Configured phrase was observed in visible DOM text. Pattern: \\bAvailable now\\b",
       "file": "index.html",
-      "line": 364
+      "line": 351
     },
     {
       "check_id": "offer.coaching_name",
@@ -500,7 +447,7 @@
       "confidence_class": "deterministic-static",
       "message": "Configured phrase was observed in visible DOM text. Pattern: \\bOne-on-one coaching\\b",
       "file": "index.html",
-      "line": 365
+      "line": 352
     },
     {
       "check_id": "offer.monthly_training_live",
@@ -508,7 +455,7 @@
       "confidence_class": "deterministic-static",
       "message": "Configured phrase was observed in visible DOM text. Pattern: \\bLive each month\\b",
       "file": "index.html",
-      "line": 369
+      "line": 356
     },
     {
       "check_id": "offer.monthly_training_name",
@@ -516,15 +463,7 @@
       "confidence_class": "deterministic-static",
       "message": "Configured phrase was observed in visible DOM text. Pattern: \\bMonthly live training\\b",
       "file": "index.html",
-      "line": 370
-    },
-    {
-      "check_id": "offer.lifecycle_sequence",
-      "category": "offer-status-copy",
-      "confidence_class": "heuristic-static",
-      "message": "Observed configured lifecycle labels in DOM order: Now → Prototype → Next → Later. Visual prominence is not verified.",
-      "file": "index.html",
-      "line": 501
+      "line": 357
     },
     {
       "check_id": "resource.references_observed",
@@ -532,10 +471,18 @@
       "confidence_class": "deterministic-static",
       "message": "Observed 2 resource/download references. File usefulness and approval are not verified.",
       "file": "index.html",
-      "line": 45
+      "line": 51
     }
   ],
-  "suppressions": [],
+  "suppressions": [
+    {
+      "check_id": "entity.tax_deductibility_claim",
+      "allowlist_id": "inline:\\bGifts are not tax[ -]?deductible at this time\\b",
+      "file": "index.html",
+      "line": 485,
+      "evidence": "A separate giving arm is in formation. Gifts are not tax-deductible at this time."
+    }
+  ],
   "manual_reviews": [
     {
       "id": "privacy.email_collection",
@@ -589,7 +536,7 @@
       "id": "legal.entity_and_tax_copy",
       "label": "Entity and tax wording",
       "owner": "Tabor / qualified legal or tax reviewer",
-      "reason": "Confirm the for-profit wording remains accurate and that no public copy implies an active charitable-giving route or tax-deductible status; the checker only blocks obvious contradictory public phrases."
+      "reason": "Confirm the for-profit, giving-arm-in-formation, and gifts-not-tax-deductible wording remains accurate; the checker only blocks obvious contradictory public phrases."
     },
     {
       "id": "publication.owner_approval",

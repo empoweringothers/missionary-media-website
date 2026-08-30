@@ -4033,6 +4033,551 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   }
 }
 
+/* --------------------------------------------------------------------------
+   Field Note to Home — full homepage merge
+   The existing navigation mechanics remain the motion foundation. These rules
+   give the new content a calmer editorial hierarchy and fill every visual slot
+   with owned, real project assets.
+   -------------------------------------------------------------------------- */
+
+.hero::after {
+  background:
+    linear-gradient(90deg, rgba(4, 16, 38, 0.92) 0%, rgba(4, 16, 38, 0.74) 39%, rgba(4, 16, 38, 0.22) 72%, rgba(4, 16, 38, 0.08) 100%),
+    linear-gradient(0deg, rgba(4, 16, 38, 0.44), transparent 56%);
+}
+
+.hero__media img {
+  object-position: center 46%;
+}
+
+.hero__center {
+  width: min(100%, 75rem);
+}
+
+.hero h1 {
+  max-width: 24ch;
+  font-size: clamp(3.6rem, 4.1vw, 3.85rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js[data-page-intro="ready"] .header-intro-target {
+    animation-duration: 600ms;
+  }
+
+  .js[data-page-intro="ready"] .hero-eyebrow-intro-target {
+    animation-delay: 260ms;
+  }
+
+  .js[data-page-intro="ready"] .hero-title-intro-target .hero-title-line:nth-child(1) > span {
+    animation-delay: 360ms;
+  }
+
+  .js[data-page-intro="ready"] .hero-title-intro-target .hero-title-line:nth-child(2) > span {
+    animation-delay: 500ms;
+  }
+
+  .js[data-page-intro="ready"] .hero-offer.hero-support-intro-target {
+    animation-delay: 680ms;
+  }
+
+  .js[data-page-intro="ready"] .hero-cta-intro-target {
+    animation-delay: 820ms;
+  }
+
+  .js[data-page-intro="ready"] .hero-cue-intro-target {
+    animation-delay: 1040ms;
+  }
+}
+
+.hero-offer {
+  max-width: 58ch;
+  font-size: clamp(1.1rem, 1.45vw, 1.2rem);
+}
+
+.field-note {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(6.5rem, 10vw, 9.5rem);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(74, 117, 255, 0.09), transparent 28rem),
+    #f4efe5;
+}
+
+.field-note::before {
+  position: absolute;
+  top: clamp(2rem, 8vw, 6.5rem);
+  right: clamp(-8rem, -4vw, -2rem);
+  width: clamp(15rem, 28vw, 28rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(74, 117, 255, 0.16);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.field-note__heading {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(17rem, 0.65fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: end;
+}
+
+.field-note__heading .section-label {
+  grid-column: 1 / -1;
+  margin-bottom: -0.5rem;
+}
+
+.field-note__heading h2,
+.process-title,
+.trusted-help h2 {
+  margin: 0;
+  font-size: clamp(2.75rem, 4.25vw, 3.5rem);
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.field-note__heading > p:last-child,
+.process-lede {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1.08rem, 1.45vw, 1.19rem);
+  line-height: 1.62;
+}
+
+.field-note__flow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  margin-top: clamp(3.5rem, 7vw, 6.5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(7rem, 0.22fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+  align-items: stretch;
+}
+
+.field-note__card {
+  min-width: 0;
+  padding: clamp(1.7rem, 3vw, 2.75rem);
+  border: 1px solid rgba(7, 20, 38, 0.14);
+  border-radius: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: 0 24px 70px rgba(7, 20, 38, 0.08);
+}
+
+.field-note__card--rough {
+  background:
+    linear-gradient(rgba(7, 20, 38, 0.04) 1px, transparent 1px) 0 2.6rem / 100% 2rem,
+    #fffdf7;
+}
+
+.field-note__card--handled {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #071426;
+  box-shadow: 0 28px 84px rgba(7, 20, 38, 0.21);
+  color: #fff;
+}
+
+.field-note__state {
+  margin: 0 0 1.6rem;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.field-note__card--handled .field-note__state {
+  color: var(--blue-tint);
+}
+
+.field-note__card h3 {
+  max-width: 18ch;
+  margin: 0 0 1.8rem;
+  font-size: clamp(1.75rem, 2.4vw, 2.35rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.field-note__card p,
+.field-note__card li {
+  font-size: clamp(1.02rem, 1.25vw, 1.1rem);
+  line-height: 1.58;
+}
+
+.field-note__card ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 0.72rem;
+  list-style: none;
+}
+
+.field-note__card li {
+  position: relative;
+  padding-left: 1.35rem;
+}
+
+.field-note__card li::before {
+  position: absolute;
+  top: 0.68em;
+  left: 0;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--blue);
+  content: "";
+}
+
+.field-note__aside,
+.field-note__next {
+  margin: 1.8rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(7, 20, 38, 0.13);
+  color: var(--muted);
+}
+
+.field-note__next {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.field-note__sample {
+  margin: 0 0 1rem;
+  color: var(--blue-tint);
+  font-weight: 600;
+}
+
+.field-note__handoff {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto 1fr;
+  gap: 0.8rem;
+  place-items: center;
+  color: var(--blue);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.field-note__handoff span {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(74, 117, 255, 0.72));
+}
+
+.field-note__handoff span:last-child {
+  background: linear-gradient(rgba(74, 117, 255, 0.72), transparent);
+}
+
+.field-note__disclosure {
+  position: relative;
+  z-index: 1;
+  max-width: 62rem;
+  margin: 1.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.coaching-decisions > .ps-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+.offer-lifecycle {
+  width: max-content;
+  margin: 0 0 1.1rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(74, 117, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(74, 117, 255, 0.07);
+  color: var(--blue);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.process-title {
+  max-width: 17ch;
+}
+
+.process-lede {
+  margin-top: 1.25rem;
+}
+
+.coaching-decisions > .ps-card {
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.home-connection__copy h2,
+.academy-teaser__copy h2,
+.contact-intake h2 {
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.home-connection__copy h2 {
+  font-size: clamp(2.75rem, 4vw, 3.5rem);
+}
+
+.home-connection__lead,
+.academy-teaser__copy > p,
+.trusted-help__copy > p {
+  font-size: clamp(1.06rem, 1.35vw, 1.16rem);
+  line-height: 1.62;
+}
+
+.academy-teaser__card {
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.65fr);
+  min-height: 42rem;
+}
+
+.academy-teaser__copy {
+  align-content: center;
+}
+
+.academy-teaser__copy h2 {
+  max-width: 15ch;
+  font-size: clamp(2.65rem, 3.8vw, 3.35rem);
+}
+
+.academy-teaser__artifact-note {
+  max-width: 48ch;
+  color: var(--muted);
+}
+
+.academy-teaser__media {
+  display: grid;
+  padding: clamp(2rem, 5vw, 4.5rem);
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(74, 117, 255, 0.18), transparent 58%),
+    #0b1c35;
+}
+
+.academy-teaser__media img {
+  width: min(100%, 24rem);
+  height: auto;
+  max-height: 36rem;
+  border-radius: 0.55rem;
+  object-fit: contain;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+  transform: rotate(1.2deg);
+}
+
+.trusted-help {
+  padding-block: clamp(5.5rem, 9vw, 8.5rem);
+  background: #eef3ff;
+}
+
+.trusted-help__card {
+  display: grid;
+  padding: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 0.75fr);
+  gap: clamp(3rem, 7vw, 7.5rem);
+  border: 1px solid rgba(7, 20, 38, 0.12);
+  border-radius: clamp(2rem, 5vw, 4.5rem);
+  background: #fffefb;
+  box-shadow: 0 30px 90px rgba(7, 20, 38, 0.09);
+}
+
+.trusted-help h2 {
+  max-width: 14ch;
+  margin-top: 1.1rem;
+}
+
+.trusted-help__note {
+  padding-left: 1rem;
+  border-left: 2px solid var(--blue);
+  color: var(--muted);
+}
+
+.trusted-help__areas {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  align-content: center;
+  list-style: none;
+}
+
+.trusted-help__areas li {
+  display: grid;
+  padding: 1.35rem 0;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.25rem 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.trusted-help__areas li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.trusted-help__areas span {
+  grid-row: 1 / span 2;
+  color: var(--blue);
+  font-size: 0.8rem;
+}
+
+.trusted-help__areas strong {
+  font-size: 1.1rem;
+}
+
+.trusted-help__areas em {
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+@media (max-width: 64rem) {
+  .hero::after {
+    background:
+      linear-gradient(0deg, rgba(4, 16, 38, 0.94) 0%, rgba(4, 16, 38, 0.78) 47%, rgba(4, 16, 38, 0.26) 100%),
+      linear-gradient(90deg, rgba(4, 16, 38, 0.34), rgba(4, 16, 38, 0.08));
+  }
+
+  .hero__media img {
+    object-position: center 24%;
+  }
+
+  .field-note__heading,
+  .trusted-help__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field-note__heading .section-label {
+    grid-column: 1;
+  }
+
+  .field-note__flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field-note__handoff {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto;
+    min-height: 4rem;
+  }
+
+  .field-note__handoff span {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(74, 117, 255, 0.72));
+  }
+
+  .field-note__handoff span:last-child {
+    background: linear-gradient(90deg, rgba(74, 117, 255, 0.72), transparent);
+  }
+
+  .academy-teaser__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .academy-teaser__media {
+    min-height: 32rem;
+  }
+}
+
+/* Keep the curved, inward-breathing desktop header without letting its outer
+   controls crowd the centered navigation at compact laptop widths. */
+@media (min-width: 70rem) and (max-width: 89.999rem) {
+  .js .site-header.is-scrolled .wordmark {
+    margin-inline-start: 0;
+    translate: 0 0;
+  }
+
+  .js .site-header.is-scrolled .header-cta {
+    margin-inline-end: 0;
+    translate: 0 0;
+  }
+}
+
+@media (max-width: 42rem) {
+  .hero {
+    min-height: 48rem;
+    align-items: end;
+    padding-top: calc(var(--header-height) + 12rem);
+    padding-bottom: 5.5rem;
+  }
+
+  .hero__media img {
+    object-position: 50% 16%;
+  }
+
+  .hero h1 {
+    max-width: 16ch;
+    font-size: clamp(2.55rem, 11vw, 3.1rem);
+    line-height: 1.02;
+  }
+
+  .hero-title-line {
+    display: inline;
+    overflow: visible;
+  }
+
+  .hero-title-line > span {
+    display: inline;
+  }
+
+  .hero-title-line:first-child > span::after {
+    content: " ";
+  }
+
+  .hero-offer {
+    font-size: 1.08rem;
+    line-height: 1.55;
+  }
+
+  .field-note,
+  .trusted-help {
+    padding-block: 5.5rem;
+  }
+
+  .field-note__heading h2,
+  .process-title,
+  .trusted-help h2,
+  .home-connection__copy h2,
+  .academy-teaser__copy h2 {
+    font-size: clamp(2.35rem, 10vw, 2.9rem);
+  }
+
+  .field-note__card {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .field-note__card h3 {
+    font-size: 1.75rem;
+  }
+
+  .academy-teaser__media {
+    min-height: 26rem;
+    padding: 2rem;
+  }
+
+  .academy-teaser__media img {
+    max-height: 29rem;
+  }
+
+  .trusted-help__card {
+    padding: 1.5rem;
+    gap: 2rem;
+    border-radius: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .academy-teaser__media img {
+    transform: none;
+  }
+}
+
 .hero :focus-visible,
 .home-connection :focus-visible,
 .final-cta :focus-visible,

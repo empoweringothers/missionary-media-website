@@ -784,9 +784,9 @@
   max-width: 24ch;
   margin-bottom: 0.75rem;
   color: var(--ink);
-  font-size: clamp(1.65rem, 6.4vw, 2.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.2rem, 9.5vw, 2.65rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
 }
 
 .academy-teaser__copy > p:not(.section-label) {
@@ -865,6 +865,11 @@
   .academy-teaser__media {
     min-height: 100%;
     grid-row: auto;
+  }
+
+  .academy-teaser__copy h2 {
+    max-width: 18ch;
+    font-size: clamp(2.8rem, 4vw, 3.35rem);
   }
 
   .academy-form__fields {

@@ -6,13 +6,19 @@
   <meta name="description" content="One-on-one digital coaching for missionaries. Bring one digital task and get help choosing a practical next step that fits your ministry.">
   <meta name="theme-color" content="#fffefb">
   <meta name="referrer" content="no-referrer">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Missionary Media — One-on-one digital coaching for missionaries">
+  <meta property="og:description" content="Bring one digital task and leave with one clear next step that fits your ministry.">
+  <meta property="og:image" content="https://missionarymedia.io/assets/academy/academy-hero-tabor-wide.jpg">
+  <meta property="og:url" content="https://missionarymedia.io/">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self' https://calendly.com https://app.kit.com; frame-src https://www.youtube-nocookie.com">
   <title>Missionary Media — One-on-one digital coaching for missionaries</title>
+  <link rel="canonical" href="https://missionarymedia.io/">
   <link rel="icon" href="assets/missionary-media-favicon.png" type="image/png" sizes="208x208">
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Regular.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Semibold.ttf.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/site.css?v=20260827-resources1">
-  <link rel="stylesheet" href="assets/academy.css?v=20260826-2">
+  <link rel="stylesheet" href="assets/site.css?v=20260830-field-note-home">
+  <link rel="stylesheet" href="assets/academy.css?v=20260830-field-note-home">
   <script src="assets/site.js" defer></script>
 </head>
 <body>
@@ -89,15 +95,6 @@
     </div>
   </header>
 
-  <aside class="training-banner" aria-label="Monthly live training reminder" hidden>
-    <div class="training-banner__inner">
-      <span class="training-banner__tag">LIVE TRAINING</span>
-      <span class="training-banner__copy">Have a digital or media question you want covered?</span>
-      <a class="training-banner__link" href="https://forms.gle/B32ghbgiyGa1qHLUA" rel="noreferrer" referrerpolicy="no-referrer">Submit your question <span aria-hidden="true">→</span></a>
-      <button class="training-banner__close" type="button" aria-label="Dismiss live training reminder">×</button>
-    </div>
-  </aside>
-
   <noscript>
     <nav class="noscript-nav" aria-label="Section navigation">
       <a href="#about">About</a>
@@ -112,9 +109,9 @@
 
   <main id="main-content" tabindex="-1">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <picture class="hero__media" aria-hidden="true">
-        <source srcset="assets/digital-door.avif" type="image/avif">
-        <img src="assets/digital-door.jpg" width="1400" height="788" alt="" fetchpriority="high">
+      <picture class="hero__media">
+        <source media="(max-width: 64rem)" srcset="assets/academy/academy-hero-tabor-mobile.jpg">
+        <img src="assets/academy/academy-hero-tabor-wide.jpg" width="1800" height="1013" alt="Tabor Normoyle seated at a media desk, ready to help missionaries work through a digital question" fetchpriority="high">
       </picture>
       <div class="hero__center">
         <p class="hero-intro">One-on-one digital coaching for missionaries</p>
@@ -122,88 +119,75 @@
           <span class="hero-title-line"><span>Bring one digital question.</span></span>
           <span class="hero-title-line"><span>Leave with one clear next step.</span></span>
         </h1>
-        <p class="hero-offer">Bring the prayer letter, video, tool choice, or workflow already in front of you. We’ll sort through the options and make a practical plan that fits your ministry.</p>
+        <p class="hero-offer">Bring the prayer letter, video, tool choice, or workflow already in front of you. We’ll sort through the options together and make a practical plan that fits your ministry.</p>
         <div class="hero-actions">
           <a class="button button--primary" href="#start">Book a free 30-min call</a>
         </div>
       </div>
-      <a class="scroll-cue" href="#voices" aria-label="Continue to field conversations"><span aria-hidden="true">↓</span></a>
+      <a class="scroll-cue" href="#field-note" aria-label="See how one rough task becomes one clear next step"><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="section field-note" id="field-note" aria-labelledby="field-note-title">
+      <div class="shell">
+        <header class="field-note__heading" data-settle="rise">
+          <p class="section-label">Now · One-on-one coaching</p>
+          <h2 id="field-note-title">You bring it rough. We hand it back clear.</h2>
+          <p>One messy task at a time. A voice note, a few rough lines, or phone photos become one clear artifact to review and one next step you can act on.</p>
+        </header>
+
+        <div class="field-note__flow" data-settle="shrink" aria-label="Example of a rough field note becoming a supporter update">
+          <article class="field-note__card field-note__card--rough">
+            <p class="field-note__state">Rough from the field</p>
+            <h3>Voice note + phone photos</h3>
+            <ul>
+              <li>[What happened this month]</li>
+              <li>[Who or what the church can pray for]</li>
+              <li>[Three photos and one short clip]</li>
+            </ul>
+            <p class="field-note__aside">Enough to begin. It does not have to be polished.</p>
+          </article>
+
+          <div class="field-note__handoff" aria-hidden="true">
+            <span></span><strong>one task</strong><span></span>
+          </div>
+
+          <article class="field-note__card field-note__card--handled">
+            <p class="field-note__state">Handled with you</p>
+            <h3>Supporter update, ready to review</h3>
+            <p class="field-note__sample">[This month&rsquo;s headline, in plain words]</p>
+            <p>[Two or three sentences from your own words that help a supporter understand what happened and how to pray.]</p>
+            <p class="field-note__next"><strong>Your next step:</strong> record a 60-second video with the photos you already have.</p>
+          </article>
+        </div>
+
+        <p class="field-note__disclosure">Specimen shown for illustration. Your artifact is built from your own words and ministry context, never invented.</p>
+      </div>
     </section>
 
     <section class="voices-rail" id="voices" aria-labelledby="voices-title" data-quote-rail data-settle="rise">
       <div class="voices-rail__top">
-        <p id="voices-title">Conversations on connection, time, and technology</p>
+        <p id="voices-title">What missionaries tell us about staying connected</p>
         <button class="quote-toggle" type="button" aria-pressed="false"><span>Pause quotes</span><i aria-hidden="true"></i></button>
       </div>
       <div class="quote-viewport" role="region" tabindex="0" aria-label="Scrollable missionary quote excerpts">
         <div class="quote-track" data-quote-track>
-          <!--
-            Order is deliberate and the rail loops, so adjacency wraps from the last card
-            back to the first. Seven Missionary Media cards alternate with seven outside
-            sources, which is exactly the ratio that lets every neighbour carry a different
-            attribution around the full circle. Adding or removing a card breaks that:
-            keep the two groups equal and keep them strictly alternating.
-
-            Every figure here comes from the verified tier of
-            00 Research/missionary-home-connection-need-evidence-2026-08-21.md.
-            That file also lists claims marked unverifiable — do not promote any of them
-            into this rail without re-sourcing them first.
-          -->
+          <!-- Four verified interview excerpts keep the page human and scannable.
+               The rail follows the transformation instead of delaying it. -->
           <blockquote class="quote-card">
             <p>&ldquo;A partner is not going to stick being a partner if they don&rsquo;t hear from you.&rdquo;</p>
             <footer><strong>Missionary in Europe</strong><span>Missionary Media interview</span></footer>
-          </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>After ten years, 74% of missionaries at high-retention agencies are still serving. At low-retention agencies, 35%.</p>
-            <footer><strong>WEA ReMAP II</strong><span>22 nations &middot; ~600 agencies &middot; ~39,600 missionaries</span></footer>
-          </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>Writing the letter is only 30&ndash;40% of the work. The rest is packaging it and getting it sent.</p>
-            <footer><strong>Missionary Media interview</strong><span>One missionary&rsquo;s estimate</span></footer>
-          </blockquote>
-          <blockquote class="quote-card">
-            <p>&ldquo;The scariest part of feeling disconnected is wondering if people are still praying for us.&rdquo;</p>
-            <footer><a href="https://www.alifeoverseas.com/dear-supporter-theres-so-much-more-i-wish-i-could-tell-you/" rel="noreferrer" referrerpolicy="no-referrer"><strong>Amy Medina</strong></a><span>Missionary and writer &middot; A Life Overseas, 2017</span></footer>
           </blockquote>
           <blockquote class="quote-card">
             <p>&ldquo;It just becomes too much work, and then I won&rsquo;t really communicate at all.&rdquo;</p>
             <footer><strong>Missionary in Southeast Asia</strong><span>Missionary Media interview</span></footer>
           </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>About 1 in 20 missionaries leave the field each year. Roughly 71% of those departures are considered preventable.</p>
-            <footer><strong>WEA ReMAP I</strong><span>Taylor, 1997 &middot; 5.1% annual attrition</span></footer>
-          </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>Six of the eleven missionaries and pastors we interviewed described supporter communication as fragmented or done by hand.</p>
-            <footer><strong>Missionary Media interviews</strong><span>2025&ndash;2026</span></footer>
-          </blockquote>
-          <blockquote class="quote-card">
-            <p>&ldquo;A failure to send regular ministry updates will dry up even a healthy well of church supporters.&rdquo;</p>
-            <footer><a href="https://abwe.org/blog/single-reason-most-missionaries-don-t-last-field-and-how-fix-it/" rel="noreferrer" referrerpolicy="no-referrer"><strong>ABWE</strong></a><span>Sending agency &middot; published guidance, 2019</span></footer>
-          </blockquote>
           <blockquote class="quote-card">
             <p>&ldquo;I don&rsquo;t want my letters&hellip; to just go in a filing cabinet.&rdquo;</p>
             <footer><strong>Missionary in Australia</strong><span>Missionary Media interview</span></footer>
           </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>&ldquo;Home churches are encouraged to be involved in the life of their missionaries&rdquo; is named among the practices critical to high missionary retention.</p>
-            <footer><strong>WEA ReMAP II</strong><span>Good Agency Practices, 2004</span></footer>
-          </blockquote>
           <blockquote class="quote-card">
             <p>&ldquo;I have to sit there and send them individually.&rdquo;</p>
             <footer><strong>Pastor in the Midwest</strong><span>Missionary Media interview</span></footer>
-          </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>Up to half of first-time donors never give a second gift.</p>
-            <footer><strong>Sargeant</strong><span>Peer-reviewed donor-retention research</span></footer>
-          </blockquote>
-          <blockquote class="quote-card">
-            <p>&ldquo;I can&rsquo;t afford to continue to lose churches&hellip; that don&rsquo;t like the way I&rsquo;m reporting.&rdquo;</p>
-            <footer><strong>Missionary pastor</strong><span>Missionary Media interview</span></footer>
-          </blockquote>
-          <blockquote class="quote-card quote-card--data">
-            <p>&ldquo;Lack of home support &mdash; inadequate financial, prayer, and/or other support&rdquo; ranks among the top seven reasons missionaries leave the field.</p>
-            <footer><strong>WEA ReMAP I</strong><span>1997</span></footer>
           </blockquote>
         </div>
       </div>
@@ -244,7 +228,7 @@
             <div aria-label="Spotify, coming soon"><span>Spotify</span><em>Coming soon</em><i aria-hidden="true">—</i></div>
           </nav>
           <a class="about-story__cta" href="#start">
-            <span>Show me my next step — free 30-min call</span>
+            <span>Book a free 30-min call</span>
             <img src="assets/missionary-media-logo.png" width="320" height="320" alt="" aria-hidden="true">
           </a>
         </div>
@@ -272,7 +256,7 @@
       </div>
     </dialog>
 
-    <section class="section help" id="how-we-help" aria-labelledby="ps-title">
+    <section class="section help" id="how-we-help" aria-labelledby="approach-title">
       <div class="shell coaching-decisions" id="how-it-works" aria-labelledby="approach-title" data-settle="shrink">
         <!--
           Our process. Replaces the "How it works" ledger and the three-question
@@ -283,7 +267,10 @@
           templates/MEASURED.md". The card's entrance reuses this page's own
           [data-settle="shrink"] rather than a second settle system.
         -->
-        <h2 class="section-label ps-eyebrow" id="ps-title">Our process</h2>
+        <p class="section-label ps-eyebrow" id="ps-title">How it works</p>
+        <p class="offer-lifecycle">Now · Coaching and live training</p>
+        <h2 class="process-title" id="approach-title">A simple path, start to finish.</h2>
+        <p class="process-lede">We begin with the task already in front of you, choose what matters now, build it together, and leave you with a rhythm you can keep using.</p>
         <div class="ps-card" data-settle="shrink">
           <div class="ps-grid">
           <button class="ps-step" type="button" aria-expanded="false" aria-controls="ps-panel-1">
@@ -292,13 +279,13 @@
               <span class="ps-step__label">Step 1</span>
               <span class="ps-step__body">
                 <span class="ps-step__front">
-                  <span class="ps-step__title">Discovery &amp; Research</span>
+                  <span class="ps-step__title">Discovery</span>
                   <span class="ps-pill" aria-hidden="true">
                     <span class="ps-pill__fill"></span>
                     <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
                   </span>
                 </span>
-                <span class="ps-step__panel" id="ps-panel-1">First, we understand your ministry, your supporters, and your current setup.</span>
+                <span class="ps-step__panel" id="ps-panel-1">First, we understand the real task, your ministry context, and what is making it hard to finish.</span>
               </span>
             </span>
           </button>
@@ -308,13 +295,13 @@
               <span class="ps-step__label">Step 2</span>
               <span class="ps-step__body">
                 <span class="ps-step__front">
-                  <span class="ps-step__title">Plan Development</span>
+                  <span class="ps-step__title">Plan</span>
                   <span class="ps-pill" aria-hidden="true">
                     <span class="ps-pill__fill"></span>
                     <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
                   </span>
                 </span>
-                <span class="ps-step__panel" id="ps-panel-2">Next up, we choose what matters now and what can wait.</span>
+                <span class="ps-step__panel" id="ps-panel-2">Next, we choose one useful result, what matters now, and what can wait.</span>
               </span>
             </span>
           </button>
@@ -324,13 +311,13 @@
               <span class="ps-step__label">Step 3</span>
               <span class="ps-step__body">
                 <span class="ps-step__front">
-                  <span class="ps-step__title">Build &amp; Setup</span>
+                  <span class="ps-step__title">Build</span>
                   <span class="ps-pill" aria-hidden="true">
                     <span class="ps-pill__fill"></span>
                     <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
                   </span>
                 </span>
-                <span class="ps-step__panel" id="ps-panel-3">After that, we build the update and set up the tool.</span>
+                <span class="ps-step__panel" id="ps-panel-3">Then we build the update, make the decision, or set up the tool with you.</span>
               </span>
             </span>
           </button>
@@ -340,13 +327,13 @@
               <span class="ps-step__label">Step 4</span>
               <span class="ps-step__body">
                 <span class="ps-step__front">
-                  <span class="ps-step__title">Rhythm &amp; Handoff</span>
+                  <span class="ps-step__title">Rhythm</span>
                   <span class="ps-pill" aria-hidden="true">
                     <span class="ps-pill__fill"></span>
                     <span class="ps-pill__mark"><span class="ps-pill__bar ps-pill__bar--h"></span><span class="ps-pill__bar ps-pill__bar--v"></span></span>
                   </span>
                 </span>
-                <span class="ps-step__panel" id="ps-panel-4">Finally, we hand off a rhythm you can run yourself.</span>
+                <span class="ps-step__panel" id="ps-panel-4">Finally, you leave with the finished next step and a rhythm you can run yourself.</span>
               </span>
             </span>
           </button>
@@ -378,10 +365,11 @@
     <section class="section home-connection" id="home-connection" aria-labelledby="home-connection-title">
       <div class="shell home-connection__layout">
         <div class="home-connection__copy">
-          <p class="section-label">Home Connection</p>
+          <p class="section-label">Prototype · Home Connection</p>
           <h2 id="home-connection-title">Keep the people back home close to the work.</h2>
+          <p class="home-connection__lead">Home Connection is the current prototype: a hands-on way to turn scattered field notes, photos, and updates into clearer communication for the people praying and giving back home.</p>
           <p class="home-connection__spotlight-label">Partner spotlight</p>
-          <p class="home-connection__lead">We partner with MissionaryConnect to help close one of missions&rsquo; greatest communication divides: the distance between missionaries and the churches that support them.</p>
+          <p>We partner with MissionaryConnect to help close one of missions&rsquo; greatest communication divides: the distance between missionaries and the churches that support them.</p>
           <p>MissionaryConnect gives churches one place to organize and display the missionaries they support. Its interactive maps and profiles can be shown on a lobby touchscreen, a television, or any modern web browser.</p>
           <p>Missionaries can create or claim their own profile and keep its information current. Church members can then explore where they serve, learn more about their ministry, and see how to pray for them.</p>
         </div>
@@ -405,39 +393,34 @@
       <div class="shell">
         <div class="academy-teaser__card" data-settle="shrink">
           <div class="academy-teaser__copy">
-            <p class="section-label">Academy preview</p>
+            <p class="section-label">Next · Missionary Media Academy</p>
             <h2 id="academy-teaser-title">Learn the digital work ministry already asks you to do.</h2>
-            <p>Preview three Academy course areas: Home Connection, Digital Creative, and Church IT—each shaped around needs that surfaced in Missionary Media’s interview research.</p>
-            <!--
-              Interest form, on the card itself. Same Kit endpoint and field
-              names as the resources form elsewhere on the page, plus a first
-              name. Deliberately two fields: anything more is a reason to stop.
-              The boundary line is the same one the Academy page carries.
-            -->
-            <form class="academy-form seva-form formkit-form" action="https://app.kit.com/forms/9830738/subscriptions" method="post" data-sv-form="9830738" data-uid="a9cb973f35" aria-describedby="academy-form-note">
-              <div class="academy-form__fields">
-                <div class="intake-field">
-                  <label for="academy-name">First name</label>
-                  <input id="academy-name" name="fields[first_name]" type="text" autocomplete="given-name" placeholder="Your first name" required>
-                </div>
-                <div class="intake-field">
-                  <label for="academy-email">Email</label>
-                  <input id="academy-email" name="email_address" type="email" autocomplete="email" placeholder="you@example.com" required>
-                </div>
-              </div>
-              <button class="button button--ink academy-form__submit" type="submit">Tell me when the first lesson is ready</button>
-              <p class="academy-form__note" id="academy-form-note">Interest only. No payment, no enrollment. Confirm from the email Kit sends, and you can unsubscribe any time.</p>
-            </form>
-
+            <p>The Academy is next: practical lessons for supporter communication, digital creative work, and church IT, shaped around the needs Missionary Media has heard in interviews.</p>
+            <p class="academy-teaser__artifact-note">The Digital Outreach Handout is one example of the kind of concrete, usable resource this learning should produce.</p>
             <div class="academy-teaser__actions">
               <a class="academy-text-link" href="/academy/">See the course preview <span aria-hidden="true">→</span></a>
             </div>
           </div>
           <picture class="academy-teaser__media">
-            <source media="(max-width: 64rem)" srcset="assets/academy/academy-hero-tabor-mobile.jpg">
-            <img src="assets/academy/academy-hero-tabor-wide.jpg" width="1800" height="1013" alt="Tabor Normoyle at a practical media teaching desk" loading="lazy">
+            <img src="assets/resources/digital-outreach-handout-cover.jpg" width="927" height="1200" alt="Cover of the Missionary Media Digital Outreach Handout" loading="lazy">
           </picture>
         </div>
+      </div>
+    </section>
+
+    <section class="section trusted-help" id="trusted-help" aria-labelledby="trusted-help-title">
+      <div class="shell trusted-help__card" data-settle="shrink">
+        <div class="trusted-help__copy">
+          <p class="section-label">Later · Trusted professional help</p>
+          <h2 id="trusted-help-title">When the work needs a specialist, you should know who to trust.</h2>
+          <p>Some projects need more than coaching. The later direction is a carefully vetted network for design, web, media, and technical work that should not be handed to the first person who knows the software.</p>
+          <p class="trusted-help__note">This network is a future direction, not a service directory that is available today.</p>
+        </div>
+        <ul class="trusted-help__areas" aria-label="Future trusted-help areas">
+          <li><span>01</span><strong>Story and design</strong><em>Clear communication shaped for ministry reality</em></li>
+          <li><span>02</span><strong>Web and digital systems</strong><em>Sites and workflows that can be maintained</em></li>
+          <li><span>03</span><strong>Media and church technology</strong><em>Specialist help when the setup goes deeper</em></li>
+        </ul>
       </div>
     </section>
 
@@ -497,9 +480,9 @@
   <footer class="site-footer">
     <div class="shell footer-grid" data-settle="rise">
       <div class="footer-brand"><a class="wordmark wordmark--footer" href="#top" aria-label="Missionary Media home"><span>Missionary</span><strong>Media</strong></a><p>Digital guidance for missionaries, one real task at a time.</p></div>
-      <nav class="footer-nav" aria-label="Footer navigation"><p class="footer-heading">Start here</p><a href="#about">About</a><a href="#home-connection">Home Connection</a><a href="#start">One-on-one coaching</a><a href="/academy/">Academy preview</a><a href="/resources/">Resources &amp; field guide</a><a href="#start">Book a free 30-min call</a></nav>
+      <nav class="footer-nav" aria-label="Footer navigation"><p class="footer-heading">Start here</p><a href="#about">About</a><a href="#home-connection">Home Connection</a><a href="#start">One-on-one coaching</a><a href="/academy/">Academy preview</a><a href="#trusted-help">Trusted help direction</a><a href="/resources/">Resources &amp; field guide</a><a href="#start">Book a free 30-min call</a></nav>
       <div class="footer-status"><p class="footer-heading">What’s available</p><p><strong>Now</strong> · Coaching and live training</p><p><strong>Prototype</strong> · Home Connection</p><p><strong>Next</strong> · <a href="/academy/">Missionary Media Academy</a></p><p><strong>Later</strong> · Trusted professional help</p></div>
-      <div class="footer-disclosure"><p class="footer-heading">Company</p><p><strong>Missionary Media is a for-profit company.</strong></p></div>
+      <div class="footer-disclosure"><p class="footer-heading">Company</p><p><strong>Missionary Media is a for-profit company.</strong></p><p>A separate giving arm is in formation. Gifts are not tax-deductible at this time.</p></div>
     </div>
     <div class="shell footer-bottom"><span>© 2026 Missionary Media. All rights reserved.</span><a href="#top">Back to top ↑</a></div>
   </footer>

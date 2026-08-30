@@ -7,9 +7,9 @@
 
 - Static gate: **static_review_items**
 - Launch authorized: **No**
-- Findings: **0 error · 16 warning · 0 info**
+- Findings: **0 error · 9 warning · 0 info**
 - Target: `/Users/tabornormoyle/Desktop/Empowering Others/Shared/repos/missionary-media-website/public`
-- Config SHA-256: `041d1c6f869d62263df60797317ddcd866dacfe79dd00884956397302fefcb15`
+- Config SHA-256: `9108d3430963bae71c363e41f3db78c5e287aa46c6059b3802d7125797a4e304`
 
 ## Warning findings
 
@@ -33,71 +33,23 @@
 - Evidence: “position: absolute; top: -35%; bottom: -35%; left: -55%; z-index: 1; width: 42%; border-radius: inherit; background: linear-gradient(102deg, rgba(0, 91, 232, 0) 0%, rgba(0, 91, 232, 0.1) 26%, rgba(255, 255, 255, 0.62) 5…”
 - Next check: Verify computed visibility and tab order in every responsive state; static CSS matching cannot prove behavior.
 
-### `metadata.canonical_missing` — No non-empty canonical link was observed.
-
-- Location: `index.html`
-- Evidence class: `deterministic-static`
-- Next check: Add the approved production canonical URL before publication.
-
-### `metadata.open_graph_missing` — Required Open Graph fields were not observed.
-
-- Location: `index.html`
-- Evidence class: `deterministic-static`
-- Evidence: “og:title, og:description, og:image, og:url”
-- Next check: Add approved og:title, og:description, og:image, and og:url values before publication.
-
 ### `focus.css_visually_hidden` — Focusable <a> matches CSS selector '.header-cta' with opacity/visibility/pointer suppression.
 
-- Location: `index.html:56`
+- Location: `index.html:62`
 - Evidence class: `heuristic-static`
 - Evidence: “position: absolute; top: -35%; bottom: -35%; left: -55%; z-index: 1; width: 42%; border-radius: inherit; background: linear-gradient(102deg, rgba(0, 91, 232, 0) 0%, rgba(0, 91, 232, 0.1) 26%, rgba(255, 255, 255, 0.62) 5…”
 - Next check: Verify computed visibility and tab order in every responsive state; static CSS matching cannot prove behavior.
 
-### `claims.numerical_candidate` — A visible numerical or quantified-claim candidate needs source and context review.
-
-- Location: `index.html:157`
-- Evidence class: `heuristic-static`
-- Evidence: “After ten years, 74% of missionaries at high-retention agencies are still serving. At low-retention agencies, 35%.”
-- Next check: Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim.
-
-### `claims.numerical_candidate` — A visible numerical or quantified-claim candidate needs source and context review.
-
-- Location: `index.html:158`
-- Evidence class: `heuristic-static`
-- Evidence: “22 nations · ~600 agencies · ~39,600 missionaries”
-- Next check: Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim.
-
-### `claims.numerical_candidate` — A visible numerical or quantified-claim candidate needs source and context review.
-
-- Location: `index.html:161`
-- Evidence class: `heuristic-static`
-- Evidence: “Writing the letter is only 30-40% of the work. The rest is packaging it and getting it sent.”
-- Next check: Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim.
-
-### `claims.numerical_candidate` — A visible numerical or quantified-claim candidate needs source and context review.
-
-- Location: `index.html:173`
-- Evidence class: `heuristic-static`
-- Evidence: “About 1 in 20 missionaries leave the field each year. Roughly 71% of those departures are considered preventable.”
-- Next check: Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim.
-
-### `claims.numerical_candidate` — A visible numerical or quantified-claim candidate needs source and context review.
-
-- Location: `index.html:174`
-- Evidence class: `heuristic-static`
-- Evidence: “Taylor, 1997 · 5.1% annual attrition”
-- Next check: Confirm the visible number against the cited interview/research source, permissions, and approved context; static matching does not prove the claim.
-
 ### `focus.css_visually_hidden` — Focusable <a> matches CSS selector '.about-story__cta' with opacity/visibility/pointer suppression.
 
-- Location: `index.html:246`
+- Location: `index.html:230`
 - Evidence class: `heuristic-static`
 - Evidence: “position: absolute; top: -35%; bottom: -35%; left: -55%; z-index: 1; width: 42%; border-radius: inherit; background: linear-gradient(102deg, rgba(0, 91, 232, 0) 0%, rgba(0, 91, 232, 0.1) 26%, rgba(255, 255, 255, 0.62) 5…”
 - Next check: Verify computed visibility and tab order in every responsive state; static CSS matching cannot prove behavior.
 
 ### `cta.non_link_behavior_unverified` — A matching CTA is not a direct link; submission and fallback behavior require browser review.
 
-- Location: `index.html:490`
+- Location: `index.html:473`
 - Evidence class: `heuristic-static`
 - Evidence: “Book a free 30-min call → https://calendly.com/missionarymediahub/30min”
 - Next check: Prefer a resilient direct link or verify the form/JavaScript behavior and fallback.
@@ -126,23 +78,25 @@
 
 | Check | Observation | Evidence class | Location |
 |---|---|---|---|
-| `entity.for_profit_disclosure` | Configured phrase was observed in visible DOM text. Pattern: \bMissionary Media is a for-profit company\b | `deterministic-static` | `index.html:502` |
+| `claims.no_numerical_candidates` | No visible numerical-claim candidate matched the configured patterns. | `heuristic-static` | `index.html` |
+| `entity.current_tax_disclosure` | Configured phrase was observed in visible DOM text. Pattern: \bGifts are not tax[- ]deductible at this time\b | `deterministic-static` | `index.html:485` |
+| `entity.for_profit_disclosure` | Configured phrase was observed in visible DOM text. Pattern: \bMissionary Media is a for-profit company\b | `deterministic-static` | `index.html:485` |
 | `focus.no_obvious_hidden_controls` | No direct aria-hidden/focusable or opacity-hidden/focusable contradiction was observed. | `heuristic-static` | `404.html` |
 | `focus.no_obvious_hidden_controls` | No direct aria-hidden/focusable or opacity-hidden/focusable contradiction was observed. | `heuristic-static` | `thanks.html` |
 | `font.stacks_declared` | Observed configured primary, fallback, and generic family names together in 1 CSS stacks. Ordering and runtime rendering are not verified. | `heuristic-static` | `index.html` |
 | `font.synthesis_disabled` | Observed font-synthesis: none in CSS. | `deterministic-static` | `index.html` |
 | `heading.sequence_observed` | Observed one H1 and 1 total headings with no level skips. | `heuristic-static` | `404.html:22` |
 | `heading.sequence_observed` | Observed one H1 and 11 total headings with no level skips. | `heuristic-static` | `academy/index.html:110` |
-| `heading.sequence_observed` | Observed one H1 and 7 total headings with no level skips. | `heuristic-static` | `index.html:121` |
+| `heading.sequence_observed` | Observed one H1 and 11 total headings with no level skips. | `heuristic-static` | `index.html:118` |
 | `heading.sequence_observed` | Observed one H1 and 5 total headings with no level skips. | `heuristic-static` | `resources/index.html:95` |
 | `heading.sequence_observed` | Observed one H1 and 1 total headings with no level skips. | `heuristic-static` | `thanks.html:22` |
 | `html.ids_unique` | Observed 1 non-empty ids with no exact duplicates. | `deterministic-static` | `404.html` |
 | `html.ids_unique` | Observed 14 non-empty ids with no exact duplicates. | `deterministic-static` | `academy/index.html` |
-| `html.ids_unique` | Observed 33 non-empty ids with no exact duplicates. | `deterministic-static` | `index.html` |
+| `html.ids_unique` | Observed 35 non-empty ids with no exact duplicates. | `deterministic-static` | `index.html` |
 | `html.ids_unique` | Observed 13 non-empty ids with no exact duplicates. | `deterministic-static` | `resources/index.html` |
 | `html.ids_unique` | Observed 1 non-empty ids with no exact duplicates. | `deterministic-static` | `thanks.html` |
 | `image.alt_attributes_present` | All 4 images have alt attributes; 0 use empty alt text. Decorative intent and alt quality are not verified. | `deterministic-static` | `academy/index.html` |
-| `image.alt_attributes_present` | All 6 images have alt attributes; 4 use empty alt text. Decorative intent and alt quality are not verified. | `deterministic-static` | `index.html` |
+| `image.alt_attributes_present` | All 6 images have alt attributes; 3 use empty alt text. Decorative intent and alt quality are not verified. | `deterministic-static` | `index.html` |
 | `image.alt_attributes_present` | All 1 images have alt attributes; 0 use empty alt text. Decorative intent and alt quality are not verified. | `deterministic-static` | `resources/index.html` |
 | `link.local_references_resolved` | Observed 6 resolvable local asset/link references and no missing local target. | `deterministic-static` | `404.html` |
 | `link.local_references_resolved` | Observed 49 resolvable local asset/link references and no missing local target. | `deterministic-static` | `academy/index.html` |
@@ -155,16 +109,18 @@
 | `metadata.basic_present` | Observed doctype, html language, charset, title, description, and viewport metadata. | `deterministic-static` | `resources/index.html:1` |
 | `metadata.basic_present` | Observed doctype, html language, charset, title, description, and viewport metadata. | `deterministic-static` | `thanks.html:1` |
 | `motion.reduced_rule_observed` | Observed a non-empty prefers-reduced-motion: reduce CSS rule. Runtime motion is not verified. | `heuristic-static` | `assets/site.css:3947` |
-| `offer.coaching_available_now` | Configured phrase was observed in visible DOM text. Pattern: \bAvailable now\b | `deterministic-static` | `index.html:364` |
-| `offer.coaching_name` | Configured phrase was observed in visible DOM text. Pattern: \bOne-on-one coaching\b | `deterministic-static` | `index.html:365` |
-| `offer.monthly_training_live` | Configured phrase was observed in visible DOM text. Pattern: \bLive each month\b | `deterministic-static` | `index.html:369` |
-| `offer.monthly_training_name` | Configured phrase was observed in visible DOM text. Pattern: \bMonthly live training\b | `deterministic-static` | `index.html:370` |
-| `offer.lifecycle_sequence` | Observed configured lifecycle labels in DOM order: Now → Prototype → Next → Later. Visual prominence is not verified. | `heuristic-static` | `index.html:501` |
-| `resource.references_observed` | Observed 2 resource/download references. File usefulness and approval are not verified. | `deterministic-static` | `index.html:45` |
+| `offer.lifecycle_sequence` | Observed configured lifecycle labels in DOM order: Now → Prototype → Next → Later. Visual prominence is not verified. | `heuristic-static` | `index.html:271` |
+| `offer.coaching_available_now` | Configured phrase was observed in visible DOM text. Pattern: \bAvailable now\b | `deterministic-static` | `index.html:351` |
+| `offer.coaching_name` | Configured phrase was observed in visible DOM text. Pattern: \bOne-on-one coaching\b | `deterministic-static` | `index.html:352` |
+| `offer.monthly_training_live` | Configured phrase was observed in visible DOM text. Pattern: \bLive each month\b | `deterministic-static` | `index.html:356` |
+| `offer.monthly_training_name` | Configured phrase was observed in visible DOM text. Pattern: \bMonthly live training\b | `deterministic-static` | `index.html:357` |
+| `resource.references_observed` | Observed 2 resource/download references. File usefulness and approval are not verified. | `deterministic-static` | `index.html:51` |
 
 ## Configured suppressions
 
-No configured suppression was applied.
+| Check | Allowlist rule | Location | Evidence |
+|---|---|---|---|
+| `entity.tax_deductibility_claim` | `inline:\bGifts are not tax[ -]?deductible at this time\b` | `index.html:485` | A separate giving arm is in formation. Gifts are not tax-deductible at this time. |
 
 ## Manual reviews still required
 
@@ -176,7 +132,7 @@ No configured suppression was applied.
 - **Production source and rollback** (owner: Tabor): Confirm the Netlify production site is connected to the intended GitHub repository/branch and publish directory, preserve the current known-good deploy for rollback, and prevent another connected repository from overwriting it.
 - **Keyboard, focus, contrast, and reduced-motion runtime review** (owner: Tabor / accessibility reviewer): Browser-test keyboard order, visible focus, menus/dialogs/forms, responsive states, contrast, screen-reader names, and both CSS and JavaScript behavior with reduced motion enabled.
 - **Search and social metadata operations** (owner: Tabor): Decide the canonical apex/www URL, add and validate canonical/Open Graph metadata where appropriate, and confirm robots.txt and sitemap policy before treating search readiness as complete.
-- **Entity and tax wording** (owner: Tabor / qualified legal or tax reviewer): Confirm the for-profit wording remains accurate and that no public copy implies an active charitable-giving route or tax-deductible status; the checker only blocks obvious contradictory public phrases.
+- **Entity and tax wording** (owner: Tabor / qualified legal or tax reviewer): Confirm the for-profit, giving-arm-in-formation, and gifts-not-tax-deductible wording remains accurate; the checker only blocks obvious contradictory public phrases.
 - **Owner publication approval** (owner: Tabor): Review the rendered production site and explicitly approve publication. A clean static report is not launch authorization.
 
 ## Static-analysis limitations
@@ -193,18 +149,18 @@ No configured suppression was applied.
 
 - Tool: `mm_phase1_launch_check 1.0.1`
 - Checker SHA-256: `6789a8550d70a4d59993b4cc04f7d5ab5375aa3f07048fe63664bc9cb72215e2`
-- Generated: `2026-08-27T12:15:55.610779+00:00`
+- Generated: `2026-08-30T14:43:39.442624+00:00`
 - Input HTML files:
   - `404.html` — SHA-256 `2c9531cf54294cc4b21cce5f6d3c1e7ddbc2eae516ae7f5990c20bfa74d6e442`
   - `academy/index.html` — SHA-256 `587dc4a0abb82c8894890642b0411ce2761863511bcf263661cd2df61696e170`
-  - `index.html` — SHA-256 `cc6bcf5cf0e2a05838ec2b4a8d380bdd92b7324e8a7230d8f583e562754e349a`
+  - `index.html` — SHA-256 `464077e543e5cf251f636dc63b1561952455134e6c78a3817a572dd75e581f61`
   - `resources/index.html` — SHA-256 `ee495f6d082a7c55e44496707e3f89e84702f9e943963df99649b36a5e82393d`
   - `thanks.html` — SHA-256 `c633dc27d89d629c7e1dd0a3fbcc25ea1279f5e76adc5973f75c8c87c3a3cb44`
 - Directly linked local stylesheets:
   - `assets/academy-course-preview.css` — SHA-256 `64c06048a2030d6ff6724738e8803b97497903f5d65dde94d5d1585523166a34`
   - `assets/academy-library.css` — SHA-256 `1c5109cedf2038d71af3b37db0c74274e095434e26a3a050dbd9004084384a0e`
-  - `assets/academy.css` — SHA-256 `4ba0c1e70f134cf2746f4c6674f23b5d02f859ebc009c49b6b3ed2e560657512`
+  - `assets/academy.css` — SHA-256 `906f7e61950ac314fc9c5f694f0ada100845d17af3cb541bbff71e3987a792a8`
   - `assets/resources.css` — SHA-256 `fc25cb9387beabe690e45b3a769f9baca88cc2a44b69e5ac185a1d11f04eb172`
-  - `assets/site.css` — SHA-256 `9fae2a80699b8d9ecee925aa2b13d1b06f6a20ea043c05672a1f92f9b02fca35`
+  - `assets/site.css` — SHA-256 `18258bfdf25717a90583cee0fc74d9df918693ed59a9dacd63ea3500ac836712`
 
 Static analysis only. This report does not prove launch readiness, visual quality, accessibility conformance, privacy/security fitness, legal/entity compliance, copy truth, permissions, external destination operation, or publication approval.
