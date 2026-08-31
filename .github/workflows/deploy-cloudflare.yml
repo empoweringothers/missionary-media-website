@@ -48,12 +48,13 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           WRANGLER_SEND_METRICS: 'false'
-      - name: Verify remote bytes and security headers
+      - name: Verify preview and production bytes, routing and security headers
         run: |
           # A new version can reach different edge locations a few seconds apart.
           # Retry verification, never redeploy, and still fail if checks do not pass.
           for attempt in 1 2 3 4; do
-            if node scripts/verify-static-deploy.mjs https://missionary-media-website.tabor-empoweringothers.workers.dev; then
+            if node scripts/verify-static-deploy.mjs https://missionary-media-website.tabor-empoweringothers.workers.dev &&
+               node scripts/verify-static-deploy.mjs https://missionarymedia.io; then
               exit 0
             fi
             if [ "$attempt" -lt 4 ]; then

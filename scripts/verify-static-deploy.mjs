@@ -53,4 +53,17 @@ for (const [name, value] of Object.entries({
   'cache-control': 'no-cache',
 })) assert.equal(homepage.headers.get(name), value, `Unexpected header: ${name}`);
 assert(homepage.headers.get('content-security-policy-report-only')?.includes("default-src 'self'"), 'Report-only CSP missing');
-console.log(JSON.stringify({ origin, filesCompared: checked, mismatches: 0, privateAndMissingRoutes: '404', headers: 'passed; CSP is report-only', homepageSha256: homepageHash }, null, 2));
+let canonicalRedirects = 'not applicable to this origin';
+if (origin === 'https://missionarymedia.io') {
+  assert.equal(homepage.headers.get('server'), 'cloudflare', 'Production must be served by Cloudflare');
+  for (const source of ['http://missionarymedia.io', 'http://www.missionarymedia.io', 'https://www.missionarymedia.io']) {
+    for (const path of ['/', '/academy/?migration_check=path%20and%20query']) {
+      const response = await fetch(`${source}${path}`, { signal: AbortSignal.timeout(30000), redirect: 'manual' });
+      assert.equal(response.status, 301, `Canonical redirect required: ${source}${path}`);
+      assert.equal(response.headers.get('location'), `${origin}${path}`, `Redirect must preserve path/query: ${source}${path}`);
+      assert.equal(response.headers.get('server'), 'cloudflare', `Redirect must be served by Cloudflare: ${source}`);
+    }
+  }
+  canonicalRedirects = '6 passed; HTTPS apex with path and query preserved';
+}
+console.log(JSON.stringify({ origin, filesCompared: checked, mismatches: 0, privateAndMissingRoutes: '404', headers: 'passed; CSP is report-only', canonicalRedirects, homepageSha256: homepageHash }, null, 2));

@@ -2,16 +2,18 @@
 
 Production: <https://missionarymedia.io>
 
-Cloudflare Free migration is being prepared. See [CLOUDFLARE.md](CLOUDFLARE.md)
-for the versioned configuration, preview checks and cutover/rollback procedure.
-The DNS cutover is not yet verified; the Netlify workflow below remains the
-recorded existing production path until migration acceptance is complete.
+Hosting: Cloudflare Workers Static Assets on Free, deployed through GitHub
+Actions. The custom domain, HTTPS, canonical redirects and all 101 public files
+were verified on 2026-08-31. DNS propagation is still in progress; cached
+resolvers may temporarily serve the archived Netlify version. See [CLOUDFLARE.md](CLOUDFLARE.md) for configuration,
+verification, credentials and rollback instructions.
 
 ## Canonical source
 
 `public/` is the only editable source for the public Missionary Media website.
-Netlify builds the `main` branch of this repository and publishes `public/` to
-`missionarymedia.io`.
+GitHub Actions deploys approved changes on `main` to Cloudflare Worker
+`missionary-media-website`, which serves `missionarymedia.io`. Only `public/`
+is uploaded. GoDaddy remains the domain registrar; Cloudflare manages DNS.
 
 The legacy root `index.html`, `sponsor.html`, `survey/`, and `.hermes/` content
 is preserved for recovery and historical comparison. It is not the production
@@ -33,11 +35,26 @@ source. Do not edit, delete, restore, or include those paths in a website change
 4. Commit the approved `public/` and configuration changes on `main`.
 5. After explicit production approval, push `main` to `origin`. That Git push is
    the production deploy workflow for `missionarymedia.io`.
-6. Verify the resulting Netlify deploy has the pushed Git commit as its source,
-   then smoke-test the custom domain and required assets.
+6. Verify the successful GitHub Actions run and Cloudflare version both identify
+   the pushed Git commit. CI compares every public file on both the Worker URL
+   and production domain, and checks HTTPS redirects, 404s and security headers.
+   Then inspect the live desktop/mobile page; CI file checks are not visual QA.
 
-Do not use a manual Netlify production deploy. A production release must be
-traceable to a commit on this repository's `main` branch.
+Do not deploy manually to Netlify or create a second automatic deployment
+pipeline. A production release must be traceable to a commit on this repository's
+`main` branch. A failed verification is not a successful release or an automatic
+rollback.
+
+## Legacy Netlify retirement
+
+Automatic builds are stopped on `missionarymediav2`; Cloudflare is the live host.
+Its old deployment and custom-domain binding are temporarily retained as a
+rollback/old-DNS-cache safeguard during nameserver propagation. Once public
+DNS no longer returns the previous GoDaddy delegation or Netlify address,
+remove only this site's old custom-domain binding, verify Cloudflare again,
+and retain the archived source and old deployment. Do not delete the Netlify
+account or unrelated sites. `netlify.toml` is a legacy reference, not the
+current production configuration.
 
 ## Historical references
 
