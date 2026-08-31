@@ -49,4 +49,16 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           WRANGLER_SEND_METRICS: 'false'
       - name: Verify remote bytes and security headers
-        run: node scripts/verify-static-deploy.mjs https://missionary-media-website.tabor-empoweringothers.workers.dev
+        run: |
+          # A new version can reach different edge locations a few seconds apart.
+          # Retry verification, never redeploy, and still fail if checks do not pass.
+          for attempt in 1 2 3 4; do
+            if node scripts/verify-static-deploy.mjs https://missionary-media-website.tabor-empoweringothers.workers.dev; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 4 ]; then
+              echo "Waiting 10 seconds for deployment propagation (attempt $attempt of 4)."
+              sleep 10
+            fi
+          done
+          exit 1
