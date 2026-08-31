@@ -39,3 +39,10 @@ traceable to a commit on this repository's `main` branch.
 The former brain-local redesign candidate is retired and read-only. Historical
 copies remain in the parent vault; they are references, not alternate editable
 website sources.
+
+The live site as of 2026-08-31, immediately before the coaching homepage, is
+frozen at commit `78c059c`:
+
+- Branch: `archive/live-2026-08-31`
+- Tag: `archive/live-before-coaching-homepage-2026-08-31`
+- File snapshot: `archive/2026-08-31-live-before-coaching-homepage/`
