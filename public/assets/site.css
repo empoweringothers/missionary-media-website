@@ -1223,10 +1223,9 @@ html.training-banner-visible.training-banner-suspended .training-banner {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background:
-    linear-gradient(rgba(4, 16, 38, 0.42), rgba(4, 16, 38, 0.42)),
-    linear-gradient(90deg, rgba(4, 16, 38, 0.82) 0%, rgba(4, 16, 38, 0.42) 57%, rgba(4, 16, 38, 0.18) 100%),
-    linear-gradient(0deg, rgba(4, 16, 38, 0.3), transparent 45%);
+  /* Left band only: darken the title side, fade out before the face. No
+     top-down header scrim that clips the head. */
+  background: linear-gradient(90deg, rgba(4, 16, 38, 0.72) 0%, rgba(4, 16, 38, 0.46) 34%, rgba(4, 16, 38, 0.12) 52%, rgba(4, 16, 38, 0) 66%);
   content: "";
   pointer-events: none;
 }
@@ -1241,7 +1240,7 @@ html.training-banner-visible.training-banner-suspended .training-banner {
 
 .hero__media img {
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
 }
 
 .hero__center {
@@ -1685,7 +1684,9 @@ html.training-banner-visible.training-banner-suspended .training-banner {
 }
 
 .about-story__frame.is-scroll-linked {
-  transform: translate3d(0, var(--story-frame-scroll-y), 0);
+  /* A transform here made the video card sticky to the frame instead of the
+     viewport, so it could not travel from the section bottom to the top. */
+  transform: none;
 }
 
 .about-story__label {
@@ -2121,7 +2122,7 @@ body.story-video-open {
   display: grid;
   grid-template-columns: minmax(0, 1.03fr) minmax(21rem, 0.97fr);
   gap: clamp(3rem, 8vw, 7rem);
-  align-items: center;
+  align-items: stretch;
 }
 
 .home-connection .state-line,
@@ -2872,6 +2873,8 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   display: block;
   overflow: hidden;
   overflow: clip;
+  padding-bottom: 0.28em;
+  margin-bottom: -0.28em;
 }
 
 .text-intro-line > span {
@@ -2879,7 +2882,7 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 }
 
 .text-intro-lines.is-armed .text-intro-line > span {
-  transform: translateY(110%);
+  transform: translateY(calc(110% + 0.28em));
 }
 
 .text-intro-lines.is-revealed .text-intro-line > span {
@@ -3046,6 +3049,13 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   .js .hero {
     min-height: max(38rem, calc(100svh - 177px));
     padding-top: calc(clamp(5rem, 10vw, 8.5rem) + var(--header-height));
+  }
+
+  /* Keep the photograph below the fixed header so the head is never covered. */
+  .js .hero__media {
+    top: calc(var(--header-height) + var(--banner-offset, 0px));
+    height: auto;
+    bottom: 0;
   }
 
   .header-shell {
@@ -4040,14 +4050,8 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
    with owned, real project assets.
    -------------------------------------------------------------------------- */
 
-.hero::after {
-  background:
-    linear-gradient(90deg, rgba(4, 16, 38, 0.92) 0%, rgba(4, 16, 38, 0.74) 39%, rgba(4, 16, 38, 0.22) 72%, rgba(4, 16, 38, 0.08) 100%),
-    linear-gradient(0deg, rgba(4, 16, 38, 0.44), transparent 56%);
-}
-
 .hero__media img {
-  object-position: center 46%;
+  object-position: center top;
 }
 
 .hero__center {
@@ -4122,8 +4126,8 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(17rem, 0.65fr);
-  gap: clamp(2rem, 5vw, 6rem);
-  align-items: end;
+  gap: clamp(1.25rem, 3vw, 2.5rem) clamp(2rem, 5vw, 6rem);
+  align-items: start;
 }
 
 .field-note__heading .section-label {
@@ -4141,13 +4145,34 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
   text-wrap: balance;
 }
 
-.field-note__heading > p:last-child,
+.field-note__heading > p,
 .process-lede {
   max-width: 52ch;
   margin: 0;
   color: var(--muted);
   font-size: clamp(1.08rem, 1.45vw, 1.19rem);
   line-height: 1.62;
+}
+
+.field-note__heading > p:last-of-type {
+  grid-column: 1 / -1;
+}
+
+.field-note__options {
+  position: relative;
+  z-index: 1;
+  margin: clamp(1.75rem, 4vw, 2.75rem) 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.field-note__options legend {
+  margin: 0 0 0.85rem;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .field-note__flow {
@@ -4436,14 +4461,8 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 }
 
 @media (max-width: 64rem) {
-  .hero::after {
-    background:
-      linear-gradient(0deg, rgba(4, 16, 38, 0.94) 0%, rgba(4, 16, 38, 0.78) 47%, rgba(4, 16, 38, 0.26) 100%),
-      linear-gradient(90deg, rgba(4, 16, 38, 0.34), rgba(4, 16, 38, 0.08));
-  }
-
   .hero__media img {
-    object-position: center 24%;
+    object-position: center top;
   }
 
   .field-note__heading,
@@ -4499,15 +4518,33 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 }
 
 @media (max-width: 42rem) {
+  /* Stacked phone hero: portrait as its own 3:2 block, text on ink below.
+     The left band is off because the words no longer sit on the photo. */
   .hero {
-    min-height: 48rem;
-    align-items: end;
-    padding-top: calc(var(--header-height) + 12rem);
-    padding-bottom: 5.5rem;
+    display: block;
+    min-height: 0;
+    padding: 0 0 5.5rem;
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .hero__media {
+    position: relative;
+    display: block;
+    inset: auto;
+    height: auto;
+    aspect-ratio: 3 / 2;
   }
 
   .hero__media img {
-    object-position: 50% 16%;
+    object-position: center top;
+  }
+
+  .hero__center {
+    width: 100%;
+    padding: 2rem var(--page-gutter) 0;
   }
 
   .hero h1 {
@@ -5766,51 +5803,46 @@ a.offer-status__name:focus-visible {
   text-transform: uppercase;
 }
 
-.about-story__bar {
-  display: grid;
-  grid-template-columns: minmax(14rem, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
-}
-
-.about-story__bar h2 {
+.about-story__copy h2 {
   max-width: 23ch;
-  margin: 0;
+  margin: 0 0 clamp(1.75rem, 3.5vw, 2.75rem);
   font-size: clamp(2.5rem, 4vw, 4.75rem);
   letter-spacing: -0.04em;
-  line-height: 1.01;
+  line-height: 1.12;
+  overflow: visible;
 }
 
 .about-story__frame {
   width: min(calc(100% - (var(--page-gutter) * 2)), var(--about-frame-max));
-  margin-top: clamp(4rem, 8vw, 7rem);
+  margin-top: 0;
   padding: 0;
   grid-template-columns: minmax(22rem, 1fr) minmax(0, 1fr);
   gap: clamp(2.5rem, 6vw, 6.5rem);
+  align-items: stretch;
   border: 0;
   border-radius: 0;
   background: transparent;
 }
 
 .about-story__media-column {
-  position: sticky;
-  top: calc(var(--banner-offset, 0px) + 6.25rem);
+  display: flex;
+  flex-direction: column;
   min-width: 0;
-  align-self: start;
-  transition: top 300ms var(--ease-out);
+  align-self: stretch;
 }
 
-.site-header.is-hidden ~ main .about-story__media-column {
-  top: calc(var(--banner-offset, 0px) + 1rem);
+.about-story__media-column .about-story__label {
+  margin: 0 0 1.25rem;
 }
 
 .story-video-card {
   margin-top: 0;
   background: #e3e9ed;
+  transform: translate3d(0, var(--travel-y, 0px), 0);
 }
 
 .about-story__copy {
-  padding-top: clamp(0rem, 1vw, 0.8rem);
+  padding-top: 0;
 }
 
 .about-story__channels {
@@ -5868,6 +5900,9 @@ a.offer-status__name:focus-visible {
 
 .partner-showcase {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
   padding: clamp(1rem, 2vw, 1.4rem);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: clamp(1.4rem, 2.6vw, 2rem);
@@ -5876,19 +5911,21 @@ a.offer-status__name:focus-visible {
 
 .partner-card {
   display: block;
+  margin-top: 0;
   padding: 0.55rem;
   overflow: hidden;
   border-radius: 1.25rem;
   background: #fff;
   color: var(--ink);
   text-decoration: none;
+  transform: translate3d(0, var(--travel-y, 0px), 0);
   transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
 }
 
 .partner-card:hover,
 .partner-card:focus-visible {
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.22);
-  transform: translateY(-3px);
+  transform: translate3d(0, calc(var(--travel-y, 0px) - 3px), 0);
 }
 
 .partner-card__screen {
@@ -5949,17 +5986,12 @@ a.offer-status__name:focus-visible {
 }
 
 @media (max-width: 820px) {
-  .about-story__bar,
   .about-story__frame,
   .home-connection__layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .about-story__bar {
-    gap: 2rem;
-  }
-
-  .about-story__bar h2 {
+  .about-story__copy h2 {
     max-width: 20ch;
   }
 
@@ -5972,23 +6004,27 @@ a.offer-status__name:focus-visible {
     width: 100%;
     max-width: 42rem;
     margin-top: 0;
+    transform: none !important;
   }
 
-  .about-story__media-column {
+  .about-story__media-column .about-story__label {
     position: static;
     top: auto;
-    transition: none;
   }
 
+  .partner-showcase .partner-card {
+    margin-top: 0;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 560px) {
-  .about-story__bar h2 {
+  .about-story__copy h2 {
     font-size: clamp(2.25rem, 11vw, 3.35rem);
   }
 
   .about-story__frame {
-    margin-top: 3.5rem;
+    margin-top: 0;
     padding: 0;
     border-radius: 0;
   }
@@ -6039,5 +6075,10 @@ a.offer-status__name:focus-visible {
   .partner-card:focus-visible {
     padding-left: 0;
     transform: none;
+  }
+
+  .story-video-card,
+  .partner-card {
+    transform: none !important;
   }
 }

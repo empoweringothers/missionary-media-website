@@ -716,6 +716,109 @@
     });
   }
 
+  const setupSpecimenPicker = () => {
+    const picker = document.querySelector("[data-specimen-picker]");
+    const stage = document.querySelector("[data-specimen-stage]");
+    if (!picker || !stage) return;
+
+    const roughTitle = stage.querySelector("[data-specimen-rough-title]");
+    const roughList = stage.querySelector("[data-specimen-rough-list]");
+    const roughAside = stage.querySelector("[data-specimen-rough-aside]");
+    const handledTitle = stage.querySelector("[data-specimen-handled-title]");
+    const handledSample = stage.querySelector("[data-specimen-handled-sample]");
+    const handledBody = stage.querySelector("[data-specimen-handled-body]");
+    const handledNext = stage.querySelector("[data-specimen-handled-next]");
+
+    const specimens = {
+      "supporter-update": {
+        roughTitle: "Voice note + phone photos",
+        roughItems: ["[What happened this month]", "[Who or what the church can pray for]", "[Three photos and one short clip]"],
+        roughAside: "Enough to begin. It does not have to be polished.",
+        handledTitle: "Supporter update, ready to review",
+        handledSample: "[This month’s headline, in plain words]",
+        handledBody: "[Two or three sentences from your own words that help a supporter understand what happened and how to pray.]",
+        handledNext: "record a 60-second video with the photos you already have."
+      },
+      "phone-video": {
+        roughTitle: "A clip already on the phone",
+        roughItems: ["[What the video is trying to say]", "[Who should see it]", "[Where it should live]"],
+        roughAside: "A rough clip is enough. We will not start from a studio setup.",
+        handledTitle: "Phone video, ready to finish",
+        handledSample: "[One sentence for the opening line]",
+        handledBody: "[What to keep, what to cut, and how to send it without a new tool.]",
+        handledNext: "record one 60-second take with the light you already have."
+      },
+      "website-social": {
+        roughTitle: "A page or post that is stuck",
+        roughItems: ["[What this page or post is for]", "[What feels unclear]", "[Who needs to find it]"],
+        roughAside: "A screenshot and a sentence of frustration is enough to start.",
+        handledTitle: "Website or social change, ready to make",
+        handledSample: "[The one change that would help first]",
+        handledBody: "[What to write, what to leave alone, and what can wait.]",
+        handledNext: "rewrite the one block or post we named on the call."
+      },
+      "gear-software": {
+        roughTitle: "A tool choice in front of you",
+        roughItems: ["[What you are trying to do]", "[What you already own]", "[What someone told you to buy]"],
+        roughAside: "You do not need a spreadsheet. Name the job and the options.",
+        handledTitle: "Gear or software call, ready to make",
+        handledSample: "[The job this tool has to do]",
+        handledBody: "[What to use now, what not to buy, and why that fits the field.]",
+        handledNext: "keep or skip the one option we named, then try it on one real task."
+      },
+      "workflow-handoff": {
+        roughTitle: "A handoff that keeps stalling",
+        roughItems: ["[Who starts the work]", "[Where it gets stuck]", "[Who is waiting on it]"],
+        roughAside: "A messy description of the current path is enough to audit.",
+        handledTitle: "Workflow, ready to run",
+        handledSample: "[The one step to change first]",
+        handledBody: "[What to keep, what to drop, and who owns the next handoff.]",
+        handledNext: "change that one step this week and see if the stall is gone."
+      },
+      "not-sure": {
+        roughTitle: "Not sure where to start",
+        roughItems: ["[What is eating the week]", "[What you have already tried]", "[What would help this month]"],
+        roughAside: "Naming the fog is the start. We will pick one task together.",
+        handledTitle: "A starting task, named with you",
+        handledSample: "[The one job worth doing first]",
+        handledBody: "[Why this one, what can wait, and the first small step.]",
+        handledNext: "bring that one task to the call, even if it is still rough."
+      }
+    };
+
+    const fillList = (list, items) => {
+      if (!list) return;
+      list.replaceChildren(...items.map((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        return li;
+      }));
+    };
+
+    const applySpecimen = (key) => {
+      const spec = specimens[key] || specimens["supporter-update"];
+      if (roughTitle) roughTitle.textContent = spec.roughTitle;
+      fillList(roughList, spec.roughItems);
+      if (roughAside) roughAside.textContent = spec.roughAside;
+      if (handledTitle) handledTitle.textContent = spec.handledTitle;
+      if (handledSample) handledSample.textContent = spec.handledSample;
+      if (handledBody) handledBody.textContent = spec.handledBody;
+      if (handledNext) handledNext.textContent = spec.handledNext;
+
+      const intake = document.querySelector(".intake-form");
+      if (!intake) return;
+      intake.querySelectorAll("input[name='focus']").forEach((input) => {
+        input.checked = input.value === key;
+      });
+    };
+
+    picker.addEventListener("change", (event) => {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement) || input.name !== "specimen") return;
+      applySpecimen(input.value);
+    });
+  };
+
   /*
    * A transformed ancestor participates in an anchor target's measured position.
    * Lock the intake card before the browser calculates a #start jump, otherwise
@@ -739,24 +842,30 @@
   const clamp01 = (value) => Math.min(1, Math.max(0, value));
   const smootherStep = (value) => value * value * value * (value * ((value * 6) - 15) + 10);
 
+  const partnerMotionCard = document.querySelector(".partner-card");
+  const partnerMotionColumn = partnerMotionCard?.closest(".partner-showcase");
+  const partnerMotionSection = partnerMotionCard?.closest(".home-connection");
+
   const updateStoryCardForScroll = () => {
-    if (!storyMotionCard || !storyMotionSection || !storyMotionFrame) return;
+    const travelFor = (section, column, card) => {
+      if (!section || !column || !card) return;
+      if (reducedMotionQuery.matches || !storyMotionQuery.matches) {
+        card.style.setProperty("--travel-y", "0px");
+        return;
+      }
+      const siblings = Array.from(column.children).filter((node) => node !== card);
+      const used = siblings.reduce((sum, node) => sum + node.offsetHeight, 0);
+      const gap = Number.parseFloat(window.getComputedStyle(column).rowGap || window.getComputedStyle(column).gap) || 0;
+      const travel = Math.max(0, column.clientHeight - used - card.offsetHeight - gap);
+      const sectionRect = section.getBoundingClientRect();
+      const start = window.innerHeight * 0.92;
+      const end = 96;
+      const progress = smootherStep(clamp01((start - sectionRect.top) / Math.max(1, start - end)));
+      card.style.setProperty("--travel-y", `${(travel * (1 - progress)).toFixed(2)}px`);
+    };
 
-    const frameMotionAllowed = !reducedMotionQuery.matches;
-    storyMotionFrame.classList.toggle("is-scroll-linked", frameMotionAllowed);
-    if (!frameMotionAllowed) {
-      storyMotionFrame.style.setProperty("--story-frame-scroll-y", "0px");
-      return;
-    }
-
-    const sectionRect = storyMotionSection.getBoundingClientRect();
-    const frameTop = sectionRect.top + storyMotionFrame.offsetTop;
-    const frameStart = window.innerHeight * 0.98;
-    const frameEnd = window.innerHeight * 0.36;
-    const frameRawProgress = (frameStart - frameTop) / Math.max(1, frameStart - frameEnd);
-    const frameProgress = smootherStep(clamp01(frameRawProgress));
-    const frameOffset = 84 * (1 - frameProgress);
-    storyMotionFrame.style.setProperty("--story-frame-scroll-y", `${frameOffset.toFixed(2)}px`);
+    travelFor(storyMotionSection, storyMotionCard?.closest(".about-story__media-column"), storyMotionCard);
+    travelFor(partnerMotionSection, partnerMotionColumn, partnerMotionCard);
   };
 
   const updateContactForScroll = () => {
@@ -1236,13 +1345,9 @@
       ], { maxDelay: 80 });
     }
 
-    addSelectorGroup(".about-story__bar", [
-      { selector: ":scope > .about-story__label", kind: "rise" },
-      { selector: ":scope > h2", kind: "lines" }
-    ], { maxDelay: 60 });
-
     addSelectorGroup(".about-story__frame", [
-      { selector: ":scope .story-video-card", kind: "rise" },
+      { selector: ":scope .about-story__label", kind: "rise" },
+      { selector: ":scope > .about-story__copy > h2", kind: "rise" },
       { selector: ":scope > .about-story__copy > .about-story__eyebrow", kind: "words" },
       { selector: ":scope > .about-story__copy > .about-story__lead", kind: "words" },
       { selector: ":scope > .about-story__copy > p:not(.about-story__eyebrow):not(.about-story__lead)", kind: "words", all: true },
@@ -1277,10 +1382,6 @@
       { selector: ":scope > .home-connection__lead", kind: "words" },
       { selector: ":scope > p:not(.state-line):not(.section-label):not(.home-connection__spotlight-label):not(.home-connection__lead)", kind: "words", all: true }
     ], { maxDelay: 220 });
-
-    addSelectorGroup(".partner-showcase", [
-      { selector: ":scope > .partner-card", kind: "rise" }
-    ], { maxDelay: 160 });
 
     // Compatibility registry for the review worktree's previous content model.
     // These selectors no-op in the current source, while allowing the same
@@ -1828,5 +1929,6 @@
   setupEloqwntTextMotion();
   setupContainerSettle();
   setupProcessSteps();
+  setupSpecimenPicker();
   updateHeaderForScroll();
 })();

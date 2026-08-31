@@ -17,9 +17,9 @@
   <link rel="icon" href="assets/missionary-media-favicon.png" type="image/png" sizes="208x208">
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Regular.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Semibold.ttf.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/site.css?v=20260830-field-note-home">
-  <link rel="stylesheet" href="assets/academy.css?v=20260830-field-note-home">
-  <script src="assets/site.js" defer></script>
+  <link rel="stylesheet" href="assets/site.css?v=20260831-scroll-travel">
+  <link rel="stylesheet" href="assets/academy.css?v=20260831-scroll-travel">
+  <script src="assets/site.js?v=20260831-scroll-travel" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -59,7 +59,7 @@
         </div>
       </nav>
 
-      <a class="header-cta" href="#start">Book a free 30-min call</a>
+      <a class="header-cta" href="#start">Let’s chat</a>
 
       <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-drawer">
         <span>Menu</span><i aria-hidden="true"></i>
@@ -111,15 +111,15 @@
     <section class="hero" id="top" aria-labelledby="hero-title">
       <picture class="hero__media">
         <source media="(max-width: 64rem)" srcset="assets/academy/academy-hero-tabor-mobile.jpg">
-        <img src="assets/academy/academy-hero-tabor-wide.jpg" width="1800" height="1013" alt="Tabor Normoyle seated at a media desk, ready to help missionaries work through a digital question" fetchpriority="high">
+        <img src="assets/academy/academy-hero-tabor-wide.jpg" width="1800" height="1013" alt="Tabor Normoyle seated at a media desk, ready to help missionaries work through a digital frustration" fetchpriority="high">
       </picture>
       <div class="hero__center">
         <p class="hero-intro">One-on-one digital coaching for missionaries</p>
         <h1 id="hero-title">
-          <span class="hero-title-line"><span>Bring one digital question.</span></span>
+          <span class="hero-title-line"><span>Bring one digital frustration.</span></span>
           <span class="hero-title-line"><span>Leave with one clear next step.</span></span>
         </h1>
-        <p class="hero-offer">Bring the prayer letter, video, tool choice, or workflow already in front of you. We’ll sort through the options together and make a practical plan that fits your ministry.</p>
+        <p class="hero-offer">Bring the supporter update, phone video, website or social question, gear choice, or workflow already in front of you. We’ll sort through the options together and make a practical plan that fits your ministry.</p>
         <div class="hero-actions">
           <a class="button button--primary" href="#start">Book a free 30-min call</a>
         </div>
@@ -132,19 +132,32 @@
         <header class="field-note__heading" data-settle="rise">
           <p class="section-label">Now · One-on-one coaching</p>
           <h2 id="field-note-title">You bring it rough. We hand it back clear.</h2>
-          <p>One messy task at a time. A voice note, a few rough lines, or phone photos become one clear artifact to review and one next step you can act on.</p>
+          <p>Bring a supporter update or prayer letter, a phone video, a website or social media question, a gear or software choice, or a workflow handoff that keeps stalling. Not sure where to start? Bring that too.</p>
+          <p>We talk it through, I show you what to write or what to change, and you leave with one clear next step. If the workflow itself is the problem, we audit it together and find what to improve.</p>
         </header>
 
-        <div class="field-note__flow" data-settle="shrink" aria-label="Example of a rough field note becoming a supporter update">
+        <fieldset class="field-note__options" data-specimen-picker>
+          <legend>What are you working on?</legend>
+          <div class="intake-options__choices">
+            <label class="choice-chip"><input type="radio" name="specimen" value="supporter-update" checked><span>Supporter update or prayer letter</span></label>
+            <label class="choice-chip"><input type="radio" name="specimen" value="phone-video"><span>Phone video</span></label>
+            <label class="choice-chip"><input type="radio" name="specimen" value="website-social"><span>Website or social media</span></label>
+            <label class="choice-chip"><input type="radio" name="specimen" value="gear-software"><span>Gear or software</span></label>
+            <label class="choice-chip"><input type="radio" name="specimen" value="workflow-handoff"><span>Workflow or handoff</span></label>
+            <label class="choice-chip"><input type="radio" name="specimen" value="not-sure"><span>I’m not sure where to start</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field-note__flow" data-settle="shrink" data-specimen-stage aria-label="Example of a rough task becoming a clear next step">
           <article class="field-note__card field-note__card--rough">
             <p class="field-note__state">Rough from the field</p>
-            <h3>Voice note + phone photos</h3>
-            <ul>
+            <h3 data-specimen-rough-title>Voice note + phone photos</h3>
+            <ul data-specimen-rough-list>
               <li>[What happened this month]</li>
               <li>[Who or what the church can pray for]</li>
               <li>[Three photos and one short clip]</li>
             </ul>
-            <p class="field-note__aside">Enough to begin. It does not have to be polished.</p>
+            <p class="field-note__aside" data-specimen-rough-aside>Enough to begin. It does not have to be polished.</p>
           </article>
 
           <div class="field-note__handoff" aria-hidden="true">
@@ -153,14 +166,14 @@
 
           <article class="field-note__card field-note__card--handled">
             <p class="field-note__state">Handled with you</p>
-            <h3>Supporter update, ready to review</h3>
-            <p class="field-note__sample">[This month&rsquo;s headline, in plain words]</p>
-            <p>[Two or three sentences from your own words that help a supporter understand what happened and how to pray.]</p>
-            <p class="field-note__next"><strong>Your next step:</strong> record a 60-second video with the photos you already have.</p>
+            <h3 data-specimen-handled-title>Supporter update, ready to review</h3>
+            <p class="field-note__sample" data-specimen-handled-sample>[This month&rsquo;s headline, in plain words]</p>
+            <p data-specimen-handled-body>[Two or three sentences from your own words that help a supporter understand what happened and how to pray.]</p>
+            <p class="field-note__next"><strong>Your next step:</strong> <span data-specimen-handled-next>record a 60-second video with the photos you already have.</span></p>
           </article>
         </div>
 
-        <p class="field-note__disclosure">Specimen shown for illustration. Your artifact is built from your own words and ministry context, never invented.</p>
+        <p class="field-note__disclosure">Specimen shown for illustration. Pick the task in front of you; the same handoff works for a letter, a video, a website, a gear choice, or a workflow. Your artifact is built from your own words and ministry context, never invented.</p>
       </div>
     </section>
 
@@ -196,13 +209,11 @@
     <!-- The research points that lived here are now cards inside the voices rail above. -->
 
     <section class="section about-story" id="about" aria-labelledby="about-title">
-      <div class="shell about-story__bar">
-        <p class="about-story__label"><span aria-hidden="true"></span>About Missionary Media</p>
-        <h2 id="about-title">A guide, translator, and connector&mdash;beside you.</h2>
-      </div>
-
+      <!-- Label + video share the left column so the card can start at the
+           section bottom and travel up to the label as the page scrolls. -->
       <div class="shell about-story__frame" data-reveal>
         <div class="about-story__media-column">
+          <p class="about-story__label"><span aria-hidden="true"></span>About Missionary Media</p>
           <a class="story-video-card" href="https://www.youtube.com/watch?v=dnfMBprp0xg" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Watch Tabor Normoyle's story" aria-haspopup="dialog" aria-controls="story-video-dialog" data-story-open>
             <span class="story-video-card__screen">
               <img class="story-video-card__thumbnail" src="assets/story-thumbnail.jpg" width="1280" height="720" alt="" aria-hidden="true">
@@ -218,9 +229,10 @@
         </div>
 
         <div class="about-story__copy">
+          <h2 id="about-title">A guide, translator, and connector beside you.</h2>
           <p class="about-story__eyebrow">Built for missionary reality.</p>
           <p class="about-story__lead">I&rsquo;m not asking you to become the media person. I&rsquo;m here to help you know where to start, make wise decisions, and stay connected without it eating your week.</p>
-          <p>Missionary Media translates proven digital systems into practical coaching and training that fit the mission field&mdash;not a U.S. marketing playbook.</p>
+          <p>Missionary Media translates proven digital systems into practical coaching and training that fit the mission field, not a U.S. marketing playbook.</p>
           <nav class="about-story__channels" aria-label="Tune in to Missionary Media">
             <p>Where to tune in</p>
             <a href="https://www.youtube.com/@MissionaryMediaHub/podcasts" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span>Podcasts</span><em>Listen on YouTube</em><i aria-hidden="true">↗</i></a>
@@ -374,15 +386,15 @@
           <p>Missionaries can create or claim their own profile and keep its information current. Church members can then explore where they serve, learn more about their ministry, and see how to pray for them.</p>
         </div>
 
-        <div class="partner-showcase" aria-label="Home Connection partner spotlight">
-          <a class="partner-card" href="https://missionaryconnect.app/" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
+        <div class="partner-showcase" aria-label="Home Connection partner spotlight" data-travel-column>
+          <a class="partner-card" href="#start">
             <span class="partner-card__screen">
               <img src="assets/missionaryconnect-globe-view.png" width="1920" height="1032" alt="MissionaryConnect interactive 3D globe displaying missionary locations, profiles, and photo cards">
             </span>
             <span class="partner-card__copy">
               <small>Platform partner</small>
               <strong>MissionaryConnect</strong>
-              <em>Explore the interactive missions display <span aria-hidden="true">↗</span></em>
+              <em>Let&rsquo;s chat <span aria-hidden="true">→</span></em>
             </span>
           </a>
         </div>
@@ -429,7 +441,7 @@
         <div class="intake-card__intro" data-settle="rise">
           <p class="section-label">Start with one real question</p>
           <h2 id="final-title">Tell us what’s in front of you.</h2>
-          <p>You do not need a finished plan. Bring the prayer letter, video, tool choice, or workflow you are trying to finish. Rough notes are enough.</p>
+          <p>You do not need a finished plan. Bring the supporter update, video, website, tool choice, or workflow you are trying to finish. Rough notes are enough.</p>
           <ul class="intake-assurances" aria-label="What to expect">
             <li>We will be clear about what we can and cannot help with.</li>
             <li>You decide what happens next.</li>
