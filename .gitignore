@@ -1,6 +1,9 @@
 node_modules/
 .next/
 .netlify/
+.wrangler/
+.dev.vars
+.dev.vars.*
 .env
 .env.local
 .env*.local

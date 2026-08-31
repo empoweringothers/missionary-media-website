@@ -2,6 +2,11 @@
 
 Production: <https://missionarymedia.io>
 
+Cloudflare Free migration is being prepared. See [CLOUDFLARE.md](CLOUDFLARE.md)
+for the versioned configuration, preview checks and cutover/rollback procedure.
+The DNS cutover is not yet verified; the Netlify workflow below remains the
+recorded existing production path until migration acceptance is complete.
+
 ## Canonical source
 
 `public/` is the only editable source for the public Missionary Media website.
