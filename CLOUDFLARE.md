@@ -1,6 +1,8 @@
 # Cloudflare deployment
 
-Cloudflare endpoint verified on 2026-08-31: **Cloudflare is the authoritative destination** for https://missionarymedia.io. HTTPS www and HTTP requests redirect to the HTTPS apex, preserving the path and query. The complete 101-file public tree matched the approved source in a successful production-domain check. **DNS propagation is still in progress:** a later check reached the old Netlify server and its archived Academy CSS through cached DNS. This is not a new source change; do not claim that every resolver has moved. Netlify automatic builds are stopped; its old custom-domain binding is temporarily retained for cached DNS and rollback until propagation finishes.
+Migration completed and verified on 2026-08-31: **Cloudflare is the authoritative host** for https://missionarymedia.io. HTTPS www and HTTP requests redirect to the HTTPS apex, preserving the path and query. Public and configured local DNS resolvers return Cloudflare; the separately cached Mac apex entry cleared at 20:54 UTC. The complete 101-file public tree and all six canonical redirects passed through ordinary Mac DNS before and after Netlify's domain binding was removed. Netlify automatic builds remain stopped; its old deployment and the GitHub archive are retained for recovery. These are checks of observed resolvers and live responses, not a claim to have tested every resolver worldwide.
+
+Verified production source: `0a87da3393bda88bf183022ee3b9ee4aca3d5b9c`, deployed by [GitHub Actions run 33435393418](https://github.com/empoweringothers/missionary-media-website/actions/runs/33435393418). Cloudflare version `011c412e-5c19-41e5-846c-89b74b661c50` serves 100% of traffic. Subsequent documentation-only commits do not trigger the path-filtered workflow and do not change the deployed public tree.
 
 ## One source, one publish directory
 
@@ -70,9 +72,9 @@ The pre-upgrade site is preserved at `78c059c9bebf3d929fb0a6c15cac2ddafb0f439d`:
 
 Do not rewrite the archive. To restore its visual/content version, create a new reviewed commit restoring that public tree, then deploy it through the current host. Once Cloudflare has successful releases, its version rollback can also restore a verified earlier Cloudflare deployment. A Netlify deployment ID is not a Cloudflare version ID.
 
-The retained Netlify site is `missionarymediav2` (ID `f430567f-8825-4c01-a0fa-fcaaa5761958`), with old deployment `6a902ab91a3e620008f9a92d`. Its repository still points here but `stop_builds=true`; do not resume or manually publish it. Remove only its custom-domain binding after DNS propagation, not its recovery deployment or unrelated account projects.
+The retained Netlify site is `missionarymediav2` (ID `f430567f-8825-4c01-a0fa-fcaaa5761958`), with old ready deployment `6a902ab91a3e620008f9a92d`. Final API readback confirms `custom_domain=null`, `domain_aliases=[]`, and `stop_builds=true`. Its recovery URL is https://missionarymediav2.netlify.app, verified HTTP 200 with a valid certificate after detachment. Its repository still points here, but builds are stopped; do not resume or manually publish it. No recovery deployment, account, or unrelated project was deleted.
 
-DNS rollback before that binding is retired uses GoDaddy nameservers `ns29.domaincontrol.com` and `ns30.domaincontrol.com` with the original zone retained. The original website record was apex A `75.2.60.5`, with www CNAME `missionarymedia.io`. After removing the Netlify binding, do not point DNS back there without first restoring/verifying the binding and HTTPS. Prefer a reviewed source/version rollback within Cloudflare. Keep the complete dated migration receipt outside the public source.
+For historical DNS recovery, the previous GoDaddy nameservers were `ns29.domaincontrol.com` and `ns30.domaincontrol.com`, with the original zone retained. The original website record was apex A `75.2.60.5`, with www CNAME `missionarymedia.io`. **The Netlify custom-domain binding is now removed:** do not restore that DNS target without first explicitly restoring and verifying its domain binding and HTTPS. Prefer a reviewed source/version rollback within Cloudflare. Keep the complete dated migration receipt outside the public source.
 
 ## References
 

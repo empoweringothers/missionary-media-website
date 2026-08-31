@@ -4,8 +4,9 @@ Production: <https://missionarymedia.io>
 
 Hosting: Cloudflare Workers Static Assets on Free, deployed through GitHub
 Actions. The custom domain, HTTPS, canonical redirects and all 101 public files
-were verified on 2026-08-31. DNS propagation is still in progress; cached
-resolvers may temporarily serve the archived Netlify version. See [CLOUDFLARE.md](CLOUDFLARE.md) for configuration,
+were verified on 2026-08-31, including ordinary Mac DNS after its cache cleared.
+The legacy Netlify domain binding has been removed and its builds are stopped.
+See [CLOUDFLARE.md](CLOUDFLARE.md) for configuration,
 verification, credentials and rollback instructions.
 
 ## Canonical source
@@ -47,14 +48,15 @@ rollback.
 
 ## Legacy Netlify retirement
 
-Automatic builds are stopped on `missionarymediav2`; Cloudflare is the live host.
-Its old deployment and custom-domain binding are temporarily retained as a
-rollback/old-DNS-cache safeguard during nameserver propagation. Once public
-DNS no longer returns the previous GoDaddy delegation or Netlify address,
-remove only this site's old custom-domain binding, verify Cloudflare again,
-and retain the archived source and old deployment. Do not delete the Netlify
-account or unrelated sites. `netlify.toml` is a legacy reference, not the
-current production configuration.
+Retirement completed on 2026-08-31: `missionarymediav2` has no custom domain or
+domain aliases, and automatic builds remain stopped. Cloudflare is the live
+host and the only automatic deployment path. The old ready Netlify deployment
+is retained at <https://missionarymediav2.netlify.app> for recovery, alongside
+the GitHub archive below. Removing the domain binding did not delete the site,
+account or unrelated projects. `netlify.toml` is a legacy reference, not the
+current production configuration. Do not resume Netlify builds or point DNS
+back there without explicitly restoring and verifying the domain binding and
+HTTPS; prefer rollback within Cloudflare.
 
 ## Historical references
 
