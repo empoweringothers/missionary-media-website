@@ -31,8 +31,8 @@ Expected routes: `/`, `/academy.html` (may redirect to `/academy/`), `/sponsor.h
 
 ## Safe production setup
 
-1. In the owner Cloudflare account, connect only the intended website repository. Verify GitHub App access is limited appropriately; an account connection is not proof that access is repository-limited.
-2. Create the Worker using the configuration above. Check the production branch is `main`, not an archive or review branch. Keep preview branches separate from production.
+1. Use `.github/workflows/deploy-cloudflare.yml` as the single automatic deployment path. The repository secret `CLOUDFLARE_API_TOKEN` contains a user token restricted to Workers Scripts:Edit and Account Settings:Read in the owner account only. `CLOUDFLARE_ACCOUNT_ID` is a non-secret repository variable. Do not create a second Cloudflare Builds trigger; its default auto-created token was intentionally not accepted.
+2. The workflow deploys only `main` using the configuration above. Archive/review branches do not deploy. Checkout and Node setup actions are pinned to immutable commits, repository access is read-only, checkout credentials are not persisted, and the deployment secret is available only during the deploy step.
 3. Verify the Cloudflare deployment/build records reference the exact pushed Git commit. Test its `workers.dev` URL and compare homepage/asset bytes with that commit.
 4. Inventory the entire existing GoDaddy DNS zone before moving nameservers. Preserve non-website records; Cloudflare supplies its own NS/SOA. Do not copy old authoritative apex NS records into the new zone.
 5. Add `missionarymedia.io` on the Free zone plan, verify imported records, then use the **exact nameservers assigned to this account's zone** in GoDaddy. Never guess nameserver names.
@@ -42,7 +42,7 @@ Expected routes: `/`, `/academy.html` (may redirect to `/academy/`), `/sponsor.h
 
 ## Future AI-assisted updates
 
-Edit the canonical `public/` source on a review branch, run checks, and inspect a preview. After production approval, merge/push the reviewed commit to `main`; Cloudflare's Git integration deploys it. Verify the resulting build's commit and the live website rather than reporting a push as proof of deployment.
+Edit the canonical `public/` source on a review branch, run checks, and inspect a preview. After production approval, merge/push the reviewed commit to `main`; GitHub Actions deploys it to Cloudflare. The workflow records the commit in the Cloudflare version metadata and compares every publicly served file against its checked-out source. A failed post-deploy verification does not automatically roll back; inspect the failure and use a verified rollback if necessary. Verify the run's commit and the live website rather than reporting a push as proof of deployment.
 
 Credentials belong in the owner's Cloudflare/GitHub authorization stores, not `.env` committed to Git, Wrangler variables, README files, chat, or source. Review the scope of OAuth and GitHub App grants. Installing an MCP connection does not authenticate it or authorize arbitrary future changes.
 
@@ -63,4 +63,4 @@ DNS rollback before Netlify retirement uses GoDaddy nameservers `ns29.domaincont
 - [Cloudflare's Netlify migration guide](https://developers.cloudflare.com/workers/static-assets/migration-guides/netlify-to-workers/)
 - [Static asset routing](https://developers.cloudflare.com/workers/static-assets/routing/advanced/html-handling/)
 - [Worker custom domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/)
-- [Git-backed Workers builds](https://developers.cloudflare.com/workers/ci-cd/builds/)
+- [Workers deployments using GitHub Actions](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/)
