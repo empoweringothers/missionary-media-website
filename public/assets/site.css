@@ -4209,18 +4209,15 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 }
 
 .field-row__panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--dur-base) var(--ease-out);
+  display: none;
 }
 
 .field-row.is-open .field-row__panel,
 .no-js .field-row__panel {
-  grid-template-rows: 1fr;
+  display: block;
 }
 
 .field-row__panel-inner {
-  overflow: hidden;
   padding: 0 0 1.7rem 4.4rem;
 }
 
@@ -4532,10 +4529,6 @@ html.intake-anchor-locked .intake-card.is-scroll-linked {
 @media (prefers-reduced-motion: reduce) {
   .academy-teaser__media img {
     transform: none;
-  }
-
-  .field-row__panel {
-    transition: none;
   }
 }
 
