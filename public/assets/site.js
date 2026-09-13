@@ -1229,6 +1229,18 @@
     // The header and hero keep their bespoke load choreography. The voices rail
     // uses that same choreography only when it was actually in the first viewport;
     // otherwise its label and quote viewport enter as two intact blocks here.
+    addSelectorGroup(".field-note__heading", [
+      { selector: ":scope > .section-label", kind: "rise" },
+      { selector: ":scope > h2", kind: "lines" },
+      { selector: ":scope > p:last-child", kind: "words" }
+    ], { maxDelay: 80 });
+
+    addSelectorGroup(".week-rail", [
+      { selector: ":scope > .week-rail__caption", kind: "rise" },
+      { selector: ":scope > .week-rail__days", kind: "rise" },
+      { selector: ":scope > .week-rail__overflow", kind: "rise" }
+    ], { maxDelay: 80 });
+
     if (proofRail && !proofRail.classList.contains("proof-rail-intro-target")) {
       addSelectorGroup(proofRail, [
         { selector: ":scope > .voices-rail__top", kind: "rise" },
@@ -1705,17 +1717,82 @@
   };
 
   /*
-   * Our process: the four-step card.
+   * Field notes: one paper comes forward at a time. Hover, focus, click, and
+   * arrow keys choose a note. A quiet auto-advance keeps the pile alive unless
+   * the reader is already on it, or reduced motion is on.
+   */
+  const setupFieldNotes = () => {
+    const root = document.querySelector("[data-field-notes]");
+    if (!root) return;
+    const notes = Array.from(root.querySelectorAll("[data-note]"));
+    if (!notes.length) return;
+
+    let index = Math.max(0, notes.findIndex((note) => note.classList.contains("is-forward")));
+    let timer = 0;
+
+    const show = (next) => {
+      index = ((next % notes.length) + notes.length) % notes.length;
+      notes.forEach((note, noteIndex) => {
+        const forward = noteIndex === index;
+        note.classList.toggle("is-forward", forward);
+        note.setAttribute("aria-pressed", String(forward));
+        note.tabIndex = forward ? 0 : -1;
+      });
+    };
+
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = 0;
+    };
+
+    const start = () => {
+      if (reducedMotionQuery.matches) return;
+      stop();
+      timer = window.setInterval(() => show(index + 1), 5000);
+    };
+
+    notes.forEach((note, noteIndex) => {
+      note.addEventListener("mouseenter", () => show(noteIndex));
+      note.addEventListener("focus", () => show(noteIndex));
+      note.addEventListener("click", () => show(noteIndex));
+      note.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowDown" && event.key !== "ArrowLeft" && event.key !== "ArrowUp") {
+          return;
+        }
+        event.preventDefault();
+        const direction = (event.key === "ArrowRight" || event.key === "ArrowDown") ? 1 : -1;
+        show(index + direction);
+        notes[index].focus();
+      });
+    });
+
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", (event) => {
+      if (!root.contains(event.relatedTarget)) start();
+    });
+
+    show(index);
+    start();
+
+    reducedMotionQuery.addEventListener("change", (event) => {
+      if (event.matches) {
+        stop();
+        show(0);
+        return;
+      }
+      start();
+    });
+  };
+
+  /*
+   * The work: four facets, not a numbered pipeline.
    *
    * The card's entrance is the shared [data-settle] system. Local to this
    * section are two things CSS cannot do on its own: reflecting the open state
-   * in aria-expanded, and the scroll-scrubbed progression that lights each step
-   * in turn. Hover and focus states are pure CSS.
-   *
-   * Progression keyframes, as a percentage of the section's scroll range, are
-   * the measured reference values:
-   *   step 1  20-25    step 2  34-35    step 3  44-45    step 4  54-55
-   *   connectors  25-35, 35-45, 45-55
+   * in aria-expanded, and a quiet scroll wash that lights each facet as it
+   * enters view. Hover and focus states are pure CSS.
    */
   const setupProcessSteps = () => {
     const steps = Array.from(document.querySelectorAll(".ps-step"));
@@ -1827,6 +1904,7 @@
   handleViewportChange();
   setupEloqwntTextMotion();
   setupContainerSettle();
+  setupFieldNotes();
   setupProcessSteps();
   updateHeaderForScroll();
 })();
