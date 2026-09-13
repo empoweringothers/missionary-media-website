@@ -1820,6 +1820,25 @@
     });
   };
 
+  const setupFieldRows = () => {
+    const rows = Array.from(document.querySelectorAll("[data-field-rows] .field-row"));
+    if (!rows.length) return;
+
+    const setOpen = (row, open) => {
+      const button = row.querySelector(".field-row__trigger");
+      row.classList.toggle("is-open", open);
+      button?.setAttribute("aria-expanded", String(open));
+    };
+
+    rows.forEach((row) => {
+      const button = row.querySelector(".field-row__trigger");
+      button?.addEventListener("click", () => {
+        if (row.classList.contains("is-open")) return;
+        rows.forEach((other) => setOpen(other, other === row));
+      });
+    });
+  };
+
   desktopQuery.addEventListener("change", handleViewportChange);
   storyMotionQuery.addEventListener("change", handleViewportChange);
   reducedMotionQuery.addEventListener("change", handleViewportChange);
@@ -1828,5 +1847,6 @@
   setupEloqwntTextMotion();
   setupContainerSettle();
   setupProcessSteps();
+  setupFieldRows();
   updateHeaderForScroll();
 })();

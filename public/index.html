@@ -17,8 +17,7 @@
   <link rel="icon" href="assets/missionary-media-favicon.png" type="image/png" sizes="208x208">
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Regular.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3/SourceSans3-Semibold.ttf.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/site.css?v=20260912-translator-home">
-  <link rel="stylesheet" href="assets/academy.css?v=20260830-field-note-home">
+  <link rel="stylesheet" href="assets/site.css?v=20260913-field-rows">
   <script src="assets/site.js" defer></script>
 </head>
 <body>
@@ -135,31 +134,64 @@
           <p>This is the experience, not a method. The field is already full. The update becomes a second job. They skip it or wait. Home goes quiet.</p>
         </header>
 
-        <div class="field-note__beats" data-settle="shrink" aria-label="The world missionaries already walk">
-          <article class="field-note__card field-note__card--rough">
-            <p class="field-note__state">The week</p>
-            <h3>Field is full</h3>
-            <p>Ministry already fills the days. Digital work has to fit inside that, not on top of it.</p>
-          </article>
-
-          <article class="field-note__card field-note__card--rough">
-            <p class="field-note__state">The extra work</p>
-            <h3>The update is a second job</h3>
-            <p>Staying close to the people back home takes time they do not have left.</p>
-          </article>
-
-          <article class="field-note__card field-note__card--rough">
-            <p class="field-note__state">The pause</p>
-            <h3>They skip or wait</h3>
-            <p>The letter, the video, the tool choice sits. Not because they do not care.</p>
-          </article>
-
-          <article class="field-note__card field-note__card--rough">
-            <p class="field-note__state">What home hears</p>
-            <h3>Home goes quiet</h3>
-            <p>The people who sent them hear less, then less again.</p>
-          </article>
-        </div>
+        <ol class="field-rows" data-field-rows data-settle="rise" aria-label="The world missionaries already walk">
+          <li class="field-row is-open">
+            <h3>
+              <button class="field-row__trigger" type="button" id="field-trigger-1" aria-expanded="true" aria-controls="field-panel-1">
+                <span class="field-row__num">01</span>
+                <span class="field-row__title">Field is full</span>
+              </button>
+            </h3>
+            <div class="field-row__panel" id="field-panel-1" role="region" aria-labelledby="field-trigger-1">
+              <div class="field-row__panel-inner">
+                <p class="field-row__state">The week</p>
+                <p>Ministry already fills the days. Digital work has to fit inside that, not on top of it.</p>
+              </div>
+            </div>
+          </li>
+          <li class="field-row">
+            <h3>
+              <button class="field-row__trigger" type="button" id="field-trigger-2" aria-expanded="false" aria-controls="field-panel-2">
+                <span class="field-row__num">02</span>
+                <span class="field-row__title">The update is a second job</span>
+              </button>
+            </h3>
+            <div class="field-row__panel" id="field-panel-2" role="region" aria-labelledby="field-trigger-2">
+              <div class="field-row__panel-inner">
+                <p class="field-row__state">The extra work</p>
+                <p>Staying close to the people back home takes time they do not have left.</p>
+              </div>
+            </div>
+          </li>
+          <li class="field-row">
+            <h3>
+              <button class="field-row__trigger" type="button" id="field-trigger-3" aria-expanded="false" aria-controls="field-panel-3">
+                <span class="field-row__num">03</span>
+                <span class="field-row__title">They skip or wait</span>
+              </button>
+            </h3>
+            <div class="field-row__panel" id="field-panel-3" role="region" aria-labelledby="field-trigger-3">
+              <div class="field-row__panel-inner">
+                <p class="field-row__state">The pause</p>
+                <p>The letter, the video, the tool choice sits. Not because they do not care.</p>
+              </div>
+            </div>
+          </li>
+          <li class="field-row">
+            <h3>
+              <button class="field-row__trigger" type="button" id="field-trigger-4" aria-expanded="false" aria-controls="field-panel-4">
+                <span class="field-row__num">04</span>
+                <span class="field-row__title">Home goes quiet</span>
+              </button>
+            </h3>
+            <div class="field-row__panel" id="field-panel-4" role="region" aria-labelledby="field-trigger-4">
+              <div class="field-row__panel-inner">
+                <p class="field-row__state">What home hears</p>
+                <p>The people who sent them hear less, then less again.</p>
+              </div>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
