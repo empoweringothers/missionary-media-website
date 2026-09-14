@@ -1,6 +1,57 @@
 "use strict";
 
+const MissionaryMediaStoryVideo = (() => {
+  const modifiedClick = (event) => Boolean(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey);
+
+  const embedSrcWithPlaysinline = (src) => {
+    if (!src) return "";
+    try {
+      const url = new URL(src, "https://www.youtube-nocookie.com/");
+      url.searchParams.set("playsinline", "1");
+      return url.toString();
+    } catch {
+      return src.includes("playsinline=") ? src : `${src}${src.includes("?") ? "&" : "?"}playsinline=1`;
+    }
+  };
+
+  const openStoryVideo = ({ event, dialog, frame, fallback, watchUrl, assignLocation }) => {
+    if (modifiedClick(event)) return "ignore";
+    event.preventDefault();
+    const navigate = () => {
+      if (typeof assignLocation === "function" && watchUrl) assignLocation(watchUrl);
+      return "navigate";
+    };
+    if (!dialog || typeof dialog.showModal !== "function") return navigate();
+    try {
+      dialog.showModal();
+    } catch {
+      return navigate();
+    }
+    if (frame) {
+      frame.src = embedSrcWithPlaysinline(frame.dataset && frame.dataset.src);
+      frame.hidden = false;
+    }
+    if (fallback) fallback.hidden = true;
+    return "dialog";
+  };
+
+  const closeStoryVideo = ({ frame, fallback }) => {
+    if (frame) {
+      frame.hidden = true;
+      frame.removeAttribute("src");
+    }
+    if (fallback) fallback.hidden = false;
+  };
+
+  return { embedSrcWithPlaysinline, openStoryVideo, closeStoryVideo };
+})();
+
+if (typeof module === "object" && module.exports) {
+  module.exports = MissionaryMediaStoryVideo;
+}
+
 (() => {
+  if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.classList.replace("no-js", "js");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -772,32 +823,28 @@
 
   const videoDialog = document.querySelector(".video-dialog");
   const videoFrame = videoDialog?.querySelector("[data-video-frame]");
-  videoFrame?.addEventListener("load", () => {
-    if (videoFrame.hasAttribute("src")) {
-      videoFrame.hidden = false;
-      videoDialog.querySelector(".video-fallback").hidden = true;
-    }
-  });
+  const videoFallback = videoDialog?.querySelector(".video-fallback");
   document.querySelectorAll("[data-story-video]").forEach((link) => {
     link.addEventListener("click", (event) => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      if (!videoDialog || typeof videoDialog.showModal !== "function") return;
-      event.preventDefault();
-      videoDialog.showModal();
-      videoFrame.src = videoFrame.dataset.src;
-      syncDialogScroll();
+      const result = MissionaryMediaStoryVideo.openStoryVideo({
+        event,
+        dialog: videoDialog,
+        frame: videoFrame,
+        fallback: videoFallback,
+        watchUrl: link.href,
+        assignLocation: (url) => window.location.assign(url)
+      });
+      if (result === "dialog") syncDialogScroll();
     });
   });
-  videoDialog?.querySelector("[data-video-close]").addEventListener("click", () => videoDialog.close());
+  videoDialog?.querySelector("[data-video-close]")?.addEventListener("click", () => videoDialog.close());
   videoDialog?.addEventListener("click", (event) => {
     if (event.target !== videoDialog) return;
     const box = videoDialog.getBoundingClientRect();
     if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) videoDialog.close();
   });
   videoDialog?.addEventListener("close", () => {
-    videoFrame.hidden = true;
-    videoDialog.querySelector(".video-fallback").hidden = false;
-    videoFrame.removeAttribute("src");
+    MissionaryMediaStoryVideo.closeStoryVideo({ frame: videoFrame, fallback: videoFallback });
     syncDialogScroll();
   });
 
