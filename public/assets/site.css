@@ -1044,7 +1044,7 @@ main{overflow-x:clip}
 .course-backdrop{position:absolute;inset:-48px 0 0;background:var(--navy);border-radius:var(--section-radius);z-index:0;pointer-events:none}
 .course-content{position:relative;z-index:1}
 .menu-channel-icon{width:86px;height:86px;background:#dce9f5;color:#1760af;border-radius:14px;display:grid;place-items:center}
-.menu-channel-icon svg{width:35px;height:35px;fill:currentColor}
+.menu-channel-icon svg{width:35px;height:35px;fill:none;stroke:currentColor}
 .watch-image{max-width:480px;margin-inline:auto;width:100%}
 .watch-image img{aspect-ratio:3/4;object-fit:contain;object-position:center;border-radius:var(--radius)}
 @media(max-width:1179px){
@@ -1199,7 +1199,7 @@ main{overflow-x:clip}
  .learning-material .button{font-size:14px;padding-inline:16px}
 }
 
-/* Eloqwnt-style pale tiles and restrained line glyphs. */
+/* Missionary Media icon family: 1.5 stroke, round caps, #1760af on #dce9f5 tiles. */
 .menu-channel-icon{background:#dce9f5;color:#1760af}
 .menu-channel-icon img{width:35px;height:35px;display:block;object-fit:contain}
 .resource-icon{background:#dce9f5;color:#1760af}
