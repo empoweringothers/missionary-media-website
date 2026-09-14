@@ -1043,8 +1043,8 @@ main{overflow-x:clip}
 .course-section[data-rise-section]{position:relative;isolation:isolate;background:transparent;border-radius:0;overflow:visible}
 .course-backdrop{position:absolute;inset:-48px 0 0;background:var(--navy);border-radius:var(--section-radius);z-index:0;pointer-events:none}
 .course-content{position:relative;z-index:1}
-.menu-channel-icon{width:86px;height:86px;background:#dce9f5;color:#1760af;border-radius:14px;display:grid;place-items:center}
-.menu-channel-icon svg{width:42px;height:42px;fill:none;stroke:currentColor}
+.menu-channel-icon{width:86px;height:86px;background:#dce9f5;color:#1760af;border-radius:50%;display:grid;place-items:center}
+.menu-channel-icon svg{width:30px;height:30px;fill:none;stroke:currentColor}
 .watch-image{max-width:480px;margin-inline:auto;width:100%}
 .watch-image img{aspect-ratio:3/4;object-fit:contain;object-position:center;border-radius:var(--radius)}
 @media(max-width:1179px){
@@ -1199,17 +1199,17 @@ main{overflow-x:clip}
  .learning-material .button{font-size:14px;padding-inline:16px}
 }
 
-/* Missionary Media icon family: 1.5 stroke, round caps, #1760af on #dce9f5 tiles. */
-.menu-channel-icon{background:#dce9f5;color:#1760af}
-.menu-channel-icon img{width:42px;height:42px;display:block;object-fit:contain}
-.resource-icon{background:#dce9f5;color:#1760af}
-.resource-icon img{width:22px;height:22px;display:block;object-fit:contain}
-.learning-initial{background:#dce9f5;color:#1760af}
-.learning-initial img{width:24px;height:24px;display:block;object-fit:contain}
-.program-monogram{background:#dce9f5;color:#1760af}
-.program-monogram img{width:26px;height:26px;display:block;object-fit:contain}
+/* Thin line glyphs on pale circular tiles: #1760af on #dce9f5, Eloqwnt plus/play cadence. */
+.menu-channel-icon{background:#dce9f5;color:#1760af;border-radius:50%}
+.menu-channel-icon img{width:30px;height:30px;display:block;object-fit:contain}
+.resource-icon{background:#dce9f5;color:#1760af;border-radius:50%}
+.resource-icon img{width:18px;height:18px;display:block;object-fit:contain}
+.learning-initial{background:#dce9f5;color:#1760af;border-radius:50%}
+.learning-initial img{width:20px;height:20px;display:block;object-fit:contain}
+.program-monogram{background:#dce9f5;color:#1760af;border-radius:50%}
+.program-monogram img{width:22px;height:22px;display:block;object-fit:contain}
 .channel-links>a{display:flex;align-items:center;justify-content:flex-start;gap:16px}
-.channel-brand-icon{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:10px;background:#dce9f5}
-.channel-brand-icon img{width:22px;height:22px;display:block;object-fit:contain}
+.channel-brand-icon{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:50%;background:#dce9f5}
+.channel-brand-icon img{width:18px;height:18px;display:block;object-fit:contain}
 .channel-links>a>:last-child{margin-left:auto}
 .watch-image img{aspect-ratio:3/4;object-fit:contain;object-position:center}
