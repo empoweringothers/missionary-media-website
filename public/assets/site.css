@@ -333,6 +333,8 @@ textarea::placeholder{color:#72796f}
 .small-callout>.eyebrow{grid-column:1/-1;margin-bottom:-40px}
 .small-callout h2{font-size:clamp(38px,4.2vw,60px)}
 .small-callout>div>p{color:var(--muted);max-width:41ch;font-size:20px;margin-bottom:25px}
+.resource-call-portrait{width:184px;height:184px;border-radius:50%;overflow:hidden;background:#dce9f5;margin:0 0 22px}
+.resource-call-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 10%}
 
 /* Resources: the existing guide and a usable, local directory. */
 .resource-hero{padding-block:66px 80px;display:grid;grid-template-columns:1fr .82fr;gap:100px;align-items:center}
