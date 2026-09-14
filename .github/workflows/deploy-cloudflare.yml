@@ -36,7 +36,7 @@ jobs:
         run: npm ci
       - name: Check deployable source
         run: |
-          node --check public/assets/site.js
+          npm test
           node --check scripts/verify-static-deploy.mjs
           git diff --exit-code
           npm run check:deploy
