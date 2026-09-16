@@ -1219,25 +1219,108 @@ main{overflow-x:clip}
 .channel-links>a>:last-child{margin-left:auto}
 .watch-image img{aspect-ratio:3/4;object-fit:contain;object-position:center}
 
-/* About Tabor: Outline C sparse, ABOUT-003 short title, Brand hero stagger. */
+/* About Tabor: WO-BRAND-TYPE-001 tokens. Source Sans 3 only. No 8ch H1 trap. */
+.page-about{
+  --about-font:var(--font);
+  --about-mark-size:.9375rem;
+  --about-mark-weight:600;
+  --about-mark-lh:1.4;
+  --about-mark-tracking:.015em;
+  --about-mark-color:var(--ink);
+  --about-h1-size:clamp(2.875rem,4.6vw,3.75rem);
+  --about-h1-weight:600;
+  --about-h1-lh:1.05;
+  --about-h1-tracking:-.04em;
+  --about-lede-size:clamp(1.25rem,1.7vw,1.375rem);
+  --about-lede-weight:400;
+  --about-lede-lh:1.45;
+  --about-lede-tracking:-.01em;
+  --about-lede-measure:38ch;
+  --about-lede-color:var(--ink);
+  --about-body-size:1.125rem;
+  --about-body-weight:400;
+  --about-body-lh:1.55;
+  --about-body-measure:42ch;
+  --about-body-color:var(--muted);
+  --about-label-size:.9375rem;
+  --about-label-weight:600;
+  --about-label-lh:1.4;
+  --about-label-tracking:.015em;
+  --about-label-color:var(--ink);
+  --about-meta-size:1rem;
+  --about-meta-lh:1.45;
+  --about-meta-color:var(--muted);
+}
 .about-hero{padding-block:66px 80px;display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:start}
-.about-hero h1{font-size:clamp(2.875rem,4.6vw,3.75rem);font-weight:600;line-height:1.05;letter-spacing:-.04em}
-.about-hero h2{font-size:clamp(24px,2vw,30px);line-height:1.16;letter-spacing:-.025em;margin:32px 0 12px}
-.about-hero h1+h2{margin-top:28px}
-.about-help{font-size:clamp(1.25rem,1.7vw,1.375rem);line-height:1.45;color:var(--ink);max-width:38ch;margin:0}
-.about-hero-copy>p:not(.about-help):not(.about-more-story){color:var(--muted);font-size:1.125rem;line-height:1.55;max-width:42ch}
+.page-about .about-hero{font-family:var(--about-font)}
+.page-about .about-mark,
+.page-about .about-hero .eyebrow{
+  font-size:var(--about-mark-size);
+  font-weight:var(--about-mark-weight);
+  line-height:var(--about-mark-lh);
+  letter-spacing:var(--about-mark-tracking);
+  color:var(--about-mark-color);
+}
+.page-about .about-hero h1{
+  font-size:var(--about-h1-size);
+  font-weight:var(--about-h1-weight);
+  line-height:var(--about-h1-lh);
+  letter-spacing:var(--about-h1-tracking);
+}
+.page-about .about-hero h2,
+.page-about .about-label{
+  font-size:var(--about-label-size);
+  font-weight:var(--about-label-weight);
+  line-height:var(--about-label-lh);
+  letter-spacing:var(--about-label-tracking);
+  color:var(--about-label-color);
+  margin:1.75rem 0 .65rem;
+}
+.page-about .about-hero h1+h2,
+.page-about .about-hero h1+.about-label{margin-top:1.5rem}
+.page-about .about-help,
+.page-about .about-lede{
+  font-size:var(--about-lede-size);
+  font-weight:var(--about-lede-weight);
+  line-height:var(--about-lede-lh);
+  letter-spacing:var(--about-lede-tracking);
+  max-width:var(--about-lede-measure);
+  color:var(--about-lede-color);
+  margin:0;
+}
+.page-about .about-body,
+.page-about .about-hero-copy>p:not(.about-help):not(.about-more-story):not(.about-lede){
+  font-size:var(--about-body-size);
+  font-weight:var(--about-body-weight);
+  line-height:var(--about-body-lh);
+  max-width:var(--about-body-measure);
+  color:var(--about-body-color);
+}
 .about-hero-cta{margin-top:28px}
-.about-more-story{margin-top:18px;font-size:16px;color:var(--muted)}
-.about-more-story a{font-weight:600}
+.page-about .about-more-story{
+  margin-top:18px;
+  font-size:var(--about-meta-size);
+  line-height:var(--about-meta-lh);
+  color:var(--about-meta-color);
+}
+.page-about .about-more-story a{font-weight:600;color:var(--blue)}
 .about-portrait{margin:0;border-radius:var(--radius);overflow:hidden;background:#e9e5dc}
 .about-portrait img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 18%;display:block}
 @keyframes about-hero-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .about-hero [data-about-stagger]{animation:about-hero-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both}
 .about-hero h1[data-about-stagger]{animation-delay:0ms}
+.about-hero .about-help[data-about-stagger]{animation-delay:90ms}
 .about-hero .about-hero-cta[data-about-stagger]{animation-delay:180ms}
 .no-js .about-hero [data-about-stagger]{animation:none;opacity:1;transform:none}
-@media(max-width:1023px){.about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 48px}.about-portrait img{max-height:min(72vh,640px)}}
-@media(max-width:740px){.about-hero{padding-block:36px 40px}}
+@media(max-width:1023px){
+  .about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 48px}
+  .page-about{--about-h1-size:clamp(2.5rem,8.5vw,3.25rem)}
+  .about-portrait img{max-height:min(72vh,640px)}
+}
+@media(max-width:740px){
+  .about-hero{padding-block:36px 40px}
+  .page-about{--about-lede-size:1.125rem}
+}
 @media(prefers-reduced-motion:reduce){
   .about-hero [data-about-stagger]{animation:none;opacity:1;transform:none}
   .about-portrait img{transform:none}

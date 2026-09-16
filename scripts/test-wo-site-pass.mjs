@@ -145,11 +145,21 @@ test("G12: About title uses MM heading rhythm, not 8ch crush", () => {
   assert.match(css, /font:400 18px\/1\.55 var\(--font\)/);
   assert.match(css, /--paper:#f5f0e8/);
   assert.match(css, /--blue:#005be8/);
-  assert.match(css, /\.about-hero h1\{font-size:clamp\(2\.875rem,4\.6vw,3\.75rem\);font-weight:600;line-height:1\.05;letter-spacing:-.04em\}/);
-  assert.match(css, /\.about-help\{font-size:clamp\(1\.25rem,1\.7vw,1\.375rem\);line-height:1\.45;color:var\(--ink\);max-width:38ch/);
-  assert.match(css, /\.about-hero-copy>p:not\(\.about-help\):not\(\.about-more-story\)\{color:var\(--muted\);font-size:1\.125rem;line-height:1\.55;max-width:42ch\}/);
+  assert.match(css, /--about-h1-size:clamp\(2\.875rem,4\.6vw,3\.75rem\)/);
+  assert.match(css, /--about-h1-tracking:-.04em/);
+  assert.match(css, /--about-lede-size:clamp\(1\.25rem,1\.7vw,1\.375rem\)/);
+  assert.match(css, /--about-lede-measure:38ch/);
+  assert.match(css, /--about-lede-color:var\(--ink\)/);
+  assert.match(css, /--about-body-size:1\.125rem/);
+  assert.match(css, /--about-body-measure:42ch/);
+  assert.match(css, /--about-body-color:var\(--muted\)/);
+  assert.match(css, /--about-label-size:.9375rem/);
+  assert.match(css, /\.page-about \.about-more-story a\{font-weight:600;color:var\(--blue\)\}/);
   assert.equal(css.includes("max-width:8ch"), false);
   assert.equal(css.includes("tabornorm"), false);
+  assert.equal(css.includes("fonts.google"), false);
+  assert.equal(css.includes("Bebas"), false);
+  assert.equal(css.includes("Playfair"), false);
   assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
   assert.match(css, /\.scene-trusted-help \.scene-art/);
   assert.match(css, /\.help-person__portrait/);
@@ -166,7 +176,7 @@ test("G13: trusted-help scene JS replaces the old silence branch", () => {
 test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
   assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
   assert.doesNotMatch(about, /<h1[^>]*>You came to the field/);
-  assert.match(about, /<h2>How I help<\/h2>\s*<p class="about-help">You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor\.<\/p>/);
+  assert.match(about, /<h2>How I help<\/h2>\s*<p class="about-help"[^>]*>You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor\.<\/p>/);
   assert.match(about, /I[’']ve helped missionaries in a few countries with AV, church systems, and digital security/);
   assert.match(about, /trained in the same rooms the top creators use\. And we[’']re just getting started/);
   assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Join the waiting list/);
@@ -192,8 +202,10 @@ test("G10: About hero title-then-CTA stagger and reduced-motion", () => {
   assert.match(css, /@keyframes about-hero-in/);
   assert.match(css, /about-hero-in 480ms cubic-bezier\(0\.22, 1, 0\.36, 1\) both/);
   assert.match(css, /\.about-hero h1\[data-about-stagger\]\{animation-delay:0ms\}/);
+  assert.match(css, /\.about-hero .about-help\[data-about-stagger\]\{animation-delay:90ms\}/);
   assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:180ms\}/);
   assert.equal(css.includes(".about-hero .lead[data-about-stagger]"), false);
   assert.match(css, /prefers-reduced-motion:reduce\)\{\s*\.about-hero \[data-about-stagger\]\{animation:none;opacity:1;transform:none\}/);
+  assert.match(about, /class="about-help" data-about-stagger/);
   assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Join the waiting list/);
 });
