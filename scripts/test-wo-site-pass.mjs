@@ -58,9 +58,15 @@ test("G3: Resources is a single nav link with no dropdown", () => {
   }
 });
 
-test("G4: academy/resources is canonical; /resources/ hands off there", () => {
-  assert.match(resourcesHub, /id="digital-outreach"/);
-  assert.match(resourcesHub, /resource-filters/);
+test("G4: academy/resources is canonical learning layout; /resources/ hands off there", () => {
+  assert.match(resourcesHub, /id="learning-title"/);
+  assert.match(resourcesHub, /academy-support-hero/);
+  assert.match(resourcesHub, /Learn a skill\.<br>\s*Try it in ministry\./);
+  assert.match(resourcesHub, /learning-material/);
+  assert.match(resourcesHub, /class="resource-filters"/);
+  assert.equal(resourcesHub.includes("resource-filters\" hidden"), false);
+  assert.equal(resourcesHub.includes("class=\"resource-hero"), false);
+  assert.match(resourcesHub, /I[’']m looking to/);
   assert.match(resourcesHub, /digital-outreach-handout\.pdf/);
   assert.match(resourcesHandoff, /url=\/academy\/resources\//);
   assert.match(resourcesHandoff, /location\.replace\("\/academy\/resources\/"\)/);
@@ -88,6 +94,13 @@ test("G6: Home removals and founder unlock (few countries + motivating close)", 
   assert.match(home, /And we[’']re just getting started\.<\/p>/);
   assert.match(home, /If I don’t have the answer, I’ll connect you with a trustworthy resource/);
   assert.match(home, /href="\/about\/">More about Tabor/);
+  assert.equal(home.includes("help-aspects"), false);
+  assert.match(home, /Prayer letters &amp; home connection/);
+  assert.match(home, /Too much digital noise/);
+  assert.match(home, /Trusted help when you need it/);
+  assert.match(home, /site-card--church/);
+  assert.match(home, /security-card/);
+  assert.equal(home.includes("quiet-draft"), false);
 });
 
 test("G7: Footer matches simplified nav", () => {
@@ -99,16 +112,18 @@ test("G7: Footer matches simplified nav", () => {
   }
 });
 
-test("G8: prefers-reduced-motion still present; no extra-work chapter label", () => {
+test("G8: prefers-reduced-motion still present; noise theme stays; no extra-work chapter", () => {
   assert.match(css, /prefers-reduced-motion/);
   assert.equal(home.includes("The extra work"), false);
   assert.match(home, /Too much noise/);
-  assert.match(home, /Digital noise<br>\ncan eat the week/);
+  assert.match(home, /Help cutting through tool pileups so church planting and gospel work keep the center of the week/);
+  assert.equal(home.includes("Digital noise<br>"), false);
 });
 
-test("G9: About page ships Outline C sparse copy", () => {
-  assert.match(about, /You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week/);
-  assert.match(about, /Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor/);
+test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
+  assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
+  assert.doesNotMatch(about, /<h1[^>]*>You came to the field/);
+  assert.match(about, /<h2>How I help<\/h2>\s*<p class="about-help">You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor\.<\/p>/);
   assert.match(about, /I[’']ve helped missionaries in a few countries with AV, church systems, and digital security/);
   assert.match(about, /trained in the same rooms the top creators use\. And we[’']re just getting started/);
   assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Join the waiting list/);
@@ -130,12 +145,12 @@ test("G9: About page ships Outline C sparse copy", () => {
   assert.equal(about.includes("digital-door"), false);
 });
 
-test("G10: About hero MARK-H1-LEDE-CTA stagger and reduced-motion", () => {
+test("G10: About hero title-then-CTA stagger and reduced-motion", () => {
   assert.match(css, /@keyframes about-hero-in/);
   assert.match(css, /about-hero-in 480ms cubic-bezier\(0\.22, 1, 0\.36, 1\) both/);
-  assert.match(css, /\.about-hero h1\[data-about-stagger\]\{animation-delay:90ms\}/);
-  assert.match(css, /\.about-hero .lead\[data-about-stagger\]\{animation-delay:180ms\}/);
-  assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:270ms\}/);
+  assert.match(css, /\.about-hero h1\[data-about-stagger\]\{animation-delay:0ms\}/);
+  assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:180ms\}/);
+  assert.equal(css.includes(".about-hero .lead[data-about-stagger]"), false);
   assert.match(css, /prefers-reduced-motion:reduce\)\{\s*\.about-hero \[data-about-stagger\]\{animation:none;opacity:1;transform:none\}/);
   assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Join the waiting list/);
 });

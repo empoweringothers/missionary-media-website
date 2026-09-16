@@ -262,21 +262,30 @@ if (typeof module === "object" && module.exports) {
         { opacity: 0, transform: "translate3d(0,28px,0) scale(.92)" },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
       ], 0.2 + i * 0.15, 0.55 + i * 0.15));
-    } else {
-      const draft = scene.querySelector(".quiet-draft");
-      const inbox = scene.querySelector(".home-inbox");
-      const behindDraft = { x: draft.offsetLeft + draft.offsetWidth / 2, y: draft.offsetTop + draft.offsetHeight / 2 };
-      const inboxStart = origin(inbox, behindDraft, 0.85);
-      add(draft, [
+    } else if (scene.classList.contains("scene-silence")) {
+      const church = scene.querySelector(".site-card--church");
+      const field = scene.querySelector(".site-card--field");
+      const security = scene.querySelector(".security-card");
+      add(church, [
         { opacity: 0, transform: "translate3d(0,20px,0) scale(.96)" },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0, 0.45, "ease-in-out");
-      add(inbox, [
-        { opacity: 0, transform: inboxStart },
-        { opacity: 1, offset: 0.2 },
+      ], 0, 0.4, "ease-in-out");
+      if (church && field) {
+        const behindChurch = {
+          x: church.offsetLeft + church.offsetWidth / 2,
+          y: church.offsetTop + church.offsetHeight / 2
+        };
+        add(field, [
+          { opacity: 0, transform: origin(field, behindChurch, 0.85) },
+          { opacity: 1, offset: 0.2 },
+          { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
+        ], 0.28, 0.82);
+      }
+      add(scene.querySelector(".trust-path"), [{ opacity: 0 }, { opacity: 1 }], 0.48, 0.82);
+      add(security, [
+        { opacity: 0, transform: "translate3d(0,24px,0) scale(.92)" },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0.35, 1);
-      add(scene.querySelector(".broken-path"), [{ opacity: 0 }, { opacity: 1 }], 0.65, 1);
+      ], 0.55, 1);
     }
     return motions;
   };
