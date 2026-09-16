@@ -35,16 +35,18 @@ test("G1: Coaching is gone from nav, drawer, and noscript on shipped pages", () 
   }
 });
 
-test("G2: About Tabor is /about/; tabornorm.com is other-work, never .org", () => {
+test("G2: About Tabor is /about/; tabornorm.com is on-page story link, never .org", () => {
   for (const { page, html } of shipped) {
     assert.match(html, /class="nav-link" href="\/about\/"/);
     assert.match(html, />About Tabor</);
     assert.equal(html.includes("tabornorm.org"), false, page);
     assert.equal(html.includes("href=\"/#about\""), false, page);
     assert.equal(/class="nav-link" href="https:\/\/tabornorm\.com\//.test(html), false, page);
+    const desktopNav = html.match(/<nav class="primary-nav"[^>]*>[\s\S]*?<\/nav>/);
+    assert.ok(desktopNav, page);
+    assert.equal(desktopNav[0].includes("Home"), false, page);
   }
-  assert.match(about, /class="button about-hero-cta"[\s\S]*href="https:\/\/tabornorm\.com\/" target="_blank" rel="noopener noreferrer"/);
-  assert.match(about, /More of the story/);
+  assert.match(about, /More of my story: <a href="https:\/\/tabornorm\.com\/" target="_blank" rel="noopener noreferrer">tabornorm\.com/);
 });
 
 test("G3: Resources is a single nav link with no dropdown", () => {
@@ -104,26 +106,28 @@ test("G8: prefers-reduced-motion still present; no extra-work chapter label", ()
   assert.match(home, /Digital noise<br>\ncan eat the week/);
 });
 
-test("G9: About page ships Outline A paste-ready strings", () => {
-  assert.match(about, /Missionary Media exists so the digital side serves church planting and the gospel, not the other way around/);
-  assert.match(about, /I sit with missionaries, listen, and help them find a next step that fits/);
-  assert.match(about, /You came to the field to plant churches, share the gospel, and stay in the work\. Missionary Media helps you navigate the digital side of ministry/);
-  assert.match(about, /Why Missionary Media exists/);
-  assert.match(about, /So you know where to start, make wise decisions, and stay connected without the digital work eating your week/);
-  assert.match(about, /help you find a next step that fits, without asking you to become the media person/);
-  assert.match(about, /a few countries/);
-  assert.match(about, /Think Media Academy, Full Time Filmmaker, Tomorrow Filmmakers/);
-  assert.match(about, /A\+ and Security\+/);
-  assert.match(about, /And we[’']re just getting started/);
+test("G9: About page ships Outline C sparse copy", () => {
+  assert.match(about, /You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week/);
+  assert.match(about, /Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor/);
+  assert.match(about, /I[’']ve helped missionaries in a few countries with AV, church systems, and digital security/);
+  assert.match(about, /trained in the same rooms the top creators use\. And we[’']re just getting started/);
+  assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Join the waiting list/);
+  assert.match(about, /src="\/assets\/resources\/tabor-speaking\.jpg"/);
+  assert.match(about, /alt="Tabor Normoyle in side profile at a desk, talking toward a computer"/);
   assert.match(about, /id="contact-dialog"/);
-  assert.match(about, /data-contact-dialog>Join the waiting list/);
+  assert.equal(about.includes("Why Missionary Media exists"), false);
+  assert.equal(about.includes("Think Media"), false);
+  assert.equal(about.includes("Full Time Filmmaker"), false);
+  assert.equal(about.includes("Tomorrow Filmmakers"), false);
+  assert.equal(about.includes("A+"), false);
+  assert.equal(about.includes("Security+"), false);
+  assert.equal(about.includes("Watch / listen"), false);
+  assert.equal(about.includes("about-chips"), false);
+  assert.equal(about.includes("academy-hero-tabor"), false);
   assert.equal(about.includes("three countries"), false);
   assert.equal(about.includes("Valley Forge"), false);
   assert.equal(about.includes("\u2014"), false);
-  assert.equal(about.includes("TODO-FOUNDER"), false);
   assert.equal(about.includes("digital-door"), false);
-  assert.equal(about.includes("data-quote-rail"), false);
-  assert.equal(about.includes("data-land=\"hero\""), false);
 });
 
 test("G10: About hero MARK-H1-LEDE-CTA stagger and reduced-motion", () => {
@@ -133,5 +137,5 @@ test("G10: About hero MARK-H1-LEDE-CTA stagger and reduced-motion", () => {
   assert.match(css, /\.about-hero .lead\[data-about-stagger\]\{animation-delay:180ms\}/);
   assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:270ms\}/);
   assert.match(css, /prefers-reduced-motion:reduce\)\{\s*\.about-hero \[data-about-stagger\]\{animation:none;opacity:1;transform:none\}/);
-  assert.match(about, /data-about-stagger href="https:\/\/tabornorm\.com\/"/);
+  assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Join the waiting list/);
 });
