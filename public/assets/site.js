@@ -262,21 +262,40 @@ if (typeof module === "object" && module.exports) {
         { opacity: 0, transform: "translate3d(0,28px,0) scale(.92)" },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
       ], 0.2 + i * 0.15, 0.55 + i * 0.15));
-    } else {
-      const draft = scene.querySelector(".quiet-draft");
-      const inbox = scene.querySelector(".home-inbox");
-      const behindDraft = { x: draft.offsetLeft + draft.offsetWidth / 2, y: draft.offsetTop + draft.offsetHeight / 2 };
-      const inboxStart = origin(inbox, behindDraft, 0.85);
-      add(draft, [
-        { opacity: 0, transform: "translate3d(0,20px,0) scale(.96)" },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0, 0.45, "ease-in-out");
-      add(inbox, [
-        { opacity: 0, transform: inboxStart },
-        { opacity: 1, offset: 0.2 },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0.35, 1);
-      add(scene.querySelector(".broken-path"), [{ opacity: 0 }, { opacity: 1 }], 0.65, 1);
+    } else if (scene.classList.contains("scene-trusted-help")) {
+      const reveal = [
+        { opacity: 0, transform: "translate3d(0,12px,0)" },
+        { opacity: 1, transform: "translate3d(0,0,0)" }
+      ];
+
+      add(
+        scene.querySelector(".help-question"),
+        reveal,
+        0,
+        0.24
+      );
+
+      scene.querySelectorAll(".help-topic").forEach((topic, i) => {
+        add(topic, reveal, 0.18 + i * 0.1, 0.46 + i * 0.1);
+      });
+
+      add(
+        scene.querySelector(".help-connection path"),
+        [
+          { strokeDashoffset: "1", opacity: 0 },
+          { strokeDashoffset: "0", opacity: 1 }
+        ],
+        0.58,
+        0.82,
+        "ease-in-out"
+      );
+
+      add(
+        scene.querySelector(".help-person"),
+        reveal,
+        0.72,
+        1
+      );
     }
     return motions;
   };

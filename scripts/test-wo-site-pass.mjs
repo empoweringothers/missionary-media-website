@@ -27,6 +27,7 @@ const about = readFileSync(join(root, "public/about/index.html"), "utf8");
 const resourcesHub = readFileSync(join(root, "public/academy/resources/index.html"), "utf8");
 const resourcesHandoff = readFileSync(join(root, "public/resources/index.html"), "utf8");
 const css = readFileSync(join(root, "public/assets/site.css"), "utf8");
+const siteJs = readFileSync(join(root, "public/assets/site.js"), "utf8");
 
 test("G1: Coaching is gone from nav, drawer, and noscript on shipped pages", () => {
   for (const { page, html } of shipped) {
@@ -98,9 +99,11 @@ test("G6: Home removals and FOUNDER-006 beginning only (no invented continuation
   assert.equal(home.includes("help-aspects"), false);
   assert.match(home, /Prayer letters &amp; home connection/);
   assert.match(home, /Too much digital noise/);
-  assert.match(home, /Trusted help when you need it/);
-  assert.match(home, /quiet-draft/);
-  assert.match(home, /home-inbox/);
+  assert.match(home, /Finding trusted help/);
+  assert.match(home, /scene-trusted-help/);
+  assert.match(home, /data-pain-scene="2"/);
+  assert.match(home, /data-scene-jump="2">Trusted help</);
+  assert.equal(home.includes("quiet-draft"), false);
   assert.equal(home.includes("site-card--church"), false);
 });
 
@@ -117,8 +120,42 @@ test("G8: prefers-reduced-motion still present; noise theme stays; no extra-work
   assert.match(css, /prefers-reduced-motion/);
   assert.equal(home.includes("The extra work"), false);
   assert.match(home, /Too much noise/);
-  assert.match(home, /Help cutting through tool pileups so church planting and gospel work keep the center of the week/);
+  assert.match(home, /Digital noise can eat the week\./);
+  assert.match(home, /When tools and tabs stack up, the story from the field gets quiet\./);
   assert.equal(home.includes("Digital noise<br>"), false);
+});
+
+test("G11: WO-PITCH-PAIN-COPY-001 chapter copy; no parentheticals or em dashes", () => {
+  assert.match(home, /<h3 id="pain-one-title"[^>]*>Will home get the update\?<\/h3>/);
+  assert.match(home, /Help turning field updates into something people back home can receive and pray with\./);
+  assert.match(home, /<h3 id="pain-two-title"[^>]*>Digital noise can eat the week\.<\/h3>/);
+  assert.match(home, /Who can help<br>with this\?/);
+  assert.match(home, /You need someone who understands the ministry\./);
+  assert.match(home, /A website that fits your setting\. Help keeping accounts safe\./);
+  assert.equal(home.includes("not only a church-made page"), false);
+  const chapters = home.match(/<div class="pain-chapters">[\s\S]*?<\/div>\s*<div class="pain-visual">/);
+  assert.ok(chapters);
+  assert.equal(chapters[0].includes("("), false);
+  assert.equal(chapters[0].includes("\u2014"), false);
+  assert.equal(chapters[0].includes(" -- "), false);
+});
+
+test("G12: About title uses MM heading rhythm, not 8ch crush", () => {
+  assert.match(css, /--font:"Source Sans 3"/);
+  assert.match(css, /font:400 18px\/1\.55 var\(--font\)/);
+  assert.match(css, /\.about-hero h1\{font-size:clamp\(52px,5\.42vw,82px\);line-height:1\.035;letter-spacing:-.025em\}/);
+  assert.equal(css.includes(".about-hero h1{font-size:clamp(46px,5.2vw,76px);line-height:1.04;letter-spacing:-.045em;max-width:8ch}"), false);
+  assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
+  assert.match(css, /\.scene-trusted-help \.scene-art/);
+  assert.match(css, /\.help-person__portrait/);
+});
+
+test("G13: trusted-help scene JS replaces the old silence branch", () => {
+  assert.match(siteJs, /scene\.classList\.contains\("scene-trusted-help"\)/);
+  assert.match(siteJs, /help-connection path/);
+  assert.match(siteJs, /help-person/);
+  assert.equal(siteJs.includes("quiet-draft"), false);
+  assert.match(home, /<noscript><nav class="noscript-nav"[^>]*>[\s\S]*href="#start">Join the waiting list<\/a>/);
 });
 
 test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
