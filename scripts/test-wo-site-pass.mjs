@@ -16,12 +16,14 @@ function htmlPages() {
     }
   };
   walk(join(root, "public/academy"));
+  walk(join(root, "public/about"));
   return pages;
 }
 
 const shipped = htmlPages().map((page) => ({ page, html: readFileSync(page, "utf8") }));
 const home = readFileSync(join(root, "public/index.html"), "utf8");
 const academy = readFileSync(join(root, "public/academy/index.html"), "utf8");
+const about = readFileSync(join(root, "public/about/index.html"), "utf8");
 const resourcesHub = readFileSync(join(root, "public/academy/resources/index.html"), "utf8");
 const resourcesHandoff = readFileSync(join(root, "public/resources/index.html"), "utf8");
 const css = readFileSync(join(root, "public/assets/site.css"), "utf8");
@@ -33,12 +35,16 @@ test("G1: Coaching is gone from nav, drawer, and noscript on shipped pages", () 
   }
 });
 
-test("G2: Tabornorm is https://tabornorm.com/ with external rel, never tabornorm.org or /#about", () => {
+test("G2: About Tabor is /about/; tabornorm.com is other-work, never .org", () => {
   for (const { page, html } of shipped) {
-    assert.match(html, /href="https:\/\/tabornorm\.com\/" target="_blank" rel="noopener noreferrer">Tabornorm/);
+    assert.match(html, /class="nav-link" href="\/about\/"/);
+    assert.match(html, />About Tabor</);
     assert.equal(html.includes("tabornorm.org"), false, page);
     assert.equal(html.includes("href=\"/#about\""), false, page);
+    assert.equal(/class="nav-link" href="https:\/\/tabornorm\.com\//.test(html), false, page);
   }
+  assert.match(about, /href="https:\/\/tabornorm\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(about, /More of the story is at tabornorm\.com/);
 });
 
 test("G3: Resources is a single nav link with no dropdown", () => {
@@ -79,12 +85,13 @@ test("G6: Home removals and founder unlock (few countries + motivating close)", 
   assert.match(home, /I have studied visual arts and counseling, led church media and IT, and trained in the same rooms the top creators use/);
   assert.match(home, /And we[’']re just getting started\.<\/p>/);
   assert.match(home, /If I don’t have the answer, I’ll connect you with a trustworthy resource/);
+  assert.match(home, /href="\/about\/">More about Tabor/);
 });
 
 test("G7: Footer matches simplified nav", () => {
   for (const { page, html } of shipped) {
     assert.equal(html.includes("Coaching &amp; about Tabor"), false, page);
-    assert.match(html, /Footer navigation[\s\S]*tabornorm\.com\//);
+    assert.match(html, /Footer navigation[\s\S]*href="\/about\/">About Tabor/);
     assert.match(html, /Get help[\s\S]*Join the waiting list/);
     assert.match(html, /Get help[\s\S]*href="\/academy\/resources\/">Resources/);
   }
@@ -95,4 +102,22 @@ test("G8: prefers-reduced-motion still present; no extra-work chapter label", ()
   assert.equal(home.includes("The extra work"), false);
   assert.match(home, /Too much noise/);
   assert.match(home, /Digital noise<br>\ncan eat the week/);
+});
+
+test("G9: About page ships Outline A paste-ready strings", () => {
+  assert.match(about, /You came to the field to plant churches, share the gospel, and stay in the work\. Missionary Media helps you navigate the digital side of ministry/);
+  assert.match(about, /Why Missionary Media exists/);
+  assert.match(about, /So you know where to start, make wise decisions, and stay connected without the digital work eating your week/);
+  assert.match(about, /help you find a next step that fits, without asking you to become the media person/);
+  assert.match(about, /a few countries/);
+  assert.match(about, /Think Media Academy, Full Time Filmmaker, Tomorrow Filmmakers/);
+  assert.match(about, /A\+ and Security\+/);
+  assert.match(about, /And we[’']re just getting started/);
+  assert.match(about, /id="contact-dialog"/);
+  assert.match(about, /data-contact-dialog>Join the waiting list/);
+  assert.equal(about.includes("three countries"), false);
+  assert.equal(about.includes("Valley Forge"), false);
+  assert.equal(about.includes("\u2014"), false);
+  assert.equal(about.includes("TODO-FOUNDER"), false);
+  assert.equal(about.includes("TODO-WATCHLINKS"), false);
 });

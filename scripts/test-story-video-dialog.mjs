@@ -47,6 +47,7 @@ function htmlPages() {
     }
   };
   walk(join(root, "public/academy"));
+  walk(join(root, "public/about"));
   walk(join(root, "public/resources"));
   return pages;
 }

@@ -1221,3 +1221,21 @@ main{overflow-x:clip}
 .channel-brand-icon img{width:18px;height:18px;display:block;object-fit:contain}
 .channel-links>a>:last-child{margin-left:auto}
 .watch-image img{aspect-ratio:3/4;object-fit:contain;object-position:center}
+
+/* About Tabor: sparse Outline A, existing tokens, soft reveal already on data-reveal. */
+.about-hero{padding-block:66px 28px;display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center}
+.about-hero .eyebrow{margin-bottom:22px}
+.about-hero h1{font-size:clamp(47px,5.5vw,80px)}
+.about-hero .lead{font-size:21px;color:var(--muted);max-width:36ch;margin-top:24px}
+.about-portrait{margin:0;border-radius:var(--radius);overflow:hidden;background:#e9e5dc}
+.about-portrait img{width:100%;aspect-ratio:1.12;object-fit:cover;object-position:50% 8%;display:block}
+.about-block{max-width:58ch}
+.about-block h2{font-size:clamp(32px,3.4vw,46px);margin-bottom:18px}
+.about-block p{color:var(--muted);font-size:20px;line-height:1.5}
+.about-block .text-link{margin-top:22px}
+.about-chips{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.about-chips li{padding:10px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:600}
+.page-about .learning-link-grid{margin-top:12px}
+@media(max-width:1023px){.about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 12px}.about-hero h1{font-size:clamp(42px,8vw,64px)}}
+@media(max-width:740px){.about-hero{padding-block:36px 8px}.about-block p{font-size:18px}.about-chips li{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.about-portrait img{transform:none}}
