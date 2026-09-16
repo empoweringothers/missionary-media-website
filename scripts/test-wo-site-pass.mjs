@@ -27,6 +27,7 @@ const about = readFileSync(join(root, "public/about/index.html"), "utf8");
 const resourcesHub = readFileSync(join(root, "public/academy/resources/index.html"), "utf8");
 const resourcesHandoff = readFileSync(join(root, "public/resources/index.html"), "utf8");
 const css = readFileSync(join(root, "public/assets/site.css"), "utf8");
+const siteJs = readFileSync(join(root, "public/assets/site.js"), "utf8");
 
 test("G1: Coaching is gone from nav, drawer, and noscript on shipped pages", () => {
   for (const { page, html } of shipped) {
@@ -98,9 +99,12 @@ test("G6: Home removals and FOUNDER-006 beginning only (no invented continuation
   assert.equal(home.includes("help-aspects"), false);
   assert.match(home, /Prayer letters &amp; home connection/);
   assert.match(home, /Too much digital noise/);
-  assert.match(home, /Trusted help when you need it/);
-  assert.match(home, /quiet-draft/);
-  assert.match(home, /home-inbox/);
+  assert.match(home, /Finding trusted help/);
+  assert.match(home, /Who can help<br>with this\?/);
+  assert.match(home, /scene-trusted-help/);
+  assert.match(home, /data-scene-jump="2">Trusted help/);
+  assert.equal(home.includes("quiet-draft"), false);
+  assert.equal(home.includes("scene-silence"), false);
   assert.equal(home.includes("site-card--church"), false);
 });
 
@@ -124,7 +128,7 @@ test("G8: prefers-reduced-motion still present; noise theme stays; no extra-work
 test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
   assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
   assert.doesNotMatch(about, /<h1[^>]*>You came to the field/);
-  assert.match(about, /<h2>How I help<\/h2>\s*<p class="about-help">You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor\.<\/p>/);
+  assert.match(about, /<h2>How I help<\/h2>\s*<p class="about-help"[^>]*>You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor\.<\/p>/);
   assert.match(about, /I[’']ve helped missionaries in a few countries with AV, church systems, and digital security/);
   assert.match(about, /trained in the same rooms the top creators use\. And we[’']re just getting started/);
   assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Join the waiting list/);
@@ -146,12 +150,38 @@ test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
   assert.equal(about.includes("digital-door"), false);
 });
 
-test("G10: About hero title-then-CTA stagger and reduced-motion", () => {
-  assert.match(css, /@keyframes about-hero-in/);
+test("G10: About MARK-H1-LEDE-CTA stagger, still photo/nav, reduced-motion", () => {
+  assert.match(css, /@keyframes about-hero-in\{from\{opacity:0;transform:translateY\(12px\)\}/);
   assert.match(css, /about-hero-in 480ms cubic-bezier\(0\.22, 1, 0\.36, 1\) both/);
-  assert.match(css, /\.about-hero h1\[data-about-stagger\]\{animation-delay:0ms\}/);
-  assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:180ms\}/);
+  assert.match(css, /\.about-hero .about-mark\[data-about-stagger\]\{animation-delay:0ms\}/);
+  assert.match(css, /\.about-hero h1\[data-about-stagger\]\{animation-delay:90ms\}/);
+  assert.match(css, /\.about-hero .about-help\[data-about-stagger\]\{animation-delay:180ms\}/);
+  assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:270ms\}/);
   assert.equal(css.includes(".about-hero .lead[data-about-stagger]"), false);
+  assert.equal(css.includes("about-portrait") && /about-portrait[^{]*\{[^}]*animation/.test(css), false);
   assert.match(css, /prefers-reduced-motion:reduce\)\{\s*\.about-hero \[data-about-stagger\]\{animation:none;opacity:1;transform:none\}/);
+  assert.match(about, /class="eyebrow about-mark" data-about-stagger>About</);
+  assert.match(about, /<h1 id="about-title" data-about-stagger>About Tabor</);
+  assert.match(about, /class="about-help" data-about-stagger>/);
   assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Join the waiting list/);
+  assert.match(siteJs, /header && !document\.body\.classList\.contains\("page-about"\)/);
+  assert.equal(about.includes("digital-door"), false);
+  assert.equal(about.includes("ticker"), false);
+});
+
+test("G11: ChatGPT trusted-help scene pack is wired, scenes 1-2 unchanged", () => {
+  assert.match(home, /class="pain-scene scene-sending"/);
+  assert.match(home, /class="pain-scene scene-work"/);
+  assert.match(home, /class="pain-scene scene-trusted-help"/);
+  assert.match(home, /<strong>Website<\/strong>/);
+  assert.match(home, /<strong>Digital security<\/strong>/);
+  assert.match(home, /<strong>Communication<\/strong>/);
+  assert.match(home, /Let's find the right person for the work in front of you\./);
+  assert.match(css, /\.scene-trusted-help \.scene-art/);
+  assert.match(css, /\.help-person__portrait/);
+  assert.match(siteJs, /scene\.classList\.contains\("scene-trusted-help"\)/);
+  assert.match(siteJs, /scene\.querySelector\("\.help-connection path"\)/);
+  assert.match(siteJs, /return motions;/);
+  assert.equal(siteJs.includes("quiet-draft"), false);
+  assert.equal(home.includes("The update<br>\nis still here"), false);
 });
