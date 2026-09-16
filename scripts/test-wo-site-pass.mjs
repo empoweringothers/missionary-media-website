@@ -66,15 +66,19 @@ test("G5: Academy waiting-list CTAs open the existing contact dialog", () => {
   assert.match(academy, /action="https:\/\/calendly\.com\/missionarymediahub\/30min"/);
 });
 
-test("G6: Home removals and founder unlock", () => {
+test("G6: Home removals and founder HOLD (short FOUNDER-006 beginning only)", () => {
   assert.equal(home.includes("academy-teaser"), false);
   assert.equal(home.includes("What we’re building"), false);
   assert.equal(home.includes("Not Missionary Media."), false);
   assert.equal(home.includes("high-school classroom"), false);
   assert.equal(home.includes("I founded Missionary Media"), false);
-  assert.equal(home.includes("TODO-FOUNDER"), false);
+  assert.equal(home.includes("three countries"), false);
+  assert.equal(home.includes("visual arts and counseling"), false);
+  assert.equal(home.includes("top creators"), false);
+  assert.equal(/I[’']m Tabor/.test(home), false);
+  assert.match(home, /TODO-FOUNDER/);
   assert.match(home, /You came to the field to plant churches, share the gospel, and stay in the work/);
-  assert.match(home, /I have helped missionaries in three countries with AV, church systems, and digital security/);
+  assert.match(home, /help you find a next step that fits\.<\/p>/);
   assert.match(home, /If I don’t have the answer, I’ll connect you with a trustworthy resource/);
 });
 
