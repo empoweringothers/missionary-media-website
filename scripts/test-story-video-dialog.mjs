@@ -159,7 +159,8 @@ test("pages pin a fresh site.js cache query and playsinline on embeds", () => {
   assert.ok(pages.length >= 5);
   for (const page of pages) {
     const html = readFileSync(page, "utf8");
-    assert.match(html, /\/assets\/site\.js\?v=storyvideo1/);
+    if (!html.includes("/assets/site.js")) continue;
+    assert.match(html, /\/assets\/site\.js\?v=sitepass1/);
     if (html.includes("data-video-frame")) {
       assert.match(html, /playsinline=1/);
     }

@@ -848,22 +848,48 @@ if (typeof module === "object" && module.exports) {
     syncDialogScroll();
   });
 
-  const intake = document.querySelector(".intake-form");
-  intake?.addEventListener("submit", (event) => {
+  const contactDialog = document.querySelector("#contact-dialog");
+  const openContactDialog = (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!contactDialog || typeof contactDialog.showModal !== "function") return;
     event.preventDefault();
-    if (!intake.reportValidity()) return;
-    const data = new FormData(intake);
-    const notes = [
-      `Call for: ${data.get("role")}`,
-      `Help with: ${data.getAll("focus").join(", ") || "Not sure yet"}`,
-      `Question: ${String(data.get("a1")).trim()}`
-    ].join("\n");
-    const destination = new URL(intake.action);
-    destination.search = "";
-    destination.searchParams.set("name", String(data.get("name") || "").trim());
-    destination.searchParams.set("email", String(data.get("email") || "").trim());
-    destination.searchParams.set("a1", notes);
-    window.location.assign(destination.href);
+    try {
+      contactDialog.showModal();
+    } catch {
+      return;
+    }
+    syncDialogScroll();
+    const firstField = contactDialog.querySelector("input:not([type='hidden']), textarea, select, button[type='submit']");
+    firstField?.focus();
+  };
+  document.querySelectorAll("[data-contact-dialog]").forEach((control) => {
+    control.addEventListener("click", openContactDialog);
+  });
+  contactDialog?.querySelector("[data-contact-close]")?.addEventListener("click", () => contactDialog.close());
+  contactDialog?.addEventListener("click", (event) => {
+    if (event.target !== contactDialog) return;
+    const box = contactDialog.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) contactDialog.close();
+  });
+  contactDialog?.addEventListener("close", syncDialogScroll);
+
+  document.querySelectorAll(".intake-form").forEach((intake) => {
+    intake.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!intake.reportValidity()) return;
+      const data = new FormData(intake);
+      const notes = [
+        `Call for: ${data.get("role")}`,
+        `Help with: ${data.getAll("focus").join(", ") || "Not sure yet"}`,
+        `Question: ${String(data.get("a1")).trim()}`
+      ].join("\n");
+      const destination = new URL(intake.action);
+      destination.search = "";
+      destination.searchParams.set("name", String(data.get("name") || "").trim());
+      destination.searchParams.set("email", String(data.get("email") || "").trim());
+      destination.searchParams.set("a1", notes);
+      window.location.assign(destination.href);
+    });
   });
 
   // The public library is a visual preview; its full class example follows below.
