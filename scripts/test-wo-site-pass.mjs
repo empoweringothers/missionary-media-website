@@ -143,8 +143,13 @@ test("G11: WO-PITCH-PAIN-COPY-001 chapter copy; no parentheticals or em dashes",
 test("G12: About title uses MM heading rhythm, not 8ch crush", () => {
   assert.match(css, /--font:"Source Sans 3"/);
   assert.match(css, /font:400 18px\/1\.55 var\(--font\)/);
-  assert.match(css, /\.about-hero h1\{font-size:clamp\(52px,5\.42vw,82px\);line-height:1\.035;letter-spacing:-.025em\}/);
-  assert.equal(css.includes(".about-hero h1{font-size:clamp(46px,5.2vw,76px);line-height:1.04;letter-spacing:-.045em;max-width:8ch}"), false);
+  assert.match(css, /--paper:#f5f0e8/);
+  assert.match(css, /--blue:#005be8/);
+  assert.match(css, /\.about-hero h1\{font-size:clamp\(2\.875rem,4\.6vw,3\.75rem\);font-weight:600;line-height:1\.05;letter-spacing:-.04em\}/);
+  assert.match(css, /\.about-help\{font-size:clamp\(1\.25rem,1\.7vw,1\.375rem\);line-height:1\.45;color:var\(--ink\);max-width:38ch/);
+  assert.match(css, /\.about-hero-copy>p:not\(\.about-help\):not\(\.about-more-story\)\{color:var\(--muted\);font-size:1\.125rem;line-height:1\.55;max-width:42ch\}/);
+  assert.equal(css.includes("max-width:8ch"), false);
+  assert.equal(css.includes("tabornorm"), false);
   assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
   assert.match(css, /\.scene-trusted-help \.scene-art/);
   assert.match(css, /\.help-person__portrait/);

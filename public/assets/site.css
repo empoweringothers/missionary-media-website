@@ -1221,11 +1221,11 @@ main{overflow-x:clip}
 
 /* About Tabor: Outline C sparse, ABOUT-003 short title, Brand hero stagger. */
 .about-hero{padding-block:66px 80px;display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:start}
-.about-hero h1{font-size:clamp(52px,5.42vw,82px);line-height:1.035;letter-spacing:-.025em}
+.about-hero h1{font-size:clamp(2.875rem,4.6vw,3.75rem);font-weight:600;line-height:1.05;letter-spacing:-.04em}
 .about-hero h2{font-size:clamp(24px,2vw,30px);line-height:1.16;letter-spacing:-.025em;margin:32px 0 12px}
 .about-hero h1+h2{margin-top:28px}
-.about-help{font-size:20px;line-height:1.55;color:var(--muted);max-width:46ch;margin:0}
-.about-hero-copy>p:not(.about-help):not(.about-more-story){color:var(--muted);font-size:20px;line-height:1.5;max-width:42ch}
+.about-help{font-size:clamp(1.25rem,1.7vw,1.375rem);line-height:1.45;color:var(--ink);max-width:38ch;margin:0}
+.about-hero-copy>p:not(.about-help):not(.about-more-story){color:var(--muted);font-size:1.125rem;line-height:1.55;max-width:42ch}
 .about-hero-cta{margin-top:28px}
 .about-more-story{margin-top:18px;font-size:16px;color:var(--muted)}
 .about-more-story a{font-weight:600}
@@ -1236,8 +1236,8 @@ main{overflow-x:clip}
 .about-hero h1[data-about-stagger]{animation-delay:0ms}
 .about-hero .about-hero-cta[data-about-stagger]{animation-delay:180ms}
 .no-js .about-hero [data-about-stagger]{animation:none;opacity:1;transform:none}
-@media(max-width:1023px){.about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 48px}.about-hero h1{font-size:clamp(40px,9vw,58px)}.about-portrait img{max-height:min(72vh,640px)}}
-@media(max-width:740px){.about-hero{padding-block:36px 40px}.about-help,.about-hero-copy>p:not(.about-more-story){font-size:18px}}
+@media(max-width:1023px){.about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 48px}.about-portrait img{max-height:min(72vh,640px)}}
+@media(max-width:740px){.about-hero{padding-block:36px 40px}}
 @media(prefers-reduced-motion:reduce){
   .about-hero [data-about-stagger]{animation:none;opacity:1;transform:none}
   .about-portrait img{transform:none}
