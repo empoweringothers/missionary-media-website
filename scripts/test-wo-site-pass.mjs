@@ -198,6 +198,22 @@ test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
   assert.equal(about.includes("digital-door"), false);
 });
 
+test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", () => {
+  assert.match(css, /Mobile door hero: raise the photo behind left copy and keep the glow on the right\./);
+  assert.equal(css.includes("height:calc(54% + 15px)"), false);
+  assert.equal(css.includes("linear-gradient(180deg,#071c32 36%"), false);
+  assert.match(css, /\.academy-door-copy\{max-width:51%;position:relative\}/);
+  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy\{max-width:58%;padding-right:8px\}/);
+  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy h1\{font-size:36px;max-width:10ch\}/);
+  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-hero::after\{background:linear-gradient\(90deg/);
+  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-image img\{[^}]*object-position:94% 40%/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
+  for (const { page, html } of shipped) {
+    if (!html.includes("/assets/site.css")) continue;
+    assert.match(html, /\/assets\/site\.css\?v=sitepass7/, page);
+  }
+});
+
 test("G10: About hero title-then-CTA stagger and reduced-motion", () => {
   assert.match(css, /@keyframes about-hero-in/);
   assert.match(css, /about-hero-in 480ms cubic-bezier\(0\.22, 1, 0\.36, 1\) both/);
