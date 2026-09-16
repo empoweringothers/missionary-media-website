@@ -262,21 +262,40 @@ if (typeof module === "object" && module.exports) {
         { opacity: 0, transform: "translate3d(0,28px,0) scale(.92)" },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
       ], 0.2 + i * 0.15, 0.55 + i * 0.15));
-    } else {
-      const draft = scene.querySelector(".quiet-draft");
-      const inbox = scene.querySelector(".home-inbox");
-      const behindDraft = { x: draft.offsetLeft + draft.offsetWidth / 2, y: draft.offsetTop + draft.offsetHeight / 2 };
-      const inboxStart = origin(inbox, behindDraft, 0.85);
-      add(draft, [
-        { opacity: 0, transform: "translate3d(0,20px,0) scale(.96)" },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0, 0.45, "ease-in-out");
-      add(inbox, [
-        { opacity: 0, transform: inboxStart },
-        { opacity: 1, offset: 0.2 },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0.35, 1);
-      add(scene.querySelector(".broken-path"), [{ opacity: 0 }, { opacity: 1 }], 0.65, 1);
+    } else if (scene.classList.contains("scene-trusted-help")) {
+      const reveal = [
+        { opacity: 0, transform: "translate3d(0,12px,0)" },
+        { opacity: 1, transform: "translate3d(0,0,0)" }
+      ];
+
+      add(
+        scene.querySelector(".help-question"),
+        reveal,
+        0,
+        0.24
+      );
+
+      scene.querySelectorAll(".help-topic").forEach((topic, i) => {
+        add(topic, reveal, 0.18 + i * 0.1, 0.46 + i * 0.1);
+      });
+
+      add(
+        scene.querySelector(".help-connection path"),
+        [
+          { strokeDashoffset: "1", opacity: 0 },
+          { strokeDashoffset: "0", opacity: 1 }
+        ],
+        0.58,
+        0.82,
+        "ease-in-out"
+      );
+
+      add(
+        scene.querySelector(".help-person"),
+        reveal,
+        0.72,
+        1
+      );
     }
     return motions;
   };
@@ -477,15 +496,23 @@ if (typeof module === "object" && module.exports) {
     }, { rootMargin: "0px 0px -42% 0px", threshold: 0 });
     document.querySelectorAll("[data-reveal], [data-land]").forEach((element) => {
       if (reducedMotion.matches || element.matches(".pain-stage, [data-pain-scene]")) return;
+      if (element.closest(".about-hero")) return;
+      const aboutPage = document.body.classList.contains("page-about");
+      const aboutEase = "cubic-bezier(0.22, 1, 0.36, 1)";
       const container = element.hasAttribute("data-land");
       const heroSurface = element.dataset.land === "hero";
-      const animation = animateOnce(element, [
-        { opacity: 0, transform: heroSurface ? "translateY(18px) scale(1.025)" : container ? "translateY(34px) scale(1.06)" : "translateY(26px)" },
-        { opacity: 1, offset: container ? 0.38 : 0.75 },
-        { opacity: 1, transform: "none" }
-      ], { duration: heroSurface ? 2100 : container ? 1800 : 1350,
-        delay: window.matchMedia("(min-width: 741px)").matches ? Math.min(400, Math.max(0, Number(element.dataset.landDelay) || 0)) : 0,
-        easing: landingEase, fill: "backwards" });
+      const animation = aboutPage
+        ? animateOnce(element, [
+            { opacity: 0, transform: "translateY(12px)" },
+            { opacity: 1, transform: "none" }
+          ], { duration: 480, easing: aboutEase, fill: "backwards" })
+        : animateOnce(element, [
+            { opacity: 0, transform: heroSurface ? "translateY(18px) scale(1.025)" : container ? "translateY(34px) scale(1.06)" : "translateY(26px)" },
+            { opacity: 1, offset: container ? 0.38 : 0.75 },
+            { opacity: 1, transform: "none" }
+          ], { duration: heroSurface ? 2100 : container ? 1800 : 1350,
+            delay: window.matchMedia("(min-width: 741px)").matches ? Math.min(400, Math.max(0, Number(element.dataset.landDelay) || 0)) : 0,
+            easing: landingEase, fill: "backwards" });
       animation.pause();
       animation.currentTime = 0;
       entrances.set(element, animation);
@@ -848,22 +875,48 @@ if (typeof module === "object" && module.exports) {
     syncDialogScroll();
   });
 
-  const intake = document.querySelector(".intake-form");
-  intake?.addEventListener("submit", (event) => {
+  const contactDialog = document.querySelector("#contact-dialog");
+  const openContactDialog = (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!contactDialog || typeof contactDialog.showModal !== "function") return;
     event.preventDefault();
-    if (!intake.reportValidity()) return;
-    const data = new FormData(intake);
-    const notes = [
-      `Call for: ${data.get("role")}`,
-      `Help with: ${data.getAll("focus").join(", ") || "Not sure yet"}`,
-      `Question: ${String(data.get("a1")).trim()}`
-    ].join("\n");
-    const destination = new URL(intake.action);
-    destination.search = "";
-    destination.searchParams.set("name", String(data.get("name") || "").trim());
-    destination.searchParams.set("email", String(data.get("email") || "").trim());
-    destination.searchParams.set("a1", notes);
-    window.location.assign(destination.href);
+    try {
+      contactDialog.showModal();
+    } catch {
+      return;
+    }
+    syncDialogScroll();
+    const firstField = contactDialog.querySelector("input:not([type='hidden']), textarea, select, button[type='submit']");
+    firstField?.focus();
+  };
+  document.querySelectorAll("[data-contact-dialog]").forEach((control) => {
+    control.addEventListener("click", openContactDialog);
+  });
+  contactDialog?.querySelector("[data-contact-close]")?.addEventListener("click", () => contactDialog.close());
+  contactDialog?.addEventListener("click", (event) => {
+    if (event.target !== contactDialog) return;
+    const box = contactDialog.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) contactDialog.close();
+  });
+  contactDialog?.addEventListener("close", syncDialogScroll);
+
+  document.querySelectorAll(".intake-form").forEach((intake) => {
+    intake.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!intake.reportValidity()) return;
+      const data = new FormData(intake);
+      const notes = [
+        `Call for: ${data.get("role")}`,
+        `Help with: ${data.getAll("focus").join(", ") || "Not sure yet"}`,
+        `Question: ${String(data.get("a1")).trim()}`
+      ].join("\n");
+      const destination = new URL(intake.action);
+      destination.search = "";
+      destination.searchParams.set("name", String(data.get("name") || "").trim());
+      destination.searchParams.set("email", String(data.get("email") || "").trim());
+      destination.searchParams.set("a1", notes);
+      window.location.assign(destination.href);
+    });
   });
 
   // The public library is a visual preview; its full class example follows below.

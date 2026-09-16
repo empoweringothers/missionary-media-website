@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "test": "node --test scripts/test-story-video-dialog.mjs && node --check public/assets/site.js",
+    "test": "node --test scripts/test-story-video-dialog.mjs scripts/test-wo-site-pass.mjs && node --check public/assets/site.js",
     "check:deploy": "wrangler deploy --dry-run",
     "deploy": "wrangler deploy"
   },
