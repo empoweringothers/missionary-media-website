@@ -99,9 +99,9 @@ test("G6: Home removals and FOUNDER-006 beginning only (no invented continuation
   assert.match(home, /Prayer letters &amp; home connection/);
   assert.match(home, /Too much digital noise/);
   assert.match(home, /Trusted help when you need it/);
-  assert.match(home, /site-card--church/);
-  assert.match(home, /security-card/);
-  assert.equal(home.includes("quiet-draft"), false);
+  assert.match(home, /quiet-draft/);
+  assert.match(home, /home-inbox/);
+  assert.equal(home.includes("site-card--church"), false);
 });
 
 test("G7: Footer matches simplified nav", () => {
