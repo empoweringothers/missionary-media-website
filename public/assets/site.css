@@ -1488,7 +1488,7 @@ main{overflow-x:clip}
   }
 }
 
-/* WO-HOME-SPINE-001: Tools / People / Steps hierarchy. Category labels stay small. */
+.scene-work .unfinished-letter{opacity:.55}
 .opening .hero-copy{max-width:680px}
 .opening .hero-cta-note{margin-top:16px;max-width:44ch;font-size:16px;line-height:1.45;color:#c2d7e9;text-shadow:0 1px 14px rgba(7,26,47,.3)}
 .pain-chapter .chapter-label{font-size:13px;letter-spacing:.04em;text-transform:none;margin-bottom:10px}
@@ -1500,7 +1500,7 @@ main{overflow-x:clip}
 .pain-chapter .example-help,
 .pain-chapter .example-pair p.example-help{font-size:18px;line-height:1.5;color:#526a7b;margin:0;max-width:36ch}
 .pain-chapter .example-pair p + p{margin-top:10px}
-.is-scroll-story .pain-chapter{min-height:min(88vh,900px);max-height:none}
+.is-scroll-story .pain-chapter{min-height:min(72vh,760px);max-height:none;justify-content:flex-start;padding:64px 0 180px}
 .pitch-copy .button + .pitch-availability{border-top:0;padding-top:14px;margin-top:0;color:#526a7b;max-width:46ch}
 .hc-example-section{padding-block:72px}
 .hc-example-copy{max-width:46rem}
@@ -1514,7 +1514,10 @@ main{overflow-x:clip}
   .pain-chapter .chapter-kicker{max-width:42ch}
 }
 @media(max-width:740px){
-  .opening .hero-cta-note{font-size:15px;max-width:36ch;margin-top:14px}
+  .opening .hero-copy{padding-top:268px}
+  .opening .hero h1{font-size:clamp(32px,8.4vw,46px)}
+  .opening .hero-cta-note{font-size:15px;max-width:36ch;margin-top:12px}
+  .opening .hero .button{margin-top:18px}
   .pain-chapter .chapter-label{margin-bottom:8px;font-size:12px}
   .pain-chapter .chapter-kicker{font-size:14px;margin-bottom:22px}
   .pain-chapter .example-difficulty,

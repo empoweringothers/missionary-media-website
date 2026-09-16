@@ -256,7 +256,7 @@ if (typeof module === "object" && module.exports) {
     } else if (scene.classList.contains("scene-work")) {
       add(scene.querySelector(".unfinished-letter"), [
         { opacity: 0, transform: "translate3d(0,24px,0) scale(.94)" },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
+        { opacity: 0.55, transform: "translate3d(0,0,0) scale(1)" }
       ], 0, 0.4, "ease-in-out");
       scene.querySelectorAll(".task-slip").forEach((notice, i) => add(notice, [
         { opacity: 0, transform: "translate3d(0,28px,0) scale(.92)" },
@@ -410,7 +410,7 @@ if (typeof module === "object" && module.exports) {
       const topInset = (header?.offsetHeight || 76) + 20;
       // Measure the resting layout before applying any animated transform.
       const geometry = scenes.map((scene, i) => ({
-        top: layoutTop(enhanced ? chapters[i].querySelector("h3") : scene),
+        top: layoutTop(enhanced ? (chapters[i].querySelector(".chapter-label") || chapters[i].querySelector("h3")) : scene),
         height: scene.offsetHeight
       }));
       if (enhanced) {
