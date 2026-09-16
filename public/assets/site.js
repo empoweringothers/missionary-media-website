@@ -477,15 +477,23 @@ if (typeof module === "object" && module.exports) {
     }, { rootMargin: "0px 0px -42% 0px", threshold: 0 });
     document.querySelectorAll("[data-reveal], [data-land]").forEach((element) => {
       if (reducedMotion.matches || element.matches(".pain-stage, [data-pain-scene]")) return;
+      if (element.closest(".about-hero")) return;
+      const aboutPage = document.body.classList.contains("page-about");
+      const aboutEase = "cubic-bezier(0.22, 1, 0.36, 1)";
       const container = element.hasAttribute("data-land");
       const heroSurface = element.dataset.land === "hero";
-      const animation = animateOnce(element, [
-        { opacity: 0, transform: heroSurface ? "translateY(18px) scale(1.025)" : container ? "translateY(34px) scale(1.06)" : "translateY(26px)" },
-        { opacity: 1, offset: container ? 0.38 : 0.75 },
-        { opacity: 1, transform: "none" }
-      ], { duration: heroSurface ? 2100 : container ? 1800 : 1350,
-        delay: window.matchMedia("(min-width: 741px)").matches ? Math.min(400, Math.max(0, Number(element.dataset.landDelay) || 0)) : 0,
-        easing: landingEase, fill: "backwards" });
+      const animation = aboutPage
+        ? animateOnce(element, [
+            { opacity: 0, transform: "translateY(12px)" },
+            { opacity: 1, transform: "none" }
+          ], { duration: 480, easing: aboutEase, fill: "backwards" })
+        : animateOnce(element, [
+            { opacity: 0, transform: heroSurface ? "translateY(18px) scale(1.025)" : container ? "translateY(34px) scale(1.06)" : "translateY(26px)" },
+            { opacity: 1, offset: container ? 0.38 : 0.75 },
+            { opacity: 1, transform: "none" }
+          ], { duration: heroSurface ? 2100 : container ? 1800 : 1350,
+            delay: window.matchMedia("(min-width: 741px)").matches ? Math.min(400, Math.max(0, Number(element.dataset.landDelay) || 0)) : 0,
+            easing: landingEase, fill: "backwards" });
       animation.pause();
       animation.currentTime = 0;
       entrances.set(element, animation);

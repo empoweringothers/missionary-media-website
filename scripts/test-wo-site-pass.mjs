@@ -43,8 +43,8 @@ test("G2: About Tabor is /about/; tabornorm.com is other-work, never .org", () =
     assert.equal(html.includes("href=\"/#about\""), false, page);
     assert.equal(/class="nav-link" href="https:\/\/tabornorm\.com\//.test(html), false, page);
   }
-  assert.match(about, /href="https:\/\/tabornorm\.com\/" target="_blank" rel="noopener noreferrer"/);
-  assert.match(about, /More of the story is at tabornorm\.com/);
+  assert.match(about, /class="button about-hero-cta"[\s\S]*href="https:\/\/tabornorm\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(about, /More of the story/);
 });
 
 test("G3: Resources is a single nav link with no dropdown", () => {
@@ -105,6 +105,8 @@ test("G8: prefers-reduced-motion still present; no extra-work chapter label", ()
 });
 
 test("G9: About page ships Outline A paste-ready strings", () => {
+  assert.match(about, /Missionary Media exists so the digital side serves church planting and the gospel, not the other way around/);
+  assert.match(about, /I sit with missionaries, listen, and help them find a next step that fits/);
   assert.match(about, /You came to the field to plant churches, share the gospel, and stay in the work\. Missionary Media helps you navigate the digital side of ministry/);
   assert.match(about, /Why Missionary Media exists/);
   assert.match(about, /So you know where to start, make wise decisions, and stay connected without the digital work eating your week/);
@@ -119,5 +121,17 @@ test("G9: About page ships Outline A paste-ready strings", () => {
   assert.equal(about.includes("Valley Forge"), false);
   assert.equal(about.includes("\u2014"), false);
   assert.equal(about.includes("TODO-FOUNDER"), false);
-  assert.equal(about.includes("TODO-WATCHLINKS"), false);
+  assert.equal(about.includes("digital-door"), false);
+  assert.equal(about.includes("data-quote-rail"), false);
+  assert.equal(about.includes("data-land=\"hero\""), false);
+});
+
+test("G10: About hero MARK-H1-LEDE-CTA stagger and reduced-motion", () => {
+  assert.match(css, /@keyframes about-hero-in/);
+  assert.match(css, /about-hero-in 480ms cubic-bezier\(0\.22, 1, 0\.36, 1\) both/);
+  assert.match(css, /\.about-hero h1\[data-about-stagger\]\{animation-delay:90ms\}/);
+  assert.match(css, /\.about-hero .lead\[data-about-stagger\]\{animation-delay:180ms\}/);
+  assert.match(css, /\.about-hero .about-hero-cta\[data-about-stagger\]\{animation-delay:270ms\}/);
+  assert.match(css, /prefers-reduced-motion:reduce\)\{\s*\.about-hero \[data-about-stagger\]\{animation:none;opacity:1;transform:none\}/);
+  assert.match(about, /data-about-stagger href="https:\/\/tabornorm\.com\/"/);
 });

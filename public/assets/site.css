@@ -1222,20 +1222,30 @@ main{overflow-x:clip}
 .channel-links>a>:last-child{margin-left:auto}
 .watch-image img{aspect-ratio:3/4;object-fit:contain;object-position:center}
 
-/* About Tabor: sparse Outline A, existing tokens, soft reveal already on data-reveal. */
-.about-hero{padding-block:66px 28px;display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center}
+/* About Tabor: Outline A + Brand hero stagger (opacity + slight Y). */
+.about-hero{padding-block:66px 28px;display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
 .about-hero .eyebrow{margin-bottom:22px}
-.about-hero h1{font-size:clamp(47px,5.5vw,80px)}
-.about-hero .lead{font-size:21px;color:var(--muted);max-width:36ch;margin-top:24px}
+.about-hero h1{font-size:clamp(28px,3.5vw,44px);line-height:1.18;letter-spacing:-.03em;max-width:22ch;text-wrap:pretty}
+.about-hero .lead{font-size:21px;color:var(--muted);max-width:38ch;margin-top:24px}
+.about-hero-cta{margin-top:28px}
 .about-portrait{margin:0;border-radius:var(--radius);overflow:hidden;background:#e9e5dc}
 .about-portrait img{width:100%;aspect-ratio:1.12;object-fit:cover;object-position:50% 8%;display:block}
 .about-block{max-width:58ch}
 .about-block h2{font-size:clamp(32px,3.4vw,46px);margin-bottom:18px}
 .about-block p{color:var(--muted);font-size:20px;line-height:1.5}
-.about-block .text-link{margin-top:22px}
 .about-chips{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
 .about-chips li{padding:10px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:600}
 .page-about .learning-link-grid{margin-top:12px}
-@media(max-width:1023px){.about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 12px}.about-hero h1{font-size:clamp(42px,8vw,64px)}}
+@keyframes about-hero-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.about-hero [data-about-stagger]{animation:about-hero-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both}
+.about-hero .eyebrow[data-about-stagger]{animation-delay:0ms}
+.about-hero h1[data-about-stagger]{animation-delay:90ms}
+.about-hero .lead[data-about-stagger]{animation-delay:180ms}
+.about-hero .about-hero-cta[data-about-stagger]{animation-delay:270ms}
+.no-js .about-hero [data-about-stagger]{animation:none;opacity:1;transform:none}
+@media(max-width:1023px){.about-hero{grid-template-columns:1fr;gap:32px;padding-block:48px 12px}.about-hero h1{font-size:clamp(26px,6.4vw,38px);max-width:none}}
 @media(max-width:740px){.about-hero{padding-block:36px 8px}.about-block p{font-size:18px}.about-chips li{font-size:13px}}
-@media(prefers-reduced-motion:reduce){.about-portrait img{transform:none}}
+@media(prefers-reduced-motion:reduce){
+  .about-hero [data-about-stagger]{animation:none;opacity:1;transform:none}
+  .about-portrait img{transform:none}
+}
