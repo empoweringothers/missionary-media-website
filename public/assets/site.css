@@ -1527,6 +1527,10 @@ main{overflow-x:clip}
   .hc-example-copy h2{font-size:36px}
   .hc-example-copy > p:not(.eyebrow){font-size:18px;margin-top:18px}
 }
+@media(max-width:370px){
+  .opening .hero-copy{padding-top:228px}
+  .opening .hero-cta-note{font-size:14px;margin-top:10px}
+}
 @media(prefers-reduced-motion:reduce){
   .pain-chapter .example-difficulty,
   .pain-chapter .example-help,
