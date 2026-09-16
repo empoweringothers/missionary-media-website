@@ -759,12 +759,12 @@ main{overflow-x:clip}
  .intake-identity label{font-size:17px}
  /* Mobile door hero: raise the photo behind left copy and keep the glow on the right. */
  .academy-door-hero{min-height:400px;padding:22px 25px 24px;margin-top:16px;align-items:center}
- .academy-door-copy{max-width:58%;padding-right:12px}
+ .academy-door-copy{max-width:58%;padding-right:8px}
  .academy-door-copy h1{font-size:36px;max-width:10ch}
  .academy-door-copy .eyebrow{margin-bottom:12px;font-size:12px}
  .academy-door-copy>p:not(.eyebrow){font-size:16px;line-height:1.4;margin-top:14px;max-width:20ch}
- .academy-door-copy .button{margin-top:16px;font-size:15px;gap:12px}
- .academy-door-image img{object-fit:cover;object-position:82% 42%;width:100%;height:calc(100% + 30px);inset:0;top:0;bottom:auto}
+ .academy-door-copy .button{margin-top:16px;font-size:15px;gap:12px;padding-inline:16px;white-space:nowrap}
+ .academy-door-image img{object-fit:cover;object-position:94% 40%;width:100%;height:calc(100% + 30px);inset:0;top:0;bottom:auto}
  .academy-door-hero::after{background:linear-gradient(90deg,rgba(5,22,41,.94),rgba(5,22,41,.8) 38%,rgba(5,22,41,.22) 62%,transparent 80%)}
  .academy-library-grid{grid-template-columns:1fr;gap:27px}
  .library-course-copy{padding:25px}

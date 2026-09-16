@@ -203,10 +203,10 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.equal(css.includes("height:calc(54% + 15px)"), false);
   assert.equal(css.includes("linear-gradient(180deg,#071c32 36%"), false);
   assert.match(css, /\.academy-door-copy\{max-width:51%;position:relative\}/);
-  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy\{max-width:58%;padding-right:12px\}/);
+  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy\{max-width:58%;padding-right:8px\}/);
   assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy h1\{font-size:36px;max-width:10ch\}/);
   assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-hero::after\{background:linear-gradient\(90deg/);
-  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-image img\{[^}]*object-position:82% 42%/);
+  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-image img\{[^}]*object-position:94% 40%/);
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
