@@ -161,7 +161,7 @@ if (typeof module === "object" && module.exports) {
   document.querySelectorAll("dialog").forEach((dialog) => {
     dialog.addEventListener("keydown", (event) => {
       if (event.key !== "Tab") return;
-      const controls = Array.from(dialog.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), iframe, [tabindex='0']"))
+      const controls = Array.from(dialog.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), iframe, [tabindex='0']"))
         .filter((element) => element.getClientRects().length > 0);
       const first = controls[0];
       const last = controls[controls.length - 1];
@@ -226,6 +226,51 @@ if (typeof module === "object" && module.exports) {
     animation.currentTime = 0;
     return animation;
   };
+  // Rolling pin: each copy unit sits on the same horizontal cylinder. pinAngle
+  // turns with chapter scroll; lineOffset staggers lines into a curve. Never
+  // rotateX the whole column as one slab.
+  const pinProgressAt = (top, enterStart, settleStart, settleEnd, exitEnd) => {
+    if (top >= enterStart) return 0;
+    if (top <= exitEnd) return 1;
+    if (top > settleStart) return 0.24 * (enterStart - top) / (enterStart - settleStart);
+    if (top >= settleEnd) return 0.24 + 0.48 * (settleStart - top) / (settleStart - settleEnd);
+    return 0.72 + 0.28 * (settleEnd - top) / (settleEnd - exitEnd);
+  };
+  const clearPinLine = (el) => {
+    if (!el) return;
+    el.style.removeProperty("--pin-x");
+    el.style.removeProperty("--pin-z");
+    el.style.removeProperty("--pin-s");
+    el.style.removeProperty("--pin-o");
+  };
+  const applyPinLines = (lines, p, viewport) => {
+    const n = lines.length;
+    const incoming = p < 0.24;
+    const outgoing = p > 0.72;
+    const turn = incoming ? 1 - p / 0.24 : outgoing ? (p - 0.72) / 0.28 : 0;
+    const pinAngle = 12 * turn;
+    const spread = 5 * turn;
+    lines.forEach((el, i) => {
+      const lineOffset = incoming ? i * spread : (n - 1 - i) * spread;
+      let angle = pinAngle + lineOffset;
+      const rect = el.getBoundingClientRect();
+      const mid = rect.top + rect.height * 0.4;
+      const inBand = rect.height > 0 && mid > viewport * 0.14 && mid < viewport * 0.7;
+      if (inBand && turn > 0) {
+        angle = Math.min(angle, 12);
+      }
+      if (turn === 0) {
+        angle = 0;
+      }
+      const z = -Math.sin(angle * Math.PI / 180) * 15;
+      const scale = 1 - Math.min(0.04, Math.abs(angle) / 12 * 0.04);
+      el.style.setProperty("--pin-x", `${angle}deg`);
+      el.style.setProperty("--pin-z", `${z}px`);
+      el.style.setProperty("--pin-s", String(scale));
+      // Keep reading contrast stable while the small rotation follows scrolling.
+      el.style.setProperty("--pin-o", "1");
+    });
+  };
   const makeNarrative = (scene) => {
     const motions = [];
     const art = scene.querySelector(".scene-art");
@@ -236,66 +281,95 @@ if (typeof module === "object" && module.exports) {
       if (element) motions.push(scrollMotion(element, frames, start, end, easing));
     };
     if (scene.classList.contains("scene-sending")) {
-      const papers = Array.from(scene.querySelectorAll(".letter-shadow, .update-letter"));
+      const letter = scene.querySelector(".update-letter");
+      const shadows = Array.from(scene.querySelectorAll(".letter-shadow"));
       const recipients = Array.from(scene.querySelectorAll(".recipient"));
-      // Read each final position before writing animations. Every recipient
-      // begins at the same origin, behind the paper, then fans into place.
-      const paperFrames = papers.map((paper) => [
-        { opacity: 0, transform: origin(paper, center, 0.88, 28) },
-        { opacity: 0.6, transform: origin(paper, center, 0.96), offset: 0.35 },
+      const letterPoint = letter
+        ? { x: letter.offsetLeft + letter.offsetWidth / 2, y: letter.offsetTop + letter.offsetHeight / 2 }
+        : center;
+      // Read each final position before writing animations. Recipients begin
+      // behind the paper, fan out with the repeated-send frustration, then
+      // settle as one prepared update reaching each group.
+      add(letter, [
+        { opacity: 0, transform: origin(letter, center, 0.88, 28) },
+        { opacity: 0.7, transform: origin(letter, center, 0.96), offset: 0.32 },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ]);
-      const recipientFrames = recipients.map((recipient) => [
+      ], 0, 0.42, "cubic-bezier(.4,0,.2,1)");
+      shadows.forEach((shadow, i) => add(shadow, [
+        { opacity: 0, transform: origin(shadow, center, 0.88, 28) },
+        { opacity: 0.85, transform: "translate3d(0,0,0) scale(1)", offset: 0.42 },
+        { opacity: 0, transform: origin(shadow, letterPoint, 1) }
+      ], 0.04 + i * 0.03, 0.78 + i * 0.04, "cubic-bezier(.4,0,.2,1)"));
+      recipients.forEach((recipient, i) => add(recipient, [
         { opacity: 0, transform: origin(recipient, center, 0.78) },
-        { opacity: 1, offset: 0.2 },
+        { opacity: 1, offset: 0.18 },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ]);
-      papers.forEach((paper, i) => add(paper, paperFrames[i], i * 0.025, 0.46 + i * 0.025, "cubic-bezier(.4,0,.2,1)"));
-      recipients.forEach((recipient, i) => add(recipient, recipientFrames[i], 0.32 + i * 0.12, 0.74 + i * 0.12));
-      add(scene.querySelector(".sending-paths"), [{ opacity: 0 }, { opacity: 1 }], 0.58, 1);
+      ], 0.26 + i * 0.1, 0.62 + i * 0.08));
+      scene.querySelectorAll(".recipient-frustration").forEach((label, i) => add(label, [
+        { opacity: 0 },
+        { opacity: 1, offset: 0.22 },
+        { opacity: 1, offset: 0.58 },
+        { opacity: 0 }
+      ], 0.3 + i * 0.08, 0.86));
+      scene.querySelectorAll(".recipient-relief").forEach((label, i) => add(label, [
+        { opacity: 0 },
+        { opacity: 1 }
+      ], 0.7 + i * 0.06, 0.92 + i * 0.02));
+      scene.querySelectorAll(".recipient-mark").forEach((mark, i) => add(mark, [
+        { opacity: 0, transform: "scale(.62)" },
+        { opacity: 1, transform: "scale(1)" }
+      ], 0.72 + i * 0.06, 0.94 + i * 0.02));
+      add(scene.querySelector(".sending-paths"), [{ opacity: 0 }, { opacity: 1 }], 0.52, 0.88);
     } else if (scene.classList.contains("scene-work")) {
+      const slips = Array.from(scene.querySelectorAll(".task-slip"));
+      const pile = { x: art.offsetWidth * 0.5, y: art.offsetHeight * 0.44 };
       add(scene.querySelector(".unfinished-letter"), [
-        { opacity: 0, transform: "translate3d(0,24px,0) scale(.94)" },
+        { opacity: 0.72, transform: "translate3d(6%,3%,0) scale(.96)" },
+        { opacity: 0.38, offset: 0.42 },
+        { opacity: 0, transform: "translate3d(0,-12px,0) scale(.9)" }
+      ], 0, 0.5, "ease-in-out");
+      slips.forEach((notice, i) => add(notice, [
+        { opacity: 0, transform: origin(notice, {
+          x: pile.x + (i - 1.5) * 12,
+          y: pile.y + (i - 1.5) * 10
+        }, 0.9) },
+        { opacity: 1, offset: 0.28 },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0, 0.4, "ease-in-out");
-      scene.querySelectorAll(".task-slip").forEach((notice, i) => add(notice, [
-        { opacity: 0, transform: "translate3d(0,28px,0) scale(.92)" },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0.2 + i * 0.15, 0.55 + i * 0.15));
+      ], 0.1 + i * 0.07, 0.66 + i * 0.06));
+      scene.querySelectorAll(".task-checkbox").forEach((box, i) => add(box, [
+        { backgroundColor: "transparent", borderColor: "#9eb7c8" },
+        { backgroundColor: "#c9dce8", borderColor: "#7a9eb5" }
+      ], 0.7 + i * 0.05, 0.88 + i * 0.04));
     } else if (scene.classList.contains("scene-trusted-help")) {
       const reveal = [
         { opacity: 0, transform: "translate3d(0,12px,0)" },
         { opacity: 1, transform: "translate3d(0,0,0)" }
       ];
+      const pile = { x: art.offsetWidth * 0.5, y: art.offsetHeight * 0.5 };
 
-      add(
-        scene.querySelector(".help-question"),
-        reveal,
-        0,
-        0.24
-      );
+      add(scene.querySelector(".help-question"), reveal, 0, 0.22);
 
-      scene.querySelectorAll(".help-topic").forEach((topic, i) => {
-        add(topic, reveal, 0.18 + i * 0.1, 0.46 + i * 0.1);
+      scene.querySelectorAll(".duty-need").forEach((need, i) => {
+        add(need, [
+          { opacity: 0, transform: origin(need, {
+            x: pile.x,
+            y: pile.y + (i - 1) * 14
+          }, 0.88) },
+          { opacity: 1, offset: 0.32 },
+          { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
+        ], 0.14 + i * 0.08, 0.58 + i * 0.08);
       });
 
-      add(
-        scene.querySelector(".help-connection path"),
-        [
+      scene.querySelectorAll(".help-person").forEach((person, i) => {
+        add(person, reveal, 0.4 + i * 0.08, 0.68 + i * 0.08);
+      });
+
+      scene.querySelectorAll(".help-connection path").forEach((path, i) => {
+        add(path, [
           { strokeDashoffset: "1", opacity: 0 },
           { strokeDashoffset: "0", opacity: 1 }
-        ],
-        0.58,
-        0.82,
-        "ease-in-out"
-      );
-
-      add(
-        scene.querySelector(".help-person"),
-        reveal,
-        0.72,
-        1
-      );
+        ], 0.62 + i * 0.07, 0.86 + i * 0.06, "ease-in-out");
+      });
     }
     return motions;
   };
@@ -305,8 +379,10 @@ if (typeof module === "object" && module.exports) {
   const story = document.querySelector("[data-pain-story]");
   if (story && "animate" in Element.prototype) {
     const storyDesktop = window.matchMedia("(min-width: 981px) and (min-height: 650px)");
+    const storyWide = window.matchMedia("(min-width: 981px)");
     const chapters = Array.from(story.querySelectorAll("[data-pain-step]"));
     const scenes = Array.from(story.querySelectorAll("[data-pain-scene]"));
+    const bands = Array.from(story.querySelectorAll("[data-pain-band]"));
     const stage = story.querySelector(".pain-stage");
     const navigation = story.querySelector(".scene-navigation");
     const controls = Array.from(navigation.querySelectorAll("button"));
@@ -365,7 +441,7 @@ if (typeof module === "object" && module.exports) {
         showScene(index);
         seek([stageLanding.animation], progress(stageLanding.top - y, stageLanding.start, stageLanding.end));
       }
-      records.forEach((record, i) => {
+      records.forEach((record) => {
         const top = record.top - y;
         if (record.landing) seek([record.landing], progress(top, record.landStart, record.landEnd));
         // Offscreen scenes are positioned once at their endpoint, not animated
@@ -374,6 +450,21 @@ if (typeof module === "object" && module.exports) {
         if (value !== record.last) {
           seek(record.motions, value);
           record.last = value;
+        }
+        if (record.pinLines) {
+          const pinValue = pinProgressAt(
+            record.pinTop - y, record.enterStart, record.settleStart, record.settleEnd, record.exitEnd
+          );
+          if (pinValue !== record.pinLast) {
+            applyPinLines(record.pinLines, pinValue, window.innerHeight);
+            if (record.bandAssist) {
+              const incoming = pinValue < 0.24;
+              const outgoing = pinValue > 0.72;
+              const turn = incoming ? 1 - pinValue / 0.24 : outgoing ? (pinValue - 0.72) / 0.28 : 0;
+              record.band.style.transform = turn ? `translateY(${incoming ? 10 * turn : -8 * turn}px)` : "";
+            }
+            record.pinLast = pinValue;
+          }
         }
       });
       if (catchingUp) scrollFrame = requestAnimationFrame(readScroll);
@@ -390,27 +481,37 @@ if (typeof module === "object" && module.exports) {
       records.forEach((record) => {
         record.motions.forEach((animation) => animation.cancel());
         record.landing?.cancel();
+        record.pinLines?.forEach(clearPinLine);
+        if (record.band) record.band.style.transform = "";
       });
       stageLanding?.animation.cancel();
       stageLanding = null;
       records = [];
       enhanced = storyDesktop.matches && !reducedMotion.matches;
+      const pinMobile = !storyWide.matches && !reducedMotion.matches;
       story.classList.toggle("is-scroll-story", enhanced);
+      story.toggleAttribute("data-pain-pin", !reducedMotion.matches);
       navigation.hidden = !enhanced;
       activeScene = -1;
-      scenes.forEach((scene) => {
+      scenes.forEach((scene, i) => {
         scene.inert = false;
         scene.hidden = false;
         scene.dataset.active = "false";
+        if (pinMobile && bands[i]) bands[i].appendChild(scene);
+        else stage.insertBefore(scene, navigation);
       });
-      if (reducedMotion.matches) return;
+      if (reducedMotion.matches) {
+        story.querySelectorAll(".pin-line").forEach(clearPinLine);
+        bands.forEach((band) => { band.style.transform = ""; });
+        return;
+      }
       const viewport = window.innerHeight;
       measuredWidth = window.innerWidth;
       measuredHeight = viewport;
       const topInset = (header?.offsetHeight || 76) + 20;
       // Measure the resting layout before applying any animated transform.
       const geometry = scenes.map((scene, i) => ({
-        top: layoutTop(enhanced ? chapters[i].querySelector("h3") : scene),
+        top: layoutTop(enhanced ? (chapters[i].querySelector(".chapter-label") || chapters[i].querySelector("h3")) : scene),
         height: scene.offsetHeight
       }));
       if (enhanced) {
@@ -430,16 +531,28 @@ if (typeof module === "object" && module.exports) {
         // before the story begins; it is complete when its top meets the header.
         const start = enhanced ? viewport * 0.58 : Math.max(topInset + 72, viewport * 0.55 - height / 2);
         const end = enhanced ? topInset + 60 : topInset;
+        const chapter = chapters[i];
+        const band = bands[i];
+        const pinLines = Array.from(chapter.querySelectorAll(".pin-line"));
+        const pinHost = pinMobile && band ? band : chapter;
+        const pinTop = layoutTop(pinHost);
+        const pinHeight = pinHost.offsetHeight;
+        const enterStart = viewport * 0.98;
+        const settleStart = enhanced ? viewport * 0.5 : viewport * 0.58;
+        const settleEnd = enhanced ? -viewport * 0.08 : -Math.min(pinHeight * 0.14, viewport * 0.16);
+        const exitEnd = enhanced ? -viewport * 0.4 : -Math.min(pinHeight * 0.48, viewport * 0.45);
         return {
           top, start, end, last: -1,
           landStart: start + viewport * 0.26,
           landEnd: start + viewport * 0.075,
-          landing: enhanced ? null : scrollMotion(scene, [
+          landing: enhanced || pinMobile ? null : scrollMotion(scene, [
             { opacity: 0, transform: "translateY(42px) scale(1.09)" },
             { opacity: 1, offset: 0.38 },
             { opacity: 1, transform: "translateY(0) scale(1)" }
           ], 0, 1, "cubic-bezier(.25,.1,.25,1)"),
-          motions: makeNarrative(scene)
+          motions: makeNarrative(scene),
+          pinLines, pinTop, enterStart, settleStart, settleEnd, exitEnd, pinLast: -1,
+          band, bandAssist: pinMobile && band
         };
       });
       readScroll();
@@ -454,6 +567,8 @@ if (typeof module === "object" && module.exports) {
       });
     });
     reducedMotion.addEventListener("change", rebuildStory);
+    storyWide.addEventListener("change", rebuildStory);
+    storyDesktop.addEventListener("change", rebuildStory);
     window.addEventListener("scroll", scheduleScroll, { passive: true });
     window.addEventListener("resize", () => {
       // Mobile browser chrome can resize the viewport during a swipe. Preserve
@@ -493,7 +608,7 @@ if (typeof module === "object" && module.exports) {
           else animation.finished.then(settle).catch(() => {});
         }
       });
-    }, { rootMargin: "0px 0px -42% 0px", threshold: 0 });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
     document.querySelectorAll("[data-reveal], [data-land]").forEach((element) => {
       if (reducedMotion.matches || element.matches(".pain-stage, [data-pain-scene]")) return;
       if (element.closest(".about-hero")) return;
@@ -510,7 +625,7 @@ if (typeof module === "object" && module.exports) {
             { opacity: 0, transform: heroSurface ? "translateY(18px) scale(1.025)" : container ? "translateY(34px) scale(1.06)" : "translateY(26px)" },
             { opacity: 1, offset: container ? 0.38 : 0.75 },
             { opacity: 1, transform: "none" }
-          ], { duration: heroSurface ? 2100 : container ? 1800 : 1350,
+          ], { duration: heroSurface ? 800 : container ? 700 : 550,
             delay: window.matchMedia("(min-width: 741px)").matches ? Math.min(400, Math.max(0, Number(element.dataset.landDelay) || 0)) : 0,
             easing: landingEase, fill: "backwards" });
       animation.pause();
@@ -876,12 +991,14 @@ if (typeof module === "object" && module.exports) {
   });
 
   const contactDialog = document.querySelector("#contact-dialog");
+  let contactOpener = null;
   const openContactDialog = (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     if (!contactDialog || typeof contactDialog.showModal !== "function") return;
-    event.preventDefault();
+    contactOpener = event.currentTarget;
     try {
       contactDialog.showModal();
+      event.preventDefault();
     } catch {
       return;
     }
@@ -898,18 +1015,22 @@ if (typeof module === "object" && module.exports) {
     const box = contactDialog.getBoundingClientRect();
     if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) contactDialog.close();
   });
-  contactDialog?.addEventListener("close", syncDialogScroll);
+  contactDialog?.addEventListener("close", () => {
+    syncDialogScroll();
+    contactOpener?.focus({ preventScroll: true });
+  });
 
   document.querySelectorAll(".intake-form").forEach((intake) => {
     intake.addEventListener("submit", (event) => {
       event.preventDefault();
       if (!intake.reportValidity()) return;
       const data = new FormData(intake);
+      const question = String(data.get("a1") || "").trim();
       const notes = [
         `Call for: ${data.get("role")}`,
         `Help with: ${data.getAll("focus").join(", ") || "Not sure yet"}`,
-        `Question: ${String(data.get("a1")).trim()}`
-      ].join("\n");
+        question ? `Question: ${question}` : ""
+      ].filter(Boolean).join("\n");
       const destination = new URL(intake.action);
       destination.search = "";
       destination.searchParams.set("name", String(data.get("name") || "").trim());

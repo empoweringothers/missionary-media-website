@@ -74,35 +74,44 @@ test("G4: academy/resources is canonical learning layout; /resources/ hands off 
   assert.match(resourcesHandoff, /href="\/academy\/resources\/"/);
 });
 
-test("G5: Academy waiting-list CTAs open the existing contact dialog", () => {
+test("G5: Academy conversation CTAs open the existing contact dialog", () => {
   assert.equal(academy.includes("Book a discovery call"), false);
-  assert.match(academy, /data-contact-dialog>Join the waiting list/);
+  assert.match(academy, /data-contact-dialog>Let’s Chat/);
   assert.match(academy, /id="contact-dialog"/);
   assert.match(academy, /action="https:\/\/calendly\.com\/missionarymediahub\/30min"/);
 });
 
-test("G6: Home removals and FOUNDER-006 beginning only (no invented continuation)", () => {
+test("G6: Home founder, practical help rows, and quiet Connect referral", () => {
   assert.equal(home.includes("academy-teaser"), false);
   assert.equal(home.includes("What we’re building"), false);
   assert.equal(home.includes("Not Missionary Media."), false);
   assert.equal(home.includes("high-school classroom"), false);
   assert.equal(home.includes("I founded Missionary Media"), false);
   assert.equal(home.includes("three countries"), false);
-  assert.match(home, /You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. We sit with you, listen to what you[’']re trying to do, and help you find a next step that fits\.<\/p>/);
-  assert.match(home, /TODO-FOUNDER-006/);
+  assert.equal(home.includes("TODO-FOUNDER-006"), false);
   assert.equal(home.includes("I have helped missionaries"), false);
   assert.equal(home.includes("I have studied visual arts"), false);
   assert.equal(home.includes("And we’re just getting started"), false);
   assert.equal(home.includes("And we're just getting started"), false);
-  assert.match(home, /If I don’t have the answer, I’ll connect you with a trustworthy resource/);
-  assert.match(home, /href="\/about\/">More about Tabor/);
+  assert.equal(home.includes("You came to the field to plant churches"), false);
+  assert.equal(home.includes("More about Tabor"), false);
+  assert.equal(home.includes("Missionary Media stays with the missionary."), false);
+  assert.equal(home.includes("missionaryconnect-globe-view"), false);
+  assert.equal(home.includes("In development"), false);
+  assert.match(home, /I[’']ve helped missionaries in a few countries with audio and video, church systems, and digital security\./);
+  assert.match(home, /href="\/about\/">About Tabor/);
+  assert.match(home, />How I can help</);
+  assert.match(home, /Choose a starting point/);
+  assert.match(home, /Keep in touch/);
+  assert.match(home, /If the work calls for training someone on your team or help with a video/);
+  assert.match(home, /Missionary Connect \(Paul Douglas\) helps churches follow missionaries on a map or lobby display\./);
   assert.equal(home.includes("help-aspects"), false);
-  assert.match(home, /Prayer letters &amp; home connection/);
-  assert.match(home, /Too much digital noise/);
-  assert.match(home, /Finding trusted help/);
+  assert.match(home, />Tools</);
+  assert.match(home, />People</);
+  assert.match(home, />Steps</);
   assert.match(home, /scene-trusted-help/);
   assert.match(home, /data-pain-scene="2"/);
-  assert.match(home, /data-scene-jump="2">Trusted help</);
+  assert.match(home, /data-scene-jump="2"[^>]*>Steps</);
   assert.equal(home.includes("quiet-draft"), false);
   assert.equal(home.includes("site-card--church"), false);
 });
@@ -111,33 +120,41 @@ test("G7: Footer matches simplified nav", () => {
   for (const { page, html } of shipped) {
     assert.equal(html.includes("Coaching &amp; about Tabor"), false, page);
     assert.match(html, /Footer navigation[\s\S]*href="\/about\/">About Tabor/);
-    assert.match(html, /Get help[\s\S]*Join the waiting list/);
+    if (page.endsWith("/public/index.html")) {
+      assert.match(html, /Get help[\s\S]*Let’s Chat/);
+    } else {
+      assert.match(html, /Get help[\s\S]*Let’s Chat/);
+    }
     assert.match(html, /Get help[\s\S]*href="\/academy\/resources\/">Resources/);
   }
 });
 
-test("G8: prefers-reduced-motion still present; noise theme stays; no extra-work chapter", () => {
+test("G8: prefers-reduced-motion still present; no extra-work chapter", () => {
   assert.match(css, /prefers-reduced-motion/);
   assert.equal(home.includes("The extra work"), false);
-  assert.match(home, /Too much noise/);
-  assert.match(home, /Digital noise can eat the week\./);
-  assert.match(home, /When tools and tabs stack up, the story from the field gets quiet\./);
   assert.equal(home.includes("Digital noise<br>"), false);
+  assert.match(home, /Does any of this/);
+  assert.match(home, /I keep getting told to try another app\./);
 });
 
-test("G11: WO-PITCH-PAIN-COPY-001 chapter copy; no parentheticals or em dashes", () => {
-  assert.match(home, /<h3 id="pain-one-title"[^>]*>Will home get the update\?<\/h3>/);
-  assert.match(home, /Help turning field updates into something people back home can receive and pray with\./);
-  assert.match(home, /<h3 id="pain-two-title"[^>]*>Digital noise can eat the week\.<\/h3>/);
-  assert.match(home, /Who can help<br>with this\?/);
-  assert.match(home, /You need someone who understands the ministry\./);
-  assert.match(home, /A website that fits your setting\. Help keeping accounts safe\./);
+test("G11: WO-HOME-SPINE-001 chapter copy; no parentheticals or em dashes", () => {
+  assert.match(home, /<h3 id="pain-one-title"[^>]*>I keep getting told to try another app\. I don[’']t know which ones we actually need\.<\/h3>/);
+  assert.match(home, /I help you choose what you need and make better use of what you already have\./);
+  assert.match(home, /<h3 id="pain-two-title"[^>]*>Everything technical comes back to me\.<\/h3>/);
+  assert.match(home, /I don[’']t even know who to ask\./);
+  assert.match(home, /I send the same prayer letter one person at a time\./);
+  assert.match(home, /I help you organize contacts and send updates without repeating the same work\./);
+  assert.match(home, /Example of the help/);
+  assert.match(home, /One prepared update per group/);
+  assert.match(home, /Your church, supporters, and board do not have to receive the same message\./);
   assert.equal(home.includes("not only a church-made page"), false);
-  const chapters = home.match(/<div class="pain-chapters">[\s\S]*?<\/div>\s*<div class="pain-visual">/);
-  assert.ok(chapters);
-  assert.equal(chapters[0].includes("("), false);
-  assert.equal(chapters[0].includes("\u2014"), false);
-  assert.equal(chapters[0].includes(" -- "), false);
+  const start = home.indexOf('<div class="pain-chapters">');
+  const end = home.indexOf('<div class="pain-visual">');
+  assert.ok(start >= 0 && end > start);
+  const chapters = home.slice(start, end);
+  assert.equal(chapters.includes("("), false);
+  assert.equal(chapters.includes("\u2014"), false);
+  assert.equal(chapters.includes(" -- "), false);
 });
 
 test("G12: About title uses MM heading rhythm, not 8ch crush", () => {
@@ -170,16 +187,16 @@ test("G13: trusted-help scene JS replaces the old silence branch", () => {
   assert.match(siteJs, /help-connection path/);
   assert.match(siteJs, /help-person/);
   assert.equal(siteJs.includes("quiet-draft"), false);
-  assert.match(home, /<noscript><nav class="noscript-nav"[^>]*>[\s\S]*href="#start">Join the waiting list<\/a>/);
+  assert.match(home, /<noscript><nav class="noscript-nav"[^>]*>[\s\S]*href="#start">Let’s Chat<\/a>/);
 });
 
 test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
   assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
   assert.doesNotMatch(about, /<h1[^>]*>You came to the field/);
-  assert.match(about, /<h2>How I help<\/h2>\s*<p class="about-help"[^>]*>You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. I sit with you, listen to what you[’']re trying to do, and help you find a next step that fits, without asking you to become the media person\. I[’']m Tabor\.<\/p>/);
-  assert.match(about, /I[’']ve helped missionaries in a few countries with AV, church systems, and digital security/);
-  assert.match(about, /trained in the same rooms the top creators use\. And we[’']re just getting started/);
-  assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Join the waiting list/);
+  assert.match(about, /I help missionaries choose and use technology so they have more time for ministry\./);
+  assert.match(about, /audio and video, church systems, and digital security/);
+  assert.doesNotMatch(about, /top creators/);
+  assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Let’s Chat/);
   assert.match(about, /src="\/assets\/resources\/tabor-speaking\.jpg"/);
   assert.match(about, /alt="Tabor Normoyle in side profile at a desk, talking toward a computer"/);
   assert.match(about, /id="contact-dialog"/);
@@ -210,7 +227,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass7/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass17/, page);
   }
 });
 
@@ -223,5 +240,80 @@ test("G10: About hero title-then-CTA stagger and reduced-motion", () => {
   assert.equal(css.includes(".about-hero .lead[data-about-stagger]"), false);
   assert.match(css, /prefers-reduced-motion:reduce\)\{\s*\.about-hero \[data-about-stagger\]\{animation:none;opacity:1;transform:none\}/);
   assert.match(about, /class="about-help" data-about-stagger/);
-  assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Join the waiting list/);
+  assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Let’s Chat/);
+});
+
+test("WO-HOME-SPINE-001: hero, seating, person-connection, no coaching or price", () => {
+  assert.match(home, /I help missionaries/);
+  assert.match(home, /handle technology/);
+  assert.match(home, /for ministry\./);
+  assert.match(home, /I help you choose what to use, learn how to use it, and work out who will handle it\./);
+  assert.match(home, />Let’s Chat/);
+  assert.match(home, /Start with a free 30-minute conversation\. If you[’']d like my help, I[’']ll explain the work and the cost before we begin\./);
+  assert.match(home, /data-pain-scene="0"/);
+  assert.match(home, /class="pain-scene scene-work"[^>]*data-pain-scene="0"/);
+  assert.match(home, /class="pain-scene scene-trusted-help"[^>]*data-pain-scene="1"/);
+  assert.match(home, /class="pain-scene scene-sending"[^>]*data-pain-scene="2"/);
+  assert.match(home, /help-person/);
+  assert.match(home, /help-connection/);
+  assert.match(home, /Another app/);
+  assert.match(home, /Send it once/);
+  assert.match(home, /A teammate/);
+  assert.match(home, /What[’']s taking too much time\?/);
+  assert.match(home, /Bring a technology problem or a task you keep putting off\. In a free 30-minute conversation, we[’']ll talk through what you[’']re trying to do and identify a practical next step\./);
+  assert.match(home, /Your first conversation is free/);
+  assert.match(home, /Before any paid work:/);
+  assert.equal(home.includes("A few familiar choices, settling into a clearer arrangement."), false);
+  assert.equal(home.includes("Needs settle beside the people who can carry them."), false);
+  assert.equal(home.includes("We’ll work through it together."), false);
+  assert.equal(home.includes("Format the letter"), false);
+  assert.equal(home.includes("DIY"), false);
+  assert.equal(home.includes("One-on-one coaching and monthly live training are available now"), false);
+  assert.equal(home.includes("A video you’re trying to make"), false);
+  assert.equal(home.includes("fruitfulness"), false);
+  assert.equal(home.includes("$100"), false);
+  assert.match(home, /id="staying-connected"/);
+  assert.match(home, /I help you work out what to share, gather the photos and stories, and decide how to send updates and who will help\./);
+  assert.match(home, /This help is shaped around your situation/);
+  assert.equal(home.includes("Home Connection is the whole workflow"), false);
+  const storyJs = siteJs.slice(siteJs.indexOf("const makeNarrative"), siteJs.indexOf("// Native scrolling is the timeline"));
+  assert.equal(storyJs.includes("setTimeout"), false);
+  assert.match(siteJs, /Native scrolling is the timeline/);
+});
+
+test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note above submit", () => {
+  for (const { page, html } of shipped) {
+    if (!html.includes("class=\"intake-form\"")) continue;
+    assert.match(html, /class="field-cue">Required</, page);
+    assert.match(html, /class="field-cue">Optional</, page);
+    assert.equal(/id="(?:intake|waiting)-question"[^>]*\srequired/.test(html), false, page);
+    const formStart = html.indexOf('class="intake-form"');
+    const form = html.slice(formStart, formStart + 5000);
+    const notePos = form.indexOf("transfer-note");
+    const buttonPos = form.indexOf('type="submit"');
+    assert.ok(notePos >= 0 && buttonPos > notePos, page);
+    assert.match(form, /form-note--next/, page);
+  }
+  assert.match(home, /type="submit">Choose a time/);
+  assert.match(css, /\.form-note--next\{font-size:16px/);
+  assert.match(css, /\.field-cue\{/);
+});
+
+test("WO-HOME-SPINE-001 REV-5c: smaller rolling-pin radius on per-line wrap", () => {
+  assert.match(home, /class="pin-line pin-line--lead"/);
+  assert.match(home, /class="pin-line pin-line--pair"/);
+  assert.equal((home.match(/class="pin-line/g) || []).length >= 12, true);
+  assert.match(siteJs, /const applyPinLines = \(lines, p, viewport\)/);
+  assert.match(siteJs, /const lineOffset = incoming \? i \* spread : \(n - 1 - i\) \* spread/);
+  assert.match(siteJs, /pinAngle \+ lineOffset/);
+  assert.match(siteJs, /setProperty\("--pin-x"/);
+  assert.match(css, /perspective:\s*860px/);
+  assert.match(css, /\.pin-line\{[^}]*rotateX\(var\(--pin-x/);
+  assert.match(siteJs, /const pinAngle = 12 \* turn/);
+  assert.match(siteJs, /const spread = 5 \* turn/);
+  assert.match(siteJs, /Math\.sin\(angle \* Math\.PI \/ 180\) \* 15/);
+  assert.equal(siteJs.includes("makeRoll"), false);
+  assert.equal(siteJs.includes("rotateY("), false);
+  assert.match(css, /prefers-reduced-motion:reduce\)\{[\s\S]*\.pin-line,\.pain-band,\.pin-column\{opacity:1;transform:none/);
+  assert.equal(/id="intake-question"[^>]*\srequired/.test(home), false);
 });
