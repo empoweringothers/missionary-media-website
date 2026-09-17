@@ -934,11 +934,12 @@ if (typeof module === "object" && module.exports) {
       event.preventDefault();
       if (!intake.reportValidity()) return;
       const data = new FormData(intake);
+      const question = String(data.get("a1") || "").trim();
       const notes = [
         `Call for: ${data.get("role")}`,
         `Help with: ${data.getAll("focus").join(", ") || "Not sure yet"}`,
-        `Question: ${String(data.get("a1")).trim()}`
-      ].join("\n");
+        question ? `Question: ${question}` : ""
+      ].filter(Boolean).join("\n");
       const destination = new URL(intake.action);
       destination.search = "";
       destination.searchParams.set("name", String(data.get("name") || "").trim());

@@ -215,7 +215,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass11/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass12/, page);
   }
 });
 
@@ -263,4 +263,22 @@ test("WO-HOME-SPINE-001: hero, seating, person-connection, no coaching or price"
   const storyJs = siteJs.slice(siteJs.indexOf("const makeNarrative"), siteJs.indexOf("// Native scrolling is the timeline"));
   assert.equal(storyJs.includes("setTimeout"), false);
   assert.match(siteJs, /Native scrolling is the timeline/);
+});
+
+test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note above submit", () => {
+  for (const { page, html } of shipped) {
+    if (!html.includes("class=\"intake-form\"")) continue;
+    assert.match(html, /class="field-cue">Required</, page);
+    assert.match(html, /class="field-cue">Optional</, page);
+    assert.equal(/id="(?:intake|waiting)-question"[^>]*\srequired/.test(html), false, page);
+    const formStart = html.indexOf('class="intake-form"');
+    const form = html.slice(formStart, formStart + 5000);
+    const notePos = form.indexOf("transfer-note");
+    const buttonPos = form.indexOf('type="submit"');
+    assert.ok(notePos >= 0 && buttonPos > notePos, page);
+    assert.match(form, /form-note--next/, page);
+  }
+  assert.match(home, /type="submit">Let’s Chat/);
+  assert.match(css, /\.form-note--next\{font-size:16px/);
+  assert.match(css, /\.field-cue\{/);
 });
