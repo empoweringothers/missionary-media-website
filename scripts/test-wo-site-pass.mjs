@@ -215,7 +215,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass14/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass15/, page);
   }
 });
 
@@ -283,7 +283,7 @@ test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note abo
   assert.match(css, /\.field-cue\{/);
 });
 
-test("WO-HOME-SPINE-001 REV-5b: rolling-pin per-line wrap, not a column slab", () => {
+test("WO-HOME-SPINE-001 REV-5c: smaller rolling-pin radius on per-line wrap", () => {
   assert.match(home, /class="pin-line pin-line--lead"/);
   assert.match(home, /class="pin-line pin-line--pair"/);
   assert.equal((home.match(/class="pin-line/g) || []).length >= 12, true);
@@ -291,8 +291,11 @@ test("WO-HOME-SPINE-001 REV-5b: rolling-pin per-line wrap, not a column slab", (
   assert.match(siteJs, /const lineOffset = incoming \? i \* spread : \(n - 1 - i\) \* spread/);
   assert.match(siteJs, /pinAngle \+ lineOffset/);
   assert.match(siteJs, /setProperty\("--pin-x"/);
-  assert.match(css, /perspective:\s*1000px/);
+  assert.match(css, /perspective:\s*860px/);
   assert.match(css, /\.pin-line\{[^}]*rotateX\(var\(--pin-x/);
+  assert.match(siteJs, /const pinAngle = 12 \* turn/);
+  assert.match(siteJs, /const spread = 5 \* turn/);
+  assert.match(siteJs, /Math\.sin\(angle \* Math\.PI \/ 180\) \* 15/);
   assert.equal(siteJs.includes("makeRoll"), false);
   assert.equal(siteJs.includes("rotateY("), false);
   assert.match(css, /prefers-reduced-motion:reduce\)\{[\s\S]*\.pin-line,\.pain-band,\.pin-column\{opacity:1;transform:none/);

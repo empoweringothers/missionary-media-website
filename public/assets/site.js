@@ -248,8 +248,8 @@ if (typeof module === "object" && module.exports) {
     const incoming = p < 0.24;
     const outgoing = p > 0.72;
     const turn = incoming ? 1 - p / 0.24 : outgoing ? (p - 0.72) / 0.28 : 0;
-    const pinAngle = 11 * turn;
-    const spread = 4 * turn;
+    const pinAngle = 12 * turn;
+    const spread = 5 * turn;
     let opacityBase = 1;
     if (incoming) {
       opacityBase = p < 0.05 ? (p / 0.05) * 0.85 : p < 0.16 ? 0.85 + 0.1 * ((p - 0.05) / 0.11) : 0.95 + 0.05 * ((p - 0.16) / 0.08);
@@ -273,7 +273,7 @@ if (typeof module === "object" && module.exports) {
         angle = 0;
         opacity = 1;
       }
-      const z = -Math.sin(angle * Math.PI / 180) * 22;
+      const z = -Math.sin(angle * Math.PI / 180) * 15;
       const scale = 1 - Math.min(0.04, Math.abs(angle) / 12 * 0.04);
       el.style.setProperty("--pin-x", `${angle}deg`);
       el.style.setProperty("--pin-z", `${z}px`);

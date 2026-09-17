@@ -1528,8 +1528,8 @@ main{overflow-x:clip}
 .pain-chapter .example-pair p.example-help{font-size:18px;line-height:1.5;color:#526a7b;margin:0;max-width:36ch}
 .pain-chapter .example-pair p + p{margin-top:10px}
 .is-scroll-story .pain-chapter{min-height:min(72vh,760px);max-height:none;justify-content:flex-start;padding:64px 0 180px}
-.pain-story[data-pain-pin] .pin-column{perspective:1000px;transform-style:preserve-3d;perspective-origin:50% 32%}
-.pain-story[data-pain-pin] .pin-line{transform-origin:50% 50%;backface-visibility:hidden;transform:perspective(1000px) rotateX(var(--pin-x,0deg)) translateZ(var(--pin-z,0px)) scale(var(--pin-s,1));opacity:var(--pin-o,1)}
+.pain-story[data-pain-pin] .pin-column{perspective:860px;transform-style:preserve-3d;perspective-origin:50% 32%}
+.pain-story[data-pain-pin] .pin-line{transform-origin:50% 50%;backface-visibility:hidden;transform:perspective(860px) rotateX(var(--pin-x,0deg)) translateZ(var(--pin-z,0px)) scale(var(--pin-s,1));opacity:var(--pin-o,1)}
 .pitch-copy .button + .pitch-availability{border-top:0;padding-top:14px;margin-top:0;color:#526a7b;max-width:46ch}
 .contact-copy>p:not(.eyebrow){max-width:42ch}
 .hc-example-section{padding-block:72px}
