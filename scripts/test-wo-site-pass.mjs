@@ -215,7 +215,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass12/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass13/, page);
   }
 });
 
@@ -281,4 +281,21 @@ test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note abo
   assert.match(home, /type="submit">Let’s Chat/);
   assert.match(css, /\.form-note--next\{font-size:16px/);
   assert.match(css, /\.field-cue\{/);
+});
+
+test("WO-HOME-SPINE-001 REV-5: roll into depth from existing scroll story", () => {
+  assert.match(siteJs, /const makeRoll = \(element\)/);
+  assert.match(siteJs, /rotateX\(12deg\)/);
+  assert.match(siteJs, /rotateX\(10deg\)/);
+  assert.match(siteJs, /rotateX\(8deg\)/);
+  assert.match(siteJs, /perspective\(1000px\)/);
+  assert.match(siteJs, /rollProgressAt/);
+  assert.match(siteJs, /data-pain-roll/);
+  assert.equal(siteJs.includes("rotateY("), false);
+  assert.match(css, /perspective:\s*1000px/);
+  assert.match(css, /prefers-reduced-motion:reduce\)\{[\s\S]*\.pain-band\{opacity:1;transform:none\}/);
+  assert.match(home, /class="pain-band" data-pain-band="0"/);
+  assert.match(home, /class="pain-band" data-pain-band="2"/);
+  assert.match(home, /id="intake-question"/);
+  assert.equal(/id="intake-question"[^>]*\srequired/.test(home), false);
 });
