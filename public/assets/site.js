@@ -226,27 +226,6 @@ if (typeof module === "object" && module.exports) {
     animation.currentTime = 0;
     return animation;
   };
-  // Mild 3D roll into depth. perspective() lives on the transform so overflow
-  // clip on ancestors cannot flatten the rotateX. Caps: 8–12° while readable.
-  const rollIdentity = "perspective(1000px) translateY(0) translateZ(0px) rotateX(0deg) scale(1)";
-  const makeRoll = (element) => {
-    if (!element) return null;
-    return scrollMotion(element, [
-      { opacity: 0, transform: "perspective(1000px) translateY(16px) translateZ(-28px) rotateX(12deg) scale(0.97)" },
-      { offset: 0.14, opacity: 0.88, transform: "perspective(1000px) translateY(8px) translateZ(-14px) rotateX(8deg) scale(0.985)" },
-      { offset: 0.26, opacity: 1, transform: rollIdentity },
-      { offset: 0.7, opacity: 1, transform: rollIdentity },
-      { offset: 0.86, opacity: 0.6, transform: "perspective(1000px) translateY(-6px) translateZ(-20px) rotateX(10deg) scale(0.97)" },
-      { opacity: 0, transform: "perspective(1000px) translateY(-12px) translateZ(-36px) rotateX(12deg) scale(0.96)" }
-    ], 0, 1, "linear");
-  };
-  const rollProgressAt = (top, enterStart, settleStart, settleEnd, exitEnd) => {
-    if (top >= enterStart) return 0;
-    if (top <= exitEnd) return 1;
-    if (top > settleStart) return 0.26 * (enterStart - top) / (enterStart - settleStart);
-    if (top >= settleEnd) return 0.26 + 0.44 * (settleStart - top) / (settleStart - settleEnd);
-    return 0.7 + 0.3 * (settleEnd - top) / (settleEnd - exitEnd);
-  };
   const makeNarrative = (scene) => {
     const motions = [];
     const art = scene.querySelector(".scene-art");
@@ -355,10 +334,8 @@ if (typeof module === "object" && module.exports) {
   const story = document.querySelector("[data-pain-story]");
   if (story && "animate" in Element.prototype) {
     const storyDesktop = window.matchMedia("(min-width: 981px) and (min-height: 650px)");
-    const storyWide = window.matchMedia("(min-width: 981px)");
     const chapters = Array.from(story.querySelectorAll("[data-pain-step]"));
     const scenes = Array.from(story.querySelectorAll("[data-pain-scene]"));
-    const bands = Array.from(story.querySelectorAll("[data-pain-band]"));
     const stage = story.querySelector(".pain-stage");
     const navigation = story.querySelector(".scene-navigation");
     const controls = Array.from(navigation.querySelectorAll("button"));
@@ -417,7 +394,7 @@ if (typeof module === "object" && module.exports) {
         showScene(index);
         seek([stageLanding.animation], progress(stageLanding.top - y, stageLanding.start, stageLanding.end));
       }
-      records.forEach((record) => {
+      records.forEach((record, i) => {
         const top = record.top - y;
         if (record.landing) seek([record.landing], progress(top, record.landStart, record.landEnd));
         // Offscreen scenes are positioned once at their endpoint, not animated
@@ -426,15 +403,6 @@ if (typeof module === "object" && module.exports) {
         if (value !== record.last) {
           seek(record.motions, value);
           record.last = value;
-        }
-        if (record.roll) {
-          const rollValue = rollProgressAt(
-            record.rollTop - y, record.enterStart, record.settleStart, record.settleEnd, record.exitEnd
-          );
-          if (rollValue !== record.rollLast) {
-            seek([record.roll], rollValue);
-            record.rollLast = rollValue;
-          }
         }
       });
       if (catchingUp) scrollFrame = requestAnimationFrame(readScroll);
@@ -451,23 +419,18 @@ if (typeof module === "object" && module.exports) {
       records.forEach((record) => {
         record.motions.forEach((animation) => animation.cancel());
         record.landing?.cancel();
-        record.roll?.cancel();
       });
       stageLanding?.animation.cancel();
       stageLanding = null;
       records = [];
       enhanced = storyDesktop.matches && !reducedMotion.matches;
-      const rollMobile = !storyWide.matches && !reducedMotion.matches;
       story.classList.toggle("is-scroll-story", enhanced);
-      story.toggleAttribute("data-pain-roll", !reducedMotion.matches);
       navigation.hidden = !enhanced;
       activeScene = -1;
-      scenes.forEach((scene, i) => {
+      scenes.forEach((scene) => {
         scene.inert = false;
         scene.hidden = false;
         scene.dataset.active = "false";
-        if (rollMobile && bands[i]) bands[i].appendChild(scene);
-        else stage.insertBefore(scene, navigation);
       });
       if (reducedMotion.matches) return;
       const viewport = window.innerHeight;
@@ -496,27 +459,16 @@ if (typeof module === "object" && module.exports) {
         // before the story begins; it is complete when its top meets the header.
         const start = enhanced ? viewport * 0.58 : Math.max(topInset + 72, viewport * 0.55 - height / 2);
         const end = enhanced ? topInset + 60 : topInset;
-        const chapter = chapters[i];
-        const band = bands[i];
-        const rollTarget = (rollMobile ? band : chapter) || chapter;
-        const rollTop = layoutTop(rollTarget);
-        const rollHeight = rollTarget.offsetHeight;
-        const enterStart = viewport * 0.96;
-        const settleStart = enhanced ? viewport * 0.58 : viewport * 0.62;
-        const settleEnd = topInset;
-        const exitEnd = enhanced ? -viewport * 0.12 : -Math.min(rollHeight * 0.28, viewport * 0.22);
         return {
           top, start, end, last: -1,
           landStart: start + viewport * 0.26,
           landEnd: start + viewport * 0.075,
-          landing: enhanced || rollMobile ? null : scrollMotion(scene, [
+          landing: enhanced ? null : scrollMotion(scene, [
             { opacity: 0, transform: "translateY(42px) scale(1.09)" },
             { opacity: 1, offset: 0.38 },
             { opacity: 1, transform: "translateY(0) scale(1)" }
           ], 0, 1, "cubic-bezier(.25,.1,.25,1)"),
-          motions: makeNarrative(scene),
-          roll: makeRoll(rollTarget),
-          rollTop, enterStart, settleStart, settleEnd, exitEnd, rollLast: -1
+          motions: makeNarrative(scene)
         };
       });
       readScroll();
@@ -531,8 +483,6 @@ if (typeof module === "object" && module.exports) {
       });
     });
     reducedMotion.addEventListener("change", rebuildStory);
-    storyWide.addEventListener("change", rebuildStory);
-    storyDesktop.addEventListener("change", rebuildStory);
     window.addEventListener("scroll", scheduleScroll, { passive: true });
     window.addEventListener("resize", () => {
       // Mobile browser chrome can resize the viewport during a swipe. Preserve
