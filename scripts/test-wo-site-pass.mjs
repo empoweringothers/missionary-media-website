@@ -215,7 +215,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass12/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass14/, page);
   }
 });
 
@@ -281,4 +281,20 @@ test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note abo
   assert.match(home, /type="submit">Let’s Chat/);
   assert.match(css, /\.form-note--next\{font-size:16px/);
   assert.match(css, /\.field-cue\{/);
+});
+
+test("WO-HOME-SPINE-001 REV-5b: rolling-pin per-line wrap, not a column slab", () => {
+  assert.match(home, /class="pin-line pin-line--lead"/);
+  assert.match(home, /class="pin-line pin-line--pair"/);
+  assert.equal((home.match(/class="pin-line/g) || []).length >= 12, true);
+  assert.match(siteJs, /const applyPinLines = \(lines, p, viewport\)/);
+  assert.match(siteJs, /const lineOffset = incoming \? i \* spread : \(n - 1 - i\) \* spread/);
+  assert.match(siteJs, /pinAngle \+ lineOffset/);
+  assert.match(siteJs, /setProperty\("--pin-x"/);
+  assert.match(css, /perspective:\s*1000px/);
+  assert.match(css, /\.pin-line\{[^}]*rotateX\(var\(--pin-x/);
+  assert.equal(siteJs.includes("makeRoll"), false);
+  assert.equal(siteJs.includes("rotateY("), false);
+  assert.match(css, /prefers-reduced-motion:reduce\)\{[\s\S]*\.pin-line,\.pain-band,\.pin-column\{opacity:1;transform:none/);
+  assert.equal(/id="intake-question"[^>]*\srequired/.test(home), false);
 });

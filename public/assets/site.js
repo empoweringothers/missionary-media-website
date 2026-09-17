@@ -226,6 +226,61 @@ if (typeof module === "object" && module.exports) {
     animation.currentTime = 0;
     return animation;
   };
+  // Rolling pin: each copy unit sits on the same horizontal cylinder. pinAngle
+  // turns with chapter scroll; lineOffset staggers lines into a curve. Never
+  // rotateX the whole column as one slab.
+  const pinProgressAt = (top, enterStart, settleStart, settleEnd, exitEnd) => {
+    if (top >= enterStart) return 0;
+    if (top <= exitEnd) return 1;
+    if (top > settleStart) return 0.24 * (enterStart - top) / (enterStart - settleStart);
+    if (top >= settleEnd) return 0.24 + 0.48 * (settleStart - top) / (settleStart - settleEnd);
+    return 0.72 + 0.28 * (settleEnd - top) / (settleEnd - exitEnd);
+  };
+  const clearPinLine = (el) => {
+    if (!el) return;
+    el.style.removeProperty("--pin-x");
+    el.style.removeProperty("--pin-z");
+    el.style.removeProperty("--pin-s");
+    el.style.removeProperty("--pin-o");
+  };
+  const applyPinLines = (lines, p, viewport) => {
+    const n = lines.length;
+    const incoming = p < 0.24;
+    const outgoing = p > 0.72;
+    const turn = incoming ? 1 - p / 0.24 : outgoing ? (p - 0.72) / 0.28 : 0;
+    const pinAngle = 11 * turn;
+    const spread = 4 * turn;
+    let opacityBase = 1;
+    if (incoming) {
+      opacityBase = p < 0.05 ? (p / 0.05) * 0.85 : p < 0.16 ? 0.85 + 0.1 * ((p - 0.05) / 0.11) : 0.95 + 0.05 * ((p - 0.16) / 0.08);
+    } else if (outgoing) {
+      const t = (p - 0.72) / 0.28;
+      opacityBase = t < 0.62 ? 1 - 0.4 * (t / 0.62) : 0.6 * Math.max(0, 1 - (t - 0.62) / 0.38);
+    }
+    lines.forEach((el, i) => {
+      const lineOffset = incoming ? i * spread : (n - 1 - i) * spread;
+      let angle = pinAngle + lineOffset;
+      let opacity = opacityBase;
+      const rect = el.getBoundingClientRect();
+      const mid = rect.top + rect.height * 0.4;
+      const inBand = rect.height > 0 && mid > viewport * 0.14 && mid < viewport * 0.7;
+      if (inBand && turn > 0) {
+        angle = Math.min(angle, 12);
+        if (outgoing) opacity = Math.max(opacity, 0.55);
+        if (incoming) opacity = Math.max(opacity, 0.85);
+      }
+      if (turn === 0) {
+        angle = 0;
+        opacity = 1;
+      }
+      const z = -Math.sin(angle * Math.PI / 180) * 22;
+      const scale = 1 - Math.min(0.04, Math.abs(angle) / 12 * 0.04);
+      el.style.setProperty("--pin-x", `${angle}deg`);
+      el.style.setProperty("--pin-z", `${z}px`);
+      el.style.setProperty("--pin-s", String(scale));
+      el.style.setProperty("--pin-o", String(opacity));
+    });
+  };
   const makeNarrative = (scene) => {
     const motions = [];
     const art = scene.querySelector(".scene-art");
@@ -334,8 +389,10 @@ if (typeof module === "object" && module.exports) {
   const story = document.querySelector("[data-pain-story]");
   if (story && "animate" in Element.prototype) {
     const storyDesktop = window.matchMedia("(min-width: 981px) and (min-height: 650px)");
+    const storyWide = window.matchMedia("(min-width: 981px)");
     const chapters = Array.from(story.querySelectorAll("[data-pain-step]"));
     const scenes = Array.from(story.querySelectorAll("[data-pain-scene]"));
+    const bands = Array.from(story.querySelectorAll("[data-pain-band]"));
     const stage = story.querySelector(".pain-stage");
     const navigation = story.querySelector(".scene-navigation");
     const controls = Array.from(navigation.querySelectorAll("button"));
@@ -394,7 +451,7 @@ if (typeof module === "object" && module.exports) {
         showScene(index);
         seek([stageLanding.animation], progress(stageLanding.top - y, stageLanding.start, stageLanding.end));
       }
-      records.forEach((record, i) => {
+      records.forEach((record) => {
         const top = record.top - y;
         if (record.landing) seek([record.landing], progress(top, record.landStart, record.landEnd));
         // Offscreen scenes are positioned once at their endpoint, not animated
@@ -403,6 +460,21 @@ if (typeof module === "object" && module.exports) {
         if (value !== record.last) {
           seek(record.motions, value);
           record.last = value;
+        }
+        if (record.pinLines) {
+          const pinValue = pinProgressAt(
+            record.pinTop - y, record.enterStart, record.settleStart, record.settleEnd, record.exitEnd
+          );
+          if (pinValue !== record.pinLast) {
+            applyPinLines(record.pinLines, pinValue, window.innerHeight);
+            if (record.bandAssist) {
+              const incoming = pinValue < 0.24;
+              const outgoing = pinValue > 0.72;
+              const turn = incoming ? 1 - pinValue / 0.24 : outgoing ? (pinValue - 0.72) / 0.28 : 0;
+              record.band.style.transform = turn ? `translateY(${incoming ? 10 * turn : -8 * turn}px)` : "";
+            }
+            record.pinLast = pinValue;
+          }
         }
       });
       if (catchingUp) scrollFrame = requestAnimationFrame(readScroll);
@@ -419,20 +491,30 @@ if (typeof module === "object" && module.exports) {
       records.forEach((record) => {
         record.motions.forEach((animation) => animation.cancel());
         record.landing?.cancel();
+        record.pinLines?.forEach(clearPinLine);
+        if (record.band) record.band.style.transform = "";
       });
       stageLanding?.animation.cancel();
       stageLanding = null;
       records = [];
       enhanced = storyDesktop.matches && !reducedMotion.matches;
+      const pinMobile = !storyWide.matches && !reducedMotion.matches;
       story.classList.toggle("is-scroll-story", enhanced);
+      story.toggleAttribute("data-pain-pin", !reducedMotion.matches);
       navigation.hidden = !enhanced;
       activeScene = -1;
-      scenes.forEach((scene) => {
+      scenes.forEach((scene, i) => {
         scene.inert = false;
         scene.hidden = false;
         scene.dataset.active = "false";
+        if (pinMobile && bands[i]) bands[i].appendChild(scene);
+        else stage.insertBefore(scene, navigation);
       });
-      if (reducedMotion.matches) return;
+      if (reducedMotion.matches) {
+        story.querySelectorAll(".pin-line").forEach(clearPinLine);
+        bands.forEach((band) => { band.style.transform = ""; });
+        return;
+      }
       const viewport = window.innerHeight;
       measuredWidth = window.innerWidth;
       measuredHeight = viewport;
@@ -459,16 +541,28 @@ if (typeof module === "object" && module.exports) {
         // before the story begins; it is complete when its top meets the header.
         const start = enhanced ? viewport * 0.58 : Math.max(topInset + 72, viewport * 0.55 - height / 2);
         const end = enhanced ? topInset + 60 : topInset;
+        const chapter = chapters[i];
+        const band = bands[i];
+        const pinLines = Array.from(chapter.querySelectorAll(".pin-line"));
+        const pinHost = pinMobile && band ? band : chapter;
+        const pinTop = layoutTop(pinHost);
+        const pinHeight = pinHost.offsetHeight;
+        const enterStart = viewport * 0.98;
+        const settleStart = enhanced ? viewport * 0.5 : viewport * 0.58;
+        const settleEnd = enhanced ? -viewport * 0.08 : -Math.min(pinHeight * 0.14, viewport * 0.16);
+        const exitEnd = enhanced ? -viewport * 0.4 : -Math.min(pinHeight * 0.48, viewport * 0.45);
         return {
           top, start, end, last: -1,
           landStart: start + viewport * 0.26,
           landEnd: start + viewport * 0.075,
-          landing: enhanced ? null : scrollMotion(scene, [
+          landing: enhanced || pinMobile ? null : scrollMotion(scene, [
             { opacity: 0, transform: "translateY(42px) scale(1.09)" },
             { opacity: 1, offset: 0.38 },
             { opacity: 1, transform: "translateY(0) scale(1)" }
           ], 0, 1, "cubic-bezier(.25,.1,.25,1)"),
-          motions: makeNarrative(scene)
+          motions: makeNarrative(scene),
+          pinLines, pinTop, enterStart, settleStart, settleEnd, exitEnd, pinLast: -1,
+          band, bandAssist: pinMobile && band
         };
       });
       readScroll();
@@ -483,6 +577,8 @@ if (typeof module === "object" && module.exports) {
       });
     });
     reducedMotion.addEventListener("change", rebuildStory);
+    storyWide.addEventListener("change", rebuildStory);
+    storyDesktop.addEventListener("change", rebuildStory);
     window.addEventListener("scroll", scheduleScroll, { passive: true });
     window.addEventListener("resize", () => {
       // Mobile browser chrome can resize the viewport during a swipe. Preserve
