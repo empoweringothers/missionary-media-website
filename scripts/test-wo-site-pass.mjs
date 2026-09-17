@@ -81,21 +81,30 @@ test("G5: Academy waiting-list CTAs open the existing contact dialog", () => {
   assert.match(academy, /action="https:\/\/calendly\.com\/missionarymediahub\/30min"/);
 });
 
-test("G6: Home removals and FOUNDER-006 beginning only (no invented continuation)", () => {
+test("G6: Home Buckman founder, help rows, Connect quiet; no invented continuation", () => {
   assert.equal(home.includes("academy-teaser"), false);
   assert.equal(home.includes("What we’re building"), false);
   assert.equal(home.includes("Not Missionary Media."), false);
   assert.equal(home.includes("high-school classroom"), false);
   assert.equal(home.includes("I founded Missionary Media"), false);
   assert.equal(home.includes("three countries"), false);
-  assert.match(home, /You came to the field to plant churches, share the gospel, and stay in the work\. The digital side should serve that, not eat the week\. Missionary Media helps missionaries navigate the digital side of their ministry\. We sit with you, listen to what you[’']re trying to do, and help you find a next step that fits\.<\/p>/);
-  assert.match(home, /TODO-FOUNDER-006/);
+  assert.equal(home.includes("TODO-FOUNDER-006"), false);
   assert.equal(home.includes("I have helped missionaries"), false);
   assert.equal(home.includes("I have studied visual arts"), false);
   assert.equal(home.includes("And we’re just getting started"), false);
   assert.equal(home.includes("And we're just getting started"), false);
-  assert.match(home, /If I don’t have the answer, I’ll connect you with a trustworthy resource/);
-  assert.match(home, /href="\/about\/">More about Tabor/);
+  assert.equal(home.includes("You came to the field to plant churches"), false);
+  assert.equal(home.includes("More about Tabor"), false);
+  assert.equal(home.includes("Missionary Media stays with the missionary."), false);
+  assert.equal(home.includes("missionaryconnect-globe-view"), false);
+  assert.equal(home.includes("In development"), false);
+  assert.match(home, /I[’']m Tabor\. I[’']ve helped missionaries in a few countries with AV, church systems, and digital security\./);
+  assert.match(home, /href="\/about\/">About Tabor/);
+  assert.match(home, />How I can help</);
+  assert.match(home, /Advice \/ clarity/);
+  assert.match(home, /Stay-connected help/);
+  assert.match(home, /Training a second person, or limited short-term video help/);
+  assert.match(home, /Missionary Connect \(Paul Douglas\) helps churches follow missionaries on a map or lobby display\./);
   assert.equal(home.includes("help-aspects"), false);
   assert.match(home, />Tools</);
   assert.match(home, />People</);
@@ -129,12 +138,15 @@ test("G8: prefers-reduced-motion still present; no extra-work chapter", () => {
 });
 
 test("G11: WO-HOME-SPINE-001 chapter copy; no parentheticals or em dashes", () => {
-  assert.match(home, /<h3 id="pain-one-title"[^>]*>I keep getting told to try another app\.<\/h3>/);
+  assert.match(home, /<h3 id="pain-one-title"[^>]*>I keep getting told to try another app\. I don[’']t know which ones we actually need\.<\/h3>/);
   assert.match(home, /I help you choose what you need and make better use of what you already have\./);
   assert.match(home, /<h3 id="pain-two-title"[^>]*>Everything technical comes back to me\.<\/h3>/);
   assert.match(home, /I don[’']t even know who to ask\./);
   assert.match(home, /I send the same prayer letter one person at a time\./);
-  assert.match(home, /I help you organize your contacts and send updates without repeating the same work\./);
+  assert.match(home, /I help you organize contacts and send updates without repeating the same work\./);
+  assert.match(home, /Example of the help/);
+  assert.match(home, /One prepared update per group/);
+  assert.match(home, /Church, supporters, and board do not have to receive the identical message\./);
   assert.equal(home.includes("not only a church-made page"), false);
   const start = home.indexOf('<div class="pain-chapters">');
   const end = home.indexOf('<div class="pain-visual">');
@@ -215,7 +227,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass15/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass16/, page);
   }
 });
 
@@ -247,7 +259,10 @@ test("WO-HOME-SPINE-001: hero, seating, person-connection, no coaching or price"
   assert.match(home, /Another app/);
   assert.match(home, /Send it once/);
   assert.match(home, /A teammate/);
-  assert.match(home, /The free 30-minute conversation is to identify what you need/);
+  assert.match(home, /What[’']s taking too much time\?/);
+  assert.match(home, /Bring a technology problem or a task you keep putting off\. In a free 30-minute conversation, we[’']ll talk through what you[’']re trying to do and identify a practical next step\./);
+  assert.match(home, /Free Let’s Chat:/);
+  assert.match(home, /Paid help \(after we agree on scope and cost\):/);
   assert.equal(home.includes("A few familiar choices, settling into a clearer arrangement."), false);
   assert.equal(home.includes("Needs settle beside the people who can carry them."), false);
   assert.equal(home.includes("We’ll work through it together."), false);
@@ -258,8 +273,9 @@ test("WO-HOME-SPINE-001: hero, seating, person-connection, no coaching or price"
   assert.equal(home.includes("fruitfulness"), false);
   assert.equal(home.includes("$100"), false);
   assert.match(home, /id="staying-connected"/);
-  assert.match(home, /Home Connection is the whole workflow/);
-  assert.match(home, /A letter or a video is one piece of that process\./);
+  assert.match(home, /I help you work out what to share, gather the photos and stories, and decide how to send updates and who will help\./);
+  assert.match(home, /Guided help still being shaped with missionaries\. Not a finished package on the site\./);
+  assert.equal(home.includes("Home Connection is the whole workflow"), false);
   const storyJs = siteJs.slice(siteJs.indexOf("const makeNarrative"), siteJs.indexOf("// Native scrolling is the timeline"));
   assert.equal(storyJs.includes("setTimeout"), false);
   assert.match(siteJs, /Native scrolling is the timeline/);
