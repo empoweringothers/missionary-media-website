@@ -161,7 +161,7 @@ if (typeof module === "object" && module.exports) {
   document.querySelectorAll("dialog").forEach((dialog) => {
     dialog.addEventListener("keydown", (event) => {
       if (event.key !== "Tab") return;
-      const controls = Array.from(dialog.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), iframe, [tabindex='0']"))
+      const controls = Array.from(dialog.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), iframe, [tabindex='0']"))
         .filter((element) => element.getClientRects().length > 0);
       const first = controls[0];
       const last = controls[controls.length - 1];
@@ -250,35 +250,25 @@ if (typeof module === "object" && module.exports) {
     const turn = incoming ? 1 - p / 0.24 : outgoing ? (p - 0.72) / 0.28 : 0;
     const pinAngle = 12 * turn;
     const spread = 5 * turn;
-    let opacityBase = 1;
-    if (incoming) {
-      opacityBase = p < 0.05 ? (p / 0.05) * 0.85 : p < 0.16 ? 0.85 + 0.1 * ((p - 0.05) / 0.11) : 0.95 + 0.05 * ((p - 0.16) / 0.08);
-    } else if (outgoing) {
-      const t = (p - 0.72) / 0.28;
-      opacityBase = t < 0.62 ? 1 - 0.4 * (t / 0.62) : 0.6 * Math.max(0, 1 - (t - 0.62) / 0.38);
-    }
     lines.forEach((el, i) => {
       const lineOffset = incoming ? i * spread : (n - 1 - i) * spread;
       let angle = pinAngle + lineOffset;
-      let opacity = opacityBase;
       const rect = el.getBoundingClientRect();
       const mid = rect.top + rect.height * 0.4;
       const inBand = rect.height > 0 && mid > viewport * 0.14 && mid < viewport * 0.7;
       if (inBand && turn > 0) {
         angle = Math.min(angle, 12);
-        if (outgoing) opacity = Math.max(opacity, 0.55);
-        if (incoming) opacity = Math.max(opacity, 0.85);
       }
       if (turn === 0) {
         angle = 0;
-        opacity = 1;
       }
       const z = -Math.sin(angle * Math.PI / 180) * 15;
       const scale = 1 - Math.min(0.04, Math.abs(angle) / 12 * 0.04);
       el.style.setProperty("--pin-x", `${angle}deg`);
       el.style.setProperty("--pin-z", `${z}px`);
       el.style.setProperty("--pin-s", String(scale));
-      el.style.setProperty("--pin-o", String(opacity));
+      // Keep reading contrast stable while the small rotation follows scrolling.
+      el.style.setProperty("--pin-o", "1");
     });
   };
   const makeNarrative = (scene) => {
@@ -618,7 +608,7 @@ if (typeof module === "object" && module.exports) {
           else animation.finished.then(settle).catch(() => {});
         }
       });
-    }, { rootMargin: "0px 0px -42% 0px", threshold: 0 });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
     document.querySelectorAll("[data-reveal], [data-land]").forEach((element) => {
       if (reducedMotion.matches || element.matches(".pain-stage, [data-pain-scene]")) return;
       if (element.closest(".about-hero")) return;
@@ -635,7 +625,7 @@ if (typeof module === "object" && module.exports) {
             { opacity: 0, transform: heroSurface ? "translateY(18px) scale(1.025)" : container ? "translateY(34px) scale(1.06)" : "translateY(26px)" },
             { opacity: 1, offset: container ? 0.38 : 0.75 },
             { opacity: 1, transform: "none" }
-          ], { duration: heroSurface ? 2100 : container ? 1800 : 1350,
+          ], { duration: heroSurface ? 800 : container ? 700 : 550,
             delay: window.matchMedia("(min-width: 741px)").matches ? Math.min(400, Math.max(0, Number(element.dataset.landDelay) || 0)) : 0,
             easing: landingEase, fill: "backwards" });
       animation.pause();
@@ -1001,12 +991,14 @@ if (typeof module === "object" && module.exports) {
   });
 
   const contactDialog = document.querySelector("#contact-dialog");
+  let contactOpener = null;
   const openContactDialog = (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     if (!contactDialog || typeof contactDialog.showModal !== "function") return;
-    event.preventDefault();
+    contactOpener = event.currentTarget;
     try {
       contactDialog.showModal();
+      event.preventDefault();
     } catch {
       return;
     }
@@ -1023,7 +1015,10 @@ if (typeof module === "object" && module.exports) {
     const box = contactDialog.getBoundingClientRect();
     if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) contactDialog.close();
   });
-  contactDialog?.addEventListener("close", syncDialogScroll);
+  contactDialog?.addEventListener("close", () => {
+    syncDialogScroll();
+    contactOpener?.focus({ preventScroll: true });
+  });
 
   document.querySelectorAll(".intake-form").forEach((intake) => {
     intake.addEventListener("submit", (event) => {
