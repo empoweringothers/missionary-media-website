@@ -1063,7 +1063,7 @@ if (typeof module === "object" && module.exports) {
     const next = document.querySelector("[data-course-next]");
     previous.hidden = next.hidden = false;
     const update = () => {
-      previous.disabled = courseRail.scrollLeft <= 2;
+      previous.disabled = courseRail.scrollLeft <= 6;
       next.disabled = courseRail.scrollLeft + courseRail.clientWidth >= courseRail.scrollWidth - 2;
     };
     const move = (direction) => courseRail.scrollBy({
