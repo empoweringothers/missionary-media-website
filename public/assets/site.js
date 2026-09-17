@@ -234,18 +234,19 @@ if (typeof module === "object" && module.exports) {
     return scrollMotion(element, [
       { opacity: 0, transform: "perspective(1000px) translateY(16px) translateZ(-28px) rotateX(12deg) scale(0.97)" },
       { offset: 0.14, opacity: 0.88, transform: "perspective(1000px) translateY(8px) translateZ(-14px) rotateX(8deg) scale(0.985)" },
-      { offset: 0.26, opacity: 1, transform: rollIdentity },
-      { offset: 0.7, opacity: 1, transform: rollIdentity },
-      { offset: 0.86, opacity: 0.6, transform: "perspective(1000px) translateY(-6px) translateZ(-20px) rotateX(10deg) scale(0.97)" },
-      { opacity: 0, transform: "perspective(1000px) translateY(-12px) translateZ(-36px) rotateX(12deg) scale(0.96)" }
+      { offset: 0.24, opacity: 1, transform: rollIdentity },
+      { offset: 0.72, opacity: 1, transform: rollIdentity },
+      { offset: 0.84, opacity: 0.62, transform: "perspective(1000px) translateY(-6px) translateZ(-20px) rotateX(10deg) scale(0.97)" },
+      { offset: 0.92, opacity: 0.55, transform: "perspective(1000px) translateY(-10px) translateZ(-28px) rotateX(12deg) scale(0.96)" },
+      { opacity: 0, transform: "perspective(1000px) translateY(-14px) translateZ(-40px) rotateX(12deg) scale(0.96)" }
     ], 0, 1, "linear");
   };
   const rollProgressAt = (top, enterStart, settleStart, settleEnd, exitEnd) => {
     if (top >= enterStart) return 0;
     if (top <= exitEnd) return 1;
-    if (top > settleStart) return 0.26 * (enterStart - top) / (enterStart - settleStart);
-    if (top >= settleEnd) return 0.26 + 0.44 * (settleStart - top) / (settleStart - settleEnd);
-    return 0.7 + 0.3 * (settleEnd - top) / (settleEnd - exitEnd);
+    if (top > settleStart) return 0.24 * (enterStart - top) / (enterStart - settleStart);
+    if (top >= settleEnd) return 0.24 + 0.48 * (settleStart - top) / (settleStart - settleEnd);
+    return 0.72 + 0.28 * (settleEnd - top) / (settleEnd - exitEnd);
   };
   const makeNarrative = (scene) => {
     const motions = [];
@@ -501,10 +502,10 @@ if (typeof module === "object" && module.exports) {
         const rollTarget = (rollMobile ? band : chapter) || chapter;
         const rollTop = layoutTop(rollTarget);
         const rollHeight = rollTarget.offsetHeight;
-        const enterStart = viewport * 0.96;
-        const settleStart = enhanced ? viewport * 0.58 : viewport * 0.62;
-        const settleEnd = topInset;
-        const exitEnd = enhanced ? -viewport * 0.12 : -Math.min(rollHeight * 0.28, viewport * 0.22);
+        const enterStart = viewport * 0.98;
+        const settleStart = enhanced ? viewport * 0.5 : viewport * 0.58;
+        const settleEnd = enhanced ? -viewport * 0.08 : -Math.min(rollHeight * 0.14, viewport * 0.16);
+        const exitEnd = enhanced ? -viewport * 0.4 : -Math.min(rollHeight * 0.48, viewport * 0.45);
         return {
           top, start, end, last: -1,
           landStart: start + viewport * 0.26,
