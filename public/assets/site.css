@@ -1654,3 +1654,81 @@ main{overflow-x:clip}
 .help-example__summary{font-size:19px;line-height:1.35;font-weight:600;color:var(--ink)}
 .help-example__groups{display:flex;flex-wrap:wrap;gap:8px 16px;margin:16px 0;padding:0;list-style:none;font-size:15px;color:#475f70}
 .help-example__groups li{padding-bottom:4px;border-bottom:1px solid #bcccd6}
+
+/* Focused consulting offer: fewer reading layers, usable course browsing. */
+.page-home .hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.page-home .hero-actions .button--resource{background:transparent;color:#fff;border:1px solid #b4c9d8;box-shadow:none}
+.page-home .hero-actions .button--resource:hover{background:#ffffff18}
+.page-home .opening .hero-context{font-size:15px;letter-spacing:0;text-transform:none}
+.page-home .opening .hero-support{max-width:35ch}
+.page-home .voices-focused{padding:32px 0;background:#102c43;border-top:1px solid #ffffff24}
+.page-home .voices-focused .shell{width:calc(100% - 112px)}
+.interview-grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:36px;margin-top:22px}
+.interview-grid blockquote{margin:0;padding:0;border:0}
+.interview-grid p{font-size:clamp(21px,2vw,28px);font-weight:600;line-height:1.25;color:#fff;margin:0}
+.interview-note{font-size:13px;color:#b8cedc;margin:22px 0 0}
+.page-home .pain-heading{display:block;margin-bottom:18px}
+.page-home .pain-heading h2{font-size:clamp(38px,4.2vw,60px);max-width:24ch}
+.page-home .pain-heading h2 br{display:none}
+.page-home .pain-story{grid-template-columns:1fr 1.05fr;gap:0 72px;margin-top:26px}
+.page-home .pain-chapter .example-pair{max-width:none}
+.page-home .pain-chapter .example-difficulty{max-width:none;font-size:clamp(26px,2.4vw,34px);line-height:1.2}
+.page-home .pain-chapter .example-help{max-width:none;font-size:19px;line-height:1.5;margin-top:14px}
+.page-home .copy-pair + .copy-pair{margin-top:34px;padding-top:30px;border-top:1px solid #c5d5df}
+.page-home .is-scroll-story .pain-chapter{min-height:760px;padding:60px 0 130px}
+.pain-story[data-pain-pin] .roll-line{display:block;transform-origin:50% 50%;backface-visibility:hidden;transform:perspective(860px) rotateX(var(--pin-x,0deg)) translateZ(var(--pin-z,0px));opacity:1}
+.academy-browse{padding-top:30px}
+.academy-browse-surface{background:#dceaf0;border:1px solid #c4d8e3;border-radius:28px;padding:40px}
+.academy-browse-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:28px}
+.academy-browse-heading h2{font-size:clamp(34px,3.5vw,50px);margin-top:12px}
+.academy-browse-heading p:not(.eyebrow){font-size:18px;max-width:55ch;margin-top:18px;color:#405969}
+.academy-browse-heading>.text-link{flex-shrink:0}
+.academy-rail{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0;padding:4px 4px 20px;scrollbar-color:#7798ab transparent;scrollbar-width:thin}
+.academy-browse-card{flex:0 0 calc((100% - 48px)/3);min-width:260px;background:#f7fafb;border:1px solid #c4d8e3;border-radius:16px;overflow:hidden;scroll-snap-align:start;text-decoration:none;color:var(--ink)}
+.academy-browse-card>img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.academy-browse-card>div{padding:23px}
+.academy-browse-card h3{font-size:25px;line-height:1.12;letter-spacing:-.025em}
+.academy-browse-card p{font-size:17px;color:#405969;line-height:1.4;margin:14px 0 22px}
+.academy-browse-card .text-link{font-size:15px}
+.academy-browse-controls{display:flex;align-items:center;justify-content:space-between;margin-top:6px;gap:16px}
+.academy-browse-controls p{font-size:14px;color:#405969}
+.academy-browse-controls>div{display:flex;gap:8px}
+.academy-browse-controls button{width:48px;height:48px;border:1px solid #7892a3;border-radius:50%;background:transparent;color:#172426;font-size:23px;cursor:pointer}
+.academy-browse-controls button:disabled{opacity:.4;cursor:default}
+.field-visit-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;border-bottom:1px solid #c5d5df;padding-bottom:70px}
+.field-visit-layout h2{font-size:clamp(36px,3.5vw,50px);margin-top:18px}
+.field-visit-layout>div>p:not(.eyebrow){font-size:20px;color:#405969;line-height:1.55;margin-bottom:20px}
+.page-home .field-visit{padding-top:24px;padding-bottom:0}
+.page-home .founder-short-section{padding-block:80px}
+.page-home .contact-copy .contact-terms{font-size:18px;margin-top:24px;max-width:45ch}
+@media(max-width:980px){
+ .page-home .pain-story{grid-template-columns:1fr;gap:0}
+ .academy-browse-card{flex-basis:calc((100% - 24px)/2)}
+ .academy-browse-heading{display:block}.academy-browse-heading>.text-link{display:inline-flex;margin-top:20px}
+ .field-visit-layout{gap:36px}
+}
+@media(max-width:740px){
+ .page-home .opening .hero-actions .button{margin-top:0;font-size:16px;padding-inline:16px;gap:12px}
+ .page-home .hero-actions{margin-top:26px;gap:10px}
+ .page-home .opening .hero-context{font-size:13px}
+ .page-home .voices-focused .shell{width:calc(100% - 42px)}
+ .interview-grid{grid-template-columns:1fr;gap:20px}.interview-grid p{font-size:23px}
+ .interview-grid blockquote+blockquote{padding-top:20px;border-top:1px solid #ffffff24}
+ .page-home .pain-story{margin-top:0}.page-home .pain-chapter{padding-block:28px}
+ .page-home .pain-chapter .example-difficulty{font-size:27px;line-height:1.2}
+ .page-home .pain-chapter .example-help{font-size:18px;line-height:1.45}
+ .page-home .copy-pair + .copy-pair{margin-top:26px;padding-top:24px}
+ .page-home .pain-heading h2{font-size:37px;max-width:16ch}
+ .academy-browse-surface{padding:24px 18px;border-radius:22px}
+ .academy-browse-card{flex-basis:86%;min-width:0}.academy-browse-card>div{padding:20px}
+ .academy-browse-heading h2{font-size:35px}.academy-browse-heading p:not(.eyebrow){font-size:17px}
+ .field-visit-layout{grid-template-columns:1fr;gap:26px;padding-bottom:44px}
+ .field-visit-layout>div>p:not(.eyebrow){font-size:18px}
+ .page-home .founder-short-section{padding-block:52px}
+}
+@media(prefers-reduced-motion:reduce){.pain-story[data-pain-pin] .roll-line{transform:none}.academy-rail{scroll-behavior:auto}}
+
+.page-home .voices-focused .eyebrow{color:#c2d7e9}
+.page-home .pain-chapter .example-pair p.example-help{max-width:43ch;font-size:19px;line-height:1.5}
+
+.page-academy .academy-library-heading{display:block;max-width:760px}
