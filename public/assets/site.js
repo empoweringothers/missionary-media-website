@@ -236,66 +236,95 @@ if (typeof module === "object" && module.exports) {
       if (element) motions.push(scrollMotion(element, frames, start, end, easing));
     };
     if (scene.classList.contains("scene-sending")) {
-      const papers = Array.from(scene.querySelectorAll(".letter-shadow, .update-letter"));
+      const letter = scene.querySelector(".update-letter");
+      const shadows = Array.from(scene.querySelectorAll(".letter-shadow"));
       const recipients = Array.from(scene.querySelectorAll(".recipient"));
-      // Read each final position before writing animations. Every recipient
-      // begins at the same origin, behind the paper, then fans into place.
-      const paperFrames = papers.map((paper) => [
-        { opacity: 0, transform: origin(paper, center, 0.88, 28) },
-        { opacity: 0.6, transform: origin(paper, center, 0.96), offset: 0.35 },
+      const letterPoint = letter
+        ? { x: letter.offsetLeft + letter.offsetWidth / 2, y: letter.offsetTop + letter.offsetHeight / 2 }
+        : center;
+      // Read each final position before writing animations. Recipients begin
+      // behind the paper, fan out with the repeated-send frustration, then
+      // settle as one prepared update reaching each group.
+      add(letter, [
+        { opacity: 0, transform: origin(letter, center, 0.88, 28) },
+        { opacity: 0.7, transform: origin(letter, center, 0.96), offset: 0.32 },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ]);
-      const recipientFrames = recipients.map((recipient) => [
+      ], 0, 0.42, "cubic-bezier(.4,0,.2,1)");
+      shadows.forEach((shadow, i) => add(shadow, [
+        { opacity: 0, transform: origin(shadow, center, 0.88, 28) },
+        { opacity: 0.85, transform: "translate3d(0,0,0) scale(1)", offset: 0.42 },
+        { opacity: 0, transform: origin(shadow, letterPoint, 1) }
+      ], 0.04 + i * 0.03, 0.78 + i * 0.04, "cubic-bezier(.4,0,.2,1)"));
+      recipients.forEach((recipient, i) => add(recipient, [
         { opacity: 0, transform: origin(recipient, center, 0.78) },
-        { opacity: 1, offset: 0.2 },
+        { opacity: 1, offset: 0.18 },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ]);
-      papers.forEach((paper, i) => add(paper, paperFrames[i], i * 0.025, 0.46 + i * 0.025, "cubic-bezier(.4,0,.2,1)"));
-      recipients.forEach((recipient, i) => add(recipient, recipientFrames[i], 0.32 + i * 0.12, 0.74 + i * 0.12));
-      add(scene.querySelector(".sending-paths"), [{ opacity: 0 }, { opacity: 1 }], 0.58, 1);
+      ], 0.26 + i * 0.1, 0.62 + i * 0.08));
+      scene.querySelectorAll(".recipient-frustration").forEach((label, i) => add(label, [
+        { opacity: 0 },
+        { opacity: 1, offset: 0.22 },
+        { opacity: 1, offset: 0.58 },
+        { opacity: 0 }
+      ], 0.3 + i * 0.08, 0.86));
+      scene.querySelectorAll(".recipient-relief").forEach((label, i) => add(label, [
+        { opacity: 0 },
+        { opacity: 1 }
+      ], 0.7 + i * 0.06, 0.92 + i * 0.02));
+      scene.querySelectorAll(".recipient-mark").forEach((mark, i) => add(mark, [
+        { opacity: 0, transform: "scale(.62)" },
+        { opacity: 1, transform: "scale(1)" }
+      ], 0.72 + i * 0.06, 0.94 + i * 0.02));
+      add(scene.querySelector(".sending-paths"), [{ opacity: 0 }, { opacity: 1 }], 0.52, 0.88);
     } else if (scene.classList.contains("scene-work")) {
+      const slips = Array.from(scene.querySelectorAll(".task-slip"));
+      const pile = { x: art.offsetWidth * 0.5, y: art.offsetHeight * 0.44 };
       add(scene.querySelector(".unfinished-letter"), [
-        { opacity: 0, transform: "translate3d(0,24px,0) scale(.94)" },
-        { opacity: 0.55, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0, 0.4, "ease-in-out");
-      scene.querySelectorAll(".task-slip").forEach((notice, i) => add(notice, [
-        { opacity: 0, transform: "translate3d(0,28px,0) scale(.92)" },
+        { opacity: 0.72, transform: "translate3d(6%,3%,0) scale(.96)" },
+        { opacity: 0.38, offset: 0.42 },
+        { opacity: 0, transform: "translate3d(0,-12px,0) scale(.9)" }
+      ], 0, 0.5, "ease-in-out");
+      slips.forEach((notice, i) => add(notice, [
+        { opacity: 0, transform: origin(notice, {
+          x: pile.x + (i - 1.5) * 12,
+          y: pile.y + (i - 1.5) * 10
+        }, 0.9) },
+        { opacity: 1, offset: 0.28 },
         { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
-      ], 0.2 + i * 0.15, 0.55 + i * 0.15));
+      ], 0.1 + i * 0.07, 0.66 + i * 0.06));
+      scene.querySelectorAll(".task-checkbox").forEach((box, i) => add(box, [
+        { backgroundColor: "transparent", borderColor: "#9eb7c8" },
+        { backgroundColor: "#c9dce8", borderColor: "#7a9eb5" }
+      ], 0.7 + i * 0.05, 0.88 + i * 0.04));
     } else if (scene.classList.contains("scene-trusted-help")) {
       const reveal = [
         { opacity: 0, transform: "translate3d(0,12px,0)" },
         { opacity: 1, transform: "translate3d(0,0,0)" }
       ];
+      const pile = { x: art.offsetWidth * 0.5, y: art.offsetHeight * 0.5 };
 
-      add(
-        scene.querySelector(".help-question"),
-        reveal,
-        0,
-        0.24
-      );
+      add(scene.querySelector(".help-question"), reveal, 0, 0.22);
 
-      scene.querySelectorAll(".help-topic").forEach((topic, i) => {
-        add(topic, reveal, 0.18 + i * 0.1, 0.46 + i * 0.1);
+      scene.querySelectorAll(".duty-need").forEach((need, i) => {
+        add(need, [
+          { opacity: 0, transform: origin(need, {
+            x: pile.x,
+            y: pile.y + (i - 1) * 14
+          }, 0.88) },
+          { opacity: 1, offset: 0.32 },
+          { opacity: 1, transform: "translate3d(0,0,0) scale(1)" }
+        ], 0.14 + i * 0.08, 0.58 + i * 0.08);
       });
 
-      add(
-        scene.querySelector(".help-connection path"),
-        [
+      scene.querySelectorAll(".help-person").forEach((person, i) => {
+        add(person, reveal, 0.4 + i * 0.08, 0.68 + i * 0.08);
+      });
+
+      scene.querySelectorAll(".help-connection path").forEach((path, i) => {
+        add(path, [
           { strokeDashoffset: "1", opacity: 0 },
           { strokeDashoffset: "0", opacity: 1 }
-        ],
-        0.58,
-        0.82,
-        "ease-in-out"
-      );
-
-      add(
-        scene.querySelector(".help-person"),
-        reveal,
-        0.72,
-        1
-      );
+        ], 0.62 + i * 0.07, 0.86 + i * 0.06, "ease-in-out");
+      });
     }
     return motions;
   };

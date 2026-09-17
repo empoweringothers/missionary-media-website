@@ -23,8 +23,8 @@
   <link rel="icon" href="/assets/missionary-media-favicon.png" type="image/png">
   <link rel="preload" href="/assets/fonts/source-sans-3/SourceSans3-Regular.ttf.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/source-sans-3/SourceSans3-Semibold.ttf.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css?v=sitepass9">
-  <script src="/assets/site.js?v=sitepass9" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=sitepass10">
+  <script src="/assets/site.js?v=sitepass10" defer></script>
 </head>
 <body class="page-home" id="top">
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -139,7 +139,7 @@ sound familiar?</h2>
       <div class="pain-visual">
         <div class="pain-stage" data-land>
           <div class="scene-guide" aria-hidden="true"><span>Tools, people, and steps</span><span class="scene-counter">01 / 03</span></div>
-          <figure class="pain-scene scene-work" id="scene-tools" data-land data-pain-scene="0">
+          <figure class="pain-scene scene-work" id="scene-tools" data-land data-pain-scene="0" aria-label="A few useful tools becoming organized.">
             <div class="scene-art" aria-hidden="true">
               <div class="unfinished-letter stage-piece"><span>WHAT TO USE</span><strong>Which tools<br>
 do we need?</strong><span class="paper-line"></span><span class="paper-line"></span><span class="paper-line paper-line--short"></span><div class="draft-label">Still deciding</div></div>
@@ -148,47 +148,45 @@ do we need?</strong><span class="paper-line"></span><span class="paper-line"></s
               <div class="task-slip task-slip--three stage-piece"><span class="task-icon">•••</span><div><strong>New login</strong><small>One more account</small></div><span class="task-checkbox"></span></div>
               <div class="task-slip task-slip--four stage-piece"><span class="task-icon">□</span><div><strong>The equipment</strong><small>Still unused</small></div><span class="task-checkbox"></span></div>
             </div>
-            <figcaption>A few familiar choices, settling into a clearer arrangement.</figcaption>
           </figure>
           <figure class="pain-scene scene-trusted-help" id="scene-people" data-land data-pain-scene="1">
             <div class="scene-art" aria-hidden="true">
               <div class="help-question stage-piece">
-                <span>THE WORK IN FRONT OF YOU</span>
-                <strong>Who can help with this?</strong>
+                <span>WHO HANDLES IT</span>
+                <strong>The work does not all sit on one person.</strong>
               </div>
 
-              <div class="help-topics stage-piece">
-                <div class="help-topic">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="4" width="18" height="16" rx="2"/>
-                    <path d="M3 9h18M7 6.5h1m2 0h1"/>
-                  </svg>
-                  <strong>Website</strong>
-                </div>
-
-                <div class="help-topic">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="m12 3 8 3v6c0 4-5 8-8 9-3-1-8-5-8-9V6Z"/>
-                    <path d="m8 12 3 3 5-6"/>
-                  </svg>
-                  <strong>Accounts</strong>
-                </div>
-
-                <div class="help-topic">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8l-6 3v-3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
-                    <path d="M7 9h10M7 13h7"/>
-                  </svg>
-                  <strong>Updates</strong>
-                </div>
+              <div class="duty-need duty-need--one help-topic stage-piece">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="4" width="18" height="16" rx="2"/>
+                  <path d="M3 9h18M7 6.5h1m2 0h1"/>
+                </svg>
+                <strong>Website</strong>
               </div>
 
-              <svg class="help-connection" viewBox="0 0 100 100"
-                preserveAspectRatio="none">
-                <path pathLength="1" d="M50 48V66"/>
+              <div class="duty-need duty-need--two help-topic stage-piece">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="m12 3 8 3v6c0 4-5 8-8 9-3-1-8-5-8-9V6Z"/>
+                  <path d="m8 12 3 3 5-6"/>
+                </svg>
+                <strong>Accounts</strong>
+              </div>
+
+              <div class="duty-need duty-need--three help-topic stage-piece">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8l-6 3v-3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
+                  <path d="M7 9h10M7 13h7"/>
+                </svg>
+                <strong>Updates</strong>
+              </div>
+
+              <svg class="help-connection" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path class="duty-path" pathLength="1" d="M42 40H57"/>
+                <path class="duty-path" pathLength="1" d="M42 62H57"/>
+                <path class="duty-path" pathLength="1" d="M42 84H57"/>
               </svg>
 
-              <div class="help-person stage-piece">
+              <div class="duty-person duty-person--one help-person stage-piece">
                 <span class="help-person__portrait">
                   <svg viewBox="0 0 40 40" fill="none">
                     <circle cx="20" cy="14" r="6"/>
@@ -196,15 +194,39 @@ do we need?</strong><span class="paper-line"></span><span class="paper-line"></s
                   </svg>
                 </span>
                 <div>
-                  <span>A PERSON TO ASK</span>
-                  <strong>Someone who understands<br>your ministry.</strong>
+                  <span>CAN CARRY IT</span>
+                  <strong>A teammate</strong>
+                </div>
+              </div>
+
+              <div class="duty-person duty-person--two help-person stage-piece">
+                <span class="help-person__portrait">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="14" r="6"/>
+                    <path d="M9 33v-3a11 11 0 0 1 22 0v3"/>
+                  </svg>
+                </span>
+                <div>
+                  <span>STAYS WITH YOU</span>
+                  <strong>You</strong>
+                </div>
+              </div>
+
+              <div class="duty-person duty-person--three help-person stage-piece">
+                <span class="help-person__portrait">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="14" r="6"/>
+                    <path d="M9 33v-3a11 11 0 0 1 22 0v3"/>
+                  </svg>
+                </span>
+                <div>
+                  <span>CAN CARRY IT</span>
+                  <strong>A helper</strong>
                 </div>
               </div>
             </div>
 
-            <figcaption>
-              Let’s find the right person for the work in front of you.
-            </figcaption>
+            <figcaption>Needs settle beside the people who can carry them.</figcaption>
           </figure>
           <figure class="pain-scene scene-sending" id="scene-steps" data-land data-pain-scene="2">
             <div class="scene-art" aria-hidden="true">
@@ -218,11 +240,11 @@ on the field</strong><span class="paper-line"></span><span class="paper-line"></
                 <div class="letter-signature">An update to share</div>
               </div>
               <svg class="sending-paths" viewBox="0 0 640 520" preserveAspectRatio="none"><path d="M294 259C405 259 365 131 465 131M294 259H467M294 259C405 259 365 388 465 388"/></svg>
-              <div class="recipient recipient--one stage-piece"><span class="envelope-icon"><svg viewBox="0 0 28 20" fill="none"><rect x="1" y="1" width="26" height="18" rx="2"/><path d="m2 3 12 9L26 3"/></svg></span><div><strong>Home church</strong><small>Send it once</small></div></div>
-              <div class="recipient recipient--two stage-piece"><span class="envelope-icon"><svg viewBox="0 0 28 20" fill="none"><rect x="1" y="1" width="26" height="18" rx="2"/><path d="m2 3 12 9L26 3"/></svg></span><div><strong>Supporters</strong><small>Send it again</small></div></div>
-              <div class="recipient recipient--three stage-piece"><span class="envelope-icon"><svg viewBox="0 0 28 20" fill="none"><rect x="1" y="1" width="26" height="18" rx="2"/><path d="m2 3 12 9L26 3"/></svg></span><div><strong>Mission board</strong><small>And again</small></div></div>
+              <div class="recipient recipient--one stage-piece"><span class="envelope-icon"><svg viewBox="0 0 28 20" fill="none"><rect x="1" y="1" width="26" height="18" rx="2"/><path d="m2 3 12 9L26 3"/></svg></span><div><strong>Home church</strong><span class="recipient-status"><small class="recipient-frustration">Send it once</small><small class="recipient-relief">Reached</small></span></div><span class="recipient-mark"></span></div>
+              <div class="recipient recipient--two stage-piece"><span class="envelope-icon"><svg viewBox="0 0 28 20" fill="none"><rect x="1" y="1" width="26" height="18" rx="2"/><path d="m2 3 12 9L26 3"/></svg></span><div><strong>Supporters</strong><span class="recipient-status"><small class="recipient-frustration">Send it again</small><small class="recipient-relief">Reached</small></span></div><span class="recipient-mark"></span></div>
+              <div class="recipient recipient--three stage-piece"><span class="envelope-icon"><svg viewBox="0 0 28 20" fill="none"><rect x="1" y="1" width="26" height="18" rx="2"/><path d="m2 3 12 9L26 3"/></svg></span><div><strong>Mission board</strong><span class="recipient-status"><small class="recipient-frustration">And again</small><small class="recipient-relief">Reached</small></span></div><span class="recipient-mark"></span></div>
             </div>
-            <figcaption>The same update, sent one place at a time.</figcaption>
+            <figcaption>One prepared update, reaching the people who need it.</figcaption>
           </figure>
           <nav class="scene-navigation" aria-label="Explore tools, people, and steps" hidden>
             <button type="button" data-scene-jump="0" aria-controls="scene-tools" aria-current="step">Tools</button>
@@ -310,7 +332,7 @@ of your church.</h2>
     <div class="faq-heading"><p class="eyebrow">Before we talk</p><h2 id="faq-title" data-reveal>Frequently<br>
 asked questions.</h2></div>
     <div class="question-list">
-      <details class="question-row"><summary><span class="question-number" aria-hidden="true">01</span><h3>What happens on the first call?</h3><span class="plus" aria-hidden="true"></span></summary><div class="question-answer"><p>We’ll look at your question or project and choose a practical next step. The call is 30 minutes.</p></div></details>
+      <details class="question-row"><summary><span class="question-number" aria-hidden="true">01</span><h3>What happens on the first call?</h3><span class="plus" aria-hidden="true"></span></summary><div class="question-answer"><p>We’ll identify what you need and choose a practical next step. The call is a free 30-minute conversation. Scope and cost are explained before any paid work.</p></div></details>
       <details class="question-row"><summary><span class="question-number" aria-hidden="true">02</span><h3>Do I need to be good with technology?</h3><span class="plus" aria-hidden="true"></span></summary><div class="question-answer"><p>No. A cell phone with internet access is enough. After booking, you’ll receive an email with a link to the video call. Tap it at your appointment time, and I’ll help you from there.</p></div></details>
       <details class="question-row"><summary><span class="question-number" aria-hidden="true">03</span><h3>Can I call on behalf of a missionary?</h3><span class="plus" aria-hidden="true"></span></summary><div class="question-answer"><p>Yes. Tell me what your church or mission board is hearing from the missionary and what you’d like to make easier. Supporters and business leaders are welcome too.</p></div></details>
       <details class="question-row"><summary><span class="question-number" aria-hidden="true">04</span><h3>Are there resources I can use now?</h3><span class="plus" aria-hidden="true"></span></summary><div class="question-answer"><p>Yes. The <a href="/academy/resources/">free resources</a> include the Digital Outreach Handout, learning links, and tools for ministry.</p></div></details>
@@ -322,8 +344,8 @@ asked questions.</h2></div>
 <section class="contact-section section" id="start" aria-labelledby="contact-title"><div class="shell contact-surface" data-land>
   <div class="contact-copy"><p class="eyebrow">A conversation is a good start</p><h2 id="contact-title">Let’s make the<br>
 digital work<br>
-serve your ministry.</h2><p>Bring an update, a tool, or an example of what you’d like to do. We’ll work through it together.</p><div class="call-person"><img src="/assets/academy/academy-hero-tabor-mobile.jpg" width="64" height="64" alt=""><div><strong>You’ll be talking with Tabor.</strong><span>30 minutes</span></div></div></div>
-  <form class="intake-form" action="https://calendly.com/missionarymediahub/30min" method="get" aria-label="Prepare for your 30-minute call" aria-describedby="intake-transfer-note">
+serve your ministry.</h2><p>Bring an update, a tool, or an example of what you’d like to do. The free 30-minute conversation is to identify what you need. If we continue, I’ll explain the scope and the cost before any paid work begins.</p><div class="call-person"><img src="/assets/academy/academy-hero-tabor-mobile.jpg" width="64" height="64" alt=""><div><strong>You’ll be talking with Tabor.</strong><span>Free 30-minute conversation</span></div></div></div>
+  <form class="intake-form" action="https://calendly.com/missionarymediahub/30min" method="get" aria-label="Prepare for your free 30-minute conversation" aria-describedby="intake-transfer-note">
     <div class="intake-identity">
       <label for="intake-name">Name<input id="intake-name" name="name" type="text" autocomplete="name" maxlength="120" required></label>
       <label for="intake-email">Email<input id="intake-email" name="email" type="email" autocomplete="email" maxlength="254" required></label>
