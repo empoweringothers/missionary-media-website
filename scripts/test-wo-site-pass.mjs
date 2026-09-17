@@ -215,7 +215,7 @@ test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", 
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=sitepass10/, page);
+    assert.match(html, /\/assets\/site\.css\?v=sitepass11/, page);
   }
 });
 
@@ -249,6 +249,7 @@ test("WO-HOME-SPINE-001: hero, seating, person-connection, no coaching or price"
   assert.match(home, /A teammate/);
   assert.match(home, /The free 30-minute conversation is to identify what you need/);
   assert.equal(home.includes("A few familiar choices, settling into a clearer arrangement."), false);
+  assert.equal(home.includes("Needs settle beside the people who can carry them."), false);
   assert.equal(home.includes("We’ll work through it together."), false);
   assert.equal(home.includes("Format the letter"), false);
   assert.equal(home.includes("DIY"), false);

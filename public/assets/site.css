@@ -1340,6 +1340,7 @@ main{overflow-x:clip}
 .scene-work .task-checkbox{background:#c9dce8;border-color:#7a9eb5}
 
 .scene-trusted-help .scene-art {
+  height: 100%;
   color: #294f6b;
 }
 
