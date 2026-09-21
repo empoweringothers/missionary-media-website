@@ -20,6 +20,13 @@ The legacy root `index.html`, `sponsor.html`, `survey/`, and `.hermes/` content
 is preserved for recovery and historical comparison. It is not the production
 source. Do not edit, delete, restore, or include those paths in a website change.
 
+
+## Public copy rule
+
+Do not add meta or process captions for visitors. Never ship lines like
+"Illustrative packaging," "Illustrative scene," or unclear `X · Y` status chips.
+If a fact matters, say it plainly once. If it only helps the builder, delete it.
+
 ## Production workflow
 
 1. Make website changes only in `public/`.

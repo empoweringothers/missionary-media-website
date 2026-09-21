@@ -543,7 +543,7 @@ if (typeof module === "object" && module.exports) {
       }
       records = scenes.map((scene, i) => {
         const { top, height } = geometry[i];
-        // On a phone the illustration's center reaches 55% of the viewport
+        // On a phone the image center reaches 55% of the viewport
         // before the story begins; it is complete when its top meets the header.
         const start = enhanced ? viewport * 0.58 : Math.max(topInset + 72, viewport * 0.55 - height / 2);
         const end = enhanced ? topInset + 60 : topInset;
@@ -724,7 +724,10 @@ if (typeof module === "object" && module.exports) {
       let moving = false;
       driftRecords.forEach((record) => {
         if (!record.ready || !record.animation) return;
-        const target = clamp((window.scrollY - record.start) / Math.max(300, record.frame.offsetHeight));
+        const rect = record.frame.getBoundingClientRect();
+        const travel = Math.max(280, window.innerHeight * 0.55);
+        const progress = (window.innerHeight - rect.top) / (travel + record.frame.offsetHeight);
+        const target = clamp(progress);
         record.current += (target - record.current) * (1 - Math.exp(-dt / 200));
         if (Math.abs(target - record.current) < 0.001) record.current = target;
         else moving = true;
@@ -748,8 +751,10 @@ if (typeof module === "object" && module.exports) {
           return;
         }
         if (!record.image) return;
+        const travel = Number(record.frame.dataset.driftTravel);
+        const distance = Number.isFinite(travel) && travel > 0 ? travel : 24;
         record.animation = record.image.animate([
-          { transform: "translateY(0)" }, { transform: "translateY(-24px)" }
+          { transform: "translateY(0)" }, { transform: `translateY(${-distance}px)` }
         ], { duration: 1000, easing: "linear", fill: "both" });
         record.animation.pause();
         record.animation.currentTime = 0;
@@ -765,6 +770,7 @@ if (typeof module === "object" && module.exports) {
     document.addEventListener("visibilitychange", () => { if (document.hidden) stopDrift(); else scheduleDrift(); });
     reducedMotion.addEventListener("change", prepareDrift);
     prepareDrift();
+    scheduleDrift();
   }
 
   // Native details remain usable without JavaScript. Enhanced rows animate
