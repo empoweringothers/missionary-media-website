@@ -81,14 +81,15 @@ test("G5: Academy conversation CTAs open the existing contact dialog", () => {
   assert.match(academy, /action="https:\/\/calendly\.com\/missionarymediahub\/30min"/);
 });
 
-test("Focused offer: six examples, taught Academy, one paid-work explanation", () => {
-  assert.equal((home.match(/class="example-pair"/g) || []).length, 6);
-  assert.equal((home.match(/class="academy-browse-card"/g) || []).length, 8);
+test("Focused offer: question section, taught Academy packages, one paid-work explanation", () => {
+  assert.match(home, /class="section question-section"/);
+  assert.equal((home.match(/class="question-item"/g) || []).length, 4);
+  assert.equal((home.match(/class="course-package"/g) || []).length, 2);
   assert.match(home, /href="\/academy\/resources\/">Free resources/);
-  assert.match(home, /Recorded courses aren’t online yet/);
   assert.match(home, /Any paid work starts only after you agree to the work and price/);
-  assert.doesNotMatch(home, /Missionary Connect|staying-connected|help-now-section|field-question|help-terms|help-example/);
-  assert.doesNotMatch(academy, /data-library-preview|enrollment isn’t open|Courses are in development/);
+  assert.match(home, /Developed &amp; taught online/);
+  assert.doesNotMatch(home, /staying-connected|help-now-section|help-terms|help-example/);
+  assert.doesNotMatch(academy, /data-library-preview|enrollment isn’t open/);
 });
 
 test("G7: Footer matches simplified nav", () => {
@@ -108,25 +109,24 @@ test("G8: prefers-reduced-motion still present; no extra-work chapter", () => {
   assert.match(css, /prefers-reduced-motion/);
   assert.equal(home.includes("The extra work"), false);
   assert.equal(home.includes("Digital noise<br>"), false);
-  assert.match(home, /Does any of this/);
-  assert.match(home, /I keep getting told to try another app\./);
+  assert.match(home, /What would you like/);
+  assert.match(home, /Which tools actually fit\?/);
 });
 
-test("G11: WO-HOME-SPINE-001 chapter copy; no parentheticals or em dashes", () => {
-  assert.match(home, /<h3 id="pain-one-title"[^>]*>I keep getting told to try another app\. I don[’']t know which ones we actually need\.<\/h3>/);
-  assert.match(home, /I help you choose what you need and make better use of what you already have\./);
-  assert.match(home, /<h3 id="pain-two-title"[^>]*>Everything technical comes back to me\.<\/h3>/);
-  assert.match(home, /I don[’']t even know who to ask\./);
-  assert.match(home, /I send the same prayer letter one person at a time\./);
-  assert.match(home, /I help you organize contacts and send updates without repeating the same work\./);
+test("G11: homepage question section copy; no parentheticals or em dashes", () => {
+  assert.match(home, /<h3>Which tools actually fit\?<\/h3>/);
+  assert.match(home, /<h3>Why won’t it work together\?<\/h3>/);
+  assert.match(home, /<h3>Is there an easier way to keep in touch\?<\/h3>/);
+  assert.match(home, /<h3>Why am I doing this twice\?<\/h3>/);
+  assert.match(home, /I’ll help you sort through it\./);
   assert.equal(home.includes("not only a church-made page"), false);
-  const start = home.indexOf('<div class="pain-chapters">');
-  const end = home.indexOf('<div class="pain-visual">');
+  const start = home.indexOf('class="question-list"');
+  const end = home.indexOf('class="question-figure"');
   assert.ok(start >= 0 && end > start);
-  const chapters = home.slice(start, end);
-  assert.equal(chapters.includes("("), false);
-  assert.equal(chapters.includes("\u2014"), false);
-  assert.equal(chapters.includes(" -- "), false);
+  const questions = home.slice(start, end);
+  assert.equal(questions.includes("("), false);
+  assert.equal(questions.includes("\u2014"), false);
+  assert.equal(questions.includes(" -- "), false);
 });
 
 test("G12: About title uses MM heading rhythm, not 8ch crush", () => {
@@ -162,15 +162,17 @@ test("G13: trusted-help scene JS replaces the old silence branch", () => {
   assert.match(home, /<noscript><nav class="noscript-nav"[^>]*>[\s\S]*href="#start">Let’s Chat<\/a>/);
 });
 
-test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
+test("G9: About page ships ABOUT-003 sparse copy with story video", () => {
   assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
   assert.doesNotMatch(about, /<h1[^>]*>You came to the field/);
   assert.match(about, /I help missionaries choose and use technology so they have more time for ministry\./);
   assert.match(about, /audio and video, church systems, and digital security/);
   assert.doesNotMatch(about, /top creators/);
   assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Let’s Chat/);
-  assert.match(about, /src="\/assets\/resources\/tabor-speaking\.jpg"/);
-  assert.match(about, /alt="Tabor Normoyle in side profile at a desk, talking toward a computer"/);
+  assert.match(about, /class="story-card about-story-card"/);
+  assert.match(about, /src="\/assets\/story-thumbnail\.jpg"/);
+  assert.match(about, /data-story-video/);
+  assert.match(about, /id="story-video-dialog"/);
   assert.match(about, /id="contact-dialog"/);
   assert.equal(about.includes("Why Missionary Media exists"), false);
   assert.equal(about.includes("Think Media"), false);
@@ -180,26 +182,20 @@ test("G9: About page ships ABOUT-003 sparse copy with short H1", () => {
   assert.equal(about.includes("Security+"), false);
   assert.equal(about.includes("Watch / listen"), false);
   assert.equal(about.includes("about-chips"), false);
-  assert.equal(about.includes("academy-hero-tabor"), false);
   assert.equal(about.includes("three countries"), false);
   assert.equal(about.includes("Valley Forge"), false);
   assert.equal(about.includes("\u2014"), false);
   assert.equal(about.includes("digital-door"), false);
 });
 
-test("WO-WEB-ACADEMY-CARD-001: mobile door hero layers photo behind left copy", () => {
-  assert.match(css, /Mobile door hero: raise the photo behind left copy and keep the glow on the right\./);
-  assert.equal(css.includes("height:calc(54% + 15px)"), false);
-  assert.equal(css.includes("linear-gradient(180deg,#071c32 36%"), false);
-  assert.match(css, /\.academy-door-copy\{max-width:51%;position:relative\}/);
-  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy\{max-width:58%;padding-right:8px\}/);
-  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-copy h1\{font-size:36px;max-width:10ch\}/);
-  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-hero::after\{background:linear-gradient\(90deg/);
-  assert.match(css, /@media\(max-width:740px\)\{[\s\S]*\.academy-door-image img\{[^}]*object-position:94% 40%/);
+test("WO-WEB-ACADEMY-CARD-001: Academy package cards and shared cache pin", () => {
+  assert.match(academy, /class="course-package"/);
+  assert.match(academy, /digital-media-package\.png/);
+  assert.match(academy, /it-basics-package\.png/);
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
   for (const { page, html } of shipped) {
     if (!html.includes("/assets/site.css")) continue;
-    assert.match(html, /\/assets\/site\.css\?v=offer18/, page);
+    assert.match(html, /\/assets\/site\.css\?v=offer26/, page);
   }
 });
 
@@ -215,11 +211,13 @@ test("G10: About hero title-then-CTA stagger and reduced-motion", () => {
   assert.match(about, /data-about-stagger href="\/#start" data-contact-dialog>Let’s Chat/);
 });
 
-test("Consulting hero and three retained visual scenes", () => {
+test("Consulting hero and story video on home and about", () => {
   assert.match(home, /I help missionaries/);
-  assert.match(home, /Get advice, hands-on help, or training/);
-  for (const n of [0, 1, 2]) assert.ok(home.includes(`data-pain-scene="${n}"`));
   assert.match(home, /Start with a free 30-minute conversation/);
+  assert.match(home, /class="story-card founder-story-card"/);
+  assert.match(home, /data-story-video/);
+  assert.match(about, /class="story-card about-story-card"/);
+  assert.match(about, /data-media-drift/);
 });
 
 test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note above submit", () => {
