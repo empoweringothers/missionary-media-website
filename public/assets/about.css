@@ -1,0 +1,18 @@
+/* A readable personal introduction, with the story video alongside it. */
+.page-about{--about-body-measure:58ch;--about-body-lh:1.65;--about-lede-measure:46ch}
+.page-about .about-hero.shell{width:min(1280px,calc(100% - var(--gutter)*2))}
+.page-about .about-hero{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(36px,5vw,72px)}
+.page-about .about-hero-copy>.about-label{margin:0 0 14px;color:var(--muted)}
+.page-about .about-hero h1{margin:0 0 24px}
+.page-about .about-bio{margin-top:30px;font-size:var(--about-body-size);line-height:var(--about-body-lh);color:var(--ink);max-width:var(--about-body-measure)}
+.page-about .about-bio p{margin:0 0 1.2em}
+.page-about .about-bio h2{font-size:1.25rem;margin:32px 0 14px;letter-spacing:-.01em}
+.page-about .about-hero-cta{margin-top:4px}
+.page-about .about-hero .about-story-card .story-poster{min-height:0;aspect-ratio:16/9}
+@media(max-width:1023px){
+  .page-about .about-hero{grid-template-columns:1fr;max-width:720px}
+  .page-about .about-hero .about-story-card{order:0}
+  .page-about .about-hero .about-story-card .story-poster{aspect-ratio:16/9}
+}
+
+.page-about .about-hero .about-story-card .story-poster>img{height:100%;object-position:center;will-change:auto}

@@ -149,7 +149,7 @@ test("G12: About title uses MM heading rhythm, not 8ch crush", () => {
   assert.equal(css.includes("fonts.google"), false);
   assert.equal(css.includes("Bebas"), false);
   assert.equal(css.includes("Playfair"), false);
-  assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
+  assert.match(about, /<h1 id="about-title"[^>]*>Hi, I’m Tabor\.<\/h1>/);
   assert.match(css, /\.scene-trusted-help \.scene-art/);
   assert.match(css, /\.help-person__portrait/);
 });
@@ -162,11 +162,11 @@ test("G13: trusted-help scene JS replaces the old silence branch", () => {
   assert.match(home, /<noscript><nav class="noscript-nav"[^>]*>[\s\S]*href="#start">Let’s Chat<\/a>/);
 });
 
-test("G9: About page ships ABOUT-003 sparse copy with story video", () => {
-  assert.match(about, /<h1 id="about-title"[^>]*>About Tabor<\/h1>/);
+test("G9: About page ships founder biography with story video", () => {
+  assert.match(about, /<h1 id="about-title"[^>]*>Hi, I’m Tabor\.<\/h1>/);
   assert.doesNotMatch(about, /<h1[^>]*>You came to the field/);
-  assert.match(about, /I help missionaries choose and use technology so they have more time for ministry\./);
-  assert.match(about, /audio and video, church systems, and digital security/);
+  assert.match(about, /I help missionaries choose and use technology so they can spend less time fighting with tools and more time focused on ministry\./);
+  assert.match(about, /audio and video production, church systems, and digital security/);
   assert.doesNotMatch(about, /top creators/);
   assert.match(about, /class="button about-hero-cta"[\s\S]*data-contact-dialog>Let’s Chat/);
   assert.match(about, /class="story-card about-story-card"/);
@@ -217,7 +217,7 @@ test("Consulting hero and story video on home and about", () => {
   assert.match(home, /class="story-card founder-story-card"/);
   assert.match(home, /data-story-video/);
   assert.match(about, /class="story-card about-story-card"/);
-  assert.match(about, /data-media-drift/);
+  assert.doesNotMatch(about, /data-media-drift/);
 });
 
 test("WO-HOME-SPINE-001 REV-4: intake required cues, optional question, note above submit", () => {
